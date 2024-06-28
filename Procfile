@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/ralearn -Dhttp.port=${PORT} -DapplyEvolutions.default=false -Ddb.default.url=${SSL_DATABASE_URL} -Ddb.default.driver=org.postgresql.Driver -Dconfig.file=conf/application.heroku.conf -Dhttps.protocols=TLSv1.2
+web: target/universal/stage/bin/ralearn -Dhttp.port=${PORT} -Dplay.evolutions.db.default.autoApply=false -Ddb.default.url=${SSL_DATABASE_URL} -Ddb.default.driver=org.postgresql.Driver -Dconfig.file=conf/application.heroku.conf -Dhttps.protocols=TLSv1.2
