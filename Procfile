@@ -1,0 +1,1 @@
+web: target/universal/stage/bin/recomm -Dhttp.port=${PORT} -DapplyEvolutions.default=false -Ddb.default.url=${SSL_DATABASE_URL} -Ddb.default.driver=org.postgresql.Driver -Dconfig.file=conf/application.heroku.conf -Dhttps.protocols=TLSv1.2
