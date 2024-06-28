@@ -1,5 +1,8 @@
 package models;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class Book extends BaseModel {
     public String title;
     public String author;
