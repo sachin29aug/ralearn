@@ -1,0 +1,23 @@
+@()
+
+@import utils.GoogleBookClient
+
+@main("Hello World") {
+    @**
+    @for(book <- GoogleBookClient.generateRandomBooks()) {
+       <table>
+            <tr>
+                <td>@book.title</td>
+                <td>@book.genre</td>
+                <td><a href="@book.youtubeUrl" target="_blank">Youtube</a></td>
+                <td><a href="@book.amazonUrl" target="_blank">Amazon</a></td>
+                <td><a href="@book.goodReadsUrl" target="_blank">Goodreads</a></td>
+                <td><a href="@book.googleBooksUrl" target="_blank">Google Books</a></td>
+                <td><a href="@book.blinkistUrl" target="_blank">Blinkist</a></td>
+            </tr>
+        </table>
+    }**@
+
+    <br>
+    &nbsp;&nbsp; @Html(SystemAdmin.getRandomBookLink())
+}
