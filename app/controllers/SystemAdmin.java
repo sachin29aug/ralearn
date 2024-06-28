@@ -40,7 +40,7 @@ public class SystemAdmin extends Controller {
                     sb.append(book.averageRating  + "\n");
                     sb.append(book.ratingCount  + "\n");
                     sb.append(book.publishDate  + "\n");
-                    sb.append("<a href='https://www.goodreads.com/" + book.goodReadsUrl  + "' target='_blank'>" + book.title + "</a>"  + "\n");
+                    sb.append(book.goodReadsUrl);
                     sb.append("========================"  + "\n\n");
                     book.save();
                 }
@@ -63,6 +63,7 @@ public class SystemAdmin extends Controller {
         Document doc = Jsoup.parse(inputFile, "UTF-8");
 
         List<Book> books = new ArrayList<>();
+        long orderIndex = 0;
         for (Element htmlTag : doc.select("html")) {
             Elements bookTitles = htmlTag.select("a.bookTitle");
             Elements bookElements = htmlTag.select("a.leftAlignedImage");
@@ -81,8 +82,8 @@ public class SystemAdmin extends Controller {
                     ratingsCount = parts[1].replace("ratings", "").trim();
                     publishDate = parts[2].replace("published", "").trim();
                 }
-                String goodReadsLink = "<a href='https://www.goodreads.com/" + bookElements.get(i).attr("href")  + "' target='_blank'>" + bookTitle + "</a>";
-                books.add(new Book(bookTitle, authorName, avgRating, ratingsCount, publishDate, goodReadsLink, category, subCategory, null, null));
+                String goodReadsLink = bookElements.get(i).attr("href");
+                books.add(new Book(bookTitle, authorName, avgRating, ratingsCount, publishDate, goodReadsLink, category, subCategory, null, null, orderIndex++));
             }
         }
         return books;

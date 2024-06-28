@@ -28,7 +28,6 @@ public class HomeController extends Controller {
 
     public Result books() {
         List<Book> randomBooks = new ArrayList<>();
-
         Map<String, List<String>> categoriesMap = new LinkedHashMap<>();
         categoriesMap.put("Personal Development", Arrays.asList("self-help", "productivity", "communication-skills", "creativity", "education", "biography", "philosophy"));
         categoriesMap.put("Mind & Spirit", Arrays.asList("psychology", "spirituality", "mindfulness"));
@@ -36,6 +35,16 @@ public class HomeController extends Controller {
         categoriesMap.put("Family & Lifestyle", Arrays.asList("childrens", "parenting", "travel"));
         categoriesMap.put("Science & Environment", Arrays.asList("science", "environment", "gardening"));
         categoriesMap.put("Arts & Humanities", Arrays.asList("art", "design", "architecture", "folklore", "history", "politics", "law"));
+        for(Map.Entry<String, List<String>> entry : categoriesMap.entrySet()) {
+            String category = entry.getKey();
+            List<String> subCategories = entry.getValue();
+            for (String subCategory : subCategories) {
+                int subCategoryBooksCount = Book.find.query().where().eq("sub_category", subCategory).findCount();
+                int randomIndex = new Random().nextInt(subCategoryBooksCount);
+                Book randomBook = Book.findByOrderIndex(subCategory, randomIndex);
+                randomBooks.add(randomBook);
+            }
+        }
 
         return ok(views.html.books.render(randomBooks));
     }

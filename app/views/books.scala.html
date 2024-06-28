@@ -2,7 +2,15 @@
 
 @main("Hello World") {
     <section id="content">
-        Test
+        <table>
+            @for(book <- books) {
+                <tr>
+                    <td><a href="https://www.goodreads.com/@book.goodReadsUrl" target="_blank">@book.getShortTitle()</a></td>
+                    <td>@book.category</td>
+                    <td>@book.subCategory</td>
+                </tr>
+            }
+        </table>
     </section>
 }
 

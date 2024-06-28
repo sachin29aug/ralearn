@@ -11,3 +11,37 @@
   right: 20px;
   top: 70px;
 }
+
+
+table {
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+table thead th {
+  background-color: #f6f6f6;
+  color: #333;
+  text-align: left;
+  padding: 6px;
+  border-bottom: 2px solid #ddd;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* Table Body */
+table tbody td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Table Body Hover */
+table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Table Row Stripes */
+table tbody tr:nth-child(even) {
+  background-color: #f6f6f6;
+}
