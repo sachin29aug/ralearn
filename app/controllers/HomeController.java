@@ -1,7 +1,9 @@
 package controllers;
 
 import models.Book;
+import org.apache.pekko.japi.Pair;
 import play.mvc.*;
+import utils.GoogleBookClient;
 
 import java.util.*;
 
@@ -59,6 +61,10 @@ public class HomeController extends Controller {
             int subCategoryBooksCount = Book.find.query().where().eq("sub_category", subCategory).findCount();
             int randomIndex = new Random().nextInt(subCategoryBooksCount);
             Book randomBook = Book.findByOrderIndex(subCategory, randomIndex);
+            Pair<String, String> pair = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
+            randomBook.coverImageUrl = pair.first();
+            randomBook.isbn = pair.second();
+            randomBook.update();
             randomBooks.add(randomBook);
         }
 
