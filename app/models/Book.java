@@ -1,14 +1,14 @@
 package models;
 
 public class Book extends BaseModel {
-    private String title;
-    private String author;
-    private String avgRating;
-    private String ratingsCount;
-    private String publishDate;
-    private String goodReadsUrl;
-    private String category;
-    private String subCategory;
+    public String title;
+    public String author;
+    public String avgRating;
+    public String ratingsCount;
+    public String publishDate;
+    public String goodReadsUrl;
+    public String category;
+    public String subCategory;
 
     public Book() {
 
