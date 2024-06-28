@@ -13,11 +13,11 @@ import java.util.List;
 import java.util.Random;
 
 public class GoogleBookClient {
-    private static final String API_KEY = System.getenv("API_KEY");
+    /*private static final String API_KEY = System.getenv("API_KEY");
     private static final String BASE_URL = "https://www.googleapis.com/books/v1/volumes";
 
     private static final String[] CATEGORY_MIND_AND_SPIRIT = {"Psychology", "Philosophy", "Spirituality"};
-    private static final String[] CATEGORY_PERSONAL_GROWTH = {"Self-Help"/**, "Health"**/};
+    private static final String[] CATEGORY_PERSONAL_GROWTH = {"Self-Help"*//**, "Health"**//*};
     private static final String[] CATEGORY_BUSINESS_LEADERSHIP = {"Business", "Leadership", "Economics"};
     private static final String[] CATEGORY_BIOGRAPHY_AND_MEMOIRS = {"Biography"};
     private static final String[] CATEGORY_CHILDREN_BOOKS = {"Children's"};
@@ -158,6 +158,6 @@ public class GoogleBookClient {
         conn.disconnect();
 
         return new JSONObject(content.toString());
-    }
+    }*/
 
 }

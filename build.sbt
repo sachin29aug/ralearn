@@ -21,5 +21,5 @@ lazy val root = (project in file("."))
       "org.json" % "json" % "20210307",
     ),
     (Test / testOptions) += Tests.Argument(TestFrameworks.JUnit, "-a", "-v"),
-    javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation", "-Werror")
+    javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
   )

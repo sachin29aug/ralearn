@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Book;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,6 +17,7 @@ public class SystemAdmin extends Controller {
     public Result importBooks() throws IOException {
         StringBuilder sb = new StringBuilder();
         int count = 0;
+
         Map<String, List<String>> categoriesMap = new LinkedHashMap<>();
         categoriesMap.put("Personal Development", Arrays.asList("self-help", "productivity", "communication-skills", "creativity", "education", "biography", "philosophy"));
         categoriesMap.put("Mind & Spirit", Arrays.asList("psychology", "spirituality", "mindfulness"));
@@ -35,11 +37,12 @@ public class SystemAdmin extends Controller {
                     sb.append(book.subCategory + "\n");
                     sb.append(book.title + "\n");
                     sb.append(book.author  + "\n");
-                    sb.append(book.avgRating  + "\n");
-                    sb.append(book.ratingsCount  + "\n");
+                    sb.append(book.averageRating  + "\n");
+                    sb.append(book.ratingCount  + "\n");
                     sb.append(book.publishDate  + "\n");
-                    sb.append("<a href='https://www.goodreads.com/" + book.goodReadsLink  + "' target='_blank'>" + book.title + "</a>"  + "\n");
+                    sb.append("<a href='https://www.goodreads.com/" + book.goodReadsUrl  + "' target='_blank'>" + book.title + "</a>"  + "\n");
                     sb.append("========================"  + "\n\n");
+                    book.save();
                 }
             }
         }
@@ -50,7 +53,7 @@ public class SystemAdmin extends Controller {
     public static String getRandomBookLink() throws IOException {
         List<Book> books = importBooks1("Personal Development", "self-help");
         int randomIndex = new Random().nextInt(books.size());
-        return books.get(randomIndex).goodReadsLink;
+        return books.get(randomIndex).goodReadsUrl;
     }
 
     public static List<Book> importBooks1(String category, String subCategory) throws IOException {
@@ -79,31 +82,9 @@ public class SystemAdmin extends Controller {
                     publishDate = parts[2].replace("published", "").trim();
                 }
                 String goodReadsLink = "<a href='https://www.goodreads.com/" + bookElements.get(i).attr("href")  + "' target='_blank'>" + bookTitle + "</a>";
-                books.add(new Book(bookTitle, authorName, avgRating, ratingsCount, publishDate, goodReadsLink, category, subCategory));
+                books.add(new Book(bookTitle, authorName, avgRating, ratingsCount, publishDate, goodReadsLink, category, subCategory, null, null));
             }
         }
         return books;
-    }
-}
-
-class Book {
-    public String title;
-    public String author;
-    public String avgRating;
-    public String ratingsCount;
-    public String publishDate;
-    public String goodReadsLink;
-    public String category;
-    public String subCategory;
-
-    public Book(String title, String author, String avgRating, String ratingsCount, String publishDate, String goodReadsLink, String category, String subCategory) {
-        this.title = title;
-        this.author = author;
-        this.avgRating = avgRating;
-        this.ratingsCount = ratingsCount;
-        this.publishDate = publishDate;
-        this.goodReadsLink = goodReadsLink;
-        this.category = category;
-        this.subCategory = subCategory;
     }
 }

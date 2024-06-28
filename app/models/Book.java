@@ -1,31 +1,40 @@
 package models;
 
+import io.ebean.Finder;
 import jakarta.persistence.Entity;
+
+import java.util.List;
 
 @Entity
 public class Book extends BaseModel {
     public String title;
     public String author;
-    public String avgRating;
-    public String ratingsCount;
+    public String averageRating;
+    public String ratingCount;
     public String publishDate;
     public String goodReadsUrl;
     public String category;
     public String subCategory;
+    public String isbn;
+    public String coverImageUrl;
 
-    public Book() {
+    public static Finder<Long, Book> find = new Finder(Book.class);
 
+    public static List<Book> findBySubCategory(String subCategory) {
+        return find.query().where().eq("subCategory", subCategory).findList();
     }
 
-    public Book(String title, String author, String avgRating, String ratingsCount, String publishDate, String goodReadsUrl, String category, String subCategory) {
+    public Book(String title, String author, String averageRating, String ratingCount, String publishDate, String goodReadsUrl, String category, String subCategory, String isbn, String coverImageUrl) {
         this.title = title;
         this.author = author;
-        this.avgRating = avgRating;
-        this.ratingsCount = ratingsCount;
+        this.averageRating = averageRating;
+        this.ratingCount = ratingCount;
         this.publishDate = publishDate;
         this.goodReadsUrl = goodReadsUrl;
         this.category = category;
         this.subCategory = subCategory;
+        this.isbn = isbn;
+        this.coverImageUrl = coverImageUrl;
     }
 
     public String getTitle() {
@@ -44,20 +53,20 @@ public class Book extends BaseModel {
         this.author = author;
     }
 
-    public String getAvgRating() {
-        return avgRating;
+    public String getAverageRating() {
+        return averageRating;
     }
 
-    public void setAvgRating(String avgRating) {
-        this.avgRating = avgRating;
+    public void setAverageRating(String averageRating) {
+        this.averageRating = averageRating;
     }
 
-    public String getRatingsCount() {
-        return ratingsCount;
+    public String getRatingCount() {
+        return ratingCount;
     }
 
-    public void setRatingsCount(String ratingsCount) {
-        this.ratingsCount = ratingsCount;
+    public void setRatingCount(String ratingCount) {
+        this.ratingCount = ratingCount;
     }
 
     public String getPublishDate() {
@@ -90,5 +99,21 @@ public class Book extends BaseModel {
 
     public void setSubCategory(String subCategory) {
         this.subCategory = subCategory;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getCoverImageUrl() {
+        return coverImageUrl;
+    }
+
+    public void setCoverImageUrl(String coverImageUrl) {
+        this.coverImageUrl = coverImageUrl;
     }
 }
