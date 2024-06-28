@@ -1,16 +1,34 @@
-@(books: List[models.Book])
+@(category: String, books: List[models.Book])
 
 @main("Hello World") {
-    <section id="content">
-        <table>
-            @for(book <- books) {
-                <tr>
-                    <td><a href="https://www.goodreads.com/@book.goodReadsUrl" target="_blank">@book.getShortTitle()</a></td>
-                    <td>@book.category</td>
-                    <td>@book.subCategory</td>
-                </tr>
-            }
-        </table>
+    <section id="top">
+        <div class="wrapper">
+            <h1>Random Books</h1>
+        </div>
     </section>
+
+    <a href="@routes.HomeController.books(1)">Personal Development</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="@routes.HomeController.books(2)">Mind & Spirit</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="@routes.HomeController.books(3)">Business & Economics</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="@routes.HomeController.books(4)">Family & Lifestyle</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="@routes.HomeController.books(5)">Science & Environment</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="@routes.HomeController.books(6)">Arts & Humanities</a>
+
+    <table>
+        <thead>
+            <th>Genre</th>
+            <th>Title</th>
+            <th>Amazon</th>
+            <th>Youtube</th>
+        </thead>
+        @for(book <- books) {
+            <tr>
+                <td>@book.subCategory</td>
+                <td><a href="https://www.goodreads.com/@book.goodReadsUrl" target="_blank">@book.getShortTitle()</a></td>
+                <td><a href="https://www.amazon.com/s?k=@book.getEncodedTitle()" target="_blank">Buy</a></td>
+                <td><a href="https://www.youtube.com/results?search_query=@book.getEncodedTitleForSummary()" target="_blank">Summary</a></td>
+            </tr>
+        }
+    </table>
 }
 

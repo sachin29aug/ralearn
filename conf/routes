@@ -5,7 +5,7 @@
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
 GET    /explore                     controllers.HomeController.explore
-GET    /books                       controllers.HomeController.books
+GET    /books/:categoryId           controllers.HomeController.books(categoryId: Long)
 
 # Admin
 GET     /import/books               controllers.SystemAdmin.importBooks

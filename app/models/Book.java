@@ -4,6 +4,8 @@ import io.ebean.Finder;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 @Entity
@@ -46,6 +48,14 @@ public class Book extends BaseModel {
             return title.substring(0, 50);
         }
         return title;
+    }
+
+    public String getEncodedTitle() throws UnsupportedEncodingException {
+        return URLEncoder.encode(title.toLowerCase(), "UTF-8");
+    }
+
+    public String getEncodedTitleForSummary() throws UnsupportedEncodingException {
+        return URLEncoder.encode("Book summary for" + title.toLowerCase() + " by " + author, "UTF-8");
     }
 
     public Book(String title, String author, String averageRating, String ratingCount, String publishDate, String goodReadsUrl, String category, String subCategory, String isbn, String coverImageUrl, Long orderIndex) {
