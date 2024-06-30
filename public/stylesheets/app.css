@@ -1,3 +1,100 @@
+body {
+  background-color: rgba(244, 241, 234, 0.5);
+  color: #333333;
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Merriweather", serif;
+  color: #333333;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 20px;
+}
+
+h5 {
+  font-size: 18px;
+}
+
+h6 {
+  font-size: 16px;
+}
+
+a {
+  color: #FFD700;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #FFC107;
+}
+
+.button, .btn {
+  background-color: #FFD700;
+  color: #FFFFFF;
+  font-family: "Open Sans", sans-serif;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  margin: 10px 0;
+}
+
+.button:hover {
+  background-color: #FFC107;
+}
+
+.secondary-button {
+  background-color: #607D8B;
+  color: #FFFFFF;
+}
+
+.secondary-button:hover {
+  background-color: #455A64;
+}
+
 /** ffd700 **/
+.home-section-1--book-card {
+  background-color: #FFF;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.home-section-1--book-card-left-col {
+  width: 25%;
+}
+.home-section-1--book-card-right-col {
+  width: 25%;
+}
+.home-section-1 img {
+  width: 100px;
+  border-radius: 10px;
+  border: 3px solid #FFD700; /* Add border to images */
+  transition: border-color 0.3s ease;
+}
+.home-section-1--book-title {
+  font-family: "Merriweather", serif;
+  font-size: 18px;
+  color: #333333;
+}
+.home-section-1--author {
+  color: #666666;
+  font-size: 16px;
+}
 
 /*# sourceMappingURL=app.css.map */

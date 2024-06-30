@@ -12,7 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class GoogleBookClient {
-    private static final String API_KEY = "AIzaSyA9Q13ZuoDyitsEFkYnHaBRUDlfhBP9l2o";
+    private static final String API_KEY = System.getenv("API_KEY");
     private static final String BASE_URL = "https://www.googleapis.com/books/v1/volumes";
 
     /*private static int getTotalBooksInGenre(String genre) throws Exception {

@@ -6,6 +6,7 @@
 GET     /                           controllers.HomeController.index
 GET    /explore                     controllers.HomeController.explore
 GET    /books/:categoryId           controllers.HomeController.books(categoryId: Long)
+GET    /home/:categoryId            controllers.My.home(categoryId: Long)
 
 # Admin
 GET     /import/books               controllers.SystemAdmin.importBooks

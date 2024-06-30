@@ -1,1 +1,37 @@
 /** ffd700 **/
+.home {
+    &-section-1 {
+        &--book-card {
+            background-color: #FFF;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            //height: 200px;
+        }
+
+        &--book-card-left-col {
+            width: 25%
+        }
+
+        &--book-card-right-col {
+                width: 25%
+        }
+
+        img {
+            width: 100px;
+            border-radius: 10px;
+            border: 3px solid #FFD700; /* Add border to images */
+            transition: border-color 0.3s ease;
+        }
+
+        &--book-title {
+            font-family: 'Merriweather', serif;
+            font-size: 18px;
+            color: #333333;
+        }
+
+        &--author {
+            color: #666666;
+            font-size: 16px;
+        }
+    }
+}

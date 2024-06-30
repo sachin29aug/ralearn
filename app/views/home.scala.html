@@ -1,6 +1,38 @@
-@()
+@(category: String, books: List[models.Book])
 
-@main("Hello World") {
-    Test
+@main("RaLearn") {
+    <div class="home-section-1 container-fluid px-3 py-5">
+        <h2 class="mb-4">RaLearn - @category</h2>
+
+        <a href="@routes.My.home(1)">Personal Development</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="@routes.My.home(1)">Personal Development</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="@routes.My.home(2)">Mind & Spirit</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="@routes.My.home(3)">Business & Economics</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="@routes.My.home(4)">Family & Lifestyle</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="@routes.My.home(5)">Science & Environment</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="@routes.My.home(6)">Arts & Humanities</a>
+
+        @for(book <- books) {
+            <div class="home-section-1--book-card d-flex align-items-center mt-5 p-3">
+                <div class="home-section-1--book-card-left-col me-4">
+                    <img src="@book.coverImageUrl" alt="">
+                </div>
+                <div class="home-section-1--book-card--right-col">
+                    <div class="home-section-1--book-title">@book.getShortTitle()</div>
+                    <div class="home-section-1--book-author">by @book.author</div>
+                    <div class="home-section-1--action-block d-flex mt-3">
+                        <a class="me-5" href=""><i class="fa-solid fa-heart"></i></i></a>
+                        <a class="me-5" href=""><i class="fa-solid fa-trash"></i></i></a>
+                        <a href=""><i class="fa-solid fa-rotate"></i></i></a>
+                    </div>
+                    <div class="home-section-1--navigation-block d-flex mt-3">
+                        <a href="https://www.goodreads.com/@book.goodReadsUrl" target="_blank" class="btn btn-primary goodreads me-5" title="Goodreads"><i class="fab fa-goodreads-g"></i></a>
+                        <a href="https://www.amazon.com/s?k=@book.getEncodedTitle()" target="_blank" class="btn btn-primary amazon me-5" title="Amazon"><i class="fab fa-amazon"></i></a>
+                        <a href="https://www.youtube.com/results?search_query=@book.getEncodedTitleForSummary()" class="btn btn-primary youtube" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 }
 

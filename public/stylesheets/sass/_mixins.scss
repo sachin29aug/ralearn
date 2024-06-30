@@ -1,0 +1,36 @@
+// Min-width media query mixins
+
+@mixin sm-and-up {
+    // Smart Phones (portrait and landscape)
+    @media (min-width: 576px) { @content; }
+}
+@mixin md-and-up {
+    // Medium devices - Tablets portrait
+    @media (min-width: 768px) { @content; }
+}
+@mixin lg-and-up {
+    // Large devices (Desktops, Tablet landscape)
+    @media (min-width: 992px) { @content; }
+}
+@mixin xl-and-up {
+    // X-Large devices - large desktops.
+    @media (min-width: 1200px) { @content; }
+}
+@mixin xxl-and-up {
+    // XX-Large devices - larger desktops
+    @media (min-width: 1400px) { @content; }
+}
+@mixin px-1920-and-up {
+    // Full HD and Widescreen Displays
+    @media (min-width: 1920px) { @content; }
+}
+@mixin px-2800-and-up {
+    @media (min-width: 2800px) { @content; }
+}
+
+// Max-width media query mixins
+
+@mixin xxs-and-down {
+    // XX-Small devices like iPhone SE, iPhone 12 mini etc
+    @media (max-width: 376px) { @content; }
+}
