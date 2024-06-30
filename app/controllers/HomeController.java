@@ -71,4 +71,14 @@ public class HomeController extends Controller {
         return ok(views.html.books.render(category, randomBooks));
     }
 
+    // Static utility methods
+
+    public static String getVersionedUrl(play.api.mvc.Call url) {
+        return getVersionedUrl(url.toString());
+    }
+
+    public static String getVersionedUrl(String url) {
+        return url + "?v=1";
+    }
+
 }

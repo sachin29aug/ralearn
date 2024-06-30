@@ -21,6 +21,7 @@
             <th>Title</th>
             <th>Amazon</th>
             <th>Youtube</th>
+            <th>ISBN</th>
         </thead>
         @for(book <- books) {
             <tr>
@@ -29,6 +30,7 @@
                 <td><a href="https://www.goodreads.com/@book.goodReadsUrl" target="_blank">@book.getShortTitle()</a></td>
                 <td><a href="https://www.amazon.com/s?k=@book.getEncodedTitle()" target="_blank">Buy</a></td>
                 <td><a href="https://www.youtube.com/results?search_query=@book.getEncodedTitleForSummary()" target="_blank">Summary</a></td>
+                <td>@book.isbn</td>
             </tr>
         }
     </table>
