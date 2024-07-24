@@ -3,22 +3,13 @@ package controllers;
 import models.Book;
 import org.apache.pekko.japi.Pair;
 import play.mvc.*;
+import repository.BookRepository;
 import utils.GoogleBookClient;
 
 import java.util.*;
 
-/**
- * This controller contains an action to handle HTTP requests
- * to the application's home page.
- */
 public class HomeController extends Controller {
 
-    /**
-     * An action that renders an HTML page with a welcome message.
-     * The configuration in the <code>routes</code> file means that
-     * this method will be called when the application receives a
-     * <code>GET</code> request with a path of <code>/</code>.
-     */
     public Result index() {
         return ok(views.html.index.render());
     }
@@ -64,11 +55,15 @@ public class HomeController extends Controller {
             Pair<String, String> pair = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
             randomBook.coverImageUrl = pair.first();
             randomBook.isbn = pair.second();
-            randomBook.update();
+            //randomBook.update();
             randomBooks.add(randomBook);
         }
 
         return ok(views.html.books.render(category, randomBooks));
+    }
+
+    public Result book(Long id) {
+        return ok(views.html.book.render(Book.find.byId(id)));
     }
 
     // Static utility methods

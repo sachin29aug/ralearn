@@ -1,14 +1,26 @@
 package controllers;
 
+import io.ebean.DB;
 import models.Book;
 import org.apache.pekko.japi.Pair;
 import play.mvc.Controller;
 import play.mvc.Result;
+import repository.BookRepository;
+import repository.ComputerRepository;
 import utils.GoogleBookClient;
 
+import javax.inject.Inject;
 import java.util.*;
 
 public class My extends Controller {
+    @Inject
+    private ComputerRepository computerRepository;
+
+    @Inject
+    public My(BookRepository bookRepository) {
+        this.computerRepository = computerRepository;
+    }
+
     public Result home(Long categoryId) {
         String category = "";
         if(categoryId == 1) {
@@ -41,11 +53,14 @@ public class My extends Controller {
         for(String subCategory : subCategories) {
             int subCategoryBooksCount = Book.find.query().where().eq("sub_category", subCategory).findCount();
             int randomIndex = new Random().nextInt(subCategoryBooksCount);
-            Book randomBook = Book.findByOrderIndex(subCategory, randomIndex);
+            //Book randomBook = Book.findByOrderIndex(subCategory, randomIndex);
+            Book randomBook = DB.find(Book.class).where().eq("subCategory", subCategory).eq("order_index", randomIndex).findOne();
             Pair<String, String> pair = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
             randomBook.coverImageUrl = pair.first();
             randomBook.isbn = pair.second();
-            randomBook.update();
+            computerRepository.update(randomBook.id, randomBook.coverImageUrl, randomBook.isbn);
+            //randomBook.update();
+
             randomBooks.add(randomBook);
         }
 

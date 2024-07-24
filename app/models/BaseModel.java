@@ -11,7 +11,7 @@ import java.util.Date;
 @MappedSuperclass
 public class BaseModel extends Model {
    @Id
-   private Long id;
+   public Long id;
 
    public Date created;
 

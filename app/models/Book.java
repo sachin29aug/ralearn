@@ -1,9 +1,13 @@
 package models;
 
+import io.ebean.DB;
+import io.ebean.Database;
 import io.ebean.Finder;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import play.db.NamedDatabase;
 
+import javax.inject.Inject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
@@ -158,5 +162,11 @@ public class Book extends BaseModel {
 
     public void setOrderIndex(Long orderIndex) {
         this.orderIndex = orderIndex;
+    }
+
+    public void update(String coverImageUrl, String isbn) {
+        this.coverImageUrl = coverImageUrl;
+        this.isbn = isbn;
+        update();
     }
 }
