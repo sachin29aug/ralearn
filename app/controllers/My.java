@@ -17,7 +17,7 @@ public class My extends Controller {
     private ComputerRepository computerRepository;
 
     @Inject
-    public My(BookRepository bookRepository) {
+    public My(ComputerRepository computerRepository) {
         this.computerRepository = computerRepository;
     }
 
