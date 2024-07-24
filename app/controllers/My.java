@@ -16,10 +16,10 @@ public class My extends Controller {
     @Inject
     private ComputerRepository computerRepository;
 
-    @Inject
+    /*@Inject
     public My(ComputerRepository computerRepository) {
         this.computerRepository = computerRepository;
-    }
+    }*/
 
     public Result home(Long categoryId) {
         String category = "";
