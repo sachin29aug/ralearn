@@ -2,19 +2,16 @@ package controllers;
 
 import io.ebean.DB;
 import models.Book;
-import org.apache.pekko.japi.Pair;
 import play.mvc.Controller;
 import play.mvc.Result;
-import repository.BookRepository;
 import repository.ComputerRepository;
 import utils.GoogleBookClient;
 
-import javax.inject.Inject;
 import java.util.*;
 
 public class My extends Controller {
-    @Inject
-    private ComputerRepository computerRepository;
+    /*@Inject
+    private ComputerRepository computerRepository;*/
 
     /*@Inject
     public My(ComputerRepository computerRepository) {
@@ -61,7 +58,7 @@ public class My extends Controller {
             randomBook.description = map.get("description");
             randomBook.previewUrl = map.get("previewUrl");
             randomBook.authorDescription = map.get("authorDescription");
-            computerRepository.update(randomBook.id, randomBook.coverImageUrl, randomBook.isbn, randomBook.description, randomBook.previewUrl, randomBook.authorDescription);
+            ComputerRepository.update(randomBook.id, randomBook.coverImageUrl, randomBook.isbn, randomBook.description, randomBook.previewUrl, randomBook.authorDescription);
             //randomBook.update();
 
             randomBooks.add(randomBook);
