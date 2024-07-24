@@ -52,9 +52,9 @@ public class HomeController extends Controller {
             int subCategoryBooksCount = Book.find.query().where().eq("sub_category", subCategory).findCount();
             int randomIndex = new Random().nextInt(subCategoryBooksCount);
             Book randomBook = Book.findByOrderIndex(subCategory, randomIndex);
-            Pair<String, String> pair = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
-            randomBook.coverImageUrl = pair.first();
-            randomBook.isbn = pair.second();
+            Map<String, String> map = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
+            randomBook.coverImageUrl = map.get("coverImageUrl");
+            randomBook.isbn = map.get("isbn");
             //randomBook.update();
             randomBooks.add(randomBook);
         }

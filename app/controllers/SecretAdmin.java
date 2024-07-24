@@ -13,8 +13,9 @@ import java.util.List;
 public class SecretAdmin extends Controller {
 
     public Result test() throws Exception {
-        Pair pair = GoogleBookClient.getCoverImageUrlAndIsbn("The Little Book That Beats the Market");
-        return ok(pair.first() + "        " + pair.second());
+        //Pair pair = GoogleBookClient.getCoverImageUrlAndIsbn("The Little Book That Beats the Market");
+        //return ok(pair.first() + "        " + pair.second());
+        return null;
     }
 
     public Result populateBooks() {
@@ -23,15 +24,15 @@ public class SecretAdmin extends Controller {
             List<Book> books = Book.find.all();
             int count = 0;
             for (Book book : books) {
-                Pair<String, String> pair = GoogleBookClient.getCoverImageUrlAndIsbn(book.title);
-                if(pair != null) {
+                //Pair<String, String> pair = GoogleBookClient.getCoverImageUrlAndIsbn(book.title);
+                /*if(pair != null) {
                     book.coverImageUrl = pair.first();
                     book.isbn = pair.second();
                     book.update();
                     txn.commit();
                     txn = DB.beginTransaction();
                     System.out.println(count++);
-                }
+                }*/
             }
 
         } catch (Exception e) {

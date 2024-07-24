@@ -35,6 +35,12 @@ public class Book extends BaseModel {
 
     public String coverImageUrl;
 
+    public String description;
+
+    public String previewUrl;
+
+    public String authorDescription;
+
     public Long orderIndex;
 
     public static Finder<Long, Book> find = new Finder(Book.class);
@@ -76,97 +82,12 @@ public class Book extends BaseModel {
         this.orderIndex = orderIndex;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getAverageRating() {
-        return averageRating;
-    }
-
-    public void setAverageRating(String averageRating) {
-        this.averageRating = averageRating;
-    }
-
-    public String getRatingCount() {
-        return ratingCount;
-    }
-
-    public void setRatingCount(String ratingCount) {
-        this.ratingCount = ratingCount;
-    }
-
-    public String getPublishDate() {
-        return publishDate;
-    }
-
-    public void setPublishDate(String publishDate) {
-        this.publishDate = publishDate;
-    }
-
-    public String getGoodReadsUrl() {
-        return goodReadsUrl;
-    }
-
-    public void setGoodReadsUrl(String goodReadsUrl) {
-        this.goodReadsUrl = goodReadsUrl;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getSubCategory() {
-        return subCategory;
-    }
-
-    public void setSubCategory(String subCategory) {
-        this.subCategory = subCategory;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
-    public String getCoverImageUrl() {
-        return coverImageUrl;
-    }
-
-    public void setCoverImageUrl(String coverImageUrl) {
-        this.coverImageUrl = coverImageUrl;
-    }
-
-    public Long getOrderIndex() {
-        return orderIndex;
-    }
-
-    public void setOrderIndex(Long orderIndex) {
-        this.orderIndex = orderIndex;
-    }
-
-    public void update(String coverImageUrl, String isbn) {
+    public void update(String coverImageUrl, String isbn, String description, String previewUrl, String authorDescription) {
         this.coverImageUrl = coverImageUrl;
         this.isbn = isbn;
+        this.description = description;
+        this.previewUrl = previewUrl;
+        this.authorDescription = authorDescription;
         update();
     }
 }

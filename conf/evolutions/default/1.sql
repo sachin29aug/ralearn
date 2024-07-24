@@ -18,6 +18,9 @@ create table book (
   sub_category                  varchar(255),
   isbn                          varchar(255),
   cover_image_url               varchar(255),
+  description                   varchar(255),
+  preview_url                   varchar(255),
+  author_description            varchar(255),
   constraint pk_book primary key (id)
 );
 

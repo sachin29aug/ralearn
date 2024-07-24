@@ -55,10 +55,13 @@ public class My extends Controller {
             int randomIndex = new Random().nextInt(subCategoryBooksCount);
             //Book randomBook = Book.findByOrderIndex(subCategory, randomIndex);
             Book randomBook = DB.find(Book.class).where().eq("subCategory", subCategory).eq("order_index", randomIndex).findOne();
-            Pair<String, String> pair = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
-            randomBook.coverImageUrl = pair.first();
-            randomBook.isbn = pair.second();
-            computerRepository.update(randomBook.id, randomBook.coverImageUrl, randomBook.isbn);
+            Map<String, String> map = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
+            randomBook.coverImageUrl = map.get("coverImageUrl");
+            randomBook.isbn = map.get("isbn");
+            randomBook.description = map.get("description");
+            randomBook.previewUrl = map.get("previewUrl");
+            randomBook.authorDescription = map.get("authorDescription");
+            computerRepository.update(randomBook.id, randomBook.coverImageUrl, randomBook.isbn, randomBook.description, randomBook.previewUrl, randomBook.authorDescription);
             //randomBook.update();
 
             randomBooks.add(randomBook);

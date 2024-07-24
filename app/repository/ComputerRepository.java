@@ -27,13 +27,13 @@ public class ComputerRepository {
 
 
 
-    public CompletionStage<Optional<Long>> update(Long id, String coverImageUrl, String isbn) {
+    public CompletionStage<Optional<Long>> update(Long id, String coverImageUrl, String isbn, String description, String previewUrl, String authorDescription) {
         return supplyAsync(() -> {
             Transaction txn = DB.beginTransaction();
             Optional<Long> value = Optional.empty();
             try {
                 Book book1 = DB.find(Book.class).setId(id).findOne();
-                book1.update(coverImageUrl, isbn);
+                book1.update(coverImageUrl, isbn, description, previewUrl, authorDescription);
                 txn.commit();
                 value = Optional.of(id);
             } finally {

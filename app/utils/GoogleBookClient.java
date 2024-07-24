@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GoogleBookClient {
     private static final String API_KEY = System.getenv("API_KEY");
@@ -38,7 +40,8 @@ public class GoogleBookClient {
         return null;
     }*/
 
-    public static Pair<String, String> getCoverImageUrlAndIsbn(String title) {
+    public static Map<String, String> getCoverImageUrlAndIsbn(String title) {
+        Map<String, String> map = new HashMap();
         try {
             String url = BASE_URL + "?q=intitle:" +  title.replace(" ", "+");
             JSONObject responseJson = getJsonResponse(url);
@@ -47,9 +50,22 @@ public class GoogleBookClient {
                 JSONObject jsonObject = items.getJSONObject(0);
                 if (jsonObject != null) {
                     JSONObject volumeInfo = jsonObject.getJSONObject("volumeInfo");
-                    String isbn = getIsbn(volumeInfo.optJSONArray("industryIdentifiers"));
                     String coverImageUrl = volumeInfo.has("imageLinks") ? volumeInfo.getJSONObject("imageLinks").getString("thumbnail") : "";
-                    return  Pair.create(coverImageUrl, isbn);
+                    map.put("coverImageUrl", coverImageUrl);
+
+                    String isbn = getIsbn(volumeInfo.optJSONArray("industryIdentifiers"));
+                    map.put("isbn", isbn);
+
+                    String description = volumeInfo.optString("description", "N/A");
+                    map.put("description", description);
+
+                    String previewUrl = volumeInfo.optString("previewLink", "N/A");
+                    map.put("previewUrl", previewUrl);
+
+                    String authorDescription = volumeInfo.optJSONObject("authors") != null ? volumeInfo.getJSONObject("authors").optString("description", "N/A") : "N/A";
+                    map.put("authorDescription", authorDescription);
+
+                    return map;
                 }
             }
         } catch (Exception e) {
