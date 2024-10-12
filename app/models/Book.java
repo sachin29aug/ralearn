@@ -18,9 +18,9 @@ public class Book extends BaseModel {
 
     public String author;
 
-    public String averageRating;
+    public Float averageRating;
 
-    public String ratingCount;
+    public Integer ratingCount;
 
     public String publishDate;
 
@@ -68,7 +68,7 @@ public class Book extends BaseModel {
         return URLEncoder.encode("Book summary for" + title.toLowerCase() + " by " + author, "UTF-8");
     }
 
-    public Book(String title, String author, String averageRating, String ratingCount, String publishDate, String goodReadsUrl, String category, String subCategory, String isbn, String coverImageUrl, Long orderIndex) {
+    public Book(String title, String author, Float averageRating, Integer ratingCount, String publishDate, String goodReadsUrl, String category, String subCategory, String isbn, String coverImageUrl, Long orderIndex) {
         this.title = title;
         this.author = author;
         this.averageRating = averageRating;

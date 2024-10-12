@@ -75,11 +75,13 @@ public class SystemAdmin extends Controller {
                 String authorName = authorNames.get(i).text();
                 String detailText = details.get(i).text();
                 String[] parts = detailText.split("—");
-                String avgRating = parts[0].replace("avg rating ", "").trim();
-                String ratingsCount = "";
+                //Float avgRating = parts[0].replace("avg rating ", "").trim();
+                Float avgRating = 1.1f;
+                //String ratingsCount = "";
+                Integer ratingsCount = 1;
                 String publishDate = "";
                 if(parts.length > 1) {
-                    ratingsCount = parts[1].replace("ratings", "").trim();
+                    //ratingsCount = parts[1].replace("ratings", "").trim();
                     publishDate = parts[2].replace("published", "").trim();
                 }
                 String goodReadsLink = bookElements.get(i).attr("href");

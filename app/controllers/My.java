@@ -48,10 +48,10 @@ public class My extends Controller {
         List<String> subCategories = categoriesMap.get(category);
 
         for(String subCategory : subCategories) {
-            int subCategoryBooksCount = Book.find.query().where().eq("sub_category", subCategory).findCount();
-            int randomIndex = new Random().nextInt(subCategoryBooksCount);
+            //int subCategoryBooksCount = Book.find.query().where().eq("sub_category", subCategory).gt("average_rating", 3.6).gt("rating_count", 1000).findCount();
+            //int randomIndex = new Random().nextInt(subCategoryBooksCount);
             //Book randomBook = Book.findByOrderIndex(subCategory, randomIndex);
-            Book randomBook = DB.find(Book.class).where().eq("subCategory", subCategory).eq("order_index", randomIndex).findOne();
+            Book randomBook = DB.find(Book.class).where().eq("subCategory", subCategory).gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
             Map<String, String> map = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
             randomBook.coverImageUrl = map.get("coverImageUrl");
             randomBook.isbn = map.get("isbn");
