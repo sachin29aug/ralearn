@@ -70,6 +70,10 @@ a:hover {
 }
 
 /** ffd700 **/
+.home-section-1--tab {
+  color: #183153;
+  background: #FFD700;
+}
 .home-section-1--book-card {
   background-color: #FFF;
   border-radius: 10px;

@@ -1,29 +1,45 @@
 @(category: String, books: List[models.Book])
 
 @main("RaLearn") {
-    <div class="home-section-1 container-fluid px-3 py-5">
-        <h2 class="mb-4">RaLearn - @category</h2>
+    <div class="home-section-1 container-fluid px-3 pt-4">
+        <h2 class="mb-4">Random Books for You</h2>
 
-        <a href="@routes.My.home(1)">Personal Development</a> &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a href="@routes.My.home(2)">Mind & Spirit</a> &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a href="@routes.My.home(3)">Business & Economics</a> &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a href="@routes.My.home(4)">Family & Lifestyle</a> &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a href="@routes.My.home(5)">Science & Environment</a> &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a href="@routes.My.home(6)">Arts & Humanities</a>
+        <div class="row">
+            <div class="col-6 col-md-2">
+                <a class="home-section-1--tab badge mb-3 px-3 py-2" href="@routes.My.home(1)">Personal Development</a>
+            </div>
+            <div class="col-6 col-md-2">
+                <a class="home-section-1--tab badge mb-3 px-3 py-2" href="@routes.My.home(2)">Mind & Spirit</a>
+            </div>
+            <div class="col-6 col-md-2">
+                <a class="home-section-1--tab badge mb-3 px-3 py-2" href="@routes.My.home(3)">Business & Economics</a>
+            </div>
+            <div class="col-6 col-md-2">
+                <a class="home-section-1--tab badge mb-3 px-3 py-2" href="@routes.My.home(4)">Family & Lifestyle</a>
+            </div>
+            <div class="col-6 col-md-2">
+                <a class="home-section-1--tab badge px-3 py-2 " href="@routes.My.home(5)">Science & Environment</a>
+            </div>
+            <div class="col-6 col-md-2">
+                <a class="home-section-1--tab badge px-3 py-2" href="@routes.My.home(6)">Arts & Humanities</a>
+            </div>
+        </div>
 
+        <h3 class="mt-5 mb-4">@category</h3>
         @for(book <- books) {
-            <div class="home-section-1--book-card d-flex align-items-center mt-5 p-3">
+            <div class="home-section-1--book-card d-flex align-items-center mb-5 p-3">
                 <div class="home-section-1--book-card-left-col me-4">
                     <a href="@routes.HomeController.book(book.id)" target="_blank"><img src="@book.coverImageUrl" alt=""></a>
                 </div>
                 <div class="home-section-1--book-card--right-col">
-                    <div class="home-section-1--book-title">@book.getShortTitle() (@book.subCategory)</div>
-                    <div class="home-section-1--book-author">by @book.author</div>
-                    <div class="home-section-1--action-block d-flex mt-3">
+                    <div class="home-section-1--book-title mb-1">@book.getShortTitle()</div>
+                    <div class="home-section-1--book-author mb-2">by @book.author</div>
+                    <div class="home-section-1--book-subcategory badge rounded-pill text-bg-dark px-3">@book.subCategory</div>
+                    @**<div class="home-section-1--action-block d-flex mt-3">
                         <a class="me-5" href=""><i class="fa-solid fa-heart"></i></i></a>
                         <a class="me-5" href=""><i class="fa-solid fa-trash"></i></i></a>
                         <a href=""><i class="fa-solid fa-rotate"></i></i></a>
-                    </div>
+                    </div>**@
                     <div class="home-section-1--navigation-block d-flex mt-3">
                         <a href="https://www.goodreads.com/@book.goodReadsUrl" target="_blank" class="btn btn-primary goodreads me-3" title="Goodreads"><i class="fab fa-goodreads-g"></i></a>
                         <a href="https://www.amazon.com/s?k=@book.getEncodedTitle()" target="_blank" class="btn btn-primary amazon me-3" title="Amazon"><i class="fab fa-amazon"></i></a>
