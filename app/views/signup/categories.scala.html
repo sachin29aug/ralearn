@@ -48,6 +48,30 @@
                     <a class="signup--continue-btn btn btn-primary disabled" href="#">Continue</a>
                 </div>
             </div>
+
+            <div id="email-password-page" class="email-password-page" style="display: none;">
+                <h2 class="mb-5">Welcome to RaLearn. What's your email?</h2>
+
+                <div class="text-start mb-4">
+                    <label for="id-signup-email" class="form-label">Email</label>
+                    <input type="email" id="id-signup-email" maxlength="40">
+                    <div id="id-signup-email-error" class="error text-start mt-2" style="display: none;"></div>
+                </div>
+
+                <div class="text-start mb-4 position-relative">
+                    <label for="id-signup-password" class="form-label d-flex justify-content-between d-block">
+                        <div>Choose a Password</div>
+                        <div>(8+ characters)</div>
+                    </label>
+                    <input type="password" id="id-signup-password">
+                    <a id="id-signup-show-password" class="position-absolute top-50 end-0 me-3" href="#"><i class="fa fa-eye"></i></a>
+                    <div id="id-signup-password-error" class="error text-start position-fixed mt-2" style="display: none;"></div>
+                </div>
+
+                <div class="fixed-bottom-btn-group">
+                    <a id="id-signup-email-password-continue-btn" class="signup--continue-btn btn btn-primary disabled" href="#">Continue</a>
+                </div>
+            </div>
         </div>
     </div>
 }
