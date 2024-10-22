@@ -37,16 +37,24 @@ a:hover {
 
 
 .button, .btn {
-    background-color: #FFD700;
-    //background-color: #F5EB31;
-    color: #FFFFFF;
-    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, .2509803922);
+    border-radius: 31.5px;
     border: none;
-    cursor: pointer;
-    display: inline-block;
-    text-align: center;
-    text-decoration: none;
-    margin: 10px 0;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    width: 100%;
+}
+
+.btn-primary {
+    background: linear-gradient(269.4deg, #EFE825 -3.26%, #D7D319 98.79%);
+    color: #3A3A30;
+
+    &.disabled {
+        color: rgba(60, 60, 60, 0.75);
+        background: linear-gradient(269.4deg, #F3EFAA -3.26%, #F7F3C4 98.79%);
+    }
 }
 
 .button:hover {
@@ -60,4 +68,16 @@ a:hover {
 
 .secondary-button:hover {
     background-color: #455A64;
+}
+
+.fixed-bottom-btn-group {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 4px;
+    margin-top: 16px;
+    margin-bottom: 16px;
 }
