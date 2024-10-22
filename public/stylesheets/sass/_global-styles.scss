@@ -1,13 +1,15 @@
 body {
-    background-color: rgba(244,241,234,0.5);
-    color: #333333;
-    font-family: 'Open Sans', sans-serif;
+    //background-color: rgba(244,241,234,0.5);
+    //color: #333333;
+    color: #3A3A30;
+    font-family: 'Merriweather', serif;
     font-size: 16px;
     line-height: 1.6;
+    letter-spacing: 0.75px;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Merriweather', serif;
+    //font-family: 'Merriweather', serif;
     color: #333333;
 }
 
@@ -17,6 +19,12 @@ h3 { font-size: 24px; }
 h4 { font-size: 20px; }
 h5 { font-size: 18px; }
 h6 { font-size: 16px; }
+
+.container-fluid {
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 32px;
+}
 
 a {
     color: #FFD700;

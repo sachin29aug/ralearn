@@ -1,0 +1,27 @@
+.signup {
+    .category-pill {
+        border: 1px solid rgba(87, 79, 107, .25);
+        border-radius: 100px;
+        filter: drop-shadow(0px 2px 4px rgba(51, 16, 50, 0.15));
+        margin-bottom: 16px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+
+        &.selected {
+            background: #FFFFF0;
+            border: 1px solid rgba(126, 80, 154, .15);
+
+            .category-pill--icon {
+                color: #D7D319;
+            }
+        }
+
+        &--icon {
+
+        }
+
+        &--text {
+
+        }
+    }
+}

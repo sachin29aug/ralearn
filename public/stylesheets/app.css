@@ -1,13 +1,12 @@
 body {
-  background-color: rgba(244, 241, 234, 0.5);
-  color: #333333;
-  font-family: "Open Sans", sans-serif;
+  color: #3A3A30;
+  font-family: "Merriweather", serif;
   font-size: 16px;
   line-height: 1.6;
+  letter-spacing: 0.75px;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Merriweather", serif;
   color: #333333;
 }
 
@@ -33,6 +32,12 @@ h5 {
 
 h6 {
   font-size: 16px;
+}
+
+.container-fluid {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 32px;
 }
 
 a {
@@ -69,6 +74,21 @@ a:hover {
   background-color: #455A64;
 }
 
+.signup .category-pill {
+  border: 1px solid rgba(87, 79, 107, 0.25);
+  border-radius: 100px;
+  filter: drop-shadow(0px 2px 4px rgba(51, 16, 50, 0.15));
+  margin-bottom: 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.signup .category-pill.selected {
+  background: #FFFFF0;
+  border: 1px solid rgba(126, 80, 154, 0.15);
+}
+.signup .category-pill.selected .category-pill--icon {
+  color: #D7D319;
+}
 /** ffd700 **/
 .home-section-1--tab {
   color: #183153;

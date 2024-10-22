@@ -9,6 +9,9 @@ GET    /books/:categoryId           controllers.HomeController.books(categoryId:
 GET    /book/:id                    controllers.HomeController.book(id: Long)
 GET    /home/:categoryId            controllers.My.home(categoryId: Long)
 
+# Signup
+GET     /signup                     controllers.Signup.categories()
+
 # Admin
 GET     /import/books               controllers.SystemAdmin.importBooks
 
