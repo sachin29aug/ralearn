@@ -38,6 +38,7 @@ h6 {
   padding-left: 16px;
   padding-right: 16px;
   padding-top: 32px;
+  padding-bottom: 80px;
 }
 
 a {
@@ -89,9 +90,18 @@ a:hover {
   width: 100%;
   padding-left: 16px;
   padding-right: 16px;
-  padding-bottom: 4px;
-  margin-top: 16px;
-  margin-bottom: 16px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+.fixed-bottom-btn-group--scroll-blur {
+  background: linear-gradient(to top, rgb(255, 255, 255) 50%, rgba(255, 255, 255, 0));
+  filter: drop-shadow(0px -20px 20px rgb(255, 255, 255));
+}
+@media (min-width: 768px) {
+  .fixed-bottom-btn-group--scroll-blur {
+    background: none;
+    filter: none;
+  }
 }
 
 .signup .category-pill {

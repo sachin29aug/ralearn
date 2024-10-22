@@ -24,6 +24,7 @@ h6 { font-size: 16px; }
     padding-left: 16px;
     padding-right: 16px;
     padding-top: 32px;
+    padding-bottom: 80px;
 }
 
 a {
@@ -77,7 +78,15 @@ a:hover {
     width: 100%;
     padding-left: 16px;
     padding-right: 16px;
-    padding-bottom: 4px;
-    margin-top: 16px;
-    margin-bottom: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+
+    &--scroll-blur {
+        background: linear-gradient(to top, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0));
+        filter: drop-shadow(0px -20px 20px rgb(255, 255, 255));
+        @include md-and-up {
+            background: none;
+            filter: none;
+        }
+    }
 }

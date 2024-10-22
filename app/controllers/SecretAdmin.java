@@ -61,6 +61,7 @@ public class SecretAdmin extends Controller {
 
             Category category2 = new Category("Mind & Spirit", "fas fa-brain", null);
             DB.save(category2);
+            subCategoryNames = categoriesMap.get(category2.title);
             for(String subCategoryName : subCategoryNames) {
                 Category subCategory = new Category(subCategoryName, null, category2);
                 setFaIconClass(subCategory);
@@ -69,6 +70,7 @@ public class SecretAdmin extends Controller {
 
             Category category3 = new Category("Business & Economics", "fas fa-briefcase", null);
             DB.save(category3);
+            subCategoryNames = categoriesMap.get(category3.title);
             for(String subCategoryName : subCategoryNames) {
                 Category subCategory = new Category(subCategoryName, null, category3);
                 setFaIconClass(subCategory);
@@ -77,6 +79,7 @@ public class SecretAdmin extends Controller {
 
             Category category4 = new Category("Family & Lifestyle", "fas fa-home", null);
             DB.save(category4);
+            subCategoryNames = categoriesMap.get(category4.title);
             for(String subCategoryName : subCategoryNames) {
                 Category subCategory = new Category(subCategoryName, null, category4);
                 setFaIconClass(subCategory);
@@ -85,14 +88,16 @@ public class SecretAdmin extends Controller {
 
             Category category5 = new Category("Science & Environment", "fas fa-flask", null);
             DB.save(category5);
+            subCategoryNames = categoriesMap.get(category5.title);
             for(String subCategoryName : subCategoryNames) {
                 Category subCategory = new Category(subCategoryName, null, category5);
                 setFaIconClass(subCategory);
                 DB.save(subCategory);
             }
 
-            Category category6 = new Category("Art & Humanities", "fas fa-palette", null);
+            Category category6 = new Category("Arts & Humanities", "fas fa-palette", null);
             DB.save(category6);
+            subCategoryNames = categoriesMap.get(category6.title);
             for(String subCategoryName : subCategoryNames) {
                 Category subCategory = new Category(subCategoryName, null, category6);
                 setFaIconClass(subCategory);

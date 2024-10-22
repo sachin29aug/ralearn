@@ -3,6 +3,7 @@ package models;
 import io.ebean.Finder;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 import java.util.*;
 
@@ -14,6 +15,9 @@ public class Category extends BaseModel {
 
     @ManyToOne
     public Category parent;
+
+    @OneToMany(mappedBy = "parent")
+    public List<Category> subCategories;
 
     public Category(String title, String faIconClass, Category parent) {
         this.title = title;
