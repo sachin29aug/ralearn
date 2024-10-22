@@ -16,8 +16,9 @@ GET     /signup                     controllers.Signup.categories()
 GET     /import/books               controllers.SystemAdmin.importBooks
 
 # Secret Admin
-GET     /test/9uy5                  controllers.SecretAdmin.test
-GET     /populate/books/j8r3        controllers.SecretAdmin.populateBooks
+GET     /test/9uy5y                  controllers.SecretAdmin.test
+GET     /populate/books/j8r3h        controllers.SecretAdmin.populateBooks
+GET     /setup/categories/j8r3h      controllers.SecretAdmin.setupCategories
 
 # ContentAdmin
 GET     /8utfd4/admin/content/blink/categories        controllers.ContentAdmin.scrapBlinkCategories()

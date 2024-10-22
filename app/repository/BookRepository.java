@@ -1,23 +1,15 @@
 package repository;
 
-
-
-
 import io.ebean.DB;
-import io.ebean.Database;
 import io.ebean.Transaction;
 import models.Book;
 
 import javax.inject.Inject;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
-/**
- *
- */
 public class BookRepository {
     private final DatabaseExecutionContext executionContext;
 

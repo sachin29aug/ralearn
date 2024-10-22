@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Book;
+import models.Category;
 import org.apache.pekko.japi.Pair;
 import play.mvc.*;
 import repository.BookRepository;
@@ -37,17 +38,9 @@ public class HomeController extends Controller {
             category = "Personal Development";
         }
 
-        List<Book> randomBooks = new ArrayList<>();
-        Map<String, List<String>> categoriesMap = new LinkedHashMap<>();
-        categoriesMap.put("Personal Development", Arrays.asList("self-help", "productivity", "communication-skills", "creativity", "education", "biography", "philosophy"));
-        categoriesMap.put("Mind & Spirit", Arrays.asList("psychology", "spirituality", "mindfulness"));
-        categoriesMap.put("Business & Economics", Arrays.asList("business", "economics", "leadership", "entrepreneurship", "marketing"));
-        categoriesMap.put("Family & Lifestyle", Arrays.asList("childrens", "parenting", "travel"));
-        categoriesMap.put("Science & Environment", Arrays.asList("science", "environment", "gardening"));
-        categoriesMap.put("Arts & Humanities", Arrays.asList("art", "design", "architecture", "folklore", "history", "politics", "law"));
-
+        Map<String, List<String>> categoriesMap = Category.getCategoriesMap();
         List<String> subCategories = categoriesMap.get(category);
-
+        List<Book> randomBooks = new ArrayList<>();
         for(String subCategory : subCategories) {
             int subCategoryBooksCount = Book.find.query().where().eq("sub_category", subCategory).findCount();
             int randomIndex = new Random().nextInt(subCategoryBooksCount);

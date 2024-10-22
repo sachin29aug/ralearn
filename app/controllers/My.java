@@ -2,6 +2,7 @@ package controllers;
 
 import io.ebean.DB;
 import models.Book;
+import models.Category;
 import play.mvc.Controller;
 import play.mvc.Result;
 import repository.ComputerRepository;
@@ -37,16 +38,8 @@ public class My extends Controller {
         }
 
         List<Book> randomBooks = new ArrayList<>();
-        Map<String, List<String>> categoriesMap = new LinkedHashMap<>();
-        categoriesMap.put("Personal Development", Arrays.asList("self-help", "productivity", "communication-skills", "creativity", "education", "biography", "philosophy"));
-        categoriesMap.put("Mind & Spirit", Arrays.asList("psychology", "spirituality", "mindfulness"));
-        categoriesMap.put("Business & Economics", Arrays.asList("business", "economics", "leadership", "entrepreneurship", "marketing"));
-        categoriesMap.put("Family & Lifestyle", Arrays.asList("childrens", "parenting", "travel"));
-        categoriesMap.put("Science & Environment", Arrays.asList("science", "environment", "gardening"));
-        categoriesMap.put("Arts & Humanities", Arrays.asList("art", "design", "architecture", "folklore", "history", "politics", "law"));
-
+        Map<String, List<String>> categoriesMap = Category.getCategoriesMap();
         List<String> subCategories = categoriesMap.get(category);
-
         for(String subCategory : subCategories) {
             //int subCategoryBooksCount = Book.find.query().where().eq("sub_category", subCategory).gt("average_rating", 3.6).gt("rating_count", 1000).findCount();
             //int randomIndex = new Random().nextInt(subCategoryBooksCount);

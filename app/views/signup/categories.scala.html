@@ -1,75 +1,22 @@
-@()
+@(parentCategories: List[Category])
 
 @main("RaLearn") {
     <div class="signup">
         <div class="container-fluid">
             <h2 class="mb-5">What categories are you interested in?</h2>
-            <div class="category-pill">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex ms-4">
-                        <div class="category-pill--icon me-3"><i class="fas fa-user-graduate"></i></div>
-                        <div class="category-pill--text">Personal Development</div>
-                    </div>
-                    <div class="me-3">
-                        <div class="category-pill--icon"><i class="fas fa-circle"></i></div>
-                    </div>
-                </div>
-            </div>
-            <div class="category-pill">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex ms-4">
-                        <div class="category-pill--icon me-3"><i class="fas fa-brain"></i></div>
-                        <div class="category-pill--text">Mind & Spirit</div>
-                    </div>
-                    <div class="me-3">
-                        <div class="category-pill--icon"><i class="fas fa-circle"></i></div>
+            @for(parentCategory <- parentCategories) {
+                <div class="category-pill">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex ms-4">
+                            <div class="category-pill--icon me-3"><i class="@parentCategory.faIconClass"></i></div>
+                            <div class="category-pill--text">@parentCategory.title</div>
+                        </div>
+                        <div class="me-3">
+                            <div class="category-pill--icon"><i class="fas fa-circle"></i></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="category-pill">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex ms-4">
-                        <div class="category-pill--icon me-3"><i class="fas fa-briefcase"></i></div>
-                        <div class="category-pill--text">Business & Economics</div>
-                    </div>
-                    <div class="me-3">
-                        <div class="category-pill--icon"><i class="fas fa-circle"></i></div>
-                    </div>
-                </div>
-            </div>
-            <div class="category-pill">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex ms-4">
-                        <div class="category-pill--icon me-3"><i class="fas fa-home"></i></div>
-                        <div class="category-pill--text">Family & Lifestyle</div>
-                    </div>
-                    <div class="me-3">
-                        <div class="category-pill--icon"><i class="fas fa-circle"></i></div>
-                    </div>
-                </div>
-            </div>
-            <div class="category-pill">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex ms-4">
-                        <div class="category-pill--icon me-3"><i class="fas fa-flask"></i></div>
-                        <div class="category-pill--text">Science and Environment</div>
-                    </div>
-                    <div class="me-3">
-                        <div class="category-pill--icon"><i class="fas fa-circle"></i></div>
-                    </div>
-                </div>
-            </div>
-            <div class="category-pill">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex ms-4">
-                        <div class="category-pill--icon me-3"><i class="fas fa-palette"></i></div>
-                        <div class="category-pill--text">Art & Humanities</div>
-                    </div>
-                    <div class="me-3">
-                        <div class="category-pill--icon"><i class="fas fa-circle"></i></div>
-                    </div>
-                </div>
-            </div>
+            }
 
             <div class="fixed-bottom-btn-group">
                 <a class="signup--continue-btn btn btn-primary disabled" href="#">Continue</a>
