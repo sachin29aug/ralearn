@@ -94,7 +94,12 @@ $(document).ready(function() {
 
     $(document.body).on("click", "#email-password-page .signup--continue-btn", function(e) {
         e.preventDefault();
-        loginPost();
+        let subcategoryIds = [];
+        $('#subcategories-page .category-pill.selected').each(function() {
+            let subcategoryId = $(this).data('subcategory-id');
+            subcategoryIds.push(subcategoryId);
+        });
+        loginPost(subcategoryIds);
     });
 
     $(document.body).on("click", "#welcome-page .signup--continue-btn", function(e) {

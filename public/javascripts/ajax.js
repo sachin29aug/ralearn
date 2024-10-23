@@ -1,7 +1,8 @@
-function loginPost() {
+function loginPost(subcategoryIds) {
     let requestParams = {
         email: $('#id-signup-email').val(),
         password: $('#id-signup-password').val(),
+        subcategoryIds: subcategoryIds.join(','),
         _csrfToken: $('[name=_csrfToken]').val()
     };
 
@@ -17,7 +18,7 @@ function loginPost() {
         error: function(request, error) {
 
         }
-    })
+    });
 }
 
 function homeGet() {

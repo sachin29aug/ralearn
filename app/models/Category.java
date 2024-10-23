@@ -27,6 +27,10 @@ public class Category extends BaseModel {
 
     public static Finder<Long, Category> find = new Finder(Category.class);
 
+    public static Category find(String id) {
+        return find.byId(Long.valueOf(id));
+    }
+
     public static List<Category> findParentCategories() {
         return find.query().where().isNull("parent").findList();
     }
