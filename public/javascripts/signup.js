@@ -91,4 +91,9 @@ $(document).ready(function() {
             passwordTextBox .attr("type", "password");
         }
     });
+
+    $(document.body).on("click", "#email-password-page .signup--continue-btn", function(e) {
+        e.preventDefault();
+        loginPost();
+    });
 });

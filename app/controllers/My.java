@@ -59,4 +59,8 @@ public class My extends Controller {
 
         return ok(views.html.home.render(category, randomBooks));
     }
+
+    public Result home1() {
+        return ok(views.html.my.home1.render());
+    }
 }

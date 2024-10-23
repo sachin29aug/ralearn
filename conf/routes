@@ -11,6 +11,11 @@ GET    /home/:categoryId            controllers.My.home(categoryId: Long)
 
 # Signup
 GET     /signup                     controllers.Signup.categories()
++ nocsrf
+POST    /login                      controllers.Signup.loginPost(request: Request)
+
+# My
+GET     /home                       controllers.My.home1()
 
 # Admin
 GET     /import/books               controllers.SystemAdmin.importBooks
