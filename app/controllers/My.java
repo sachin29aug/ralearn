@@ -3,7 +3,9 @@ package controllers;
 import io.ebean.DB;
 import models.Book;
 import models.Category;
+import models.User;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import repository.ComputerRepository;
 import utils.GoogleBookClient;
@@ -60,7 +62,8 @@ public class My extends Controller {
         return ok(views.html.home.render(category, randomBooks));
     }
 
-    public Result home1() {
-        return ok(views.html.my.home1.render());
+    public Result home1(Http.Request request) {
+        String userId = request.session().get("userId").get();
+        return ok(views.html.my.home1.render(User.find(userId)));
     }
 }

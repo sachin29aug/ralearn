@@ -96,4 +96,9 @@ $(document).ready(function() {
         e.preventDefault();
         loginPost();
     });
+
+    $(document.body).on("click", "#welcome-page .signup--continue-btn", function(e) {
+        e.preventDefault();
+        homeGet();
+    });
 });

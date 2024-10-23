@@ -10,10 +10,27 @@ function loginPost() {
         type : 'POST',
         data: requestParams,
         success: function(result) {
-
+            $("#id-page").html("");
+            let targetElementHtml = $(result).find("#id-page").html();
+            $("#id-page").html(targetElementHtml);
         },
         error: function(request, error) {
 
         }
     })
+}
+
+function homeGet() {
+    $.ajax({
+    	url: '/home',
+    	type : 'GET',
+    	success: function(result) {
+    		$("#id-page").html("");
+            let targetElementHtml = $(result).find("#id-page").html();
+            $("#id-page").html(targetElementHtml);
+    	},
+    	error: function(request, error) {
+
+    	}
+    });
 }

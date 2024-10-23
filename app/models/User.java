@@ -18,6 +18,10 @@ public class User extends BaseModel {
 
     public static Finder<Long, User> find = new Finder(User.class);
 
+    public static User find(String id) {
+        return find.byId(Long.valueOf(id));
+    }
+
     public static User authenticate(String email, String password) {
         return find.query().where().ieq("email", email).eq("password", password).findOne();
     }

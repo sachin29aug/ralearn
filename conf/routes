@@ -15,7 +15,7 @@ GET     /signup                     controllers.Signup.categories()
 POST    /login                      controllers.Signup.loginPost(request: Request)
 
 # My
-GET     /home                       controllers.My.home1()
+GET     /home                       controllers.My.home1(request: Request)
 
 # Admin
 GET     /import/books               controllers.SystemAdmin.importBooks
