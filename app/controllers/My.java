@@ -63,7 +63,8 @@ public class My extends Controller {
     }
 
     public Result home1(Http.Request request) {
-        String userId = request.session().get("userId").get();
-        return ok(views.html.my.home1.render(User.find(userId)));
+        //String userId = request.session().get("userId").get();
+        //return ok(views.html.my.home1.render(User.find(userId)));
+        return ok(views.html.my.home1.render());
     }
 }

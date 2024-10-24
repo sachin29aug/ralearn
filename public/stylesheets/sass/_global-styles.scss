@@ -129,3 +129,32 @@ label {
         }
     }
 }
+
+// Components
+
+.circular-icon {
+    &--circle {
+        color: #fff4d1;
+        font-size: 35px;
+        border: 2px solid #003366;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    &--icon {
+        font-size: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.icon-label {
+    display: block;
+    font-size: 0.75rem; /* Small font size for labels */
+    color: #003366; /* Same dark blue for consistency */
+    text-align: center;
+    margin-top: 5px; /* Spacing between icon and label */
+}
