@@ -1,5 +1,5 @@
 body {
-  color: #3A3A30;
+  color: #003366;
   font-family: "Merriweather", serif;
   font-size: 16px;
   line-height: 1.6;
@@ -7,7 +7,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #333333;
+  color: #003366;
 }
 
 h1 {
@@ -70,6 +70,18 @@ label {
   font-size: 14px;
   line-height: 18px;
   margin-bottom: 8px;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: 700;
+}
+.logo--ra {
+  color: #003366;
+}
+.logo--learn {
+  color: #E3B500;
+  margin-left: -6px;
 }
 
 .error {
