@@ -2,6 +2,7 @@ package models;
 
 import io.ebean.Finder;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 
 @Entity

@@ -4,6 +4,7 @@ import io.ebean.DB;
 import models.Book;
 import models.Category;
 import models.User;
+import models.UserCategory;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -63,8 +64,16 @@ public class My extends Controller {
     }
 
     public Result home1(Http.Request request) {
-        //String userId = request.session().get("userId").get();
-        //return ok(views.html.my.home1.render(User.find(userId)));
-        return ok(views.html.my.home1.render());
+        String userId = request.session().get("userId").get();
+        User user = User.find(userId);
+        List<String> subCategoryTitles = new ArrayList<>();
+        for(UserCategory userCategory : user.userCategories) {
+            Category category = Category.find("" + userCategory.category.id);
+            subCategoryTitles.add(category.title);
+        }
+
+        List<Book> books = Book.getRandomBooks(subCategoryTitles);
+
+        return ok(views.html.my.home1.render(user, books));
     }
 }

@@ -3,9 +3,14 @@ package models;
 import io.ebean.Finder;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import utils.GoogleBookClient;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 @Entity
 public class Book extends BaseModel {
@@ -40,6 +45,8 @@ public class Book extends BaseModel {
 
     public static Finder<Long, Book> find = new Finder(Book.class);
 
+    // Static methods
+
     public static Book findByOrderIndex(String subCategory, int orderIndex) {
         return find.query().where().eq("subCategory", subCategory).eq("order_index", orderIndex).findOne();
     }
@@ -47,6 +54,23 @@ public class Book extends BaseModel {
     public static List<Book> findBySubCategory(String subCategory) {
         return find.query().where().eq("subCategory", subCategory).findList();
     }
+
+    public static List<Book> getRandomBooks(List<String> subCategories) {
+        List<Book> randomBooks = new ArrayList<>();
+        for(String subCategory : subCategories) {
+            int subCategoryBooksCount = Book.find.query().where().eq("sub_category", subCategory).findCount();
+            int randomIndex = new Random().nextInt(subCategoryBooksCount);
+            Book randomBook = Book.findByOrderIndex(subCategory, randomIndex);
+            Map<String, String> map = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
+            randomBook.coverImageUrl = map.get("coverImageUrl");
+            randomBook.isbn = map.get("isbn");
+            //randomBook.update();
+            randomBooks.add(randomBook);
+        }
+        return randomBooks;
+    }
+
+    // Non-static methods
 
     public String getShortTitle() {
         if(title.length() > 50) {

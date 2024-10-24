@@ -1,4 +1,4 @@
-@()
+@(user: User, books : List[Book])
 
 @main("RaLearn") {
     <div class="home">
@@ -9,10 +9,9 @@
             </div>
             <h4 class="mb-3">GET STARTED</h4>
 
-            @_card2()
-            @_card2()
-            @_card2()
-            @_card2()
+            @for(book <- books) {
+                @_card2(book)
+            }
         </div>
     </div>
 }
