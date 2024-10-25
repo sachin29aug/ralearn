@@ -20,8 +20,4 @@ public class UserBook extends BaseModel {
     }
 
     public static Finder<Long, UserBook> find = new Finder(UserBook.class);
-
-    public static List<UserBook> findByUserId(Long userId) {
-        return find.query().where().eq("user.id", userId).findList();
-    }
 }

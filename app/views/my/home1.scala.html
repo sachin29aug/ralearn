@@ -9,7 +9,7 @@
             </div>
             <h4 class="mb-3">GET STARTED</h4>
 
-            @for(userBook <- userBooks) {
+            @for((userBook, index) <- userBooks.zipWithIndex) {
                 @_card2(userBook.book)
             }
         </div>

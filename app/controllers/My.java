@@ -63,9 +63,9 @@ public class My extends Controller {
 
     public Result home1(Http.Request request) {
         String userId = request.session().get("userId").get();
-        List<UserBook> userBooks = UserBook.findByUserId(Long.valueOf(userId));
+        User user = User.find(userId);
+        List<UserBook> userBooks = user.userBooks;
         if(CollectionUtils.isEmpty(userBooks)) {
-            User user = User.find(userId);
             List<String> subCategoryTitles = new ArrayList<>();
             for(UserCategory userCategory : user.userCategories) {
                 Category category = Category.find("" + userCategory.category.id);

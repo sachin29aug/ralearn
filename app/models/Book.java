@@ -79,6 +79,10 @@ public class Book extends BaseModel {
 
     // Non-static methods
 
+    public String coverImageUrl() {
+        return this.coverImageUrl;
+    }
+
     public String getShortTitle() {
         if(title.length() > 50) {
             return title.substring(0, 50);

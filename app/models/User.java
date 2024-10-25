@@ -3,6 +3,7 @@ package models;
 import io.ebean.Finder;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 
 import java.util.List;
@@ -16,6 +17,10 @@ public class User extends BaseModel {
 
     @OneToMany(mappedBy = "user")
     public List<UserCategory> userCategories;
+
+    @OneToMany(mappedBy = "user")
+    @OrderBy("id")
+    public List<UserBook> userBooks;
 
     public User(String email, String password) {
         this.email = email;
