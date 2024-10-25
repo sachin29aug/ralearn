@@ -1,8 +1,10 @@
 package models;
 
+import io.ebean.DB;
 import io.ebean.Finder;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import repository.ComputerRepository;
 import utils.GoogleBookClient;
 
 import java.io.UnsupportedEncodingException;
@@ -61,9 +63,14 @@ public class Book extends BaseModel {
             int subCategoryBooksCount = Book.find.query().where().eq("sub_category", subCategory).findCount();
             int randomIndex = new Random().nextInt(subCategoryBooksCount);
             Book randomBook = Book.findByOrderIndex(subCategory, randomIndex);
+            //Book randomBook = DB.find(Book.class).where().eq("subCategory", subCategory).gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
             Map<String, String> map = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
             randomBook.coverImageUrl = map.get("coverImageUrl");
             randomBook.isbn = map.get("isbn");
+            randomBook.description = map.get("description");
+            randomBook.previewUrl = map.get("previewUrl");
+            randomBook.authorDescription = map.get("authorDescription");
+            ComputerRepository.update(randomBook.id, randomBook.coverImageUrl, randomBook.isbn, randomBook.description, randomBook.previewUrl, randomBook.authorDescription);
             //randomBook.update();
             randomBooks.add(randomBook);
         }

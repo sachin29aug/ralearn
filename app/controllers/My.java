@@ -1,10 +1,8 @@
 package controllers;
 
 import io.ebean.DB;
-import models.Book;
-import models.Category;
-import models.User;
-import models.UserCategory;
+import models.*;
+import org.springframework.util.CollectionUtils;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -65,15 +63,23 @@ public class My extends Controller {
 
     public Result home1(Http.Request request) {
         String userId = request.session().get("userId").get();
-        User user = User.find(userId);
-        List<String> subCategoryTitles = new ArrayList<>();
-        for(UserCategory userCategory : user.userCategories) {
-            Category category = Category.find("" + userCategory.category.id);
-            subCategoryTitles.add(category.title);
+        List<UserBook> userBooks = UserBook.findByUserId(Long.valueOf(userId));
+        if(CollectionUtils.isEmpty(userBooks)) {
+            User user = User.find(userId);
+            List<String> subCategoryTitles = new ArrayList<>();
+            for(UserCategory userCategory : user.userCategories) {
+                Category category = Category.find("" + userCategory.category.id);
+                subCategoryTitles.add(category.title);
+            }
+
+            List<Book> books = Book.getRandomBooks(subCategoryTitles);
+            for(Book book : books) {
+                UserBook userBook = new UserBook(user, book);
+                userBook.save();
+                userBooks.add(userBook);
+            }
         }
 
-        List<Book> books = Book.getRandomBooks(subCategoryTitles);
-
-        return ok(views.html.my.home1.render(user, books));
+        return ok(views.html.my.home1.render(userBooks));
     }
 }
