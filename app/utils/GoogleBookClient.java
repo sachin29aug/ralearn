@@ -43,7 +43,7 @@ public class GoogleBookClient {
     public static Map<String, String> getCoverImageUrlAndIsbn(String title) {
         Map<String, String> map = new HashMap();
         try {
-            String url = BASE_URL + "?q=intitle:" +  title.replace(" ", "+");
+            String url = BASE_URL + "?q=intitle:" +  title.replace(" ", "+") + "&key=" + API_KEY;
             JSONObject responseJson = getJsonResponse(url);
             JSONArray items = responseJson.optJSONArray("items");
             if(items != null && items.length() > 0) {
