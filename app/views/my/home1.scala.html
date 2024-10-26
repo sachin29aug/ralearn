@@ -16,10 +16,10 @@
             }
 
             @for(userCategory<- user.userCategories) {
-                <h4 class="mt-5 mb-2">@userCategory.getCategory().getTitle()</h4>
+                <h4 class="mt-5 mb-3">@userCategory.getCategory().getTitle()</h4>
                 <div class="scrollable-cards-x">
                     @for(userBook <- userBooks) {
-                        <div class="scrollable-card-x">
+                        <div class="scrollable-card-x me-3">
                             @_card3(userBook.book)
                         </div>
                     }

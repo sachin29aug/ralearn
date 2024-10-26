@@ -90,6 +90,13 @@ public class Book extends BaseModel {
         return title;
     }
 
+    public String getTitle(int length) {
+        if(title.length() > length) {
+            return title.substring(0, length);
+        }
+        return title;
+    }
+
     public String getEncodedTitle() throws UnsupportedEncodingException {
         return URLEncoder.encode(title.toLowerCase(), "UTF-8");
     }
