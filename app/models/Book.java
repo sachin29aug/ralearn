@@ -60,10 +60,10 @@ public class Book extends BaseModel {
     public static List<Book> getRandomBooks(List<String> subCategories) {
         List<Book> randomBooks = new ArrayList<>();
         for(String subCategory : subCategories) {
-            int subCategoryBooksCount = Book.find.query().where().eq("sub_category", subCategory).findCount();
-            int randomIndex = new Random().nextInt(subCategoryBooksCount);
-            Book randomBook = Book.findByOrderIndex(subCategory, randomIndex);
-            //Book randomBook = DB.find(Book.class).where().eq("subCategory", subCategory).gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
+            //int subCategoryBooksCount = Book.find.query().where().eq("sub_category", subCategory).findCount();
+            //int randomIndex = new Random().nextInt(subCategoryBooksCount);
+            //Book randomBook = Book.findByOrderIndex(subCategory, randomIndex);
+            Book randomBook = DB.find(Book.class).where().eq("subCategory", subCategory).gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
             Map<String, String> map = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
             randomBook.coverImageUrl = map.get("coverImageUrl");
             randomBook.isbn = map.get("isbn");

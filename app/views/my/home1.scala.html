@@ -4,19 +4,21 @@
 
 @main("RaLearn") {
     <div class="home">
-        <div class="container-fluid py-0">
+        <div class="container-fluid pt-0">
             <div class="logo mt-3 mb-4">
                 <span class="logo--ra">Ra</span>
                 <span class="logo--learn">Learn</span>
             </div>
 
             <h4 class="mb-3">GET STARTED</h4>
-            @for(userBook <- userBooks) {
-                @_card2(userBook.book)
-            }
+            <div class="mb-5">
+                @for(userBook <- userBooks) {
+                    @_card2(userBook.book)
+                }
+            </div>
 
             @for(userCategory<- user.userCategories) {
-                <h4 class="mt-5 mb-3">@userCategory.getCategory().getTitle()</h4>
+                <h4 class="mb-3">@userCategory.getCategory().getTitle()</h4>
                 <div class="scrollable-cards-x">
                     @for(userBook <- userBooks) {
                         <div class="scrollable-card-x me-3">
@@ -27,4 +29,6 @@
             }
         </div>
     </div>
+
+    @sections._footerNavBar()
 }
