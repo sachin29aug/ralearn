@@ -120,4 +120,11 @@ public class Book extends BaseModel {
         this.authorDescription = authorDescription;
         update();
     }
+
+    public String getShortDescription() {
+        if(description.length() > 125) {
+            return description.substring(0, 125);
+        }
+        return description;
+    }
 }

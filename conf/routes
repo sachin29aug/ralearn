@@ -22,7 +22,6 @@ GET     /import/books               controllers.SystemAdmin.importBooks
 
 # Secret Admin
 GET     /test/9uy5y                  controllers.SecretAdmin.test
-GET     /populate/books/j8r3h        controllers.SecretAdmin.populateBooks
 GET     /setup/categories/j8r3h      controllers.SecretAdmin.setupCategories
 
 # ContentAdmin

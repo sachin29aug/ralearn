@@ -161,6 +161,23 @@ label {
   }
 }
 
+.scrollable-cards-x {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+  padding-right: 16px;
+}
+
+.scrollable-card-x {
+  scroll-snap-align: start;
+}
+
+.scrollable-cards-x .scrollable-card-x {
+  display: inline-block;
+}
+
 .circular-icon--circle {
   color: #fff4d1;
   font-size: 35px;
@@ -275,6 +292,51 @@ label {
   font-weight: 400;
 }
 .card-2--icon-buttons {
+  width: 75%;
+}
+
+.card-3 {
+  color: #003366;
+  margin-bottom: 36px;
+}
+.card-3--cover-image {
+  width: 120px;
+  height: auto;
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+  border: 4px solid #e0e0e0;
+  transition: border-color 0.3s ease;
+}
+.card-3--title {
+  font-size: 16px;
+  font-weight: 600;
+}
+.card-3--category-icon-circle {
+  width: 25px;
+  height: 25px;
+  border: 1px solid #003366;
+  border-radius: 50%;
+}
+.card-3--category-icon {
+  font-size: 12px;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+.card-3--author {
+  font-size: 12px;
+  font-weight: 400;
+}
+.card-3--category {
+  background-color: #FFD700;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 5px;
+}
+.card-3--summary {
+  font-size: 12px;
+  font-weight: 400;
+}
+.card-3--icon-buttons {
   width: 75%;
 }
 

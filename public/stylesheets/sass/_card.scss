@@ -113,3 +113,57 @@
         width: 75%;
     }
 }
+
+.card-3 {
+    color: #003366;
+    margin-bottom: 36px;
+
+    &--cover-image {
+        width: 120px;
+        height: auto;
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+        border: 4px solid #e0e0e0;
+        transition: border-color 0.3s ease;
+    }
+
+    &--title {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    &--category-icon-circle {
+        width: 25px;
+        height: 25px;
+        border: 1px solid #003366;
+        border-radius: 50%;
+    }
+
+    &--category-icon {
+        font-size: 12px;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+    }
+
+    &--author {
+        font-size: 12px;
+        font-weight: 400;
+    }
+
+    &--category {
+        background-color: #FFD700;
+        font-size: 12px;
+        font-weight: 500;
+        border-radius: 5px;
+    }
+
+    &--summary {
+        font-size: 12px;
+        font-weight: 400;
+    }
+
+    &--icon-buttons {
+        width: 75%;
+    }
+}
+

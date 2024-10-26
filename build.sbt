@@ -19,6 +19,7 @@ lazy val root = (project in file("."))
       "org.mockito" % "mockito-core" % "5.12.0" % Test,
       "org.jsoup" % "jsoup" % "1.13.1",
       "org.json" % "json" % "20210307",
+      "org.apache.commons" % "commons-text" % "1.3"
     ),
     (Test / testOptions) += Tests.Argument(TestFrameworks.JUnit, "-a", "-v"),
     javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")

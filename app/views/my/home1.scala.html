@@ -1,5 +1,7 @@
 @(user: User, userBooks : List[UserBook])
 
+@import org.apache.commons.lang3.StringUtils
+
 @main("RaLearn") {
     <div class="home">
         <div class="container-fluid py-0">
@@ -9,12 +11,19 @@
             </div>
 
             <h4 class="mb-3">GET STARTED</h4>
-            @for((userBook, index) <- userBooks.zipWithIndex) {
+            @for(userBook <- userBooks) {
                 @_card2(userBook.book)
             }
 
             @for(userCategory<- user.userCategories) {
-                <h4>@userCategory.getCategory().getTitle()</h4>
+                <h4 class="mt-5 mb-2">@userCategory.getCategory().getTitle()</h4>
+                <div class="scrollable-cards-x">
+                    @for(userBook <- userBooks) {
+                        <div class="scrollable-card-x">
+                            @_card3(userBook.book)
+                        </div>
+                    }
+                </div>
             }
         </div>
     </div>

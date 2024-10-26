@@ -4,6 +4,7 @@ import io.ebean.Finder;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 
@@ -51,6 +52,11 @@ public class Category extends BaseModel {
     }
 
     public String getTitle() {
-        return title;
+        if(!this.title.contains("-")) {
+            return StringUtils.capitalize(this.title);
+        } else {
+            String[] words = this.title.split("-");
+            return StringUtils.capitalize(words[0]) + " " + StringUtils.capitalize(words[1]);
+        }
     }
 }

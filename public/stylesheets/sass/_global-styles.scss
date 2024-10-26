@@ -147,6 +147,23 @@ label {
     }
 }
 
+.scrollable-cards-x {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+    padding-right: 16px;
+}
+
+.scrollable-card-x {
+    scroll-snap-align: start;
+}
+
+.scrollable-cards-x .scrollable-card-x {
+    display: inline-block;
+}
+
 // Components
 
 .circular-icon {
