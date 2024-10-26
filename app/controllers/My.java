@@ -80,6 +80,8 @@ public class My extends Controller {
             }
         }
 
-        return ok(views.html.my.home1.render(userBooks));
+        List<UserCategory> uc = user.userCategories;
+
+        return ok(views.html.my.home1.render(user, userBooks));
     }
 }

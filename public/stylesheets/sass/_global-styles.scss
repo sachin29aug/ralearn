@@ -25,6 +25,9 @@ h6 { font-size: 16px; }
     padding-right: 16px;
     padding-top: 32px;
     padding-bottom: 80px;
+    @include md-and-up {
+        max-width: 500px;
+    }
 }
 
 a {

@@ -40,6 +40,11 @@ h6 {
   padding-top: 32px;
   padding-bottom: 80px;
 }
+@media (min-width: 768px) {
+  .container-fluid {
+    max-width: 500px;
+  }
+}
 
 a {
   color: #FFD700;

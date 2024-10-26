@@ -1,4 +1,4 @@
-@(userBooks : List[UserBook])
+@(user: User, userBooks : List[UserBook])
 
 @main("RaLearn") {
     <div class="home">
@@ -7,10 +7,14 @@
                 <span class="logo--ra">Ra</span>
                 <span class="logo--learn">Learn</span>
             </div>
-            <h4 class="mb-3">GET STARTED</h4>
 
+            <h4 class="mb-3">GET STARTED</h4>
             @for((userBook, index) <- userBooks.zipWithIndex) {
                 @_card2(userBook.book)
+            }
+
+            @for(userCategory<- user.userCategories) {
+                <h4>@userCategory.getCategory().getTitle()</h4>
             }
         </div>
     </div>

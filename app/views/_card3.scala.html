@@ -1,0 +1,23 @@
+@(book: Book)
+
+<div class="card-2 px-4 py-4">
+    <div class="card-2--cover-image-wrapper text-center">
+        <img class="card-2--cover-image mb-5" src="@book.coverImageUrl()">
+    </div>
+    <div class="d-flex align-items-center mb-1">
+        <div class="card-2--category-icon-circle position-relative me-2">
+            <i class="card-2--category-icon fas fa-home position-absolute"></i>
+        </div>
+        <div class="card-2--title">@book.getShortTitle()</div>
+    </div>
+    <div class="card-2--author mb-2">by @book.author</div>
+    <!-- <div class="card-2--category badge mb-3">Psychology</div> -->
+    <div class="card-2--summary">In "Willpower Doesn't Work" by Benjamin Hardy, the author debunks the concept of relying on willpower to achieve success...</div>
+
+    <div class="card-2--icon-buttons d-flex justify-content-between mx-auto mt-4">
+        @_circularIcon("fas fa-random")
+        @_circularIcon("fa-solid fa-arrow-up-from-bracket")
+        @_circularIcon("fas fa-heart")
+        @_circularIcon("fas fa-ellipsis-h")
+    </div>
+</div>

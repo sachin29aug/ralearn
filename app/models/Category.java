@@ -49,4 +49,8 @@ public class Category extends BaseModel {
         categoriesMap.put("Arts & Humanities", Arrays.asList("art", "design", "architecture", "folklore", "history", "politics", "law"));
         return categoriesMap;
     }
+
+    public String getTitle() {
+        return title;
+    }
 }
