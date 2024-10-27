@@ -1,0 +1,34 @@
+@(returnUrl: String)
+
+@main("RaLearn") {
+    <div class="login">
+        <div class="container-fluid">
+            <div class="text-center">
+                <div class="logo my-3">
+                    <span class="logo--ra">Ra</span>
+                    <span class="logo--learn">Learn</span>
+                </div>
+                <h3 class="mb-3">Login</h3>
+                <div class="mb-4">New to RaLearn? Sign up for free</div>
+            </div>
+
+            <input type="hidden" id="id-return-url" name="returnUrl" value="@returnUrl" />
+
+            <div class="text-start mb-4">
+                <label for="id-login-email" class="form-label">Email</label>
+                <input type="email" id="id-login-email" maxlength="40">
+                <div id="id-login-email-error" class="error text-start mt-2" style="display: none;"></div>
+            </div>
+
+            <div class="text-start mb-4 position-relative">
+                <label for="id-login-password" class="form-label d-flex justify-content-between d-block">Password</label>
+                <input type="password" id="id-login-password">
+                <div id="id-login-password-error" class="error text-start position-fixed mt-2" style="display: none;"></div>
+            </div>
+
+            <div class="fixed-bottom-btn-group">
+                <a id="id-login-btn" class="btn btn-primary" href="#">Login</a>
+            </div>
+        </div>
+    </div>
+}

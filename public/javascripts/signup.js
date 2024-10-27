@@ -99,7 +99,7 @@ $(document).ready(function() {
             let subcategoryId = $(this).data('subcategory-id');
             subcategoryIds.push(subcategoryId);
         });
-        loginPost(subcategoryIds);
+        signupLoginPost(subcategoryIds);
     });
 
     $(document.body).on("click", "#welcome-page .signup--continue-btn", function(e) {

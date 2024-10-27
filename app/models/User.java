@@ -29,6 +29,10 @@ public class User extends BaseModel {
 
     public static Finder<Long, User> find = new Finder(User.class);
 
+    public static User findByEmail(String email) {
+        return find.query().where().ieq("email", email).findOne();
+    }
+
     public static User find(String id) {
         return find.byId(Long.valueOf(id));
     }
