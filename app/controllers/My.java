@@ -7,8 +7,10 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import repository.ComputerRepository;
+import utils.DateUtil;
 import utils.GoogleBookClient;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class My extends Controller {
@@ -78,8 +80,17 @@ public class My extends Controller {
                 userBook.save();
                 userBooks.add(userBook);
             }
+
+            for(int i = 5; i >= 1; i--) {
+                books = Book.getRandomBooks(subCategoryTitles);
+                for(Book book : books) {
+                    UserBook userBook = new UserBook(user, book);
+                    userBook.assigned = DateUtil.incrementDateByDays(new Date(), -i);
+                    userBook.save();
+                }
+            }
         }
 
-        return ok(views.html.my.home1.render(user, userBooks));
+        return ok(views.html.my.home1.render(user));
     }
 }

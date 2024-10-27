@@ -207,17 +207,22 @@ label {
   border-radius: 40px 40px 0px 0px;
   height: 70px;
 }
-.footer-nav-bar--icon {
+.footer-nav-bar--icon, .footer-nav-bar--icon-text {
   color: #003366;
+  opacity: 0.6;
+}
+.footer-nav-bar--icon {
   font-size: 22px;
   margin-bottom: 6px;
 }
 .footer-nav-bar--icon-text {
-  color: #003366;
   font-size: 12px;
   font-weight: 700;
   line-height: 14px;
   display: block;
+}
+.footer-nav-bar .active .footer-nav-bar--icon, .footer-nav-bar .active footer-nav-bar--icon-text {
+  opacity: unset;
 }
 
 .card-1 {

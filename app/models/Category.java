@@ -51,7 +51,11 @@ public class Category extends BaseModel {
         return categoriesMap;
     }
 
-    public String getTitle() {
+    public String title() {
+        return this.title;
+    }
+
+    public String getDisplayTitle() {
         if(!this.title.contains("-")) {
             return StringUtils.capitalize(this.title);
         } else {

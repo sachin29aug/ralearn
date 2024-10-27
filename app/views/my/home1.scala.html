@@ -1,4 +1,4 @@
-@(user: User, userBooks : List[UserBook])
+@(user: User)
 
 @import org.apache.commons.lang3.StringUtils
 
@@ -12,15 +12,15 @@
 
             <h4 class="mb-3">GET STARTED</h4>
             <div class="mb-5">
-                @for(userBook <- userBooks) {
+                @for(userBook <- UserBook.findTodayUserBooks()) {
                     @_card2(userBook.book)
                 }
             </div>
 
-            @for(userCategory<- user.userCategories) {
-                <h4 class="mb-3">@userCategory.getCategory().getTitle()</h4>
+            @for(userCategory <- user.userCategories) {
+                <h4 class="mb-3">@userCategory.getCategory().getDisplayTitle()</h4>
                 <div class="scrollable-cards-x">
-                    @for(userBook <- userBooks) {
+                    @for(userBook <- UserBook.findPastUserBooksBySubCategory(userCategory.getCategory().title())) {
                         <div class="scrollable-card-x me-3">
                             @_card3(userBook.book)
                         </div>

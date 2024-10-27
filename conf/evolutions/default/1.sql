@@ -53,6 +53,7 @@ create table user_book (
   created                       timestamptz,
   user_id                       bigint,
   book_id                       bigint,
+  assigned                      timestamptz,
   constraint pk_user_book primary key (id)
 );
 

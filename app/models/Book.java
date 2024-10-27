@@ -9,10 +9,7 @@ import utils.GoogleBookClient;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 @Entity
 public class Book extends BaseModel {
@@ -53,26 +50,34 @@ public class Book extends BaseModel {
         return find.query().where().eq("subCategory", subCategory).eq("order_index", orderIndex).findOne();
     }
 
-    public static List<Book> findBySubCategory(String subCategory) {
-        return find.query().where().eq("subCategory", subCategory).findList();
-    }
-
     public static List<Book> getRandomBooks(List<String> subCategories) {
         List<Book> randomBooks = new ArrayList<>();
-        for(String subCategory : subCategories) {
-            //int subCategoryBooksCount = Book.find.query().where().eq("sub_category", subCategory).findCount();
-            //int randomIndex = new Random().nextInt(subCategoryBooksCount);
-            //Book randomBook = Book.findByOrderIndex(subCategory, randomIndex);
-            Book randomBook = DB.find(Book.class).where().eq("subCategory", subCategory).gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
-            Map<String, String> map = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
-            randomBook.coverImageUrl = map.get("coverImageUrl");
-            randomBook.isbn = map.get("isbn");
-            randomBook.description = map.get("description");
-            randomBook.previewUrl = map.get("previewUrl");
-            randomBook.authorDescription = map.get("authorDescription");
-            ComputerRepository.update(randomBook.id, randomBook.coverImageUrl, randomBook.isbn, randomBook.description, randomBook.previewUrl, randomBook.authorDescription);
-            //randomBook.update();
-            randomBooks.add(randomBook);
+        Book randomBook = null;
+        try {
+            for(String subCategory : subCategories) {
+                //int subCategoryBooksCount = Book.find.query().where().eq("sub_category", subCategory).findCount();
+                //int randomIndex = new Random().nextInt(subCategoryBooksCount);
+                //Book randomBook = Book.findByOrderIndex(subCategory, randomIndex);
+                randomBook = DB.find(Book.class).where().eq("subCategory", subCategory).gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
+                Map<String, String> map = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
+                randomBook.coverImageUrl = map.get("coverImageUrl");
+                randomBook.isbn = map.get("isbn");
+                randomBook.description = map.get("description");
+                randomBook.previewUrl = map.get("previewUrl");
+                randomBook.authorDescription = map.get("authorDescription");
+                ComputerRepository.update(randomBook.id, randomBook.coverImageUrl, randomBook.isbn, randomBook.description, randomBook.previewUrl, randomBook.authorDescription);
+                //randomBook.update();
+                randomBooks.add(randomBook);
+            }
+        } catch (Exception e) {
+            System.out.printf(randomBook.title == null ? "blank" : randomBook.title);
+            System.out.printf(randomBook.author == null ? "blank" : randomBook.author);
+            System.out.printf(randomBook.publishDate == null ? "blank" : randomBook.publishDate);
+            System.out.printf(randomBook.isbn == null ? "blank" : randomBook.isbn);
+            System.out.printf(randomBook.coverImageUrl == null ? "blank" : randomBook.coverImageUrl);
+            System.out.printf(randomBook.previewUrl == null ? "blank" : randomBook.previewUrl);
+
+            e.printStackTrace();
         }
         return randomBooks;
     }
@@ -129,9 +134,13 @@ public class Book extends BaseModel {
     }
 
     public String getShortDescription() {
-        if(description.length() > 125) {
+        if(description != null && description.length() > 125) {
             return description.substring(0, 125);
         }
         return description;
+    }
+
+    public String subCategory() {
+        return this.subCategory;
     }
 }
