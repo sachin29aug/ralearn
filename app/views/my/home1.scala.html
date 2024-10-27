@@ -12,7 +12,7 @@
 
             <h4 class="mb-3">GET STARTED</h4>
             <div class="mb-5">
-                @for(userBook <- UserBook.findTodayUserBooks()) {
+                @for(userBook <- UserBook.findTodayUserBooks(user.id)) {
                     @_card2(userBook.book)
                 }
             </div>
@@ -20,7 +20,7 @@
             @for(userCategory <- user.userCategories) {
                 <h4 class="mb-3">@userCategory.getCategory().getDisplayTitle()</h4>
                 <div class="scrollable-cards-x">
-                    @for(userBook <- UserBook.findPastUserBooksBySubCategory(userCategory.getCategory().title())) {
+                    @for(userBook <- UserBook.findPastUserBooksBySubCategory(userCategory.getCategory().title(), user.id)) {
                         <div class="scrollable-card-x">
                             @_card3(userBook.book)
                         </div>
