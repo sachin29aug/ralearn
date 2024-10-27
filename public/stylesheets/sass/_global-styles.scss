@@ -153,7 +153,6 @@ label {
     white-space: nowrap;
     scrollbar-width: none;
     scroll-snap-type: x mandatory;
-    padding-right: 16px;
 }
 
 .scrollable-card-x {
@@ -162,6 +161,10 @@ label {
 
 .scrollable-cards-x .scrollable-card-x {
     display: inline-block;
+}
+
+.scrollable-cards-x .scrollable-card-x:not(:last-child) {
+    margin-right: 16px;
 }
 
 // Components
@@ -219,5 +222,36 @@ label {
         .footer-nav-bar--icon, footer-nav-bar--icon-text {
             opacity: unset;
         }
+    }
+}
+
+.spinner {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+
+    &--body {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #FFD700;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }

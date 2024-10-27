@@ -21,7 +21,7 @@
                 <h4 class="mb-3">@userCategory.getCategory().getDisplayTitle()</h4>
                 <div class="scrollable-cards-x">
                     @for(userBook <- UserBook.findPastUserBooksBySubCategory(userCategory.getCategory().title())) {
-                        <div class="scrollable-card-x me-3">
+                        <div class="scrollable-card-x">
                             @_card3(userBook.book)
                         </div>
                     }

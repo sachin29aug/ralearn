@@ -22,10 +22,12 @@ function loginPost(subcategoryIds) {
 }
 
 function homeGet() {
+    $(".spinner").css("display", "flex");
     $.ajax({
     	url: '/home',
     	type : 'GET',
     	success: function(result) {
+    	    $(".spinner").css("display", "none");
     		$("#id-page").html("");
             let targetElementHtml = $(result).find("#id-page").html();
             $("#id-page").html(targetElementHtml);

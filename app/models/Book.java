@@ -134,8 +134,8 @@ public class Book extends BaseModel {
     }
 
     public String getShortDescription() {
-        if(description != null && description.length() > 125) {
-            return description.substring(0, 125);
+        if(description != null && description.length() > 50) {
+            return description.substring(0, 50);
         }
         return description;
     }
