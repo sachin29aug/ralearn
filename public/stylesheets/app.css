@@ -368,6 +368,7 @@ label {
   max-width: 200px;
   text-overflow: ellipsis;
   overflow: hidden;
+  min-height: 25px;
 }
 .card-3--category-icon-circle {
   width: 25px;
@@ -401,7 +402,7 @@ label {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  max-height: 3em;
+  min-height: 38px;
 }
 .card-3--icon-buttons {
   width: 75%;
