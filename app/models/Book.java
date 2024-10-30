@@ -55,16 +55,7 @@ public class Book extends BaseModel {
         Book randomBook = null;
         try {
             for(String subCategory : subCategories) {
-                //int subCategoryBooksCount = Book.find.query().where().eq("sub_category", subCategory).findCount();
-                //int randomIndex = new Random().nextInt(subCategoryBooksCount);
-                //Book randomBook = Book.findByOrderIndex(subCategory, randomIndex);
-                randomBook = DB.find(Book.class).where().eq("subCategory", subCategory).gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
-                Map<String, String> map = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
-                randomBook.coverImageUrl = map.get("coverImageUrl");
-                randomBook.isbn = map.get("isbn");
-                randomBook.description = map.get("description");
-                randomBook.previewUrl = map.get("previewUrl");
-                randomBook.authorDescription = map.get("authorDescription");
+                randomBook = getRandomBookBySubcategory(subCategory);
                 ComputerRepository.update(randomBook.id, randomBook.coverImageUrl, randomBook.isbn, randomBook.description, randomBook.previewUrl, randomBook.authorDescription);
                 //randomBook.update();
                 randomBooks.add(randomBook);
@@ -76,10 +67,23 @@ public class Book extends BaseModel {
             System.out.printf(randomBook.isbn == null ? "blank" : randomBook.isbn);
             System.out.printf(randomBook.coverImageUrl == null ? "blank" : randomBook.coverImageUrl);
             System.out.printf(randomBook.previewUrl == null ? "blank" : randomBook.previewUrl);
-
             e.printStackTrace();
         }
         return randomBooks;
+    }
+
+    public static Book getRandomBookBySubcategory(String subCategory) {
+        //int subCategoryBooksCount = Book.find.query().where().eq("sub_category", subCategory).findCount();
+        //int randomIndex = new Random().nextInt(subCategoryBooksCount);
+        //Book randomBook = Book.findByOrderIndex(subCategory, randomIndex);
+        Book randomBook = DB.find(Book.class).where().eq("subCategory", subCategory).gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
+        Map<String, String> map = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
+        randomBook.coverImageUrl = map.get("coverImageUrl");
+        randomBook.isbn = map.get("isbn");
+        randomBook.description = map.get("description");
+        randomBook.previewUrl = map.get("previewUrl");
+        randomBook.authorDescription = map.get("authorDescription");
+        return randomBook;
     }
 
     // Non-static methods

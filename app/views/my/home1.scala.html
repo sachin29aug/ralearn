@@ -13,7 +13,7 @@
             <h4 class="mb-3">GET STARTED</h4>
             <div class="mb-5">
                 @for(userBook <- UserBook.findTodayUserBooks(user.id)) {
-                    @_card2(userBook.book)
+                    @_card2(userBook)
                 }
             </div>
 

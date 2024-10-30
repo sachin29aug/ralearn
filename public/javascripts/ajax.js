@@ -63,3 +63,18 @@ function loginPost() {
         }
     });
 }
+
+function card2ShufflePost(userBookId) {
+    $.ajax({
+        url: '/shuffle/' + userBookId,
+        type : 'POST',
+        success: function(result) {
+            $("#id-page").html("");
+            let targetElementHtml = $(result).find("#id-page").html();
+            $("#id-page").html(targetElementHtml);
+        },
+        error: function(response, error) {
+
+        }
+    });
+}

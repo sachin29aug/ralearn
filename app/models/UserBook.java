@@ -27,10 +27,14 @@ public class UserBook extends BaseModel {
     public static Finder<Long, UserBook> find = new Finder(UserBook.class);
 
     public static List<UserBook> findTodayUserBooks(Long userId) {
-        return find.query().where().eq("assigned", DateUtil.removeTimeStamp(new Date())).eq("user.id", userId).orderBy("assigned desc").findList();
+        return find.query().where().eq("assigned", DateUtil.removeTimeStamp(new Date())).eq("user.id", userId).orderBy("id desc").findList();
     }
 
     public static List<UserBook> findPastUserBooksBySubCategory(String subCategory, Long userId) {
         return find.query().where().eq("book.subCategory", subCategory).lt("assigned", DateUtil.removeTimeStamp(new Date())).eq("user.id", userId).orderBy("assigned desc").findList();
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
     }
 }

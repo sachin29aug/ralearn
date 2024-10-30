@@ -1,6 +1,7 @@
 package controllers;
 
 import io.ebean.DB;
+import io.ebean.Transaction;
 import models.*;
 import org.springframework.util.CollectionUtils;
 import play.mvc.Controller;
@@ -90,6 +91,18 @@ public class My extends Controller {
                 }
             }
         }
+
+        return ok(views.html.my.home1.render(user));
+    }
+
+    public Result shufflePost(Http.Request request, Long userBookId) {
+        Transaction txn = DB.beginTransaction();
+        String userId = request.session().get("userId").get();
+        User user = User.find(userId);
+        UserBook userBook = UserBook.find.byId(userBookId);
+        userBook.setBook(Book.getRandomBookBySubcategory(userBook.book.subCategory())); // When is use setBook() method only then the below update works
+        userBook.update();
+        txn.commit();
 
         return ok(views.html.my.home1.render(user));
     }
