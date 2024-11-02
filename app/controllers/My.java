@@ -3,6 +3,7 @@ package controllers;
 import io.ebean.DB;
 import io.ebean.Transaction;
 import models.*;
+import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.util.CollectionUtils;
 import play.mvc.Controller;
 import play.mvc.Http;
@@ -10,6 +11,7 @@ import play.mvc.Result;
 import repository.ComputerRepository;
 import utils.DateUtil;
 import utils.GoogleBookClient;
+import utils.SessionUtil;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -65,8 +67,7 @@ public class My extends Controller {
     }
 
     public Result home1(Http.Request request) {
-        String userId = request.session().get("userId").get();
-        User user = User.find(userId);
+        User user = SessionUtil.getUser(request);
         List<UserBook> userBooks = user.userBooks;
         if(CollectionUtils.isEmpty(userBooks)) {
             List<String> subCategoryTitles = new ArrayList<>();
@@ -97,13 +98,25 @@ public class My extends Controller {
 
     public Result shufflePost(Http.Request request, Long userBookId) {
         Transaction txn = DB.beginTransaction();
-        String userId = request.session().get("userId").get();
-        User user = User.find(userId);
+        User user = SessionUtil.getUser(request);
         UserBook userBook = UserBook.find.byId(userBookId);
         userBook.setBook(Book.getRandomBookBySubcategory(userBook.book.subCategory())); // When is use setBook() method only then the below update works
         userBook.update();
         txn.commit();
 
+        return ok(views.html.my.home1.render(user));
+    }
+
+    public Result favoritePost(Http.Request request, Long userBookId) {
+        UserBook userBook = UserBook.find.byId(userBookId);
+        if(BooleanUtils.isNotTrue(userBook.favorite)) {
+            userBook.setFavorite(true);
+        } else {
+            userBook.setFavorite(false);
+        }
+        userBook.update();
+
+        User user = SessionUtil.getUser(request);
         return ok(views.html.my.home1.render(user));
     }
 }

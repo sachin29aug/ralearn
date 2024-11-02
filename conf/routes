@@ -21,6 +21,8 @@ POST    /login                      controllers.Login.loginPost(request: Request
 GET     /home                       controllers.My.home1(request: Request)
 + nocsrf
 POST    /shuffle/:userBookId        controllers.My.shufflePost(request: Request, userBookId: Long)
++ nocsrf
+POST    /favorite/:userBookId       controllers.My.favoritePost(request: Request, userBookId: Long)
 
 # Admin
 GET     /import/books               controllers.SystemAdmin.importBooks

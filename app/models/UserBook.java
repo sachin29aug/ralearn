@@ -18,6 +18,8 @@ public class UserBook extends BaseModel {
 
     public Date assigned;
 
+    public Boolean favorite;
+
     public UserBook(User user, Book book) {
         this.user = user;
         this.book = book;
@@ -36,5 +38,21 @@ public class UserBook extends BaseModel {
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public Boolean getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(Boolean favorite) {
+        this.favorite = favorite;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

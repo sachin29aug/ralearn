@@ -10,10 +10,8 @@ function signupLoginPost(subcategoryIds) {
         url: '/signup/login',
         type : 'POST',
         data: requestParams,
-        success: function(result) {
-            $("#id-page").html("");
-            let targetElementHtml = $(result).find("#id-page").html();
-            $("#id-page").html(targetElementHtml);
+        success: function(response) {
+            replaceHtml("id-page", response);
         },
         error: function(request, error) {
 
@@ -26,11 +24,9 @@ function homeGet() {
     $.ajax({
     	url: '/home',
     	type : 'GET',
-    	success: function(result) {
+    	success: function(response) {
     	    $(".spinner").css("display", "none");
-    		$("#id-page").html("");
-            let targetElementHtml = $(result).find("#id-page").html();
-            $("#id-page").html(targetElementHtml);
+    		replaceHtml("id-page", response);
     	},
     	error: function(request, error) {
 
@@ -50,10 +46,8 @@ function loginPost() {
         url: '/login',
         type : 'POST',
         data: requestParams,
-        success: function(result) {
-            $("#id-page").html("");
-            let targetElementHtml = $(result).find("#id-page").html();
-            $("#id-page").html(targetElementHtml);
+        success: function(response) {
+            replaceHtml("id-page", response);
         },
         error: function(response, error) {
             if (response.status === HTTP_STATUS.BAD_REQUEST) {
@@ -68,13 +62,30 @@ function card2ShufflePost(userBookId) {
     $.ajax({
         url: '/shuffle/' + userBookId,
         type : 'POST',
-        success: function(result) {
-            $("#id-page").html("");
-            let targetElementHtml = $(result).find("#id-page").html();
-            $("#id-page").html(targetElementHtml);
+        success: function(response) {
+            replaceHtml("id-page", response);
         },
         error: function(response, error) {
 
         }
     });
+}
+
+function favoritePost(targetElementId, userBookId) {
+    $.ajax({
+        url: '/favorite/' + userBookId,
+        type : 'POST',
+        success: function(response) {
+            replaceHtml(targetElementId, response);
+        },
+        error: function(response, error) {
+
+        }
+    });
+}
+
+function replaceHtml(targetElementId, response) {
+    $("#" + targetElementId).html("");
+    let targetElementHtml = $(response).find("#" + targetElementId).html();
+    $("#" + targetElementId).html(targetElementHtml);
 }

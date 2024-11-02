@@ -3,4 +3,9 @@ $(document).ready(function() {
         e.preventDefault();
         card2ShufflePost($(this).data("user-book-id"));
     });
+
+    $(document.body).on("click", ".cls-favorite-btn", function(e) {
+        e.preventDefault();
+        favoritePost($(this).attr("id"), $(this).data("user-book-id"));
+    });
 });

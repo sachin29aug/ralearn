@@ -54,6 +54,7 @@ create table user_book (
   user_id                       bigint,
   book_id                       bigint,
   assigned                      timestamptz,
+  favorite                      boolean,
   constraint pk_user_book primary key (id)
 );
 

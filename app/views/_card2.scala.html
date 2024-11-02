@@ -1,5 +1,7 @@
 @(userBook: UserBook)
 
+@import org.apache.commons.lang3.BooleanUtils
+
 <div class="card-2 px-4 py-4">
     <div class="text-center">
         <img class="card-2--cover-image mb-5" src="@userBook.book.coverImageUrl()">
@@ -15,9 +17,15 @@
     <div class="card-2--summary">@userBook.book.getShortDescription()...</div>
 
     <div class="card-2--icon-buttons d-flex justify-content-between mx-auto mt-4">
-        <a id="id-card2-shuffle-btn" data-user-book-id="@userBook.id"href="#">@_circularIcon("fas fa-random")</a>
-        <a class="cls-share-btn" data-share-url="https://test"  data-share-title="Test test" href="#">@_circularIcon("fa-solid fa-arrow-up-from-bracket")</a>
-        @_circularIcon("fas fa-heart")
+        <a id="id-card2-shuffle-btn" data-user-book-id="@userBook.id" href="#">@_circularIcon("fas fa-random")</a>
+        <a class="cls-share-btn" data-share-url="https://test" data-share-title="Test test" href="#">@_circularIcon("fa-solid fa-arrow-up-from-bracket")</a>
+        <a id="id-element-user-book-@userBook.id" class="cls-favorite-btn" data-user-book-id="@userBook.id" href="#">
+            @if(BooleanUtils.isTrue(userBook.getFavorite())) {
+                @_circularIcon("fa-solid fa-heart")
+            } else {
+                @_circularIcon("fa-regular fa-heart")
+            }
+        </a>
         @_circularIcon("fas fa-ellipsis-h")
     </div>
 </div>
