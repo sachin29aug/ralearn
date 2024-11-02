@@ -193,7 +193,7 @@ public class Book extends BaseModel {
     }
 
     public String getGoodReadsUrl() {
-        return goodReadsUrl;
+        return "https://www.goodreads.com/" + goodReadsUrl;
     }
 
     public void setGoodReadsUrl(String goodReadsUrl) {
@@ -262,5 +262,17 @@ public class Book extends BaseModel {
 
     public void setOrderIndex(Long orderIndex) {
         this.orderIndex = orderIndex;
+    }
+
+    public String getAmazonUrl() throws UnsupportedEncodingException {
+        return "https://www.amazon.com/s?k=" + this.getEncodedTitle();
+    }
+
+    public String getGoogleBooksUrl() {
+        return this.previewUrl;
+    }
+
+    public String getYoutubeUrl() throws UnsupportedEncodingException {
+        return "https://www.youtube.com/results?search_query=" + this.getEncodedTitleForSummary();
     }
 }
