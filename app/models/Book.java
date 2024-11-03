@@ -275,4 +275,8 @@ public class Book extends BaseModel {
     public String getYoutubeUrl() throws UnsupportedEncodingException {
         return "https://www.youtube.com/results?search_query=" + this.getEncodedTitleForSummary();
     }
+
+    public String getHtmlDescription() {
+        return this.description.replaceAll("(?<=\\.)\\s+", "</p><p>");
+    }
 }
