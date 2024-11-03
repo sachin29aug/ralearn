@@ -1,7 +1,7 @@
-@(book: Book)
+@(book: models.Book)
 
 <div class="card-3">
-    <img class="card-3--cover-image mb-2" src="@book.coverImageUrl()">
+    <a href="@routes.Book.book(book.id)"><img class="card-3--cover-image mb-2" src="@book.coverImageUrl()"></a>
     <div class="d-flex align-items-center mb-1">
         <div class="card-3--title">@book.getShortTitle()</div>
     </div>
