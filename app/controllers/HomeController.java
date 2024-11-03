@@ -66,7 +66,7 @@ public class HomeController extends Controller {
     }
 
     public static String getVersionedUrl(String url) {
-        return url + "?v=13";
+        return url + "?v=14";
     }
 
 }
