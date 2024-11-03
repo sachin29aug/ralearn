@@ -55,8 +55,8 @@ public class HomeController extends Controller {
         return ok(views.html.books.render(category, randomBooks));
     }
 
-    public Result book(Long id) {
-        return ok(views.html.book.render(Book.find.byId(id)));
+    public Result bookTemp(Long id) {
+        return ok(views.html.bookTemp.render(Book.find.byId(id)));
     }
 
     // Static utility methods
@@ -66,7 +66,7 @@ public class HomeController extends Controller {
     }
 
     public static String getVersionedUrl(String url) {
-        return url + "?v=12";
+        return url + "?v=13";
     }
 
 }

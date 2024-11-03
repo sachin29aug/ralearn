@@ -6,7 +6,7 @@
 GET     /                           controllers.HomeController.index
 GET    /explore                     controllers.HomeController.explore
 GET    /books/:categoryId           controllers.HomeController.books(categoryId: Long)
-GET    /book/:id                    controllers.HomeController.book(id: Long)
+GET    /book/temp/:id               controllers.HomeController.bookTemp(id: Long)
 GET    /home/:categoryId            controllers.My.home(categoryId: Long)
 
 # Signup
@@ -23,6 +23,9 @@ GET     /home                       controllers.My.home1(request: Request)
 POST    /shuffle/:userBookId        controllers.My.shufflePost(request: Request, userBookId: Long)
 + nocsrf
 POST    /favorite/:userBookId       controllers.My.favoritePost(request: Request, userBookId: Long)
+
+# Book
+GET    /book/:id                    controllers.Book.book(id: Long)
 
 # Admin
 GET     /import/books               controllers.SystemAdmin.importBooks
