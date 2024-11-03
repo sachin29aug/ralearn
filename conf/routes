@@ -25,7 +25,7 @@ POST    /shuffle/:userBookId        controllers.My.shufflePost(request: Request,
 POST    /favorite/:userBookId       controllers.My.favoritePost(request: Request, userBookId: Long)
 
 # Book
-GET    /book/:id                    controllers.Book.book(id: Long)
+GET    /book/:id                    controllers.BookController.book(id: Long)
 
 # Admin
 GET     /import/books               controllers.SystemAdmin.importBooks
