@@ -32,6 +32,10 @@ public class Category extends BaseModel {
         return find.byId(Long.valueOf(id));
     }
 
+    public static Category findByTitle(String title) {
+        return find.query().where().eq("title", title).findOne();
+    }
+
     public static List<Category> findParentCategories() {
         return find.query().where().isNull("parent").findList();
     }
@@ -62,5 +66,29 @@ public class Category extends BaseModel {
             String[] words = this.title.split("-");
             return StringUtils.capitalize(words[0]) + " " + StringUtils.capitalize(words[1]);
         }
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getFaIconClass() {
+        return faIconClass;
+    }
+
+    public void setFaIconClass(String faIconClass) {
+        this.faIconClass = faIconClass;
+    }
+
+    public Category getParent() {
+        return parent;
+    }
+
+    public void setParent(Category parent) {
+        this.parent = parent;
     }
 }

@@ -1,11 +1,19 @@
-@(book: models.Book)
+@(book: models.Book, userBook: UserBook)
+
+@import org.apache.commons.lang3.BooleanUtils
 
 @main("RaLearn") {
     <div class="top-left-btn-group">@_circularIcon("fas fa-arrow-left")</div>
     <div class="top-right-btn-group">
         <div class="d-flex">
-            <div class="me-3">@_circularIcon("fa-regular fa-heart")</div>
-            @_circularIcon("fa-solid fa-arrow-up-from-bracket")
+            <a id="id-element-book-@book.id" class="cls-favorite-btn me-3" data-book-id="@book.id" href="#">
+                @if(BooleanUtils.isTrue(userBook.getFavorite())) {
+                    @_circularIcon("fa-solid fa-heart")
+                } else {
+                    @_circularIcon("fa-regular fa-heart")
+                }
+            </a>
+            <a class="cls-share-btn" data-share-url="@routes.BookController.book(book.id)" data-share-title="@book.getShortTitle()" href="#">@_circularIcon("fa-solid fa-arrow-up-from-bracket")</a>
         </div>
     </div>
     <div class="book">

@@ -107,8 +107,9 @@ public class My extends Controller {
         return ok(views.html.my.home1.render(user));
     }
 
-    public Result favoritePost(Http.Request request, Long userBookId) {
-        UserBook userBook = UserBook.find.byId(userBookId);
+    public Result favoritePost(Http.Request request, Long bookId) {
+        User user = SessionUtil.getUser(request);
+        UserBook userBook = UserBook.findByUserAndBookId(user.id, bookId);
         if(BooleanUtils.isNotTrue(userBook.favorite)) {
             userBook.setFavorite(true);
         } else {
@@ -116,7 +117,6 @@ public class My extends Controller {
         }
         userBook.update();
 
-        User user = SessionUtil.getUser(request);
         return ok(views.html.my.home1.render(user));
     }
 }

@@ -22,10 +22,11 @@ GET     /home                       controllers.My.home1(request: Request)
 + nocsrf
 POST    /shuffle/:userBookId        controllers.My.shufflePost(request: Request, userBookId: Long)
 + nocsrf
-POST    /favorite/:userBookId       controllers.My.favoritePost(request: Request, userBookId: Long)
+POST    /favorite/:bookId           controllers.My.favoritePost(request: Request, bookId: Long)
 
 # Book
-GET    /book/:id                    controllers.BookController.book(id: Long)
++ nocsrf
+GET    /book/:id                    controllers.BookController.book(request: Request, id: Long)
 
 # Admin
 GET     /import/books               controllers.SystemAdmin.importBooks

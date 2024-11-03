@@ -36,6 +36,10 @@ public class UserBook extends BaseModel {
         return find.query().where().eq("book.subCategory", subCategory).lt("assigned", DateUtil.removeTimeStamp(new Date())).eq("user.id", userId).orderBy("assigned desc").findList();
     }
 
+    public static UserBook findByUserAndBookId(Long userId, Long bookId) {
+        return find.query().where().eq("user.id", userId).eq("book.id", bookId).findOne();
+    }
+
     public Book getBook() {
         return book;
     }

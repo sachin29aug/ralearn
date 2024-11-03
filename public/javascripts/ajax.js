@@ -1,3 +1,37 @@
+// Get calls
+
+function homeGet() {
+    $(".spinner").css("display", "flex");
+    let url = "/home";
+    $.ajax({
+    	url: url,
+    	type : 'GET',
+    	success: function(response) {
+    	    $(".spinner").css("display", "none");
+    		replaceHtml("id-page", response, url, null);
+    	},
+    	error: function(request, error) {
+
+    	}
+    });
+}
+
+function bookDetailsGet(bookId) {
+    let url = "/book/" + bookId;
+    $.ajax({
+    	url: url,
+    	type : 'GET',
+    	success: function(response) {
+    		replaceHtml("id-page", response, url, true);
+    	},
+    	error: function(request, error) {
+
+    	}
+    });
+}
+
+// Post calls
+
 function signupLoginPost(subcategoryIds) {
     let requestParams = {
         email: $('#id-signup-email').val(),
@@ -11,26 +45,11 @@ function signupLoginPost(subcategoryIds) {
         type : 'POST',
         data: requestParams,
         success: function(response) {
-            replaceHtml("id-page", response);
+            replaceHtml("id-page", response, null, null);
         },
         error: function(request, error) {
 
         }
-    });
-}
-
-function homeGet() {
-    $(".spinner").css("display", "flex");
-    $.ajax({
-    	url: '/home',
-    	type : 'GET',
-    	success: function(response) {
-    	    $(".spinner").css("display", "none");
-    		replaceHtml("id-page", response);
-    	},
-    	error: function(request, error) {
-
-    	}
     });
 }
 
@@ -47,7 +66,7 @@ function loginPost() {
         type : 'POST',
         data: requestParams,
         success: function(response) {
-            replaceHtml("id-page", response);
+            replaceHtml("id-page", response, null, null);
         },
         error: function(response, error) {
             if (response.status === HTTP_STATUS.BAD_REQUEST) {
@@ -63,7 +82,7 @@ function card2ShufflePost(userBookId) {
         url: '/shuffle/' + userBookId,
         type : 'POST',
         success: function(response) {
-            replaceHtml("id-page", response);
+            replaceHtml("id-page", response, null, null);
         },
         error: function(response, error) {
 
@@ -71,12 +90,12 @@ function card2ShufflePost(userBookId) {
     });
 }
 
-function favoritePost(targetElementId, userBookId) {
+function favoritePost(targetElementId, bookId) {
     $.ajax({
-        url: '/favorite/' + userBookId,
+        url: '/favorite/' + bookId,
         type : 'POST',
         success: function(response) {
-            replaceHtml(targetElementId, response);
+            replaceHtml(targetElementId, response, null, null);
         },
         error: function(response, error) {
 
@@ -84,8 +103,15 @@ function favoritePost(targetElementId, userBookId) {
     });
 }
 
-function replaceHtml(targetElementId, response) {
+function replaceHtml(targetElementId, response, url, scrollToTop) {
     $("#" + targetElementId).html("");
     let targetElementHtml = $(response).find("#" + targetElementId).html();
     $("#" + targetElementId).html(targetElementHtml);
+    if(url) {
+        history.pushState(null, "", url);
+    }
+
+    if(scrollToTop) {
+        $(window).scrollTop(0);
+    }
 }
