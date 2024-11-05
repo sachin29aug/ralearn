@@ -439,6 +439,31 @@ hr {
   width: 75%;
 }
 
+.card-4--cover-image {
+  width: 80px;
+  height: 120px;
+  object-fit: cover;
+  border: 4px solid #003366;
+}
+.card-4--title {
+  font-size: 16px;
+  font-weight: 600;
+  max-width: 200px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  min-height: 25px;
+}
+.card-4--author {
+  font-size: 12px;
+  font-weight: 400;
+}
+.card-4--summary {
+  font-size: 12px;
+  font-weight: 400;
+  white-space: normal;
+  text-overflow: ellipsis;
+}
+
 .signup .category-pill {
   border: 1px solid rgba(87, 79, 107, 0.25);
   border-radius: 100px;
@@ -511,6 +536,13 @@ hr {
 }
 .book--details-author {
   font-weight: 600;
+}
+
+.home--top-section {
+  margin-top: 8px;
+}
+.home--top-section-icon {
+  font-size: 20px;
 }
 
 /*# sourceMappingURL=app.css.map */

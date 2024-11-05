@@ -1,0 +1,13 @@
+@(book: models.Book)
+
+<div class="card-4">
+    <div class="d-flex">
+        <a class="cls-book-details-btn me-4" data-book-id="@book.id" href="#"><img class="card-4--cover-image mb-2" src="@book.coverImageUrl()"></a>
+        <div>
+            <div class="card-4--title">@book.getShortTitle()</div>
+            <div class="card-4--author mb-2">@book.author</div>
+            <div class="card-4--summary">@book.getDescription(100)...</div>
+        </div>
+    </div>
+    <hr>
+</div>

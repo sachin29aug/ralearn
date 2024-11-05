@@ -119,4 +119,15 @@ public class My extends Controller {
 
         return ok(views.html.my.home1.render(user));
     }
+
+    public Result list(Http.Request request, String listName) {
+        List<UserBook> userBooks = new ArrayList<>();
+        if("favorites".equals(listName)) {
+            User user = SessionUtil.getUser(request);
+            userBooks = UserBook.findFavoriteUserBooks(user.id);
+        }
+
+
+        return ok(views.html.my.list.render(listName, userBooks));
+    }
 }

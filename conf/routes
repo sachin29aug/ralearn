@@ -23,6 +23,7 @@ GET     /home                       controllers.My.home1(request: Request)
 POST    /shuffle/:userBookId        controllers.My.shufflePost(request: Request, userBookId: Long)
 + nocsrf
 POST    /favorite/:bookId           controllers.My.favoritePost(request: Request, bookId: Long)
+GET     /list/:listName             controllers.My.list(request: Request, listName: String)
 
 # Book
 + nocsrf

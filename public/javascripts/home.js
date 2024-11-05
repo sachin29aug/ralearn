@@ -24,4 +24,9 @@ $(document).ready(function() {
         e.preventDefault();
         bookDetailsGet($(this).data("book-id"));
     });
+
+    $(document.body).on("click", "#id-favorite-list-btn", function(e) {
+        e.preventDefault();
+        favoriteListsGet();
+    });
 });

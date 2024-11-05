@@ -17,7 +17,7 @@
         </div>
         <div class="card-2--author mb-2">@book.author</div>
         <!-- <div class="card-2--category badge mb-3">Psychology</div> -->
-        <div class="card-2--summary">@book.getShortDescription()...</div>
+        <div class="card-2--summary">@book.getDescription(150)...</div>
 
         <div class="card-2--icon-buttons d-flex justify-content-between mx-auto mt-4">
             <a id="id-card2-shuffle-btn" data-user-book-id="@userBook.id" href="#">@_circularIcon("fas fa-random")</a>

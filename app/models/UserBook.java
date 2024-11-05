@@ -40,6 +40,10 @@ public class UserBook extends BaseModel {
         return find.query().where().eq("user.id", userId).eq("book.id", bookId).findOne();
     }
 
+    public static List<UserBook> findFavoriteUserBooks(Long userId) {
+        return find.query().where().eq("user.id", userId).eq("favorite", true).orderBy("id desc").findList();
+    }
+
     public Book getBook() {
         return book;
     }

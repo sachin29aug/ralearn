@@ -145,6 +145,13 @@ public class Book extends BaseModel {
         return description;
     }
 
+    public String getDescription(int length) {
+        if(description != null && description.length() > length) {
+            return description.substring(0, length);
+        }
+        return description;
+    }
+
     public String subCategory() {
         return this.subCategory;
     }

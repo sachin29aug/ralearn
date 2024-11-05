@@ -30,6 +30,20 @@ function bookDetailsGet(bookId) {
     });
 }
 
+function favoriteListsGet() {
+    let url = "/list/favorites";
+    $.ajax({
+    	url: url,
+    	type : 'GET',
+    	success: function(response) {
+    		replaceHtml("id-page", response, url, true);
+    	},
+    	error: function(request, error) {
+
+    	}
+    });
+}
+
 // Post calls
 
 function signupLoginPost(subcategoryIds) {
