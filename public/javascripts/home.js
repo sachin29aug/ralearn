@@ -29,4 +29,9 @@ $(document).ready(function() {
         e.preventDefault();
         favoriteListsGet();
     });
+
+    $(document.body).on("click", "#id-recent-list-btn", function(e) {
+        e.preventDefault();
+        recentListsGet();
+    });
 });

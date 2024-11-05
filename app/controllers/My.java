@@ -122,12 +122,13 @@ public class My extends Controller {
 
     public Result list(Http.Request request, String listName) {
         List<UserBook> userBooks = new ArrayList<>();
+        User user = SessionUtil.getUser(request);
         if("favorites".equals(listName)) {
-            User user = SessionUtil.getUser(request);
             userBooks = UserBook.findFavoriteUserBooks(user.id);
+        } else if("recent".equals(listName)) {
+            listName = "Recently Viewed";
+            userBooks = UserBook.findRecentlyAccessedBooks(user.id);
         }
-
-
         return ok(views.html.my.list.render(listName, userBooks));
     }
 }

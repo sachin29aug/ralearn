@@ -18,6 +18,8 @@ public class UserBook extends BaseModel {
 
     public Date assigned;
 
+    public Date lastAccessed;
+
     public Boolean favorite;
 
     public UserBook(User user, Book book) {
@@ -44,6 +46,10 @@ public class UserBook extends BaseModel {
         return find.query().where().eq("user.id", userId).eq("favorite", true).orderBy("id desc").findList();
     }
 
+    public static List<UserBook> findRecentlyAccessedBooks(Long userId) {
+        return find.query().where().eq("user.id", userId).isNotNull("lastAccessed").orderBy("lastAccessed desc").findList();
+    }
+
     public Book getBook() {
         return book;
     }
@@ -66,5 +72,13 @@ public class UserBook extends BaseModel {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Date getLastAccessed() {
+        return lastAccessed;
+    }
+
+    public void setLastAccessed(Date lastAccessed) {
+        this.lastAccessed = lastAccessed;
     }
 }
