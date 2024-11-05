@@ -34,4 +34,9 @@ $(document).ready(function() {
         e.preventDefault();
         recentListsGet();
     });
+
+    $(document.body).on("click", ".cls-subcategory-list-btn", function(e) {
+        e.preventDefault();
+        subcategoryListsGet($(this).data("subcategory-title"));
+    });
 });

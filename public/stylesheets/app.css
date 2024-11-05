@@ -542,7 +542,11 @@ hr {
   margin-top: 8px;
 }
 .home--top-section-icon {
-  font-size: 20px;
+  font-size: 24px;
+}
+.home--more-link {
+  font-weight: 700;
+  color: #191970;
 }
 
 /*# sourceMappingURL=app.css.map */

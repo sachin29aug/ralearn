@@ -70,27 +70,7 @@ public class My extends Controller {
         User user = SessionUtil.getUser(request);
         List<UserBook> userBooks = user.userBooks;
         if(CollectionUtils.isEmpty(userBooks)) {
-            List<String> subCategoryTitles = new ArrayList<>();
-            for(UserCategory userCategory : user.userCategories) {
-                Category category = Category.find("" + userCategory.category.id);
-                subCategoryTitles.add(category.title);
-            }
-
-            List<Book> books = Book.getRandomBooks(subCategoryTitles);
-            for(Book book : books) {
-                UserBook userBook = new UserBook(user, book);
-                userBook.save();
-                userBooks.add(userBook);
-            }
-
-            for(int i = 5; i >= 1; i--) {
-                books = Book.getRandomBooks(subCategoryTitles);
-                for(Book book : books) {
-                    UserBook userBook = new UserBook(user, book);
-                    userBook.assigned = DateUtil.incrementDateByDays(new Date(), -i);
-                    userBook.save();
-                }
-            }
+            UserBook.generateUserBooks(user, true, true);
         }
 
         return ok(views.html.my.home1.render(user));
@@ -128,7 +108,12 @@ public class My extends Controller {
         } else if("recent".equals(listName)) {
             listName = "Recently Viewed";
             userBooks = UserBook.findRecentlyAccessedBooks(user.id);
+        } else {
+            Category subcategory = Category.findByTitle(listName);
+            userBooks = UserBook.findPastUserBooksBySubCategory(subcategory.title, user.id);
         }
         return ok(views.html.my.list.render(listName, userBooks));
     }
+
+
 }

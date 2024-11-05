@@ -58,6 +58,20 @@ function recentListsGet() {
     });
 }
 
+function subcategoryListsGet(subcategoryTitle) {
+    let url = "/list/" + subcategoryTitle;
+    $.ajax({
+    	url: url,
+    	type : 'GET',
+    	success: function(response) {
+    		replaceHtml("id-page", response, url, true);
+    	},
+    	error: function(request, error) {
+
+    	}
+    });
+}
+
 // Post calls
 
 function signupLoginPost(subcategoryIds) {
@@ -86,14 +100,17 @@ function loginPost() {
         email: $('#id-login-email').val(),
         password: $('#id-login-password').val(),
         returnUrl: $('#id-return-url').val(),
-        _csrfToken: $('[name=_csrfToken]').val()
+        _csrfToken: $('[name=_csrfToken]').val(),
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     };
 
+    $(".spinner").css("display", "flex");
     $.ajax({
         url: '/login',
         type : 'POST',
         data: requestParams,
         success: function(response) {
+            $(".spinner").css("display", "none");
             replaceHtml("id-page", response, null, null);
         },
         error: function(response, error) {

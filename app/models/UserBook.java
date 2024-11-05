@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import utils.DateUtil;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -48,6 +50,39 @@ public class UserBook extends BaseModel {
 
     public static List<UserBook> findRecentlyAccessedBooks(Long userId) {
         return find.query().where().eq("user.id", userId).isNotNull("lastAccessed").orderBy("lastAccessed desc").findList();
+    }
+
+    public static Date findMaxAssignedDate(Long userId) {
+        return find.query().where().eq("user.id", userId).orderBy("assigned desc").setMaxRows(1).findOne().assigned;
+    }
+
+    public static void generateUserBooks(User user, boolean today, boolean past) {
+        List<String> subCategoryTitles = new ArrayList<>();
+        for(UserCategory userCategory : user.userCategories) {
+            Category category = Category.find("" + userCategory.category.id);
+            subCategoryTitles.add(category.title);
+        }
+
+        List<UserBook> userBooks = new ArrayList<>();
+        if(today) {
+            List<Book> books = Book.getRandomBooks(subCategoryTitles);
+            for (Book book : books) {
+                UserBook userBook = new UserBook(user, book);
+                userBook.save();
+                userBooks.add(userBook);
+            }
+        }
+
+        if(past) {
+            for (int i = 5; i >= 1; i--) {
+                List<Book> books = Book.getRandomBooks(subCategoryTitles);
+                for (Book book : books) {
+                    UserBook userBook = new UserBook(user, book);
+                    userBook.assigned = DateUtil.incrementDateByDays(new Date(), -i);
+                    userBook.save();
+                }
+            }
+        }
     }
 
     public Book getBook() {
