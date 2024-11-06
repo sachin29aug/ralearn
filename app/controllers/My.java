@@ -118,4 +118,11 @@ public class My extends Controller {
     public Result feedback() {
         return ok(views.html.my.feedback.render());
     }
+
+    public Result feedbackPost(Http.Request request) {
+        String feedbackText = request.body().asFormUrlEncoded().get("feedbackText")[0];
+        UserFeedback userFeedback = new UserFeedback(SessionUtil.getUser(request), feedbackText);
+        userFeedback.save();
+        return ok(views.html.my.feedback.render());
+    }
 }

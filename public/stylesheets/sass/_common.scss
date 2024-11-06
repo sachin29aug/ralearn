@@ -1,3 +1,12 @@
 .feedback {
-    padding-top: 60px;
+    padding-top: 90px;
+
+    &--success-icon {
+        font-size: 80px;
+        text-shadow: -1px -1px 2px rgba(255, 255, 255, 0.4), 2px 2px 4px rgba(0, 0, 0, 0.3);
+        //text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        /* background: radial-gradient(circle, #FFD700 20%, #C0A340 50%, #3A3A87 100%);//radial-gradient(circle, #FFD700 30%, #3A3A87 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent; */
+    }
 }

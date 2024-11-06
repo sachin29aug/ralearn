@@ -4,23 +4,25 @@
 
 @main("RaLearn") {
     <div class="feedback">
-        <div class="container-fluid text-center">
+        <div class="container-fluid text-center pt-0">
+            <!--<div class="logo">
+                <span class="logo--ra">Ra</span>
+                <span class="logo--learn">Learn</span>
+            </div>-->
             <div id="id-feedback-div">
                 <h2 class="mb-4">We value your thoughts!</h2>
-                <div class="feedback-page--sub-heading mb-5">Your feedback helps us create a better experience for you. Let us know what you think.</div>
+                <div class="mb-5 px-3">Your feedback helps us create a better experience for you. Let us know what you think.</div>
                 <div class="text-start mb-4">
                     <textarea id="id-feedback-text-area" class="w-100" name="message" placeholder="Your feedback, suggestion, or issue..." rows="7"></textarea>
                 </div>
-                <a class="btn btn-primary" href="#">Submit Feedback</a>
+                <a id="id-submit-feedback-btn" class="btn btn-primary disabled" href="#">Submit Feedback</a>
             </div>
 
             <div id="id-feedback-success-div" style="display: none;">
-                <div class="feedback-page--heading mb-4">Feedback sent!</div>
-                <div class="feedback-page--sub-heading mb-5">Thank you for your feedback. We will review it carefully.</div>
-                <img class="img-fluid mb-5 mb-md-0" src="">
-                <div class="fixed-bottom-btn-group">
-                    <a class="invoke-spa-element btn btn-primary" data-invoke-spa-element-id="spa-home-page" data-source-spa-tab-name="spa-feedback-tab" data-target-spa-tab-name="spa-home-tab" href="#">Explore Aura Child</a>
-                </div>
+                <i class="feedback--success-icon fa-solid fa-hands-praying mb-4"></i>
+                <h2 class="mb-4">Your Feedback is Appreciated!</h2>
+                <div class="mb-5 px-3">Thank you for sharing your thoughts with us. We’ll review your feedback to help make your experience even better.</div>
+                <a class="btn btn-primary" onclick="event.preventDefault(); homeGet();" href="#">Explore More</a>
             </div>
         </div>
     </div>

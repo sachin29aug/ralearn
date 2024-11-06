@@ -1,6 +1,14 @@
 $(document).ready(function() {
-    /*$(document.body).on("click", "#id-feedback-tab", function(e) {
+    $(document.body).on("input", "#id-feedback-text-area", function(e) {
+        if($(this).val().trim() === '') {
+            $("#id-submit-feedback-btn").addClass("disabled");
+        } else {
+            $("#id-submit-feedback-btn").removeClass("disabled");
+        }
+    });
+
+    $(document.body).on("click", "#id-submit-feedback-btn", function(e) {
         e.preventDefault();
-        feedbackGet();
-    });*/
+        feedbackPost($('#id-feedback-text-area').val().trim());
+    });
 });

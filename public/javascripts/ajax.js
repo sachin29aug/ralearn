@@ -162,6 +162,22 @@ function favoritePost(targetElementId, bookId) {
     });
 }
 
+function feedbackPost(feedbackText) {
+    $.ajax({
+        url: '/feedback',
+        type : 'POST',
+        data: {"feedbackText": feedbackText},
+        success: function(response) {
+            $("#id-feedback-div").hide();
+            $("#id-feedback-success-div").show();
+            //replaceHtml(targetElementId, response, null, null);
+        },
+        error: function(response, error) {
+
+        }
+    });
+}
+
 function replaceHtml(targetElementId, response, url, scrollToTop) {
     $("#" + targetElementId).html("");
     let targetElementHtml = $(response).find("#" + targetElementId).html();
