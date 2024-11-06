@@ -1,6 +1,8 @@
+@(activeTabName: String)
+
 <nav class="footer-nav-bar navbar bg-white fixed-bottom text-center py-0 d-md-none">
     <div class="d-flex justify-content-around px-4 w-100">
-        <a href="#" class="active">
+        <a @if(activeTabName == "home-tab"){class="active"} onclick="event.preventDefault(); homeGet();" href="#">
             <i class="footer-nav-bar--icon fas fa-home"></i>
             <span class="footer-nav-bar--icon-text">Home</span>
         </a>
@@ -8,7 +10,7 @@
             <i class="footer-nav-bar--icon fas fa-search"></i>
             <span class="footer-nav-bar--icon-text">Discover</span>
         </a>
-        <a href="#">
+        <a @if(activeTabName == "feedback-tab"){class="active"} onclick="event.preventDefault(); feedbackGet();" href="#">
             <i class="footer-nav-bar--icon fas fa-comment-dots"></i>
             <span class="footer-nav-bar--icon-text">Feedback</span>
         </a>

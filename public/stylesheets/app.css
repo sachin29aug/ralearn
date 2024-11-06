@@ -55,6 +55,13 @@ a:hover {
   color: #003366;
 }
 
+label {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  margin-bottom: 8px;
+}
+
 input, select {
   color: #3A3A30;
   letter-spacing: 0.75px;
@@ -70,11 +77,25 @@ input, select {
   padding-right: 16px;
 }
 
-label {
+textarea {
+  border: 1px solid rgba(87, 79, 107, 0.25) !important;
+  box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.08) !important;
+  border-radius: 15px !important;
+  font-size: 15px;
   font-weight: 500;
-  font-size: 14px;
-  line-height: 18px;
-  margin-bottom: 8px;
+  line-height: 22.5px;
+  padding-left: 26px;
+  padding-top: 14px;
+}
+@media (min-width: 768px) {
+  textarea {
+    font-size: 18px;
+    line-height: 27px;
+  }
+}
+textarea::placeholder {
+  color: rgb(147, 142, 160);
+  margin-top: 5px;
 }
 
 hr {
@@ -120,8 +141,8 @@ hr {
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2509803922);
   border-radius: 31.5px;
   border: none;
-  padding-top: 14px;
-  padding-bottom: 14px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   width: 100%;
 }
 
@@ -547,6 +568,10 @@ hr {
 .home--more-link {
   font-weight: 700;
   color: #191970;
+}
+
+.feedback {
+  padding-top: 60px;
 }
 
 /*# sourceMappingURL=app.css.map */

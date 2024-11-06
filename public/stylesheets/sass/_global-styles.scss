@@ -39,6 +39,14 @@ a:hover {
     color: #003366;
 }
 
+label {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 8px;
+}
+
+// change the style
 input, select {
     color: #3A3A30;
     letter-spacing: 0.75px;
@@ -54,11 +62,25 @@ input, select {
     padding-right: 16px;
 }
 
-label {
+// change the style
+textarea {
+    border: 1px solid rgba(87, 79, 107, 0.25) !important;
+    box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.08) !important;
+    border-radius: 15px !important;
+    font-size: 15px;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 18px;
-    margin-bottom: 8px;
+    line-height: 22.5px;
+    padding-left: 26px;
+    padding-top: 14px;
+    @include md-and-up {
+        font-size: 18px;
+        line-height: 27px;
+    }
+
+    &::placeholder {
+        color: rgba(147, 142, 160);
+        margin-top: 5px;
+    }
 }
 
 hr {
@@ -106,8 +128,8 @@ hr {
     box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, .2509803922);
     border-radius: 31.5px;
     border: none;
-    padding-top: 14px;
-    padding-bottom: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     width: 100%;
 }
 

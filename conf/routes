@@ -24,6 +24,7 @@ POST    /shuffle/:userBookId        controllers.My.shufflePost(request: Request,
 + nocsrf
 POST    /favorite/:bookId           controllers.My.favoritePost(request: Request, bookId: Long)
 GET     /list/:listName             controllers.My.list(request: Request, listName: String)
+GET     /feedback                   controllers.My.feedback()
 
 # Book
 + nocsrf

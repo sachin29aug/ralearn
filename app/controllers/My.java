@@ -115,5 +115,7 @@ public class My extends Controller {
         return ok(views.html.my.list.render(listName, userBooks));
     }
 
-
+    public Result feedback() {
+        return ok(views.html.my.feedback.render());
+    }
 }

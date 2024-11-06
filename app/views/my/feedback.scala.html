@@ -1,0 +1,29 @@
+@()
+
+@import org.apache.commons.lang3.StringUtils
+
+@main("RaLearn") {
+    <div class="feedback">
+        <div class="container-fluid text-center">
+            <div id="id-feedback-div">
+                <h2 class="mb-4">We value your thoughts!</h2>
+                <div class="feedback-page--sub-heading mb-5">Your feedback helps us create a better experience for you. Let us know what you think.</div>
+                <div class="text-start mb-4">
+                    <textarea id="id-feedback-text-area" class="w-100" name="message" placeholder="Your feedback, suggestion, or issue..." rows="7"></textarea>
+                </div>
+                <a class="btn btn-primary" href="#">Submit Feedback</a>
+            </div>
+
+            <div id="id-feedback-success-div" style="display: none;">
+                <div class="feedback-page--heading mb-4">Feedback sent!</div>
+                <div class="feedback-page--sub-heading mb-5">Thank you for your feedback. We will review it carefully.</div>
+                <img class="img-fluid mb-5 mb-md-0" src="">
+                <div class="fixed-bottom-btn-group">
+                    <a class="invoke-spa-element btn btn-primary" data-invoke-spa-element-id="spa-home-page" data-source-spa-tab-name="spa-feedback-tab" data-target-spa-tab-name="spa-home-tab" href="#">Explore Aura Child</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @sections._footerNavBar("feedback-tab")
+}

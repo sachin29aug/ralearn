@@ -2,7 +2,6 @@ package controllers;
 
 import models.User;
 import models.UserBook;
-import org.apache.commons.lang3.StringUtils;
 import play.api.libs.crypto.CookieSigner;
 import play.mvc.Controller;
 import play.mvc.Http;
@@ -38,9 +37,9 @@ public class Login extends Controller {
             String timezone = request.body().asFormUrlEncoded().get("timezone")[0];
             ZoneId userZoneId = ZoneId.of(timezone);
             LocalDate currentDateInUserZone = ZonedDateTime.now(userZoneId).toLocalDate();
-            Date refreshDate = UserBook.findMaxAssignedDate(user.id);
-            LocalDate refreshDateLocal = refreshDate.toInstant().atZone(userZoneId).toLocalDate();
-            if (currentDateInUserZone.isAfter(refreshDateLocal)) {
+            Date maxAssignedDate = UserBook.findMaxAssignedDate(user.id);
+            LocalDate maxAssignedDateLocal = maxAssignedDate.toInstant().atZone(userZoneId).toLocalDate();
+            if (currentDateInUserZone.isAfter(maxAssignedDateLocal)) {
                 UserBook.generateUserBooks(user, true, false);
             }
 
