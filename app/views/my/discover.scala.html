@@ -1,0 +1,32 @@
+
+@main("RaLearn") {
+    <div class="discover">
+        <div class="container-fluid">
+            @for(parentCategory <- Category.findParentCategories()) {
+                <a class="discover--category-block" data-subcategories-div-id="id-category-@parentCategory.id-subcategories" href="#">
+                    <div class="d-flex justify-content-between align-items-center px-3">
+                        <div class="discover--category-block--text">@parentCategory.getTitle()</div>
+                        <i class="discover--category-block-icon @parentCategory.faIconClass"></i>
+                    </div>
+                </a>
+
+                <div id="id-category-@parentCategory.id-subcategories" style="display: none">
+                    <div class="row">
+                        @for(subCategory <- parentCategory.subCategories) {
+                            <div class="col-6">
+                                <div class="discover--subcategory-block d-flex justify-content-between align-items-center px-3">
+                                    <div class="discover--subcategory-block--text">@subCategory.getTitle()</div>
+                                    <i class="discover--subcategory-block-icon @subCategory.faIconClass"></i>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+
+    @sections._footerNavBar("discover-tab")
+}

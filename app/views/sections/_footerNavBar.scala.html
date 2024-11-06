@@ -6,7 +6,7 @@
             <i class="footer-nav-bar--icon fas fa-home"></i>
             <span class="footer-nav-bar--icon-text">Home</span>
         </a>
-        <a href="#">
+        <a @if(activeTabName == "discover-tab"){class="active"} onclick="event.preventDefault(); discoverGet();" href="#">
             <i class="footer-nav-bar--icon fas fa-search"></i>
             <span class="footer-nav-bar--icon-text">Discover</span>
         </a>

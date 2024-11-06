@@ -86,6 +86,20 @@ function feedbackGet() {
     });
 }
 
+function discoverGet() {
+    let url = "/discover";
+    $.ajax({
+    	url: url,
+    	type : 'GET',
+    	success: function(response) {
+    		replaceHtml("id-page", response, url, true);
+    	},
+    	error: function(request, error) {
+
+    	}
+    });
+}
+
 // Post calls
 
 function signupLoginPost(subcategoryIds) {

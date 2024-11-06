@@ -125,4 +125,8 @@ public class My extends Controller {
         userFeedback.save();
         return ok(views.html.my.feedback.render());
     }
+
+    public Result discover() {
+        return ok(views.html.my.discover.render());
+    }
 }
