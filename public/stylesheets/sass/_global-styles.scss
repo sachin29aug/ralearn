@@ -131,6 +131,9 @@ hr {
     padding-top: 10px;
     padding-bottom: 10px;
     width: 100%;
+    @include md-and-up {
+        width: 360px;
+    }
 }
 
 .btn-primary {
@@ -165,6 +168,9 @@ hr {
     padding-right: 16px;
     padding-top: 16px;
     padding-bottom: 16px;
+    @include md-and-up {
+        position: relative;
+    }
 
     &--scroll-blur {
         background: linear-gradient(to top, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0));

@@ -3,28 +3,25 @@
     <div class="discover">
         <div class="container-fluid">
             @for(parentCategory <- Category.findParentCategories()) {
-                <a class="discover--category-block" data-subcategories-div-id="id-category-@parentCategory.id-subcategories" href="#">
+                <a id="id-discover-category" class="discover--category-block" data-category-id="@parentCategory.id" href="#">
                     <div class="d-flex justify-content-between align-items-center px-3">
                         <div class="discover--category-block--text">@parentCategory.getTitle()</div>
                         <i class="discover--category-block-icon @parentCategory.faIconClass"></i>
                     </div>
                 </a>
 
-                <div id="id-category-@parentCategory.id-subcategories" style="display: none">
-                    <div class="row">
+                @**<div id="id-category-@parentCategory.id-subcategories" style="display: none">
+                    <div class="row gx-2">
                         @for(subCategory <- parentCategory.subCategories) {
-                            <div class="col-6">
-                                <div class="discover--subcategory-block d-flex justify-content-between align-items-center px-3">
-                                    <div class="discover--subcategory-block--text">@subCategory.getTitle()</div>
-                                    <i class="discover--subcategory-block-icon @subCategory.faIconClass"></i>
+                            <div class="col-4">
+                                <div class="discover--subcategory-block d-flex justify-content-center align-items-center mb-2 px-3">
+                                    <div class="discover--subcategory-block-text">@subCategory.getDisplayTitle()</div>
                                 </div>
                             </div>
                         }
                     </div>
-                </div>
+                </div>**@
             }
-
-
         </div>
     </div>
 

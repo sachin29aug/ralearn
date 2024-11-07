@@ -80,7 +80,7 @@ public class My extends Controller {
         Transaction txn = DB.beginTransaction();
         User user = SessionUtil.getUser(request);
         UserBook userBook = UserBook.find.byId(userBookId);
-        userBook.setBook(Book.getRandomBookBySubcategory(userBook.book.subCategory())); // When is use setBook() method only then the below update works
+        userBook.setBook(Book.getRandomBookByCategory(null, userBook.book.subCategory())); // When is use setBook() method only then the below update works
         userBook.update();
         txn.commit();
 
@@ -128,5 +128,15 @@ public class My extends Controller {
 
     public Result discover() {
         return ok(views.html.my.discover.render());
+    }
+
+    public Result discoverPost(Http.Request request, Long categoryId) {
+        User user = SessionUtil.getUser(request);
+        Category category = Category.find.byId(categoryId);
+        List<UserBook> userBooks = new ArrayList<>();
+        for(int i = 1; i <= 5; i++) {
+            userBooks.add(new UserBook(user, Book.getRandomBookByCategory(category.title, null)));
+        }
+        return ok(views.html.my.discoverResults.render(category.getTitle(), userBooks));
     }
 }

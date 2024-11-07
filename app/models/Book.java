@@ -55,7 +55,7 @@ public class Book extends BaseModel {
         Book randomBook = null;
         try {
             for(String subCategory : subCategories) {
-                randomBook = getRandomBookBySubcategory(subCategory);
+                randomBook = getRandomBookByCategory(null, subCategory);
                 //randomBook.update();
                 randomBooks.add(randomBook);
             }
@@ -71,11 +71,16 @@ public class Book extends BaseModel {
         return randomBooks;
     }
 
-    public static Book getRandomBookBySubcategory(String subCategory) {
+    public static Book getRandomBookByCategory(String category, String subCategory) {
         //int subCategoryBooksCount = Book.find.query().where().eq("sub_category", subCategory).findCount();
         //int randomIndex = new Random().nextInt(subCategoryBooksCount);
         //Book randomBook = Book.findByOrderIndex(subCategory, randomIndex);
-        Book randomBook = DB.find(Book.class).where().eq("subCategory", subCategory).gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
+        Book randomBook;
+        if(category != null) {
+            randomBook = DB.find(Book.class).where().eq("category", category).gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
+        } else {
+            randomBook = DB.find(Book.class).where().eq("subCategory", subCategory).gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
+        }
         Map<String, String> map = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
         randomBook.setCoverImageUrl(map.get("coverImageUrl"));
         randomBook.setIsbn(map.get("isbn"));

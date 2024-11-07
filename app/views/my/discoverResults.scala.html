@@ -1,0 +1,11 @@
+@(categoryTitle: String, userBooks: List[UserBook])
+
+@main("RaLearn") {
+    <div class="discover-results">
+        <div class="container-fluid">
+            @_list(categoryTitle, userBooks)
+        </div>
+    </div>
+
+    @sections._footerNavBar("discover-tab")
+}

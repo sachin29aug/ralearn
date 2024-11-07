@@ -192,6 +192,19 @@ function feedbackPost(feedbackText) {
     });
 }
 
+function discoverCategoryPost(categoryId) {
+    $.ajax({
+        url: '/discover/' + categoryId,
+        type : 'POST',
+        success: function(response) {
+            replaceHtml("id-page", response, null, null);
+        },
+        error: function(response, error) {
+
+        }
+    });
+}
+
 function replaceHtml(targetElementId, response, url, scrollToTop) {
     $("#" + targetElementId).html("");
     let targetElementHtml = $(response).find("#" + targetElementId).html();

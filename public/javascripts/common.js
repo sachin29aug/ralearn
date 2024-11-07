@@ -16,10 +16,8 @@ $(document).ready(function() {
 
     // Discover related
 
-    $(document.body).on("click", ".discover--category-block", function(e) {
+    $(document.body).on("click", "#id-discover-category", function(e) {
         e.preventDefault();
-        subcategoriesDivId = $(this).data("subcategories-div-id");
-        $(".discover--category-block").hide();
-        $("#" + subcategoriesDivId).show();
+        discoverCategoryPost($(this).data("category-id"));
     });
 });

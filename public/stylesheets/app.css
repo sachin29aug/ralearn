@@ -145,6 +145,11 @@ hr {
   padding-bottom: 10px;
   width: 100%;
 }
+@media (min-width: 768px) {
+  .button, .btn {
+    width: 360px;
+  }
+}
 
 .btn-primary {
   background: linear-gradient(269.4deg, #EFE825 -3.26%, #D7D319 98.79%);
@@ -177,6 +182,11 @@ hr {
   padding-right: 16px;
   padding-top: 16px;
   padding-bottom: 16px;
+}
+@media (min-width: 768px) {
+  .fixed-bottom-btn-group {
+    position: relative;
+  }
 }
 .fixed-bottom-btn-group--scroll-blur {
   background: linear-gradient(to top, rgb(255, 255, 255) 50%, rgba(255, 255, 255, 0));
@@ -605,14 +615,18 @@ hr {
 }
 .discover--subcategory-block {
   background: linear-gradient(135deg, #fff5cc 0%, #ffeb99 100%);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  height: 90px;
+  border-radius: 5px;
+  height: 36px;
   margin-bottom: 22px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .discover--subcategory-block:nth-child(even) {
   background: linear-gradient(135deg, #fff9e6 0%, #ffe6b3 100%);
+}
+.discover--subcategory-block-text {
+  font-size: 12px;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 /*# sourceMappingURL=app.css.map */
