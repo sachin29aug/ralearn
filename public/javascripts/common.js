@@ -20,4 +20,9 @@ $(document).ready(function() {
         e.preventDefault();
         discoverCategoryPost($(this).data("category-id"));
     });
+
+    $(document.body).on("click", "#id-discover-results-subcategory", function(e) {
+        e.preventDefault();
+        discoverCategoryPost($(this).data("sub-category-id"));
+    });
 });

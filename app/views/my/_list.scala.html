@@ -1,10 +1,5 @@
-@(listName: String, userBooks: List[UserBook])
+@(userBooks: List[UserBook])
 
-<a class="top-left-btn-group" onclick="event.preventDefault(); homeGet();" href="#">@_circularIcon("fas fa-arrow-left")</a>
-<h4 class="text-capitalize text-center mt-4">@listName</h4>
-
-<div class="list mt-5">
-    @for(userBook <- userBooks) {
-        @_card4(userBook.getBook())
-    }
-</div>
+@for(userBook <- userBooks) {
+    @_card4(userBook.getBook())
+}

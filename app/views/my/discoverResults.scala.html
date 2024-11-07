@@ -1,9 +1,24 @@
-@(categoryTitle: String, userBooks: List[UserBook])
+@(category: Category, userBooks: List[UserBook])
 
 @main("RaLearn") {
     <div class="discover-results">
-        <div class="container-fluid">
-            @_list(categoryTitle, userBooks)
+        <div class="container-fluid pt-0">
+            <a class="top-left-btn-group" onclick="event.preventDefault(); homeGet();" href="#">@_circularIcon("fas fa-arrow-left")</a>
+            <h4 class="text-capitalize text-center mt-4 mb-5">@category.getTitle()</h4>
+
+            @if(category.getParent() == null) {
+                <div class="row gx-2 mb-4">
+                    @for(subCategory <- category.getSubCategories()) {
+                        <div class="col-4">
+                            <a id="id-discover-results-subcategory" class="discover-results--subcategory-block d-flex justify-content-center align-items-center mb-2 px-3" data-sub-category-id="@subCategory.id">
+                                <div class="discover-results--subcategory-block-text">@subCategory.getDisplayTitle()</div>
+                            </a>
+                        </div>
+                    }
+                </div>
+            }
+
+            @_list(userBooks)
         </div>
     </div>
 

@@ -613,17 +613,18 @@ hr {
   font-size: 24px;
   opacity: 0.9;
 }
-.discover--subcategory-block {
+
+.discover-results--subcategory-block {
   background: linear-gradient(135deg, #fff5cc 0%, #ffeb99 100%);
   border-radius: 5px;
   height: 36px;
   margin-bottom: 22px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.discover--subcategory-block:nth-child(even) {
+.discover-results--subcategory-block:nth-child(even) {
   background: linear-gradient(135deg, #fff9e6 0%, #ffe6b3 100%);
 }
-.discover--subcategory-block-text {
+.discover-results--subcategory-block-text {
   font-size: 12px;
   text-overflow: ellipsis;
   overflow: hidden;

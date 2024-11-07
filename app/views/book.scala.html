@@ -6,13 +6,15 @@
     <a class="top-left-btn-group" onclick="event.preventDefault(); homeGet();" href="#">@_circularIcon("fas fa-arrow-left")</a>
     <div class="top-right-btn-group">
         <div class="d-flex">
-            <a id="id-element-book-@book.id" class="cls-favorite-btn me-3" data-book-id="@book.id" href="#">
-                @if(BooleanUtils.isTrue(userBook.getFavorite())) {
-                    @_circularIcon("fa-solid fa-heart")
-                } else {
-                    @_circularIcon("fa-regular fa-heart")
-                }
-            </a>
+            @if(userBook != null) {
+                <a id="id-element-book-@book.id" class="cls-favorite-btn me-3" data-book-id="@book.id" href="#">
+                    @if(BooleanUtils.isTrue(userBook.getFavorite())) {
+                        @_circularIcon("fa-solid fa-heart")
+                    } else {
+                        @_circularIcon("fa-regular fa-heart")
+                    }
+                </a>
+            }
             <a class="cls-share-btn" data-share-url="@routes.BookController.book(book.id)" data-share-title="@book.getShortTitle()" href="#">@_circularIcon("fa-solid fa-arrow-up-from-bracket")</a>
         </div>
     </div>

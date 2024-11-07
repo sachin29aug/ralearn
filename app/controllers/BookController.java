@@ -13,8 +13,10 @@ public class BookController extends Controller {
     public Result book(Http.Request request, Long id) {
         User user = SessionUtil.getUser(request);
         UserBook userBook = UserBook.findByUserAndBookId(user.id, id);
-        userBook.setLastAccessed(new Date());
-        userBook.update();
+        if (userBook != null) {
+            userBook.setLastAccessed(new Date());
+            userBook.update();
+        }
         return ok(views.html.book.render(models.Book.find.byId(id), userBook));
     }
 }

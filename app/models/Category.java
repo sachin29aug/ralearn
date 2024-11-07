@@ -91,4 +91,12 @@ public class Category extends BaseModel {
     public void setParent(Category parent) {
         this.parent = parent;
     }
+
+    public List<Category> getSubCategories() {
+        return subCategories;
+    }
+
+    public void setSubCategories(List<Category> subCategories) {
+        this.subCategories = subCategories;
+    }
 }

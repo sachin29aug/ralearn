@@ -9,18 +9,6 @@
                         <i class="discover--category-block-icon @parentCategory.faIconClass"></i>
                     </div>
                 </a>
-
-                @**<div id="id-category-@parentCategory.id-subcategories" style="display: none">
-                    <div class="row gx-2">
-                        @for(subCategory <- parentCategory.subCategories) {
-                            <div class="col-4">
-                                <div class="discover--subcategory-block d-flex justify-content-center align-items-center mb-2 px-3">
-                                    <div class="discover--subcategory-block-text">@subCategory.getDisplayTitle()</div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>**@
             }
         </div>
     </div>

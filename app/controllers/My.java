@@ -135,8 +135,12 @@ public class My extends Controller {
         Category category = Category.find.byId(categoryId);
         List<UserBook> userBooks = new ArrayList<>();
         for(int i = 1; i <= 5; i++) {
-            userBooks.add(new UserBook(user, Book.getRandomBookByCategory(category.title, null)));
+            if(category.getParent() == null) {
+                userBooks.add(new UserBook(user, Book.getRandomBookByCategory(category.getTitle(), null)));
+            } else {
+                userBooks.add(new UserBook(user, Book.getRandomBookByCategory(null, category.getTitle())));
+            }
         }
-        return ok(views.html.my.discoverResults.render(category.getTitle(), userBooks));
+        return ok(views.html.my.discoverResults.render(category, userBooks));
     }
 }
