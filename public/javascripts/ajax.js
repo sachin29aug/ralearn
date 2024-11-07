@@ -193,11 +193,13 @@ function feedbackPost(feedbackText) {
 }
 
 function discoverCategoryPost(categoryId) {
+    $(".spinner").css("display", "flex");
     $.ajax({
         url: '/discover/' + categoryId,
         type : 'POST',
         success: function(response) {
             replaceHtml("id-page", response, null, null);
+            $(".spinner").css("display", "none");
         },
         error: function(response, error) {
 
