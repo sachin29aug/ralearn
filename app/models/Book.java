@@ -78,9 +78,12 @@ public class Book extends BaseModel {
         Book randomBook;
         if(category != null) {
             randomBook = DB.find(Book.class).where().eq("category", category).gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
-        } else {
+        } else if(subCategory != null) {
             randomBook = DB.find(Book.class).where().eq("subCategory", subCategory).gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
+        } else {
+            randomBook = DB.find(Book.class).where().gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
         }
+
         Map<String, String> map = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
         randomBook.setCoverImageUrl(map.get("coverImageUrl"));
         randomBook.setIsbn(map.get("isbn"));

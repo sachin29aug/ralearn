@@ -27,7 +27,7 @@ GET     /list/:listName             controllers.My.list(request: Request, listNa
 GET     /feedback                   controllers.My.feedback()
 + nocsrf
 POST    /feedback                   controllers.My.feedbackPost(request: Request)
-GET     /discover                   controllers.My.discover()
+GET     /discover                   controllers.My.discover(request: Request)
 + nocsrf
 POST    /discover/:categoryId       controllers.My.discoverPost(request: Request, categoryId: Long)
 

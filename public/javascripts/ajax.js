@@ -88,11 +88,13 @@ function feedbackGet() {
 
 function discoverGet() {
     let url = "/discover";
+    $(".spinner").css("display", "flex");
     $.ajax({
     	url: url,
     	type : 'GET',
     	success: function(response) {
     		replaceHtml("id-page", response, url, true);
+    		$(".spinner").css("display", "none");
     	},
     	error: function(request, error) {
 

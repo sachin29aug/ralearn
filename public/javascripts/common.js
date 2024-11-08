@@ -23,6 +23,11 @@ $(document).ready(function() {
 
     $(document.body).on("click", "#id-discover-results-subcategory", function(e) {
         e.preventDefault();
-        discoverCategoryPost($(this).data("sub-category-id"));
+        discoverCategoryPost($(this).data("subcategory-id"));
+    });
+
+    $(document.body).on("click", "#id-discover-preferred-subcategory", function(e) {
+        e.preventDefault();
+        discoverCategoryPost($(this).data("preferred-subcategory-id"));
     });
 });

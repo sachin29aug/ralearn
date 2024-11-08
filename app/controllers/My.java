@@ -101,7 +101,7 @@ public class My extends Controller {
     }
 
     public Result list(Http.Request request, String listName) {
-        List<UserBook> userBooks = new ArrayList<>();
+        List<UserBook> userBooks;
         User user = SessionUtil.getUser(request);
         if("favorites".equals(listName)) {
             userBooks = UserBook.findFavoriteUserBooks(user.id);
@@ -126,8 +126,13 @@ public class My extends Controller {
         return ok(views.html.my.feedback.render());
     }
 
-    public Result discover() {
-        return ok(views.html.my.discover.render());
+    public Result discover(Http.Request request) {
+        User user = SessionUtil.getUser(request);
+        List<Book> randomBooksAcross = new ArrayList<>();
+        for(int i = 1; i <= 5; i++) {
+            randomBooksAcross.add(Book.getRandomBookByCategory(null, null));
+        }
+        return ok(views.html.my.discover.render(user, randomBooksAcross));
     }
 
     public Result discoverPost(Http.Request request, Long categoryId) {
