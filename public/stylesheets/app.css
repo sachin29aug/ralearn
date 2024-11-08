@@ -326,8 +326,8 @@ hr {
 .more-options-modal .modal-content {
   border-radius: 35px 35px 0px 0px;
 }
-.more-options-modal i {
-  font-size: 16px;
+.more-options-modal a, .more-options-modal i {
+  font-size: 14px;
 }
 
 .card-1 {
