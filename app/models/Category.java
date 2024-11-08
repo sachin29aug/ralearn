@@ -68,6 +68,15 @@ public class Category extends BaseModel {
         }
     }
 
+    public static String getDisplayTitle(String title) {
+        if(!title.contains("-")) {
+            return StringUtils.capitalize(title);
+        } else {
+            String[] words = title.split("-");
+            return StringUtils.capitalize(words[0]) + " " + StringUtils.capitalize(words[1]);
+        }
+    }
+
     public String getTitle() {
         return title;
     }

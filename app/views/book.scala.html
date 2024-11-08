@@ -1,4 +1,4 @@
-@(book: models.Book, userBook: UserBook)
+@(book: models.Book, userBook: UserBook, sameAuthorBooks: List[Book], sameSubCategoryBooks: List[Book])
 
 @import org.apache.commons.lang3.BooleanUtils
 
@@ -27,6 +27,28 @@
                 <h4 class="book--details-title">@book.getTitle()</h4>
                 <div class="book--details-author mb-4">@book.author</div>
                 <p>@Html(book.getHtmlDescription())</p>
+            </div>
+
+            <div class="book--author-books mt-5">
+                <h4 class="fw-600 mb-3">Also by @book.author</h4>
+                <div class="scrollable-cards-x">
+                    @for(book <- sameAuthorBooks) {
+                        <div class="scrollable-card-x">
+                            @_card3(book)
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="book--category-books">
+                <h4 class="fw-600 mb-3">You May Also Like in @Category.getDisplayTitle(book.getSubCategory())</h4>
+                <div class="scrollable-cards-x">
+                    @for(book <- sameSubCategoryBooks) {
+                        <div class="scrollable-card-x">
+                            @_card3(book)
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
