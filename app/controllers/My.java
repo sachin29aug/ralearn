@@ -148,4 +148,9 @@ public class My extends Controller {
         }
         return ok(views.html.my.discoverResults.render(category, userBooks));
     }
+
+    public Result profile(Http.Request request) {
+        User user = SessionUtil.getUser(request);
+        return ok(views.html.my.profile.render(user));
+    }
 }

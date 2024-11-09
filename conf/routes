@@ -30,6 +30,7 @@ POST    /feedback                   controllers.My.feedbackPost(request: Request
 GET     /discover                   controllers.My.discover(request: Request)
 + nocsrf
 POST    /discover/:categoryId       controllers.My.discoverPost(request: Request, categoryId: Long)
+GET     /profile                    controllers.My.profile(request: Request)
 
 # Book
 + nocsrf

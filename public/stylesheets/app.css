@@ -661,4 +661,16 @@ hr {
   overflow: hidden;
 }
 
+.profile--item-edit-link {
+  color: #4169E1;
+}
+.profile--item-categories {
+  font-size: 14px;
+  max-width: 210px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 /*# sourceMappingURL=app.css.map */
