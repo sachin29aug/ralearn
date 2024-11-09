@@ -27,7 +27,7 @@ h3 {
 }
 
 h4 {
-  font-size: 20px;
+  font-size: 16px;
 }
 
 h5 {
@@ -399,11 +399,10 @@ hr {
   border: 1px solid #003366;
   border-radius: 50%;
 }
-.card-2--category-icon {
-  font-size: 12px;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
+.card-2--category-pill {
+  border-radius: 20px;
+  font-size: 11px;
+  background: #E1ECF2;
 }
 .card-2--author {
   font-size: 12px;
@@ -425,8 +424,8 @@ hr {
 
 .card-3 {
   color: #003366;
-  margin-bottom: 36px;
   max-width: 230px;
+  margin-bottom: 36px;
 }
 .card-3--cover-image {
   width: 120px;

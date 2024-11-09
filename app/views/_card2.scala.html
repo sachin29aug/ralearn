@@ -4,20 +4,22 @@
 
 <div class="card-2 px-4 py-4">
     @defining(userBook.getBook()) { book =>
-        <div class="text-center">
-            <a class="cls-book-details-btn" data-book-id="@book.id" href="#"><img class="card-2--cover-image mb-5" src="@book.coverImageUrl()"></a>
-        </div>
-        <div class="d-flex align-items-center mb-1">
-            <div class="card-2--category-icon-circle position-relative me-2">
+        <a class="card-2--content-section cls-book-details-btn" data-book-id="@book.id" href="#">
+            <div class="text-center">
+                <img class="card-2--cover-image mb-5" src="@book.coverImageUrl()">
+            </div>
+            <div class="card-2--title mb-1">@book.getShortTitle()</div>
+            <div class="d-flex align-items-center mb-3">
+                <div class="card-2--author me-2">@book.author</div>
                 @defining(Category.findByTitle(book.getSubCategory())) { subCategoryObj =>
-                    <i class="card-2--category-icon @subCategoryObj.getFaIconClass() position-absolute"></i>
+                    <div class="card-2--category-pill d-flex align-items-center px-3 py-1">
+                        <i class="@subCategoryObj.getFaIconClass() me-2"></i>
+                        <div>@subCategoryObj.getDisplayTitle()</div>
+                    </div>
                 }
             </div>
-            <div class="card-2--title">@book.getShortTitle()</div>
-        </div>
-        <div class="card-2--author mb-2">@book.author</div>
-        <!-- <div class="card-2--category badge mb-3">Psychology</div> -->
-        <div class="card-2--summary">@book.getDescription(150)...</div>
+            <div class="card-2--summary">@book.getDescription(150)...</div>
+        </a>
 
         <div class="card-2--icon-buttons d-flex justify-content-between mx-auto mt-4">
             <a id="id-card2-shuffle-btn" data-user-book-id="@userBook.id" href="#">@_circularIcon("fas fa-random")</a>

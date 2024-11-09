@@ -1,10 +1,12 @@
 @(book: models.Book)
 
 <div class="card-3">
-    <a class="cls-book-details-btn" data-book-id="@book.id" href="#"><img class="card-3--cover-image mb-2" src="@book.coverImageUrl()"></a>
-    <div class="d-flex align-items-center mb-1">
-        <div class="card-3--title">@book.getShortTitle()</div>
-    </div>
-    <div class="card-3--author mb-2">@book.author</div>
-    <div class="card-3--summary">@book.getShortDescription()...</div>
+    <a class="cls-book-details-btn" data-book-id="@book.id" href="#">
+        <img class="card-3--cover-image mb-2" src="@book.coverImageUrl()">
+        <div class="d-flex align-items-center mb-1">
+            <div class="card-3--title">@book.getShortTitle()</div>
+        </div>
+        <div class="card-3--author mb-2">@book.author</div>
+        <div class="card-3--summary">@book.getShortDescription()...</div>
+    </a>
 </div>

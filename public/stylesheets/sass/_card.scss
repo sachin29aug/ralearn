@@ -92,11 +92,10 @@
         border-radius: 50%;
     }
 
-    &--category-icon {
-        font-size: 12px;
-        transform: translate(-50%, -50%);
-        top: 50%;
-        left: 50%;
+    &--category-pill {
+        border-radius: 20px;
+        font-size: 11px;
+        background: #E1ECF2;
     }
 
     &--author {
@@ -123,8 +122,8 @@
 
 .card-3 {
     color: #003366;
-    margin-bottom: 36px;
     max-width: 230px;
+    margin-bottom: 36px;
 
     &--cover-image {
         width: 120px;
