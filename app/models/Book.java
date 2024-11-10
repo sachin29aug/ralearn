@@ -4,6 +4,7 @@ import io.ebean.DB;
 import io.ebean.Finder;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 import repository.ComputerRepository;
 import utils.GoogleBookClient;
 
@@ -41,6 +42,9 @@ public class Book extends BaseModel {
     public String authorDescription;
 
     public Long orderIndex;
+
+    @OneToOne(mappedBy = "book")
+    private GoogleBook googleBook;
 
     public static Finder<Long, Book> find = new Finder(Book.class);
 

@@ -1,11 +1,13 @@
 package controllers;
 
+import models.Book;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import play.mvc.Controller;
 import play.mvc.Result;
+import utils.GoogleBookClientV2;
 
 public class ContentAdmin extends Controller {
 
@@ -23,5 +25,25 @@ public class ContentAdmin extends Controller {
             e.printStackTrace();
         }
         return ok("");
+    }
+
+    public Result importGoogleBooksInfo(Long count) {
+        try {
+            //Book book = Book.find.byId(38221L);
+            //Book book = Book.find.byId(43429L);
+            long i = 0;
+            for(Book book: Book.find.all()) {
+                GoogleBookClientV2.importGoogleBookInfo(book);
+                Thread.sleep(2000);
+
+                i++;
+                if(i == count) {
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ok("Done");
     }
 }

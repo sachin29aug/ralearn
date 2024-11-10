@@ -1,12 +1,9 @@
 package utils;
 
-import models.Book;
-import org.apache.pekko.japi.Pair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -16,29 +13,6 @@ import java.util.Map;
 public class GoogleBookClient {
     private static final String API_KEY = System.getenv("API_KEY");
     private static final String BASE_URL = "https://www.googleapis.com/books/v1/volumes";
-
-    /*private static int getTotalBooksInGenre(String genre) throws Exception {
-        //String url = String.format("%s?q=subject:%s&printType=books&maxResults=1&key=%s", BASE_URL, genre, API_KEY);
-        //String url = BASE_URL + "?q=subject:" + genre + "&key=" + API_KEY;
-        String url = BASE_URL + "?q=subject:" + genre + "&langRestrict=en&printType=books&maxResults=1&orderBy=relevance&key=" + API_KEY;
-        JSONObject responseJson = getJsonResponse(url);
-        int totalBooks = responseJson.optInt("totalItems", 0);
-        System.out.println("Genre: " + genre + ", Total books: " + totalBooks);
-        return totalBooks;
-    }
-
-    private static JSONObject fetchBookAtIndex(String genre, int index) throws Exception {
-        int MAX_RESULTS = 40;
-        String url = BASE_URL + "?q=subject:" + genre + "&langRestrict=en&printType=books&maxResults=" + MAX_RESULTS + "&startIndex=" + index + "&orderBy=relevance&key=" + API_KEY;
-        //String url = String.format("%s?q=subject:%s&printType=books&startIndex=%d&maxResults=1&key=%s", BASE_URL, genre, index, API_KEY);
-        JSONObject responseJson = getJsonResponse(url);
-        JSONArray items = responseJson.optJSONArray("items");
-        if(items != null && items.length() > 0) {
-            int randomIndex = new Random().nextInt(items.length());
-            return items.getJSONObject(randomIndex);
-        }
-        return null;
-    }*/
 
     public static Map<String, String> getCoverImageUrlAndIsbn(String title) {
         Map<String, String> map = new HashMap();
