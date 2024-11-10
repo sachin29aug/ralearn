@@ -34,7 +34,7 @@ public class ContentAdmin extends Controller {
             long i = 0;
             for(Book book: Book.find.all()) {
                 GoogleBookClientV2.importGoogleBookInfo(book);
-                Thread.sleep(2000);
+                Thread.sleep(1000);
 
                 i++;
                 if(i == count) {
