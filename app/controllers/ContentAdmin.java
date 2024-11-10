@@ -9,6 +9,8 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import utils.GoogleBookClientV2;
 
+import java.util.Random;
+
 public class ContentAdmin extends Controller {
 
     public Result scrapBlinkCategories() {
@@ -34,7 +36,8 @@ public class ContentAdmin extends Controller {
             long i = 0;
             for(Book book: Book.find.all()) {
                 GoogleBookClientV2.importGoogleBookInfo(book);
-                Thread.sleep(1000);
+                int waitSecs = new Random().nextInt(6);
+                Thread.sleep(waitSecs * 1000);
 
                 i++;
                 if(i == count) {
