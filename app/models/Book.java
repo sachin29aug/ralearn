@@ -5,8 +5,6 @@ import io.ebean.Finder;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
-import repository.ComputerRepository;
-import utils.GoogleBookClient;
 import utils.GoogleBookClientV2;
 
 import java.io.UnsupportedEncodingException;
@@ -90,6 +88,7 @@ public class Book extends BaseModel {
         }
 
         GoogleBookClientV2.importGoogleBookInfo(randomBook);
+        randomBook.refresh();
 
         /**Map<String, String> map = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
         randomBook.setCoverImageUrl(map.get("coverImageUrl"));
@@ -102,35 +101,7 @@ public class Book extends BaseModel {
         return randomBook;
     }
 
-    // Non-static methods
-
-    public String coverImageUrl() {
-        return this.coverImageUrl;
-    }
-
-    public String getShortTitle() {
-        if(title.length() > 50) {
-            return title.substring(0, 50);
-        }
-        return title;
-    }
-
-    public String getTitle(int length) {
-        if(title.length() > length) {
-            return title.substring(0, length);
-        }
-        return title;
-    }
-
-    public String getEncodedTitle() throws UnsupportedEncodingException {
-        return URLEncoder.encode(title.toLowerCase(), "UTF-8");
-    }
-
-    public String getEncodedTitleForSummary() throws UnsupportedEncodingException {
-        return URLEncoder.encode("Book summary for" + title.toLowerCase() + " by " + author, "UTF-8");
-    }
-
-    public Book(String title, String author, Float averageRating, Integer ratingCount, String publishDate, String goodReadsUrl, String category, String subCategory, String isbn, String coverImageUrl, Long orderIndex) {
+    /*public Book(String title, String author, Float averageRating, Integer ratingCount, String publishDate, String goodReadsUrl, String category, String subCategory, String isbn, String coverImageUrl, Long orderIndex) {
         this.title = title;
         this.author = author;
         this.averageRating = averageRating;
@@ -142,37 +113,18 @@ public class Book extends BaseModel {
         this.isbn = isbn;
         this.coverImageUrl = coverImageUrl;
         this.orderIndex = orderIndex;
-    }
+    }*/
 
-    public void update(String coverImageUrl, String isbn, String description, String previewUrl, String authorDescription) {
+    /*public void update(String coverImageUrl, String isbn, String description, String previewUrl, String authorDescription) {
         this.coverImageUrl = coverImageUrl;
         this.isbn = isbn;
         this.description = description;
         this.previewUrl = previewUrl;
         this.authorDescription = authorDescription;
         update();
-    }
+    }*/
 
-    public String getShortDescription() {
-        if(description != null && description.length() > 50) {
-            return description.substring(0, 50);
-        }
-        return description;
-    }
-
-    public String getDescription(int length) {
-        if(description != null && description.length() > length) {
-            return description.substring(0, length);
-        }
-        return description;
-    }
-
-    public String subCategory() {
-        return this.subCategory;
-    }
-
-    // Getter and Setters
-
+    // Getters/Setters
 
     public String getTitle() {
         return title;
@@ -215,7 +167,7 @@ public class Book extends BaseModel {
     }
 
     public String getGoodReadsUrl() {
-        return "https://www.goodreads.com/" + goodReadsUrl;
+        return goodReadsUrl;
     }
 
     public void setGoodReadsUrl(String goodReadsUrl) {
@@ -247,7 +199,8 @@ public class Book extends BaseModel {
     }
 
     public String getCoverImageUrl() {
-        return coverImageUrl;
+        GoogleBook googleBook = this.getGoogleBook();
+        return googleBook != null ? googleBook.getThumbnailUrl() : "";
     }
 
     public void setCoverImageUrl(String coverImageUrl) {
@@ -286,19 +239,60 @@ public class Book extends BaseModel {
         this.orderIndex = orderIndex;
     }
 
-    public String getAmazonUrl() throws UnsupportedEncodingException {
-        return "https://www.amazon.com/s?k=" + this.getEncodedTitle();
+    public GoogleBook getGoogleBook() {
+        return googleBook;
     }
 
-    public String getGoogleBooksUrl() {
-        return this.previewUrl;
+    public void setGoogleBook(GoogleBook googleBook) {
+        this.googleBook = googleBook;
+    }
+
+    // Other non-static methods
+
+    public String getTitle(int length) {
+        if(title != null && title.length() > length) {
+            return title.substring(0, length);
+        }
+        return title;
+    }
+
+    public String getEncodedTitle() throws UnsupportedEncodingException {
+        return URLEncoder.encode(title.toLowerCase(), "UTF-8");
+    }
+
+    public String getEncodedTitleForSummary() throws UnsupportedEncodingException {
+        return URLEncoder.encode("Book summary for" + title.toLowerCase() + " by " + author, "UTF-8");
+    }
+
+    public String getDescription(int length) {
+        String googleBookDescription = "";
+        if(this.googleBook != null) {
+            googleBookDescription = this.googleBook.getDescription();
+            if (googleBookDescription != null && googleBookDescription.length() > length) {
+                return googleBookDescription.substring(0, length);
+            }
+            return googleBookDescription;
+        }
+        return googleBookDescription;
+    }
+
+    public String getHtmlDescription() {
+        return this.googleBook.getDescription().replaceAll("(?<=\\.)\\s+", "</p><p>");
+    }
+
+    public String getGoodReadsAbsoluteUrl() {
+        return "https://www.goodreads.com/" + goodReadsUrl;
+    }
+
+    public String getAmazonUrl() throws UnsupportedEncodingException {
+        return "https://www.amazon.com/s?k=" + this.getEncodedTitle();
     }
 
     public String getYoutubeUrl() throws UnsupportedEncodingException {
         return "https://www.youtube.com/results?search_query=" + this.getEncodedTitleForSummary();
     }
 
-    public String getHtmlDescription() {
-        return this.description.replaceAll("(?<=\\.)\\s+", "</p><p>");
+    public String getGoogleBooksUrl() throws UnsupportedEncodingException {
+        return this.googleBook.getPreviewLink();
     }
 }

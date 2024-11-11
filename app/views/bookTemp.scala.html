@@ -2,8 +2,8 @@
 
 @main("Hello World") {
     <div class="container-fluid" style="max-width: 800px;">
-        <div class="text-center"><img class="mt-5" src="@book.coverImageUrl" height="250"></div>
-        <div class="mt-4">@book.description</div>
+        <div class="text-center"><img class="mt-5" src="@book.getCoverImageUrl()" height="250"></div>
+        <div class="mt-4">@book.getDescription()</div>
         <div class="mt-4">@book.authorDescription</div>
     </div>
 }

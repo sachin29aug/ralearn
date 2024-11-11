@@ -27,7 +27,7 @@
             <tr>
                 <td>@book.subCategory</td>
                 <td><img src="@book.coverImageUrl" height="120"></td>
-                <td><a href="https://www.goodreads.com/@book.goodReadsUrl" target="_blank">@book.getShortTitle()</a></td>
+                <td><a href="https://www.goodreads.com/@book.goodReadsUrl" target="_blank">@book.getTitle(50)</a></td>
                 <td><a href="https://www.amazon.com/s?k=@book.getEncodedTitle()" target="_blank">Buy</a></td>
                 <td><a href="https://www.youtube.com/results?search_query=@book.getEncodedTitleForSummary()" target="_blank">Summary</a></td>
                 <td>@book.isbn</td>

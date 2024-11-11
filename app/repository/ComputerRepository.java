@@ -17,7 +17,7 @@ public class ComputerRepository {
         Optional<Long> value = Optional.empty();
         try {
             Book book1 = DB.find(Book.class).setId(id).findOne();
-            book1.update(coverImageUrl, isbn, description, previewUrl, authorDescription);
+            //book1.update(coverImageUrl, isbn, description, previewUrl, authorDescription);
             txn.commit();
             value = Optional.of(id);
         } finally {

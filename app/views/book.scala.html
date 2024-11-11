@@ -15,22 +15,22 @@
                     }
                 </a>
             }
-            <a class="cls-share-btn" data-share-url="@routes.BookController.book(book.id)" data-share-title="@book.getShortTitle()" href="#">@_circularIcon("fa-solid fa-arrow-up-from-bracket")</a>
+            <a class="cls-share-btn" data-share-url="@routes.BookController.book(book.id)" data-share-title="@book.getTitle(50)" href="#">@_circularIcon("fa-solid fa-arrow-up-from-bracket")</a>
         </div>
     </div>
     <div class="book">
         <div class="book--cover-section mb-4">
-            <div class="text-center"><img class="book--cover-section-image" src="@book.coverImageUrl"></div>
+            <div class="text-center"><img class="book--cover-section-image" src="@book.getCoverImageUrl()"></div>
         </div>
         <div class="container-fluid pt-0">
             <div class="book--details">
                 <h4 class="book--details-title">@book.getTitle()</h4>
-                <div class="book--details-author mb-4">@book.author</div>
+                <div class="book--details-author mb-4">@book.getAuthor()</div>
                 <p>@Html(book.getHtmlDescription())</p>
             </div>
 
             <div class="book--author-books mt-5">
-                <h4 class="fw-600 mb-3">Also by @book.author</h4>
+                <h4 class="fw-600 mb-3">Also by @book.getAuthor()</h4>
                 <div class="scrollable-cards-x">
                     @for(book <- sameAuthorBooks) {
                         <div class="scrollable-card-x">

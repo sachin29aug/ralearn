@@ -31,10 +31,10 @@ public class ContentAdmin extends Controller {
 
     public Result importGoogleBooksInfo(Long count) {
         try {
-            //Book book = Book.find.byId(38221L);
-            //Book book = Book.find.byId(43429L);
-            long i = 0;
-            for(Book book: Book.find.all()) {
+            Book book = Book.find.byId(36882L);
+            GoogleBookClientV2.importGoogleBookInfo(book);
+            //long i = 0;
+            /*for(Book book: Book.find.all()) {
                 GoogleBookClientV2.importGoogleBookInfo(book);
                 int waitSecs = new Random().nextInt(6);
                 Thread.sleep(waitSecs * 1000);
@@ -43,7 +43,7 @@ public class ContentAdmin extends Controller {
                 if(i == count) {
                     break;
                 }
-            }
+            }*/
         } catch (Exception e) {
             e.printStackTrace();
         }

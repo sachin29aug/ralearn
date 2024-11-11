@@ -6,11 +6,11 @@
     @defining(userBook.getBook()) { book =>
         <a class="card-2--content-section cls-book-details-btn" data-book-id="@book.id" href="#">
             <div class="text-center">
-                <img class="card-2--cover-image mb-5" src="@book.coverImageUrl()">
+                <img class="card-2--cover-image mb-5" src="@book.getCoverImageUrl()">
             </div>
-            <div class="card-2--title mb-1">@book.getShortTitle()</div>
+            <div class="card-2--title mb-1">@book.getTitle(50)</div>
             <div class="d-flex align-items-center mb-3">
-                <div class="card-2--author me-2">@book.author</div>
+                <div class="card-2--author me-2">@book.getAuthor()</div>
                 @defining(Category.findByTitle(book.getSubCategory())) { subCategoryObj =>
                     <div class="card-2--category-pill d-flex align-items-center px-3 py-1">
                         <i class="@subCategoryObj.getFaIconClass() me-2"></i>
@@ -23,7 +23,7 @@
 
         <div class="card-2--icon-buttons d-flex justify-content-between mx-auto mt-4">
             <a id="id-card2-shuffle-btn" data-user-book-id="@userBook.id" href="#">@_circularIcon("fas fa-random")</a>
-            <a class="cls-share-btn" data-share-url="@routes.BookController.book(book.id)" data-share-title="@book.getShortTitle()" href="#">@_circularIcon("fa-solid fa-arrow-up-from-bracket")</a>
+            <a class="cls-share-btn" data-share-url="@routes.BookController.book(book.id)" data-share-title="@book.getTitle(50)" href="#">@_circularIcon("fa-solid fa-arrow-up-from-bracket")</a>
             <a id="id-element-book-@book.id" class="cls-favorite-btn" data-book-id="@book.id" href="#">
                 @if(BooleanUtils.isTrue(userBook.getFavorite())) {
                     @_circularIcon("fa-solid fa-heart")
@@ -31,7 +31,7 @@
                     @_circularIcon("fa-regular fa-heart")
                 }
             </a>
-            <a class="cls-more-options-modal-btn" data-good-reads-url="@book.getGoodReadsUrl()" data-amazon-url="@book.getAmazonUrl()" data-google-books-url="@book.getGoogleBooksUrl()" data-youtube-url="@book.getYoutubeUrl()" href="#">@_circularIcon("fas fa-ellipsis-h")</a>
+            <a class="cls-more-options-modal-btn" data-good-reads-url="@book.getGoodReadsAbsoluteUrl()" data-amazon-url="@book.getAmazonUrl()" data-google-books-url="@book.getGoogleBooksUrl()" data-youtube-url="@book.getYoutubeUrl()" href="#">@_circularIcon("fas fa-ellipsis-h")</a>
         </div>
     }
 </div>

@@ -3,10 +3,10 @@
 <div class="card-4">
     <a class="cls-book-details-btn" data-book-id="@book.id">
         <div class="d-flex">
-            <img class="card-4--cover-image me-4 mb-2" src="@book.coverImageUrl()">
+            <img class="card-4--cover-image me-4 mb-2" src="@book.getCoverImageUrl()">
             <div>
-                <div class="card-4--title">@book.getShortTitle()</div>
-                <div class="card-4--author mb-2">@book.author</div>
+                <div class="card-4--title">@book.getTitle(50)</div>
+                <div class="card-4--author mb-2">@book.getAuthor()</div>
                 <div class="card-4--summary">@book.getDescription(100)...</div>
             </div>
         </div>

@@ -85,7 +85,7 @@ public class SystemAdmin extends Controller {
                     publishDate = parts[2].replace("published", "").trim();
                 }
                 String goodReadsLink = bookElements.get(i).attr("href");
-                books.add(new Book(bookTitle, authorName, avgRating, ratingsCount, publishDate, goodReadsLink, category, subCategory, null, null, orderIndex++));
+                //books.add(new Book(bookTitle, authorName, avgRating, ratingsCount, publishDate, goodReadsLink, category, subCategory, null, null, orderIndex++));
             }
         }
         return books;

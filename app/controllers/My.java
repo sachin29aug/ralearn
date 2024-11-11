@@ -80,7 +80,7 @@ public class My extends Controller {
         Transaction txn = DB.beginTransaction();
         User user = SessionUtil.getUser(request);
         UserBook userBook = UserBook.find.byId(userBookId);
-        userBook.setBook(Book.getRandomBookByCategory(null, userBook.book.subCategory())); // When is use setBook() method only then the below update works
+        userBook.setBook(Book.getRandomBookByCategory(null, userBook.book.getSubCategory())); // When is use setBook() method only then the below update works
         userBook.update();
         txn.commit();
 
