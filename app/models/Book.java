@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import repository.ComputerRepository;
 import utils.GoogleBookClient;
+import utils.GoogleBookClientV2;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -88,13 +89,15 @@ public class Book extends BaseModel {
             randomBook = DB.find(Book.class).where().gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
         }
 
-        Map<String, String> map = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
+        GoogleBookClientV2.importGoogleBookInfo(randomBook);
+
+        /**Map<String, String> map = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
         randomBook.setCoverImageUrl(map.get("coverImageUrl"));
         randomBook.setIsbn(map.get("isbn"));
         randomBook.setDescription(map.get("description"));
         randomBook.setPreviewUrl(map.get("previewUrl"));
         randomBook.setAuthorDescription(map.get("authorDescription"));
-        randomBook.update();
+        randomBook.update();*/
         //ComputerRepository.update(randomBook.id, randomBook.coverImageUrl, randomBook.isbn, randomBook.description, randomBook.previewUrl, randomBook.authorDescription);
         return randomBook;
     }
