@@ -153,4 +153,81 @@ public class My extends Controller {
         User user = SessionUtil.getUser(request);
         return ok(views.html.my.profile.render(user));
     }
+
+    ///
+
+    public Result explore() {
+        List<Book> books = new ArrayList<>();
+        return ok(views.html.explore.render());
+    }
+
+    public Result books(Long categoryId) {
+        String category = "";
+        if(categoryId == 1) {
+            category = "Personal Development";
+        } else if (categoryId == 2) {
+            category = "Mind & Spirit";
+        } else if (categoryId == 3) {
+            category = "Business & Economics";
+        } else if (categoryId == 4) {
+            category = "Family & Lifestyle";
+        } else if (categoryId == 5) {
+            category = "Science & Environment";
+        } else if (categoryId == 6) {
+            category = "Arts & Humanities";
+        } else {
+            category = "Personal Development";
+        }
+
+        Map<String, List<String>> categoriesMap = Category.getCategoriesMap();
+        List<String> subCategories = categoriesMap.get(category);
+        List<Book> randomBooks = new ArrayList<>();
+        for(String subCategory : subCategories) {
+            int subCategoryBooksCount = Book.find.query().where().eq("sub_category", subCategory).findCount();
+            int randomIndex = new Random().nextInt(subCategoryBooksCount);
+            Book randomBook = Book.findByOrderIndex(subCategory, randomIndex);
+            Map<String, String> map = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
+            randomBook.coverImageUrl = map.get("coverImageUrl");
+            randomBook.isbn = map.get("isbn");
+            //randomBook.update();
+            randomBooks.add(randomBook);
+        }
+
+        return ok(views.html.books.render(category, randomBooks));
+    }
+
+    public Result bookTemp(Long id) {
+        return ok(views.html.bookTemp.render(Book.find.byId(id)));
+    }
+
+    // Static utility methods
+
+    public static String getVersionedUrl(play.api.mvc.Call url) {
+        return getVersionedUrl(url.toString());
+    }
+
+    public static String getVersionedUrl(String url) {
+        return url + "?v=25";
+    }
+
+    //
+
+    public Result book(Http.Request request, Long id) {
+        User user = SessionUtil.getUser(request);
+        UserBook userBook = UserBook.findByUserAndBookId(user.id, id);
+        if (userBook != null) {
+            userBook.setLastAccessed(new Date());
+            userBook.update();
+        }
+
+        Book book = Book.find.byId(id);
+        List<Book> sameAuthorBooks = new ArrayList<>();
+        List<Book> sameSubCategoryBooks = new ArrayList<>();
+        for(int i = 1; i <= 3; i++) {
+            sameSubCategoryBooks.add(Book.getRandomBookByCategory(null, book.getSubCategory()));
+        }
+        sameAuthorBooks = sameSubCategoryBooks;
+
+        return ok(views.html.book.render(book, userBook, sameAuthorBooks, sameSubCategoryBooks));
+    }
 }
