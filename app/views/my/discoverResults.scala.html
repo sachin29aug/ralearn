@@ -10,7 +10,7 @@
                 <div class="row gx-2 mb-4">
                     @for(subCategory <- category.getSubCategories()) {
                         <div class="col-4">
-                            <a id="id-discover-results-subcategory" class="discover-results--subcategory-block d-flex justify-content-center align-items-center mb-2 px-3" data-sub-category-id="@subCategory.id">
+                            <a id="id-discover-results-subcategory" class="discover-results--subcategory-block d-flex justify-content-center align-items-center mb-2 px-3" data-subcategory-id="@subCategory.id" href="#">
                                 <div class="discover-results--subcategory-block-text">@subCategory.getDisplayTitle()</div>
                             </a>
                         </div>
