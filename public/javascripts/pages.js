@@ -138,7 +138,6 @@ $(document).ready(function() {
         let moreOptionsModal = new bootstrap.Modal($(".more-options-modal"));
         $("#id-good-reads-element").attr("href", $(this).data("good-reads-url"));
         $("#id-amazon-element").attr("href", $(this).data("amazon-url"));
-        $("#id-google-books-element").attr("href", $(this).data("google-books-url"));
         $("#id-youtube-element").attr("href", $(this).data("youtube-url"));
         moreOptionsModal.show();
     });

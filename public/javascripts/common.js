@@ -11,4 +11,9 @@ $(document).ready(function() {
             })
         }
     });
+
+    $(document.body).on("click", ".cls-gb-preview-btn", function(e) {
+        e.preventDefault();
+        let isbn = $(this).data('book-isbn');
+    });
 });
