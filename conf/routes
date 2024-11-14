@@ -21,10 +21,9 @@ GET     /list/:listName                                     controllers.My.list(
 GET     /book/:id                                           controllers.My.book(request: Request, id: Long)
 
 # System Admin
-GET     /import/books                                       controllers.SystemAdmin.importBooks
-GET     /setup/categories/j8r3h                             controllers.SystemAdmin.setupCategories
-GET     /8utfd4/admin/content/blink/categories              controllers.SystemAdmin.scrapBlinkCategories()
-GET     /8utfd4/admin/content/import/google/books/:count    controllers.SystemAdmin.importGoogleBooksInfo(count: Long)
+GET     /import/books/gr/4agf9t                             controllers.SystemAdmin.importBooksGR
+GET     /import/books/gb/4agf9t                             controllers.SystemAdmin.importBooksGB(count: Long)
+GET     /setup/categories/4agf9t                            controllers.SystemAdmin.setupCategories
 
 # Legacy
 GET     /legacy/:categoryId                                 controllers.Visitor.legacy(categoryId: Long)

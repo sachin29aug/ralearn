@@ -90,7 +90,7 @@ public class Book extends BaseModel {
         return randomBook;
     }
 
-    /*public Book(String title, String author, Float averageRating, Integer ratingCount, String publishDate, String goodReadsUrl, String category, String subCategory, String isbn, String coverImageUrl, Long orderIndex) {
+    public Book(String title, String author, Float averageRating, Integer ratingCount, String publishDate, String goodReadsUrl, String category, String subCategory, String isbn, String coverImageUrl, Long orderIndex) {
         this.title = title;
         this.author = author;
         this.averageRating = averageRating;
@@ -102,16 +102,7 @@ public class Book extends BaseModel {
         this.isbn = isbn;
         this.coverImageUrl = coverImageUrl;
         this.orderIndex = orderIndex;
-    }*/
-
-    /*public void update(String coverImageUrl, String isbn, String description, String previewUrl, String authorDescription) {
-        this.coverImageUrl = coverImageUrl;
-        this.isbn = isbn;
-        this.description = description;
-        this.previewUrl = previewUrl;
-        this.authorDescription = authorDescription;
-        update();
-    }*/
+    }
 
     // Getters/Setters
 

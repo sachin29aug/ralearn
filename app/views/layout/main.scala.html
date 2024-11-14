@@ -3,7 +3,7 @@
 @import utils.CommonUtil
 
 @includeScript(jsFileName: String) = {
-    <script type="text/javascript" src='@CommonUtil.getVersionedUrl(routes.Assets.versioned("javascripts/@jsFileName.js"))'></script>
+    <script type="text/javascript" src='@CommonUtil.getVersionedUrl(routes.Assets.versioned("javascripts/" + jsFileName + ".js"))'></script>
 }
 
 <!DOCTYPE html>
