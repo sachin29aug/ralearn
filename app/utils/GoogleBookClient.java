@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class GoogleBookClientV2 {
+public class GoogleBookClient {
     private static final String API_KEY = System.getenv("API_KEY");
     private static final String BASE_URL = "https://www.googleapis.com/books/v1/volumes";
     // Later we can use url like this which returns more info: https://www.googleapis.com/books/v1/volumes/tQ1C-rvAfJUC where tQ1C-rvAfJUC is gId
