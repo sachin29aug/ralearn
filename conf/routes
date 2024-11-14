@@ -1,7 +1,7 @@
 # Visitor
 GET     /signup                                            controllers.Visitor.categories()
 + nocsrf
-POST    /signup/login                                      controllers.Visitor.loginPost(request: Request)
+POST    /signup/login                                       controllers.Visitor.signupLoginPost(request: Request)
 GET     /login                                              controllers.Visitor.login(returnUrl: String ?= null)
 + nocsrf
 POST    /login                                              controllers.Visitor.loginPost(request: Request)

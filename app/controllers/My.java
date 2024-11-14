@@ -8,23 +8,12 @@ import org.springframework.util.CollectionUtils;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-import repository.ComputerRepository;
-import utils.DateUtil;
 import utils.GoogleBookClient;
 import utils.SessionUtil;
 
-import java.time.LocalDate;
 import java.util.*;
 
 public class My extends Controller {
-    /*@Inject
-    private ComputerRepository computerRepository;*/
-
-    /*@Inject
-    public My(ComputerRepository computerRepository) {
-        this.computerRepository = computerRepository;
-    }*/
-
     public Result home(Long categoryId) {
         String category = "";
         if(categoryId == 1) {
@@ -57,7 +46,7 @@ public class My extends Controller {
             randomBook.description = map.get("description");
             randomBook.previewUrl = map.get("previewUrl");
             randomBook.authorDescription = map.get("authorDescription");
-            ComputerRepository.update(randomBook.id, randomBook.coverImageUrl, randomBook.isbn, randomBook.description, randomBook.previewUrl, randomBook.authorDescription);
+            //ComputerRepository.update(randomBook.id, randomBook.coverImageUrl, randomBook.isbn, randomBook.description, randomBook.previewUrl, randomBook.authorDescription);
             //randomBook.update();
 
             randomBooks.add(randomBook);
