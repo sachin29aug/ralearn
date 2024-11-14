@@ -78,7 +78,7 @@ public class GoogleBook extends BaseModel {
     @JoinColumn(name = "book_id")
     private Book book;
 
-    public static Finder<Long, GoogleBook> find = new Finder(GoogleBook.class);
+    public static Finder<Long, GoogleBook> find = new Finder<>(GoogleBook.class);
 
     // Static methods
 

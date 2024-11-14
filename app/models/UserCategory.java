@@ -18,7 +18,7 @@ public class UserCategory extends BaseModel {
         this.category = category;
     }
 
-    public static Finder<Long, UserCategory> find = new Finder(UserCategory.class);
+    public static Finder<Long, UserCategory> find = new Finder<>(UserCategory.class);
 
     public Category getCategory() {
         return category;

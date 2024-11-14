@@ -18,5 +18,5 @@ public class UserFeedback extends BaseModel {
         this.feedback = feedback;
     }
 
-    public static Finder<Long, UserFeedback> find = new Finder(UserFeedback.class);
+    public static Finder<Long, UserFeedback> find = new Finder<>(UserFeedback.class);
 }

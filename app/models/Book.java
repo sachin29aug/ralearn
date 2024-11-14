@@ -45,7 +45,7 @@ public class Book extends BaseModel {
     @OneToOne(mappedBy = "book")
     private GoogleBook googleBook;
 
-    public static Finder<Long, Book> find = new Finder(Book.class);
+    public static Finder<Long, Book> find = new Finder<>(Book.class);
 
     // Static methods
 

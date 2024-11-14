@@ -31,7 +31,7 @@ public class User extends BaseModel {
         this.password = password;
     }
 
-    public static Finder<Long, User> find = new Finder(User.class);
+    public static Finder<Long, User> find = new Finder<>(User.class);
 
     public static User findByEmail(String email) {
         return find.query().where().ieq("email", email).findOne();

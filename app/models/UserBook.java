@@ -29,7 +29,7 @@ public class UserBook extends BaseModel {
         assigned = CommonUtil.removeTimeStamp(new Date());
     }
 
-    public static Finder<Long, UserBook> find = new Finder(UserBook.class);
+    public static Finder<Long, UserBook> find = new Finder<>(UserBook.class);
 
     public static List<UserBook> findTodayUserBooks(Long userId) {
         return find.query().where().eq("assigned", CommonUtil.removeTimeStamp(new Date())).eq("user.id", userId).orderBy("id desc").findList();
