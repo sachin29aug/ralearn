@@ -10,7 +10,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import play.mvc.Controller;
 import play.mvc.Result;
-import utils.GoogleBookClientV2;
+import utils.GoogleBookClient;
 
 import java.io.File;
 import java.io.IOException;
@@ -76,7 +76,7 @@ public class SystemAdmin extends Controller {
     public Result importGoogleBooksInfo(Long count) {
         try {
             Book book = Book.find.byId(36882L);
-            GoogleBookClientV2.importGoogleBookInfo(book);
+            GoogleBookClient.importGoogleBookInfo(book);
             //long i = 0;
             /*for(Book book: Book.find.all()) {
                 GoogleBookClientV2.importGoogleBookInfo(book);

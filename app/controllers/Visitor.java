@@ -5,7 +5,6 @@ import play.api.libs.crypto.CookieSigner;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-import utils.SessionUtil;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
@@ -14,6 +13,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class Visitor extends Controller {
     private final CookieSigner cookieSigner;
@@ -29,8 +29,8 @@ public class Visitor extends Controller {
 
     // Signup related
 
-    public Result categories() {
-        return ok(views.html.signup.categories.render(Category.findParentCategories()));
+    public Result signup() {
+        return ok(views.html.visitor.signup.render(Category.findParentCategories()));
     }
 
     public Result signupLoginPost(Http.Request request) {
@@ -46,13 +46,13 @@ public class Visitor extends Controller {
             userCategory.save();
         }
 
-        return ok(views.html.signup.welcome.render(user)).addingToSession(request, "email", user.email).addingToSession(request, "userId", String.valueOf(user.id));
+        return ok(views.html.visitor.welcome.render(user)).addingToSession(request, "email", user.email).addingToSession(request, "userId", String.valueOf(user.id));
     }
 
     // Login related
 
     public Result login(String returnUrl) {
-        return ok(views.html.login.login.render(returnUrl == null ? "" : returnUrl));
+        return ok(views.html.visitor.login.render(returnUrl == null ? "" : returnUrl));
     }
 
     public Result loginPost(Http.Request request) {
@@ -73,7 +73,7 @@ public class Visitor extends Controller {
                 UserBook.generateUserBooks(user, true, false);
             }
 
-            return ok(views.html.my.home1.render(user)).addingToSession(request, "email", user.email).addingToSession(request, "userId", String.valueOf(user.id));
+            return ok(views.html.my.home.render(user)).addingToSession(request, "email", user.email).addingToSession(request, "userId", String.valueOf(user.id));
         }
     }
 
@@ -83,24 +83,34 @@ public class Visitor extends Controller {
         return redirect(routes.Visitor.login(null)).withNewSession();
     }
 
-    //
+    // Legacy
 
-    public Result book(Http.Request request, Long id) {
-        User user = SessionUtil.getUser(request);
-        UserBook userBook = UserBook.findByUserAndBookId(user.id, id);
-        if (userBook != null) {
-            userBook.setLastAccessed(new Date());
-            userBook.update();
+    public Result legacy(Long categoryId) {
+        String category = "";
+        if(categoryId == 1) {
+            category = "Personal Development";
+        } else if (categoryId == 2) {
+            category = "Mind & Spirit";
+        } else if (categoryId == 3) {
+            category = "Business & Economics";
+        } else if (categoryId == 4) {
+            category = "Family & Lifestyle";
+        } else if (categoryId == 5) {
+            category = "Science & Environment";
+        } else if (categoryId == 6) {
+            category = "Arts & Humanities";
+        } else {
+            category = "Personal Development";
         }
 
-        Book book = Book.find.byId(id);
-        List<Book> sameAuthorBooks = new ArrayList<>();
-        List<Book> sameSubCategoryBooks = new ArrayList<>();
-        for(int i = 1; i <= 3; i++) {
-            sameSubCategoryBooks.add(Book.getRandomBookByCategory(null, book.getSubCategory()));
+        List<Book> randomBooks = new ArrayList<>();
+        Map<String, List<String>> categoriesMap = Category.getCategoriesMap();
+        List<String> subCategories = categoriesMap.get(category);
+        for(String subCategory : subCategories) {
+            Book randomBook = Book.getRandomBookByCategory(null, subCategory);
+            randomBooks.add(randomBook);
         }
-        sameAuthorBooks = sameSubCategoryBooks;
 
-        return ok(views.html.book.render(book, userBook, sameAuthorBooks, sameSubCategoryBooks));
+        return ok(views.html.visitor.legacy.render(category, randomBooks));
     }
 }

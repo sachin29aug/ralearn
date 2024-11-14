@@ -1,30 +1,33 @@
 # Visitor
-GET     /signup                                            controllers.Visitor.categories()
+GET     /signup                                             controllers.Visitor.signup()
 POST    /signup/login                                       controllers.Visitor.signupLoginPost(request: Request)
 GET     /login                                              controllers.Visitor.login(returnUrl: String ?= null)
 POST    /login                                              controllers.Visitor.loginPost(request: Request)
-GET    /logout                                              controllers.Visitor.logout(request: Request)
+GET     /logout                                             controllers.Visitor.logout(request: Request)
 
 # My
 GET     /                                                   controllers.Visitor.index
-GET    /book/temp/:id                                       controllers.My.bookTemp(id: Long)
-GET    /home/:categoryId                                    controllers.My.home(categoryId: Long)
-GET     /home                                               controllers.My.home1(request: Request)
+GET     /home                                               controllers.My.home(request: Request)
+GET     /discover                                           controllers.My.discover(request: Request)
+POST    /discover/:categoryId                               controllers.My.discoverPost(request: Request, categoryId: Long)
+GET     /feedback                                           controllers.My.feedback()
+POST    /feedback                                           controllers.My.feedbackPost(request: Request)
+GET     /profile                                            controllers.My.profile(request: Request)
+
+# My Book operations
 POST    /shuffle/:userBookId                                controllers.My.shufflePost(request: Request, userBookId: Long)
 POST    /favorite/:bookId                                   controllers.My.favoritePost(request: Request, bookId: Long)
 GET     /list/:listName                                     controllers.My.list(request: Request, listName: String)
-GET     /feedback                                           controllers.My.feedback()
-POST    /feedback                                           controllers.My.feedbackPost(request: Request)
-GET     /discover                                           controllers.My.discover(request: Request)
-POST    /discover/:categoryId                               controllers.My.discoverPost(request: Request, categoryId: Long)
-GET     /profile                                            controllers.My.profile(request: Request)
-GET    /book/:id                                            controllers.My.book(request: Request, id: Long)
+GET     /book/:id                                           controllers.My.book(request: Request, id: Long)
 
 # System Admin
 GET     /import/books                                       controllers.SystemAdmin.importBooks
 GET     /setup/categories/j8r3h                             controllers.SystemAdmin.setupCategories
 GET     /8utfd4/admin/content/blink/categories              controllers.SystemAdmin.scrapBlinkCategories()
 GET     /8utfd4/admin/content/import/google/books/:count    controllers.SystemAdmin.importGoogleBooksInfo(count: Long)
+
+# Legacy
+GET     /legacy/:categoryId                                 controllers.Visitor.legacy(categoryId: Long)
 
 # Static resources mapping
 GET     /assets/*file                                       controllers.Assets.versioned(path="/public", file: Asset)

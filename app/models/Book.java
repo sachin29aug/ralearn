@@ -5,7 +5,7 @@ import io.ebean.Finder;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
-import utils.GoogleBookClientV2;
+import utils.GoogleBookClient;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -84,7 +84,7 @@ public class Book extends BaseModel {
             randomBook = DB.find(Book.class).where().gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
         }
 
-        GoogleBookClientV2.importGoogleBookInfo(randomBook);
+        GoogleBookClient.importGoogleBookInfo(randomBook);
         randomBook.refresh();
 
         return randomBook;

@@ -13,93 +13,17 @@ import utils.SessionUtil;
 import java.util.*;
 
 public class My extends Controller {
-    public Result home(Long categoryId) {
-        String category = "";
-        if(categoryId == 1) {
-            category = "Personal Development";
-        } else if (categoryId == 2) {
-            category = "Mind & Spirit";
-        } else if (categoryId == 3) {
-            category = "Business & Economics";
-        } else if (categoryId == 4) {
-            category = "Family & Lifestyle";
-        } else if (categoryId == 5) {
-            category = "Science & Environment";
-        } else if (categoryId == 6) {
-            category = "Arts & Humanities";
-        } else {
-            category = "Personal Development";
-        }
 
-        List<Book> randomBooks = new ArrayList<>();
-        Map<String, List<String>> categoriesMap = Category.getCategoriesMap();
-        List<String> subCategories = categoriesMap.get(category);
-        for(String subCategory : subCategories) {
-            Book randomBook = Book.getRandomBookByCategory(null, subCategory);
-            randomBooks.add(randomBook);
-        }
+    // Home | Discover | Feedback | Profile related
 
-        return ok(views.html.home.render(category, randomBooks));
-    }
-
-    public Result home1(Http.Request request) {
+    public Result home(Http.Request request) {
         User user = SessionUtil.getUser(request);
         List<UserBook> userBooks = user.userBooks;
         if(CollectionUtils.isEmpty(userBooks)) {
             UserBook.generateUserBooks(user, true, true);
         }
 
-        return ok(views.html.my.home1.render(user));
-    }
-
-    public Result shufflePost(Http.Request request, Long userBookId) {
-        Transaction txn = DB.beginTransaction();
-        User user = SessionUtil.getUser(request);
-        UserBook userBook = UserBook.find.byId(userBookId);
-        userBook.setBook(Book.getRandomBookByCategory(null, userBook.book.getSubCategory())); // When is use setBook() method only then the below update works
-        userBook.update();
-        txn.commit();
-
-        return ok(views.html.my.home1.render(user));
-    }
-
-    public Result favoritePost(Http.Request request, Long bookId) {
-        User user = SessionUtil.getUser(request);
-        UserBook userBook = UserBook.findByUserAndBookId(user.id, bookId);
-        if(BooleanUtils.isNotTrue(userBook.favorite)) {
-            userBook.setFavorite(true);
-        } else {
-            userBook.setFavorite(false);
-        }
-        userBook.update();
-
-        return ok(views.html.my.home1.render(user));
-    }
-
-    public Result list(Http.Request request, String listName) {
-        List<UserBook> userBooks;
-        User user = SessionUtil.getUser(request);
-        if("favorites".equals(listName)) {
-            userBooks = UserBook.findFavoriteUserBooks(user.id);
-        } else if("recent".equals(listName)) {
-            listName = "Recently Viewed";
-            userBooks = UserBook.findRecentlyAccessedBooks(user.id);
-        } else {
-            Category subcategory = Category.findByTitle(listName);
-            userBooks = UserBook.findPastUserBooksBySubCategory(subcategory.title, user.id);
-        }
-        return ok(views.html.my.list.render(listName, userBooks));
-    }
-
-    public Result feedback() {
-        return ok(views.html.my.feedback.render());
-    }
-
-    public Result feedbackPost(Http.Request request) {
-        String feedbackText = request.body().asFormUrlEncoded().get("feedbackText")[0];
-        UserFeedback userFeedback = new UserFeedback(SessionUtil.getUser(request), feedbackText);
-        userFeedback.save();
-        return ok(views.html.my.feedback.render());
+        return ok(views.html.my.home.render(user));
     }
 
     public Result discover(Http.Request request) {
@@ -125,28 +49,62 @@ public class My extends Controller {
         return ok(views.html.my.discoverResults.render(category, userBooks));
     }
 
+    public Result feedback() {
+        return ok(views.html.my.feedback.render());
+    }
+
+    public Result feedbackPost(Http.Request request) {
+        String feedbackText = request.body().asFormUrlEncoded().get("feedbackText")[0];
+        UserFeedback userFeedback = new UserFeedback(SessionUtil.getUser(request), feedbackText);
+        userFeedback.save();
+        return ok(views.html.my.feedback.render());
+    }
+
     public Result profile(Http.Request request) {
         User user = SessionUtil.getUser(request);
         return ok(views.html.my.profile.render(user));
     }
 
-    //
+    // Book related
 
-    public Result bookTemp(Long id) {
-        return ok(views.html.bookTemp.render(Book.find.byId(id)));
+    public Result shufflePost(Http.Request request, Long userBookId) {
+        Transaction txn = DB.beginTransaction();
+        User user = SessionUtil.getUser(request);
+        UserBook userBook = UserBook.find.byId(userBookId);
+        userBook.setBook(Book.getRandomBookByCategory(null, userBook.book.getSubCategory())); // When is use setBook() method only then the below update works
+        userBook.update();
+        txn.commit();
+
+        return ok(views.html.my.home.render(user));
     }
 
-    // Static utility methods
+    public Result favoritePost(Http.Request request, Long bookId) {
+        User user = SessionUtil.getUser(request);
+        UserBook userBook = UserBook.findByUserAndBookId(user.id, bookId);
+        if(BooleanUtils.isNotTrue(userBook.favorite)) {
+            userBook.setFavorite(true);
+        } else {
+            userBook.setFavorite(false);
+        }
+        userBook.update();
 
-    public static String getVersionedUrl(play.api.mvc.Call url) {
-        return getVersionedUrl(url.toString());
+        return ok(views.html.my.home.render(user));
     }
 
-    public static String getVersionedUrl(String url) {
-        return url + "?v=25";
+    public Result list(Http.Request request, String listName) {
+        List<UserBook> userBooks;
+        User user = SessionUtil.getUser(request);
+        if("favorites".equals(listName)) {
+            userBooks = UserBook.findFavoriteUserBooks(user.id);
+        } else if("recent".equals(listName)) {
+            listName = "Recently Viewed";
+            userBooks = UserBook.findRecentlyAccessedBooks(user.id);
+        } else {
+            Category subcategory = Category.findByTitle(listName);
+            userBooks = UserBook.findPastUserBooksBySubCategory(subcategory.title, user.id);
+        }
+        return ok(views.html.my.list.render(listName, userBooks));
     }
-
-    //
 
     public Result book(Http.Request request, Long id) {
         User user = SessionUtil.getUser(request);

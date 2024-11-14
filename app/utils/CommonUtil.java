@@ -4,6 +4,13 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class CommonUtil {
+    public static String getVersionedUrl(play.api.mvc.Call url) {
+        return getVersionedUrl(url.toString());
+    }
+
+    public static String getVersionedUrl(String url) {
+        return url + "?v=25";
+    }
 
     // Date related
 

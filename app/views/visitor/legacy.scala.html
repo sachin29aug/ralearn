@@ -6,22 +6,22 @@
 
         <div class="row">
             <div class="col-6">
-                <a class="home-section-1--tab badge mb-3 px-3 py-2" href="@routes.My.home(1)">Personal Development</a>
+                <a class="home-section-1--tab badge mb-3 px-3 py-2" href="@routes.Visitor.legacy(1)">Personal Development</a>
             </div>
             <div class="col-6">
-                <a class="home-section-1--tab badge mb-3 px-3 py-2" href="@routes.My.home(2)">Mind & Spirit</a>
+                <a class="home-section-1--tab badge mb-3 px-3 py-2" href="@routes.Visitor.legacy(2)">Mind & Spirit</a>
             </div>
             <div class="col-6">
-                <a class="home-section-1--tab badge mb-3 px-3 py-2" href="@routes.My.home(3)">Business & Economics</a>
+                <a class="home-section-1--tab badge mb-3 px-3 py-2" href="@routes.Visitor.legacy(3)">Business & Economics</a>
             </div>
             <div class="col-6">
-                <a class="home-section-1--tab badge mb-3 px-3 py-2" href="@routes.My.home(4)">Family & Lifestyle</a>
+                <a class="home-section-1--tab badge mb-3 px-3 py-2" href="@routes.Visitor.legacy(4)">Family & Lifestyle</a>
             </div>
             <div class="col-6">
-                <a class="home-section-1--tab badge px-3 py-2 " href="@routes.My.home(5)">Science & Environment</a>
+                <a class="home-section-1--tab badge px-3 py-2 " href="@routes.Visitor.legacy(5)">Science & Environment</a>
             </div>
             <div class="col-6">
-                <a class="home-section-1--tab badge px-3 py-2" href="@routes.My.home(6)">Arts & Humanities</a>
+                <a class="home-section-1--tab badge px-3 py-2" href="@routes.Visitor.legacy(6)">Arts & Humanities</a>
             </div>
         </div>
 
@@ -29,7 +29,7 @@
         @for(book <- books) {
             <div class="home-section-1--book-card d-flex align-items-center mb-5 p-3">
                 <div class="home-section-1--book-card-left-col me-4">
-                    <a href="@routes.My.bookTemp(book.id)" target="_blank"><img src="@book.coverImageUrl" alt=""></a>
+                    <a href="@routes.My.book(book.id)" target="_blank"><img src="@book.coverImageUrl" alt=""></a>
                 </div>
                 <div class="home-section-1--book-card--right-col">
                     <div class="home-section-1--book-title mb-1">@book.getTitle(50)</div>
