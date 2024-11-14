@@ -3,7 +3,9 @@ package utils;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DateUtil {
+public class CommonUtil {
+
+    // Date related
 
     public static Date incrementDateByDays(Date date, int numberOfDays) {
         date = removeTimeStamp(date);

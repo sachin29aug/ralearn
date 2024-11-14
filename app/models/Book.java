@@ -75,9 +75,6 @@ public class Book extends BaseModel {
     }
 
     public static Book getRandomBookByCategory(String category, String subCategory) {
-        //int subCategoryBooksCount = Book.find.query().where().eq("sub_category", subCategory).findCount();
-        //int randomIndex = new Random().nextInt(subCategoryBooksCount);
-        //Book randomBook = Book.findByOrderIndex(subCategory, randomIndex);
         Book randomBook;
         if(category != null) {
             randomBook = DB.find(Book.class).where().eq("category", category).gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
@@ -90,14 +87,6 @@ public class Book extends BaseModel {
         GoogleBookClientV2.importGoogleBookInfo(randomBook);
         randomBook.refresh();
 
-        /**Map<String, String> map = GoogleBookClient.getCoverImageUrlAndIsbn(randomBook.title);
-        randomBook.setCoverImageUrl(map.get("coverImageUrl"));
-        randomBook.setIsbn(map.get("isbn"));
-        randomBook.setDescription(map.get("description"));
-        randomBook.setPreviewUrl(map.get("previewUrl"));
-        randomBook.setAuthorDescription(map.get("authorDescription"));
-        randomBook.update();*/
-        //ComputerRepository.update(randomBook.id, randomBook.coverImageUrl, randomBook.isbn, randomBook.description, randomBook.previewUrl, randomBook.authorDescription);
         return randomBook;
     }
 

@@ -8,8 +8,6 @@ POST    /login                                              controllers.Visitor.
 
 # My
 GET     /                                                   controllers.Visitor.index
-GET    /explore                                             controllers.My.explore
-GET    /books/:categoryId                                   controllers.My.books(categoryId: Long)
 GET    /book/temp/:id                                       controllers.My.bookTemp(id: Long)
 GET    /home/:categoryId                                    controllers.My.home(categoryId: Long)
 GET     /home                                               controllers.My.home1(request: Request)

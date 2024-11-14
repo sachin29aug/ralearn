@@ -3,9 +3,8 @@ package models;
 import io.ebean.Finder;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
-import utils.DateUtil;
+import utils.CommonUtil;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,17 +26,17 @@ public class UserBook extends BaseModel {
     public UserBook(User user, Book book) {
         this.user = user;
         this.book = book;
-        assigned = DateUtil.removeTimeStamp(new Date());
+        assigned = CommonUtil.removeTimeStamp(new Date());
     }
 
     public static Finder<Long, UserBook> find = new Finder(UserBook.class);
 
     public static List<UserBook> findTodayUserBooks(Long userId) {
-        return find.query().where().eq("assigned", DateUtil.removeTimeStamp(new Date())).eq("user.id", userId).orderBy("id desc").findList();
+        return find.query().where().eq("assigned", CommonUtil.removeTimeStamp(new Date())).eq("user.id", userId).orderBy("id desc").findList();
     }
 
     public static List<UserBook> findPastUserBooksBySubCategory(String subCategory, Long userId) {
-        return find.query().where().eq("book.subCategory", subCategory).lt("assigned", DateUtil.removeTimeStamp(new Date())).eq("user.id", userId).orderBy("assigned desc").findList();
+        return find.query().where().eq("book.subCategory", subCategory).lt("assigned", CommonUtil.removeTimeStamp(new Date())).eq("user.id", userId).orderBy("assigned desc").findList();
     }
 
     public static UserBook findByUserAndBookId(Long userId, Long bookId) {
@@ -78,7 +77,7 @@ public class UserBook extends BaseModel {
                 List<Book> books = Book.getRandomBooks(subCategoryTitles);
                 for (Book book : books) {
                     UserBook userBook = new UserBook(user, book);
-                    userBook.assigned = DateUtil.incrementDateByDays(new Date(), -i);
+                    userBook.assigned = CommonUtil.incrementDateByDays(new Date(), -i);
                     userBook.save();
                 }
             }
