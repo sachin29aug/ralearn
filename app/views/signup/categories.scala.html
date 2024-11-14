@@ -7,7 +7,7 @@
                 <h2 class="mb-5">What categories are you interested in?</h2>
                 <div class="category-pills">
                     @for(parentCategory <- parentCategories) {
-                        <div class="category-pill" data-subcategories-div-id="id-category-@parentCategory.id-subcategories">
+                        <a class="category-pill d-block" data-subcategories-div-id="id-category-@parentCategory.id-subcategories" href="#">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex ms-4">
                                     <div class="category-pill--icon me-3"><i class="@parentCategory.faIconClass"></i></div>
@@ -17,7 +17,7 @@
                                     <div class="category-pill--icon"><i class="fas fa-circle"></i></div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     }
                 </div>
                 <div class="fixed-bottom-btn-group">
@@ -30,7 +30,7 @@
                 @for(parentCategory <- parentCategories) {
                     <div id="id-category-@parentCategory.id-subcategories" style="display: none;">
                         @for(subCategory <- parentCategory.subCategories) {
-                            <div class="category-pill" data-subcategory-id="@subCategory.id">
+                            <a class="category-pill d-block" data-subcategory-id="@subCategory.id" href="#">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex ms-4">
                                         <div class="category-pill--icon me-3"><i class="@subCategory.faIconClass"></i></div>
@@ -40,7 +40,7 @@
                                         <div class="category-pill--icon"><i class="fas fa-circle"></i></div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         }
                     </div>
                 }

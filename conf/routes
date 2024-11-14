@@ -1,29 +1,23 @@
 # Visitor
 GET     /signup                                            controllers.Visitor.categories()
-+ nocsrf
 POST    /signup/login                                       controllers.Visitor.signupLoginPost(request: Request)
 GET     /login                                              controllers.Visitor.login(returnUrl: String ?= null)
-+ nocsrf
 POST    /login                                              controllers.Visitor.loginPost(request: Request)
+GET    /logout                                              controllers.Visitor.logout(request: Request)
 
 # My
 GET     /                                                   controllers.Visitor.index
 GET    /book/temp/:id                                       controllers.My.bookTemp(id: Long)
 GET    /home/:categoryId                                    controllers.My.home(categoryId: Long)
 GET     /home                                               controllers.My.home1(request: Request)
-+ nocsrf
 POST    /shuffle/:userBookId                                controllers.My.shufflePost(request: Request, userBookId: Long)
-+ nocsrf
 POST    /favorite/:bookId                                   controllers.My.favoritePost(request: Request, bookId: Long)
 GET     /list/:listName                                     controllers.My.list(request: Request, listName: String)
 GET     /feedback                                           controllers.My.feedback()
-+ nocsrf
 POST    /feedback                                           controllers.My.feedbackPost(request: Request)
 GET     /discover                                           controllers.My.discover(request: Request)
-+ nocsrf
 POST    /discover/:categoryId                               controllers.My.discoverPost(request: Request, categoryId: Long)
 GET     /profile                                            controllers.My.profile(request: Request)
-+ nocsrf
 GET    /book/:id                                            controllers.My.book(request: Request, id: Long)
 
 # System Admin

@@ -77,6 +77,12 @@ public class Visitor extends Controller {
         }
     }
 
+    public Result logout(Http.Request request) {
+        request.session().removing("email", "userId");
+        // TODO: The PLAY_SESSION cookie is not being cleared with withNewSession(). Need to fix that.
+        return redirect(routes.Visitor.login(null)).withNewSession();
+    }
+
     //
 
     public Result book(Http.Request request, Long id) {

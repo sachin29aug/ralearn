@@ -170,6 +170,11 @@ hr {
   background: linear-gradient(269.4deg, #F3EFAA -3.26%, #F7F3C4 98.79%);
 }
 
+.btn-white {
+  background-color: #F0F0F0;
+  color: #666666;
+}
+
 .button:hover {
   background-color: #FFC107;
 }
