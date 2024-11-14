@@ -1,33 +1,14 @@
 $(document).ready(function() {
-    // Feedback related
-
-    $(document.body).on("input", "#id-feedback-text-area", function(e) {
-        if($(this).val().trim() === '') {
-            $("#id-submit-feedback-btn").addClass("disabled");
-        } else {
-            $("#id-submit-feedback-btn").removeClass("disabled");
+    $(document.body).on("click", ".cls-share-btn", function(e) {
+        e.preventDefault();
+        let shareTitle = $(this).data("share-title");
+        let shareUrl = $(this).data("share-url");
+        if (navigator.share) {
+            navigator.share({
+                title: shareTitle,
+                text: "RaLearn helps you discover books that you might have not have discovered yourself. Let's learn: ",
+                url: shareUrl,
+            })
         }
-    });
-
-    $(document.body).on("click", "#id-submit-feedback-btn", function(e) {
-        e.preventDefault();
-        feedbackPost($('#id-feedback-text-area').val().trim());
-    });
-
-    // Discover related
-
-    $(document.body).on("click", "#id-discover-category", function(e) {
-        e.preventDefault();
-        discoverCategoryPost($(this).data("category-id"));
-    });
-
-    $(document.body).on("click", "#id-discover-results-subcategory", function(e) {
-        e.preventDefault();
-        discoverCategoryPost($(this).data("subcategory-id"));
-    });
-
-    $(document.body).on("click", "#id-discover-preferred-subcategory", function(e) {
-        e.preventDefault();
-        discoverCategoryPost($(this).data("preferred-subcategory-id"));
     });
 });

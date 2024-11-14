@@ -2,7 +2,7 @@
 
 @import org.apache.commons.lang3.BooleanUtils
 
-@main("RaLearn") {
+@layout.main("RaLearn") {
     <a class="top-left-btn-group" onclick="event.preventDefault(); homeGet();" href="#">@_circularIcon("fas fa-arrow-left")</a>
     <div class="top-right-btn-group">
         <div class="d-flex">
@@ -55,5 +55,5 @@
         </div>
     </div>
 
-    @sections._footerNavBar("home-tab")
+    @layout._footerNavBar("home-tab")
 }

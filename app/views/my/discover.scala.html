@@ -1,6 +1,6 @@
 @(user: User, randomBooksAcross: List[Book])
 
-@main("RaLearn") {
+@layout.main("RaLearn") {
     <div class="discover">
         <div class="container-fluid">
             <div class="discover--search-bar position-relative mb-5">
@@ -40,5 +40,5 @@
         </div>
     </div>
 
-    @sections._footerNavBar("discover-tab")
+    @layout._footerNavBar("discover-tab")
 }

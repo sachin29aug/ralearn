@@ -2,9 +2,12 @@
 
 @import utils.CommonUtil
 
+@includeScript(jsFileName: String) = {
+    <script type="text/javascript" src='@CommonUtil.getVersionedUrl(routes.Assets.versioned("javascripts/@jsFileName.js"))'></script>
+}
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>@title</title>
     <meta charset="utf-8">
@@ -37,12 +40,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 
     <!-- Custom js -->
-    <script type="text/javascript" src='@CommonUtil.getVersionedUrl(routes.Assets.versioned("javascripts/signup.js"))'></script>
-    <script type="text/javascript" src='@CommonUtil.getVersionedUrl(routes.Assets.versioned("javascripts/login.js"))'></script>
-    <script type="text/javascript" src='@CommonUtil.getVersionedUrl(routes.Assets.versioned("javascripts/home.js"))'></script>
-    <script type="text/javascript" src='@CommonUtil.getVersionedUrl(routes.Assets.versioned("javascripts/ajax.js"))'></script>
-    <script type="text/javascript" src='@CommonUtil.getVersionedUrl(routes.Assets.versioned("javascripts/common.js"))'></script>
-    <script type="text/javascript" src='@CommonUtil.getVersionedUrl(routes.Assets.versioned("javascripts/util.js"))'></script>
+    @includeScript("pages")
+    @includeScript("ajax")
+    @includeScript("common")
 </body>
 
 </html>

@@ -1,9 +1,11 @@
 @(listName: String, userBooks: List[UserBook])
 
-@main("RaLearn") {
+@layout.main("RaLearn") {
     <div class="container-fluid pt-0">
         <a class="top-left-btn-group" onclick="event.preventDefault(); homeGet();" href="#">@_circularIcon("fas fa-arrow-left")</a>
         <h4 class="text-capitalize text-center mt-4 mb-5">@listName</h4>
-        @_list(userBooks)
+        @for(userBook <- userBooks) {
+            @_card4(userBook.getBook())
+        }
     </div>
 }

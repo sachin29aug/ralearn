@@ -8,7 +8,7 @@ import org.springframework.util.CollectionUtils;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-import utils.SessionUtil;
+import utils.CommonUtil;
 
 import java.util.*;
 
@@ -17,7 +17,7 @@ public class My extends Controller {
     // Home | Discover | Feedback | Profile related
 
     public Result home(Http.Request request) {
-        User user = SessionUtil.getUser(request);
+        User user = CommonUtil.getUser(request);
         List<UserBook> userBooks = user.userBooks;
         if(CollectionUtils.isEmpty(userBooks)) {
             UserBook.generateUserBooks(user, true, true);
@@ -27,7 +27,7 @@ public class My extends Controller {
     }
 
     public Result discover(Http.Request request) {
-        User user = SessionUtil.getUser(request);
+        User user = CommonUtil.getUser(request);
         List<Book> randomBooksAcross = new ArrayList<>();
         for(int i = 1; i <= 5; i++) {
             randomBooksAcross.add(Book.getRandomBookByCategory(null, null));
@@ -36,7 +36,7 @@ public class My extends Controller {
     }
 
     public Result discoverPost(Http.Request request, Long categoryId) {
-        User user = SessionUtil.getUser(request);
+        User user = CommonUtil.getUser(request);
         Category category = Category.find.byId(categoryId);
         List<UserBook> userBooks = new ArrayList<>();
         for(int i = 1; i <= 5; i++) {
@@ -55,13 +55,13 @@ public class My extends Controller {
 
     public Result feedbackPost(Http.Request request) {
         String feedbackText = request.body().asFormUrlEncoded().get("feedbackText")[0];
-        UserFeedback userFeedback = new UserFeedback(SessionUtil.getUser(request), feedbackText);
+        UserFeedback userFeedback = new UserFeedback(CommonUtil.getUser(request), feedbackText);
         userFeedback.save();
         return ok(views.html.my.feedback.render());
     }
 
     public Result profile(Http.Request request) {
-        User user = SessionUtil.getUser(request);
+        User user = CommonUtil.getUser(request);
         return ok(views.html.my.profile.render(user));
     }
 
@@ -69,7 +69,7 @@ public class My extends Controller {
 
     public Result shufflePost(Http.Request request, Long userBookId) {
         Transaction txn = DB.beginTransaction();
-        User user = SessionUtil.getUser(request);
+        User user = CommonUtil.getUser(request);
         UserBook userBook = UserBook.find.byId(userBookId);
         userBook.setBook(Book.getRandomBookByCategory(null, userBook.book.getSubCategory())); // When is use setBook() method only then the below update works
         userBook.update();
@@ -79,7 +79,7 @@ public class My extends Controller {
     }
 
     public Result favoritePost(Http.Request request, Long bookId) {
-        User user = SessionUtil.getUser(request);
+        User user = CommonUtil.getUser(request);
         UserBook userBook = UserBook.findByUserAndBookId(user.id, bookId);
         if(BooleanUtils.isNotTrue(userBook.favorite)) {
             userBook.setFavorite(true);
@@ -93,7 +93,7 @@ public class My extends Controller {
 
     public Result list(Http.Request request, String listName) {
         List<UserBook> userBooks;
-        User user = SessionUtil.getUser(request);
+        User user = CommonUtil.getUser(request);
         if("favorites".equals(listName)) {
             userBooks = UserBook.findFavoriteUserBooks(user.id);
         } else if("recent".equals(listName)) {
@@ -107,7 +107,7 @@ public class My extends Controller {
     }
 
     public Result book(Http.Request request, Long id) {
-        User user = SessionUtil.getUser(request);
+        User user = CommonUtil.getUser(request);
         UserBook userBook = UserBook.findByUserAndBookId(user.id, id);
         if (userBook != null) {
             userBook.setLastAccessed(new Date());
@@ -122,6 +122,6 @@ public class My extends Controller {
         }
         sameAuthorBooks = sameSubCategoryBooks;
 
-        return ok(views.html.book.render(book, userBook, sameAuthorBooks, sameSubCategoryBooks));
+        return ok(views.html.my.book.render(book, userBook, sameAuthorBooks, sameSubCategoryBooks));
     }
 }

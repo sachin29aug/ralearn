@@ -1,6 +1,6 @@
 @(user: User)
 
-@main("RaLearn") {
+@layout.main("RaLearn") {
     <div class="profile">
         <div class="container-fluid pt-0">
             <a class="top-left-btn-group" onclick="event.preventDefault(); homeGet();" href="#">@_circularIcon("fas fa-arrow-left")</a>
@@ -60,5 +60,5 @@
         </div>
     </div>
 
-    @sections._footerNavBar("profile-tab")
+    @layout._footerNavBar("profile-tab")
 }

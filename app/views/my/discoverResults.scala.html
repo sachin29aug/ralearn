@@ -1,6 +1,6 @@
 @(category: Category, userBooks: List[UserBook])
 
-@main("RaLearn") {
+@layout.main("RaLearn") {
     <div class="discover-results">
         <div class="container-fluid pt-0">
             <a class="top-left-btn-group" onclick="event.preventDefault(); homeGet();" href="#">@_circularIcon("fas fa-arrow-left")</a>
@@ -18,9 +18,11 @@
                 </div>
             }
 
-            @_list(userBooks)
+            @for(userBook <- userBooks) {
+                @_card4(userBook.getBook())
+            }
         </div>
     </div>
 
-    @sections._footerNavBar("discover-tab")
+    @layout._footerNavBar("discover-tab")
 }
