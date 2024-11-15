@@ -14,8 +14,14 @@ $(document).ready(function() {
 
     $(document.body).on("click", ".cls-google-books-preview-btn", function(e) {
         e.preventDefault();
-        let viewer = new google.books.DefaultViewer(document.getElementById("gb-preview"));
         $("#gb-preview").show();
+        let viewer = new google.books.DefaultViewer(document.getElementById("gb-viewer"));
+        $(".more-options-modal").modal('hide');
+        $(window).scrollTop(0);
         viewer.load($(this).attr("href"));
+    });
+
+    $(document.body).on("click", "#close-preview", function () {
+        $("#gb-preview").hide();
     });
 });

@@ -182,6 +182,7 @@ hr {
     position: fixed;
     bottom: 0;
     left: 0;
+    text-align: center;
     width: 100%;
     padding-left: 16px;
     padding-right: 16px;
@@ -272,9 +273,16 @@ hr {
 }
 
 .footer-nav-bar {
+    position: fixed;
+    height: 70px;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, .2);
     border-radius: 40px 40px 0px 0px;
-    height: 70px;
+    z-index: 1030;
+    @include md-and-up {
+        height: 100vh;
+        width: 300px;
+        border-radius: unset;
+    }
 
     &--icon, &--icon-text {
         color: #003366;
@@ -284,6 +292,9 @@ hr {
     &--icon {
         font-size: 22px;
         margin-bottom: 6px;
+        @include md-and-up {
+            margin-bottom: 0;
+        }
     }
 
     &--icon-text {
@@ -291,11 +302,30 @@ hr {
         font-weight: 700;
         line-height: 14px;
         display: block;
+        @include md-and-up {
+            font-size: 14px;
+        }
     }
 
     .active {
-        .footer-nav-bar--icon, footer-nav-bar--icon-text {
+        .footer-nav-bar--icon, .footer-nav-bar--icon-text {
             opacity: unset;
+            color: #D7D319;
+        }
+    }
+
+    &--item {
+        @include md-and-up {
+            border: 1px solid rgba(126, 80, 154, 0.15);
+            border-radius: 100px;
+            filter: drop-shadow(0px 2px 4px rgba(51, 16, 50, 0.15));
+            margin-bottom: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        &.active {
+            background: #FFFFF0;
         }
     }
 }

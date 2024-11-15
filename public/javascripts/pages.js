@@ -139,7 +139,14 @@ $(document).ready(function() {
         $("#id-good-reads-element").attr("href", $(this).data("good-reads-url"));
         $("#id-amazon-element").attr("href", $(this).data("amazon-url"));
         $("#id-youtube-element").attr("href", $(this).data("youtube-url"));
-        $(".cls-google-books-preview-btn").attr("href", $(this).data("google-books-preview-url"));
+
+        let googleBooksPreviewUrl = $(this).data("google-books-preview-url");
+        if(!googleBooksPreviewUrl) {
+            $(".cls-google-books-preview-btn-wrapper").hide();
+        } else {
+            $(".cls-google-books-preview-btn").attr("href", $(this).data("google-books-preview-url"));
+        }
+
         moreOptionsModal.show();
     });
 

@@ -1,21 +1,21 @@
 @(activeTabName: String)
 
 <nav class="footer-nav-bar navbar bg-white fixed-bottom text-center py-0">
-    <div class="d-flex justify-content-around px-4 w-100">
-        <a @if(activeTabName == "home-tab"){class="active"} onclick="event.preventDefault(); homeGet();" href="#">
-            <i class="footer-nav-bar--icon fas fa-home"></i>
+    <div class="d-flex justify-content-around flex-md-column px-4 w-100">
+        <a class='footer-nav-bar--item d-flex flex-column flex-md-row justify-content-center align-items-center @if(activeTabName == "home-tab"){active}'  onclick="event.preventDefault(); homeGet();" href="#">
+            <i class="footer-nav-bar--icon fas fa-home me-md-2"></i>
             <span class="footer-nav-bar--icon-text">Home</span>
         </a>
-        <a @if(activeTabName == "discover-tab"){class="active"} onclick="event.preventDefault(); discoverGet();" href="#">
-            <i class="footer-nav-bar--icon fas fa-search"></i>
+        <a class='footer-nav-bar--item d-flex flex-column flex-md-row justify-content-center align-items-center @if(activeTabName == "discover-tab"){active}' onclick="event.preventDefault(); discoverGet();" href="#">
+            <i class="footer-nav-bar--icon fas fa-search me-md-2"></i>
             <span class="footer-nav-bar--icon-text">Discover</span>
         </a>
-        <a @if(activeTabName == "feedback-tab"){class="active"} onclick="event.preventDefault(); feedbackGet();" href="#">
-            <i class="footer-nav-bar--icon fas fa-comment-dots"></i>
+        <a class='footer-nav-bar--item d-flex flex-column flex-md-row justify-content-center align-items-center @if(activeTabName == "feedback-tab"){active}' onclick="event.preventDefault(); feedbackGet();" href="#">
+            <i class="footer-nav-bar--icon fas fa-comment-dots me-md-2"></i>
             <span class="footer-nav-bar--icon-text">Feedback</span>
         </a>
-        <a @if(activeTabName == "profile-tab"){class="active"} onclick="event.preventDefault();profileGet();" href="#">
-            <i class="footer-nav-bar--icon fas fa-user"></i>
+        <a class='footer-nav-bar--item d-flex flex-column flex-md-row justify-content-center align-items-center @if(activeTabName == "profile-tab"){active}' onclick="event.preventDefault();profileGet();" href="#">
+            <i class="footer-nav-bar--icon fas fa-user me-md-2"></i>
             <span class="footer-nav-bar--icon-text">Profile</span>
         </a>
     </div>
