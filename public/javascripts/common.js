@@ -12,8 +12,10 @@ $(document).ready(function() {
         }
     });
 
-    $(document.body).on("click", ".cls-gb-preview-btn", function(e) {
+    $(document.body).on("click", ".cls-google-books-preview-btn", function(e) {
         e.preventDefault();
-        let isbn = $(this).data('book-isbn');
+        let viewer = new google.books.DefaultViewer(document.getElementById("gb-preview"));
+        $("#gb-preview").show();
+        viewer.load($(this).attr("href"));
     });
 });

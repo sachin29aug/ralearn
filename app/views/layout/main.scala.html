@@ -28,7 +28,7 @@
             <div class="spinner--body"></div>
         </div>
 
-        <div id="gb-preview" class="vw-100 vh-100"></div>
+        <div id="gb-preview" class="vw-100 vh-100" style="display: none;"></div>
 
         <div id="id-page">
             @content
@@ -47,12 +47,9 @@
     <script type="text/javascript">
         google.books.load();
 
-        function initialize() {
-          var viewer = new google.books.DefaultViewer(document.getElementById('gb-preview'));
-          viewer.load('ISBN:0738531367');
-        }
 
-        google.books.setOnLoadCallback(initialize);
+
+        //google.books.setOnLoadCallback(initialize);
     </script>
 
     <!-- Custom js -->
