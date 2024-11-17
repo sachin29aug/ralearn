@@ -4,6 +4,7 @@ import io.ebean.DB;
 import io.ebean.Transaction;
 import models.Book;
 import models.Category;
+import models.Quote;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -12,7 +13,9 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import utils.GoogleBookClient;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;
@@ -84,6 +87,39 @@ public class SystemAdmin extends Controller {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        return ok("Done");
+    }
+
+    public Result importQuotesKaggle() {
+        Transaction txn = DB.beginTransaction();
+        try {
+            String confDir = Paths.get("conf").toAbsolutePath().toString();
+            String filePath = "datasets/quotes/quotes-kaggle.csv";
+            File file = new File(confDir, filePath);
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            br.readLine();
+            String line;
+            int index = 1;
+            while ((line = br.readLine()) != null) {
+                String[] columns = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+                if (columns.length != 3 || line.startsWith("All beings so far have created something beyond themselves")) {
+                    continue;
+                }
+                Quote quote = new Quote();
+                quote.text = columns[0].replaceAll("^\"|\"$", "");
+                quote.author = columns[1].replaceAll("^\"|\"$", "");
+                quote.tags = columns[2].replaceAll("^\"|\"$", "");
+                System.out.println("Text: " + quote.text);
+                System.out.println("Author: " + quote.author);
+                System.out.println("Tags: " + quote.tags);
+                quote.save();
+                System.out.println(index++);
+            }
+            txn.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ok(e.getMessage());
         }
         return ok("Done");
     }

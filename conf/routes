@@ -23,6 +23,7 @@ GET     /book/:id                                           controllers.My.book(
 # System Admin
 GET     /import/books/gr/4agf9t                             controllers.SystemAdmin.importBooksGR
 GET     /import/books/gb/4agf9t                             controllers.SystemAdmin.importBooksGB(count: Long)
+GET     /import/quotes/kaggle/4agf9t                        controllers.SystemAdmin.importQuotesKaggle
 GET     /setup/categories/4agf9t                            controllers.SystemAdmin.setupCategories
 
 # Legacy
