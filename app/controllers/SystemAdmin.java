@@ -1,5 +1,6 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.ebean.DB;
 import io.ebean.Transaction;
 import models.Book;
@@ -91,36 +92,28 @@ public class SystemAdmin extends Controller {
         return ok("Done");
     }
 
-    public Result importQuotesKaggle() {
+    public Result importQuotesKaggle() throws IOException {
         Transaction txn = DB.beginTransaction();
-        try {
-            String confDir = Paths.get("conf").toAbsolutePath().toString();
-            String filePath = "datasets/quotes/quotes-kaggle.csv";
-            File file = new File(confDir, filePath);
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            br.readLine();
-            String line;
-            int index = 1;
-            while ((line = br.readLine()) != null) {
-                String[] columns = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-                if (columns.length != 3 || line.startsWith("All beings so far have created something beyond themselves")) {
-                    continue;
-                }
+        String confDir = Paths.get("conf").toAbsolutePath().toString();
+        String filePath = "datasets/quotes/quotes-kaggle-abirate.jsonl";
+        File file = new File(confDir, filePath);
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        ObjectMapper objectMapper = new ObjectMapper();
+        String line;
+        while ((line = br.readLine()) != null) {
+            try {
+                Map<String, Object> quoteData = objectMapper.readValue(line, Map.class);
                 Quote quote = new Quote();
-                quote.text = columns[0].replaceAll("^\"|\"$", "");
-                quote.author = columns[1].replaceAll("^\"|\"$", "");
-                quote.tags = columns[2].replaceAll("^\"|\"$", "");
-                System.out.println("Text: " + quote.text);
-                System.out.println("Author: " + quote.author);
-                System.out.println("Tags: " + quote.tags);
+                quote.text = ((String) quoteData.get("quote")).trim().replace("\"", "").replace("“", "").replace("”", "");
+                quote.author = ((String) quoteData.get("author")).trim();
+                quote.tags = String.join(",", (List<String>) quoteData.get("tags"));
                 quote.save();
-                System.out.println(index++);
+            } catch (Exception e) {
+                e.printStackTrace();
+                break;
             }
-            txn.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ok(e.getMessage());
         }
+        txn.commit();
         return ok("Done");
     }
 
