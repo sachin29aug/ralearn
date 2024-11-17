@@ -713,4 +713,17 @@ hr {
   text-overflow: ellipsis;
 }
 
+.quote {
+  background: #f9f6ee;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #ffd700;
+}
+.quote i {
+  color: #ffd700;
+}
+.quote--author {
+  color: #6c757d;
+  font-weight: 600;
+}
+
 /*# sourceMappingURL=app.css.map */

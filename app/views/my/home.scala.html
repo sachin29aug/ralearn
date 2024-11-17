@@ -20,6 +20,8 @@
                 </div>
             </div>
 
+            @_quote()
+
             <h4 class="text-uppercase mb-3" style="font-weight: 600;">Today's Picks</h4>
             <div class="mb-5">
                 @for(userBook <- UserBook.findTodayUserBooks(user.id)) {

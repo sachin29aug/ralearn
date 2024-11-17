@@ -1,0 +1,14 @@
+@()
+
+@defining(Quote.getRandomQuote()) { randomQuote =>
+    <div class="quote mb-5 px-2 py-3">
+        <div class="d-flex align-items-center justify-content-center">
+            <i class="fa-solid fa-quote-left align-self-start"></i>
+            <div class="quote-text mx-3">
+                @randomQuote.getText()
+                <div class="quote--author text-end">– @randomQuote.getAuthor()</div>
+            </div>
+            <i class="fa-solid fa-quote-right align-self-end"></i>
+        </div>
+    </div>
+}

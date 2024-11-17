@@ -95,7 +95,7 @@ public class SystemAdmin extends Controller {
     public Result importQuotesKaggle() throws IOException {
         Transaction txn = DB.beginTransaction();
         String confDir = Paths.get("conf").toAbsolutePath().toString();
-        String filePath = "datasets/quotes/quotes-kaggle-abirate.jsonl";
+        String filePath = "datasets-1/quotes/quotes-kaggle-abirate.jsonl";
         File file = new File(confDir, filePath);
         BufferedReader br = new BufferedReader(new FileReader(file));
         ObjectMapper objectMapper = new ObjectMapper();

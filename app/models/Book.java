@@ -104,7 +104,7 @@ public class Book extends BaseModel {
         this.orderIndex = orderIndex;
     }
 
-    // Getters/Setters
+    // Getters and Setters
 
     public String getTitle() {
         return title;
