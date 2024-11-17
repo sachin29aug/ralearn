@@ -43,10 +43,18 @@ h6 {
   padding-right: 16px;
   padding-top: 32px;
   padding-bottom: 80px;
+  position: relative;
 }
 @media (min-width: 768px) {
   .container-fluid {
-    max-width: 500px;
+    padding-left: 24px;
+    padding-right: 24px;
+    max-width: 550px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #e0e0e0;
+    height: 100vh;
+    overflow: auto;
+    scrollbar-width: none;
   }
 }
 
@@ -236,7 +244,7 @@ hr {
 }
 
 .top-left-btn-group, .top-right-btn-group {
-  position: fixed;
+  position: absolute;
   top: 16px;
 }
 
@@ -403,8 +411,17 @@ hr {
 .book--cover-section {
   background: linear-gradient(135deg, #fff5cc 0%, #ffeb99 100%);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  padding-top: 90px;
-  padding-bottom: 45px;
+  margin-left: -16px;
+  margin-right: -16px;
+  padding-top: 70px;
+  padding-bottom: 30px;
+  margin-bottom: 32px;
+}
+@media (min-width: 768px) {
+  .book--cover-section {
+    margin-left: -24px;
+    margin-right: -24px;
+  }
 }
 .book--cover-section-image {
   width: 140px;
@@ -465,8 +482,8 @@ hr {
   height: 50px;
 }
 
-.feedback {
-  padding-top: 90px;
+.feedback--div {
+  margin-top: 80px;
 }
 .feedback--success-icon {
   font-size: 80px;
@@ -633,12 +650,11 @@ hr {
 .card-3 {
   color: #003366;
   max-width: 230px;
-  margin-bottom: 36px;
-  height: 285px;
+  min-height: 285px;
 }
 .card-3--cover-image {
-  width: 120px;
-  height: 180px;
+  width: 100px;
+  height: 150px;
   object-fit: cover;
   border: 4px solid #003366;
 }

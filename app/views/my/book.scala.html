@@ -3,26 +3,27 @@
 @import org.apache.commons.lang3.BooleanUtils
 
 @layout.main("RaLearn") {
-    <a class="top-left-btn-group" onclick="event.preventDefault(); homeGet();" href="#">@_circularIcon("fas fa-arrow-left")</a>
-    <div class="top-right-btn-group">
-        <div class="d-flex">
-            @if(userBook != null) {
-                <a id="id-element-book-@book.id" class="cls-favorite-btn me-3" data-book-id="@book.id" href="#">
-                    @if(BooleanUtils.isTrue(userBook.getFavorite())) {
-                        @_circularIcon("fa-solid fa-heart")
-                    } else {
-                        @_circularIcon("fa-regular fa-heart")
-                    }
-                </a>
-            }
-            <a class="cls-share-btn" data-share-url="@routes.My.book(book.id)" data-share-title="@book.getTitle(50)" href="#">@_circularIcon("fa-solid fa-arrow-up-from-bracket")</a>
-        </div>
-    </div>
     <div class="book">
-        <div class="book--cover-section mb-4">
-            <div class="text-center"><img class="book--cover-section-image" src="@book.getCoverImageUrl()"></div>
-        </div>
         <div class="container-fluid pt-0">
+            <a class="top-left-btn-group" onclick="event.preventDefault(); homeGet();" href="#">@_circularIcon("fas fa-arrow-left")</a>
+            <div class="top-right-btn-group">
+                <div class="d-flex">
+                    @if(userBook != null) {
+                    <a id="id-element-book-@book.id" class="cls-favorite-btn me-3" data-book-id="@book.id" href="#">
+                        @if(BooleanUtils.isTrue(userBook.getFavorite())) {
+                         @_circularIcon("fa-solid fa-heart")
+                        } else {
+                         @_circularIcon("fa-regular fa-heart")
+                        }
+                    </a>
+                    }
+                    <a class="cls-share-btn" data-share-url="@routes.My.book(book.id)" data-share-title="@book.getTitle(50)" href="#">@_circularIcon("fa-solid fa-arrow-up-from-bracket")</a>
+                </div>
+            </div>
+
+            <div class="book--cover-section">
+                <div class="text-center"><img class="book--cover-section-image" src="@book.getCoverImageUrl()"></div>
+            </div>
             <div class="book--details">
                 <h4 class="book--details-title">@book.getTitle()</h4>
                 <div class="book--details-author mb-4">@book.getAuthor()</div>
@@ -51,7 +52,9 @@
                 </div>
             </div>
 
-            <a class="cls-more-options-modal-btn btn btn-primary mb-4" data-good-reads-url="@book.getGoodReadsAbsoluteUrl()" data-amazon-url="@book.getAmazonUrl()" data-google-books-preview-url="@book.getGoogleBooksUrl()" data-youtube-url="@book.getYoutubeUrl()" href="#">More Options</a>
+            <div class="text-center">
+                <a class="cls-more-options-modal-btn btn btn-primary mb-4" data-good-reads-url="@book.getGoodReadsAbsoluteUrl()" data-amazon-url="@book.getAmazonUrl()" data-google-books-preview-url="@book.getGoogleBooksUrl()" data-youtube-url="@book.getYoutubeUrl()" href="#">More Options</a>
+            </div>
         </div>
     </div>
 

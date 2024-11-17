@@ -156,6 +156,7 @@ function loginPost() {
         success: function(response) {
             $(".spinner").css("display", "none");
             replaceHtml("id-page", response, null, null);
+            history.pushState(null, "", "/home");
         },
         error: function(response, error) {
             if (response.status === HTTP_STATUS.BAD_REQUEST) {
