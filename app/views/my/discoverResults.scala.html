@@ -1,27 +1,25 @@
 @(category: Category, userBooks: List[UserBook])
 
-@layout.main("RaLearn") {
+@layout.main("RaLearn", "discover-results-page") {
     <div class="discover-results">
-        <div class="container-fluid pt-0">
-            <a class="top-left-btn-group" onclick="event.preventDefault(); homeGet();" href="#">@_circularIcon("fas fa-arrow-left")</a>
-            <h4 class="text-capitalize text-center mt-4 mb-5">@category.getTitle()</h4>
+        <a class="top-left-btn-group" onclick="event.preventDefault(); homeGet();" href="#">@_circularIcon("fas fa-arrow-left")</a>
+        <h4 class="text-capitalize text-center mt-4 mb-5">@category.getTitle()</h4>
 
-            @if(category.getParent() == null) {
-                <div class="row gx-2 mb-4">
-                    @for(subCategory <- category.getSubCategories()) {
-                        <div class="col-4">
-                            <a id="id-discover-results-subcategory" class="discover-results--subcategory-block d-flex justify-content-center align-items-center mb-2 px-3" data-subcategory-id="@subCategory.id" href="#">
-                                <div class="discover-results--subcategory-block-text">@subCategory.getDisplayTitle()</div>
-                            </a>
-                        </div>
-                    }
-                </div>
-            }
+        @if(category.getParent() == null) {
+            <div class="row gx-2 mb-4">
+                @for(subCategory <- category.getSubCategories()) {
+                    <div class="col-4">
+                        <a id="id-discover-results-subcategory" class="discover-results--subcategory-block d-flex justify-content-center align-items-center mb-2 px-3" data-subcategory-id="@subCategory.id" href="#">
+                            <div class="discover-results--subcategory-block-text">@subCategory.getDisplayTitle()</div>
+                        </a>
+                    </div>
+                }
+            </div>
+        }
 
-            @for(userBook <- userBooks) {
-                @_card4(userBook.getBook())
-            }
-        </div>
+        @for(userBook <- userBooks) {
+            @_card4(userBook.getBook())
+        }
     </div>
 
     @layout._footerNavBar("discover-tab")

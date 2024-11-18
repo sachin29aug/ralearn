@@ -376,6 +376,13 @@ hr {
   font-size: 14px;
 }
 
+@media (min-width: 768px) {
+  .login-page .container-fluid, .signup-page .container-fluid {
+    box-shadow: none;
+    border: none;
+  }
+}
+
 .signup .category-pill {
   border: 1px solid rgba(87, 79, 107, 0.25);
   border-radius: 100px;

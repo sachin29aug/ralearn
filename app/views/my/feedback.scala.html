@@ -2,24 +2,22 @@
 
 @import org.apache.commons.lang3.StringUtils
 
-@layout.main("RaLearn") {
+@layout.main("RaLearn", "feedback-page") {
     <div class="feedback">
-        <div class="container-fluid text-center pt-0">
-            <div class="feedback--div" id="id-feedback-div">
-                <h2 class="mb-4">We value your thoughts!</h2>
-                <div class="mb-5 px-3">Your feedback helps us create a better experience for you. Let us know what you think.</div>
-                <div class="text-start mb-4">
-                    <textarea id="id-feedback-text-area" class="w-100" name="message" placeholder="Your feedback, suggestion, or issue..." rows="7"></textarea>
-                </div>
-                <a id="id-submit-feedback-btn" class="btn btn-primary disabled" href="#">Submit Feedback</a>
+        <div class="feedback--div" id="id-feedback-div">
+            <h2 class="mb-4">We value your thoughts!</h2>
+            <div class="mb-5 px-3">Your feedback helps us create a better experience for you. Let us know what you think.</div>
+            <div class="text-start mb-4">
+                <textarea id="id-feedback-text-area" class="w-100" name="message" placeholder="Your feedback, suggestion, or issue..." rows="7"></textarea>
             </div>
+            <a id="id-submit-feedback-btn" class="btn btn-primary disabled" href="#">Submit Feedback</a>
+        </div>
 
-            <div id="id-feedback-success-div" style="display: none;">
-                <i class="feedback--success-icon fa-solid fa-hands-praying mb-4"></i>
-                <h2 class="mb-4">Your Feedback is Appreciated!</h2>
-                <div class="mb-5 px-3">Thank you for sharing your thoughts with us. We’ll review your feedback to help make your experience even better.</div>
-                <a class="btn btn-primary" onclick="event.preventDefault(); homeGet();" href="#">Explore More</a>
-            </div>
+        <div id="id-feedback-success-div" style="display: none;">
+            <i class="feedback--success-icon fa-solid fa-hands-praying mb-4"></i>
+            <h2 class="mb-4">Your Feedback is Appreciated!</h2>
+            <div class="mb-5 px-3">Thank you for sharing your thoughts with us. We’ll review your feedback to help make your experience even better.</div>
+            <a class="btn btn-primary" onclick="event.preventDefault(); homeGet();" href="#">Explore More</a>
         </div>
     </div>
 

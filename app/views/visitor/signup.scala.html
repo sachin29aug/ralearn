@@ -1,17 +1,39 @@
 @(parentCategories: List[Category])
 
-@layout.main("RaLearn") {
+@layout.main("RaLearn", "signup-page") {
     <div class="signup">
-        <div class="container-fluid">
-            <div id="categories-page">
-                <h2 class="mb-5">What categories are you interested in?</h2>
-                <div class="category-pills">
-                    @for(parentCategory <- parentCategories) {
-                        <a class="category-pill d-block" data-subcategories-div-id="id-category-@parentCategory.id-subcategories" href="#">
+        <div id="categories-page">
+            <h2 class="mb-5">What categories are you interested in?</h2>
+            <div class="category-pills">
+                @for(parentCategory <- parentCategories) {
+                    <a class="category-pill d-block" data-subcategories-div-id="id-category-@parentCategory.id-subcategories" href="#">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex ms-4">
+                                <div class="category-pill--icon me-3"><i class="@parentCategory.faIconClass"></i></div>
+                                <div class="category-pill--text">@parentCategory.title</div>
+                            </div>
+                            <div class="me-3">
+                                <div class="category-pill--icon"><i class="fas fa-circle"></i></div>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+            <div class="fixed-bottom-btn-group">
+                <a class="signup--continue-btn btn btn-primary disabled" href="#">Continue</a>
+            </div>
+        </div>
+
+        <div id="subcategories-page" style="display: none;">
+            <h2 class="mb-5">Follow topics you're interested in to get recommendations?</h2>
+            @for(parentCategory <- parentCategories) {
+                <div id="id-category-@parentCategory.id-subcategories" style="display: none;">
+                    @for(subCategory <- parentCategory.subCategories) {
+                        <a class="category-pill d-block" data-subcategory-id="@subCategory.id" href="#">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex ms-4">
-                                    <div class="category-pill--icon me-3"><i class="@parentCategory.faIconClass"></i></div>
-                                    <div class="category-pill--text">@parentCategory.title</div>
+                                    <div class="category-pill--icon me-3"><i class="@subCategory.faIconClass"></i></div>
+                                    <div class="category-pill--text">@subCategory.getDisplayTitle()</div>
                                 </div>
                                 <div class="me-3">
                                     <div class="category-pill--icon"><i class="fas fa-circle"></i></div>
@@ -20,57 +42,33 @@
                         </a>
                     }
                 </div>
-                <div class="fixed-bottom-btn-group">
-                    <a class="signup--continue-btn btn btn-primary disabled" href="#">Continue</a>
-                </div>
+            }
+            <div class="fixed-bottom-btn-group fixed-bottom-btn-group--scroll-blur">
+                <a class="signup--continue-btn btn btn-primary disabled" href="#">Continue</a>
+            </div>
+        </div>
+
+        <div id="email-password-page" class="email-password-page" style="display: none;">
+            <h2 class="mb-5">Welcome to RaLearn. What's your email?</h2>
+
+            <div class="text-start mb-4">
+                <label for="id-signup-email" class="form-label">Email</label>
+                <input type="email" id="id-signup-email" maxlength="40">
+                <div id="id-signup-email-error" class="error text-start mt-2" style="display: none;"></div>
             </div>
 
-            <div id="subcategories-page" style="display: none;">
-                <h2 class="mb-5">Follow topics you're interested in to get recommendations?</h2>
-                @for(parentCategory <- parentCategories) {
-                    <div id="id-category-@parentCategory.id-subcategories" style="display: none;">
-                        @for(subCategory <- parentCategory.subCategories) {
-                            <a class="category-pill d-block" data-subcategory-id="@subCategory.id" href="#">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="d-flex ms-4">
-                                        <div class="category-pill--icon me-3"><i class="@subCategory.faIconClass"></i></div>
-                                        <div class="category-pill--text">@subCategory.getDisplayTitle()</div>
-                                    </div>
-                                    <div class="me-3">
-                                        <div class="category-pill--icon"><i class="fas fa-circle"></i></div>
-                                    </div>
-                                </div>
-                            </a>
-                        }
-                    </div>
-                }
-                <div class="fixed-bottom-btn-group fixed-bottom-btn-group--scroll-blur">
-                    <a class="signup--continue-btn btn btn-primary disabled" href="#">Continue</a>
-                </div>
+            <div class="text-start mb-4 position-relative">
+                <label for="id-signup-password" class="form-label d-flex justify-content-between d-block">
+                    <div>Choose a Password</div>
+                    <div>(8+ characters)</div>
+                </label>
+                <input type="password" id="id-signup-password">
+                <a id="id-signup-show-password" class="position-absolute top-50 end-0 me-3" href="#"><i class="fa fa-eye"></i></a>
+                <div id="id-signup-password-error" class="error text-start position-fixed mt-2" style="display: none;"></div>
             </div>
 
-            <div id="email-password-page" class="email-password-page" style="display: none;">
-                <h2 class="mb-5">Welcome to RaLearn. What's your email?</h2>
-
-                <div class="text-start mb-4">
-                    <label for="id-signup-email" class="form-label">Email</label>
-                    <input type="email" id="id-signup-email" maxlength="40">
-                    <div id="id-signup-email-error" class="error text-start mt-2" style="display: none;"></div>
-                </div>
-
-                <div class="text-start mb-4 position-relative">
-                    <label for="id-signup-password" class="form-label d-flex justify-content-between d-block">
-                        <div>Choose a Password</div>
-                        <div>(8+ characters)</div>
-                    </label>
-                    <input type="password" id="id-signup-password">
-                    <a id="id-signup-show-password" class="position-absolute top-50 end-0 me-3" href="#"><i class="fa fa-eye"></i></a>
-                    <div id="id-signup-password-error" class="error text-start position-fixed mt-2" style="display: none;"></div>
-                </div>
-
-                <div class="fixed-bottom-btn-group">
-                    <a id="id-signup-email-password-continue-btn" class="signup--continue-btn btn btn-primary disabled" href="#">Continue</a>
-                </div>
+            <div class="fixed-bottom-btn-group">
+                <a id="id-signup-email-password-continue-btn" class="signup--continue-btn btn btn-primary disabled" href="#">Continue</a>
             </div>
         </div>
     </div>

@@ -1,43 +1,40 @@
 @(user: User, randomBooksAcross: List[Book])
 
-@layout.main("RaLearn") {
+@layout.main("RaLearn", "discover-page") {
     <div class="discover">
-        <div class="container-fluid">
-            <div class="discover--search-bar position-relative mb-5">
-                <!--<i class="position-absolute fas fa-search"></i>-->
-                <i class="discover--search-bar-icon position-absolute fa-solid fa-magnifying-glass"></i>
-                <input type="text"placeholder="Title, author or category">
-            </div>
-
-            <h4 class="mb-4">Categories</h4>
-            <div class="row">
-                @for(parentCategory <- Category.findParentCategories()) {
-                    <div class="col-6">
-                        <a id="id-discover-category" class="discover--category-block d-flex justify-content-center align-items-center text-center px-3" data-category-id="@parentCategory.id" href="#">
-                            <div class="discover--category-block-text">@parentCategory.getTitle()</div>
-                        </a>
-                    </div>
-                }
-            </div>
-
-            <h4 class="my-4">Your Preferred Categories</h4>
-            @for(userCategory <- user.userCategories) {
-                @defining(userCategory.getCategory()) { category =>
-                    <a id="id-discover-preferred-subcategory" class="discover--preferred-subcategory-block d-flex justify-content-between align-items-center px-3" data-preferred-subcategory-id="@category.id" href="#">
-                        <div class="d-flex align-items-center">
-                            <i class="discover--preferred-subcategory-block-icon @category.getFaIconClass() me-3"></i>
-                            <div class="discover--preferred-subcategory-block-text">@category.getDisplayTitle()</div>
-                        </div>
-                    </a>
-                }
-            }
-
-            <h4 class="mt-5 mb-4">Selections Across All Categories</h4>
-            @for(book <- randomBooksAcross) {
-                @_card4(book)
-            }
-
+        <div class="discover--search-bar position-relative mb-5">
+            <!--<i class="position-absolute fas fa-search"></i>-->
+            <i class="discover--search-bar-icon position-absolute fa-solid fa-magnifying-glass"></i>
+            <input type="text"placeholder="Title, author or category">
         </div>
+
+        <h4 class="mb-4">Categories</h4>
+        <div class="row">
+            @for(parentCategory <- Category.findParentCategories()) {
+                <div class="col-6">
+                    <a id="id-discover-category" class="discover--category-block d-flex justify-content-center align-items-center text-center px-3" data-category-id="@parentCategory.id" href="#">
+                        <div class="discover--category-block-text">@parentCategory.getTitle()</div>
+                    </a>
+                </div>
+            }
+        </div>
+
+        <h4 class="my-4">Your Preferred Categories</h4>
+        @for(userCategory <- user.userCategories) {
+            @defining(userCategory.getCategory()) { category =>
+                <a id="id-discover-preferred-subcategory" class="discover--preferred-subcategory-block d-flex justify-content-between align-items-center px-3" data-preferred-subcategory-id="@category.id" href="#">
+                    <div class="d-flex align-items-center">
+                        <i class="discover--preferred-subcategory-block-icon @category.getFaIconClass() me-3"></i>
+                        <div class="discover--preferred-subcategory-block-text">@category.getDisplayTitle()</div>
+                    </div>
+                </a>
+            }
+        }
+
+        <h4 class="mt-5 mb-4">Selections Across All Categories</h4>
+        @for(book <- randomBooksAcross) {
+            @_card4(book)
+        }
     </div>
 
     @layout._footerNavBar("discover-tab")

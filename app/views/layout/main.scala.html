@@ -1,4 +1,4 @@
-@(title: String)(content: Html)
+@(title: String, pageClass: String)(content: Html)
 
 @import utils.CommonUtil
 
@@ -33,8 +33,10 @@
             <div id="gb-viewer" class="w-100 h-100 overflow-auto" style="overflow-y: auto;"></div>
         </div>
 
-        <div id="id-page">
-            @content
+        <div id="id-page" class="@pageClass">
+            <div class="container-fluid">
+                @content
+            </div>
         </div>
 
         @_moreOptionsModal()

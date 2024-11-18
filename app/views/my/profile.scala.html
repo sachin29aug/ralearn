@@ -1,63 +1,61 @@
 @(user: User)
 
-@layout.main("RaLearn") {
+@layout.main("RaLearn", "profile-page") {
     <div class="profile">
-        <div class="container-fluid pt-0">
-            <a class="top-left-btn-group" onclick="event.preventDefault(); homeGet();" href="#">@_circularIcon("fas fa-arrow-left")</a>
-            <h4 class="text-capitalize text-center mt-4 mb-5">Profile</h4>
+        <a class="top-left-btn-group" onclick="event.preventDefault(); homeGet();" href="#">@_circularIcon("fas fa-arrow-left")</a>
+        <h4 class="text-capitalize text-center mt-4 mb-5">Profile</h4>
 
-            <div class="d-flex profile--item justify-content-between align-items-center">
-                <div>
-                    <div class="fw-600 mb-2">First name</div>
-                    <div>@user.getFirstName()</div>
-                </div>
-                <div class="profile--item-edit-link fw-600">EDIT</div>
+        <div class="d-flex profile--item justify-content-between align-items-center">
+            <div>
+                <div class="fw-600 mb-2">First name</div>
+                <div>@user.getFirstName()</div>
             </div>
-            <hr class="my-4">
-
-            <div class="d-flex profile--item justify-content-between align-items-center">
-                <div>
-                    <div class="fw-600 mb-2">Last name</div>
-                    <div>@user.getLastName()</div>
-                </div>
-                <div class="profile--item-edit-link fw-600">EDIT</div>
-            </div>
-            <hr class="my-4">
-
-            <div class="d-flex profile--item justify-content-between align-items-center">
-                <div>
-                    <div class="fw-600 mb-2">Email address</div>
-                    <div>@user.getEmail()</div>
-                </div>
-                <div class="profile--item-edit-link fw-600">EDIT</div>
-            </div>
-            <hr class="my-4">
-
-            <div class="d-flex profile--item justify-content-between align-items-center">
-                <div>
-                    <div class="fw-600 mb-2">Password</div>
-                    <div>*******</div>
-                </div>
-                <div class="profile--item-edit-link fw-600">EDIT</div>
-            </div>
-            <hr class="my-4">
-
-            <div class="d-flex profile--item justify-content-between align-items-center">
-                <div>
-                    <div class="fw-600 mb-2">Category Preferences</div>
-                    <div class="profile--item-categories fst-italic">
-                        @defining(user.getUserCategories()) { userCategories =>
-                            @for((userCategory, index) <- userCategories.zipWithIndex) {
-                                @Category.getDisplayTitle(userCategory.getCategory().getTitle())@if(index < userCategories.size() - 1){,}
-                            }
-                        }
-                    </div>
-                </div>
-                <div class="profile--item-edit-link fw-600">EDIT</div>
-            </div>
-
-            <div class="text-center"><a class="btn btn-white mt-5" href="@routes.Visitor.logout()">Log out</a></div>
+            <div class="profile--item-edit-link fw-600">EDIT</div>
         </div>
+        <hr class="my-4">
+
+        <div class="d-flex profile--item justify-content-between align-items-center">
+            <div>
+                <div class="fw-600 mb-2">Last name</div>
+                <div>@user.getLastName()</div>
+            </div>
+            <div class="profile--item-edit-link fw-600">EDIT</div>
+        </div>
+        <hr class="my-4">
+
+        <div class="d-flex profile--item justify-content-between align-items-center">
+            <div>
+                <div class="fw-600 mb-2">Email address</div>
+                <div>@user.getEmail()</div>
+            </div>
+            <div class="profile--item-edit-link fw-600">EDIT</div>
+        </div>
+        <hr class="my-4">
+
+        <div class="d-flex profile--item justify-content-between align-items-center">
+            <div>
+                <div class="fw-600 mb-2">Password</div>
+                <div>*******</div>
+            </div>
+            <div class="profile--item-edit-link fw-600">EDIT</div>
+        </div>
+        <hr class="my-4">
+
+        <div class="d-flex profile--item justify-content-between align-items-center">
+            <div>
+                <div class="fw-600 mb-2">Category Preferences</div>
+                <div class="profile--item-categories fst-italic">
+                    @defining(user.getUserCategories()) { userCategories =>
+                        @for((userCategory, index) <- userCategories.zipWithIndex) {
+                            @Category.getDisplayTitle(userCategory.getCategory().getTitle())@if(index < userCategories.size() - 1){,}
+                        }
+                    }
+                </div>
+            </div>
+            <div class="profile--item-edit-link fw-600">EDIT</div>
+        </div>
+
+        <div class="text-center"><a class="btn btn-white mt-5" href="@routes.Visitor.logout()">Log out</a></div>
     </div>
 
     @layout._footerNavBar("profile-tab")

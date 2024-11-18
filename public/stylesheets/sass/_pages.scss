@@ -1,3 +1,15 @@
+// Page level
+
+.login-page, .signup-page {
+    .container-fluid {
+        @include md-and-up {
+            box-shadow: none;
+            border: none;
+        }
+    }
+}
+
+
 // Signup
 
 .signup {

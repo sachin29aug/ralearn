@@ -2,48 +2,46 @@
 
 @import org.apache.commons.lang3.StringUtils
 
-@layout.main("RaLearn") {
+@layout.main("RaLearn", "home-page") {
     <div class="home">
-        <div class="container-fluid pt-0">
-            <div class="d-flex justify-content-between align-items-center mt-3 mb-4">
-                <div class="logo">
-                    <span class="logo--ra">Ra</span>
-                    <span class="logo--learn">Learn</span>
-                </div>
-                <div class="home--top-section">
-                    <a id="id-recent-list-btn" href="#">
-                        <i class="home--top-section-icon fa-solid fa-clock-rotate-left me-2"></i>
-                    </a>
-                    <a id="id-favorite-list-btn" href="#">
-                        <i class="home--top-section-icon fa-regular fa-heart me-3"></i>
-                    </a>
-                </div>
+        <div class="d-flex justify-content-between align-items-center mt-3 mb-4">
+            <div class="logo">
+                <span class="logo--ra">Ra</span>
+                <span class="logo--learn">Learn</span>
             </div>
-
-            @_quote()
-
-            <h4 class="text-uppercase mb-3" style="font-weight: 600;">Today's Picks</h4>
-            <div class="mb-5">
-                @for(userBook <- UserBook.findTodayUserBooks(user.id)) {
-                    @_card2(userBook)
-                }
+            <div class="home--top-section">
+                <a id="id-recent-list-btn" href="#">
+                    <i class="home--top-section-icon fa-solid fa-clock-rotate-left me-2"></i>
+                </a>
+                <a id="id-favorite-list-btn" href="#">
+                    <i class="home--top-section-icon fa-regular fa-heart me-3"></i>
+                </a>
             </div>
+        </div>
 
-            <h4 class="text-uppercase mb-4" style="font-weight: 600;">Previous Highlights</h4>
-            @for(userCategory <- user.userCategories) {
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <h4>@userCategory.getCategory().getDisplayTitle()</h4>
-                    <a class="cls-subcategory-list-btn home--more-link me-3" data-subcategory-title="@userCategory.getCategory().getTitle()" href="#">More</a>
-                </div>
-                <div class="scrollable-cards-x">
-                    @for(userBook <- UserBook.findPastUserBooksBySubCategory(userCategory.getCategory().title(), user.id)) {
-                        <div class="scrollable-card-x">
-                            @_card3(userBook.book)
-                        </div>
-                    }
-                </div>
+        @_quote()
+
+        <h4 class="text-uppercase mb-3" style="font-weight: 600;">Today's Picks</h4>
+        <div class="mb-5">
+            @for(userBook <- UserBook.findTodayUserBooks(user.id)) {
+                @_card2(userBook)
             }
         </div>
+
+        <h4 class="text-uppercase mb-4" style="font-weight: 600;">Previous Highlights</h4>
+        @for(userCategory <- user.userCategories) {
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h4>@userCategory.getCategory().getDisplayTitle()</h4>
+                <a class="cls-subcategory-list-btn home--more-link me-3" data-subcategory-title="@userCategory.getCategory().getTitle()" href="#">More</a>
+            </div>
+            <div class="scrollable-cards-x">
+                @for(userBook <- UserBook.findPastUserBooksBySubCategory(userCategory.getCategory().title(), user.id)) {
+                    <div class="scrollable-card-x">
+                        @_card3(userBook.book)
+                    </div>
+                }
+            </div>
+        }
     </div>
 
     @layout._footerNavBar("home-tab")
