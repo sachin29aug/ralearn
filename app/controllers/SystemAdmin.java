@@ -1,10 +1,12 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.ebean.DB;
 import io.ebean.Transaction;
 import models.Book;
 import models.Category;
+import models.OLBook;
 import models.Quote;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -85,6 +87,64 @@ public class SystemAdmin extends Controller {
                 if(i == count) {
                     break;
                 }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ok("Done");
+    }
+
+    public Result importBooksOL(Long count) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("C:\\basedir\\env\\open-library\\ol_dump_editions_2024-09-30\\ol_dump_editions_2024-09-30.txt"));
+            String line;
+            int index = 0;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("\t");
+                String jsonPart = parts[4];
+                ObjectMapper objectMapper = new ObjectMapper();
+                JsonNode root = objectMapper.readTree(jsonPart);
+                String key = root.path("key").asText(null);
+                String title = root.path("title").asText(null);
+                JsonNode authorsNode = root.path("authors");
+                List<String> authorsList = new ArrayList<>();
+                if (authorsNode.isArray()) {
+                    for (JsonNode author : authorsNode) {
+                        authorsList.add(author.path("key").asText(null));
+                    }
+                }
+                String authors = String.join(", ", authorsList);
+                String isbn10 = root.path("isbn_10").isArray() ? root.path("isbn_10").get(0).asText(null) : null;
+                String isbn13 = root.path("isbn_13").isArray() ? root.path("isbn_13").get(0).asText(null) : null;
+                String publishedDate = root.path("publish_date").asText(null);
+                Integer pageCount = root.path("number_of_pages").asInt(0);
+                String oclcNumber = root.path("oclc_numbers").isArray() ? root.path("oclc_numbers").get(0).asText(null) : null;
+
+                if(title == null) {
+                    continue;
+                }
+
+                Book book = Book.findByTitle(title.trim());
+                if (book != null) {
+                    OLBook olBook = new OLBook();
+                    olBook.setKey(key);
+                    olBook.setTitle(title);
+                    olBook.setAuthor(authors);
+                    olBook.setIsbn10(isbn10);
+                    olBook.setIsbn13(isbn13);
+                    olBook.setPublishedDate(publishedDate);
+                    olBook.setPageCount(pageCount);
+                    olBook.setOclcNumber(oclcNumber);
+                    olBook.save();
+                    book.setOlBook(olBook);
+                    book.update();
+                }
+
+                index++;
+                if(index == count) {
+                    break;
+                }
+                System.out.println(index);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -4,7 +4,9 @@ import io.ebean.DB;
 import io.ebean.Finder;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import org.springframework.util.CollectionUtils;
 import utils.GoogleBookClient;
 
 import java.io.UnsupportedEncodingException;
@@ -45,12 +47,21 @@ public class Book extends BaseModel {
     @OneToOne(mappedBy = "book")
     private GoogleBook googleBook;
 
+    @OneToOne
+    @JoinColumn(name = "ol_book_id")
+    private OLBook olBook;
+
     public static Finder<Long, Book> find = new Finder<>(Book.class);
 
     // Static methods
 
     public static Book findByOrderIndex(String subCategory, int orderIndex) {
         return find.query().where().eq("subCategory", subCategory).eq("order_index", orderIndex).findOne();
+    }
+
+    public static Book findByTitle(String title) {
+        List<Book> books = find.query().where().ieq("title", title).findList();
+        return CollectionUtils.isEmpty(books) ? null : books.get(0);
     }
 
     public static List<Book> getRandomBooks(List<String> subCategories) {
@@ -225,6 +236,14 @@ public class Book extends BaseModel {
 
     public void setGoogleBook(GoogleBook googleBook) {
         this.googleBook = googleBook;
+    }
+
+    public OLBook getOlBook() {
+        return olBook;
+    }
+
+    public void setOlBook(OLBook olBook) {
+        this.olBook = olBook;
     }
 
     // Other non-static methods
