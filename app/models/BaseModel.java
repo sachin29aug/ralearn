@@ -2,6 +2,7 @@ package models;
 
 import io.ebean.Model;
 
+import io.ebean.annotation.WhenModified;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
@@ -14,6 +15,9 @@ public class BaseModel extends Model {
    public Long id;
 
    public Date created;
+
+   //@WhenModified
+   //private String lastModified;
 
    @PrePersist
    public void prePersist() throws IllegalAccessException {

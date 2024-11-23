@@ -8,6 +8,9 @@ import models.Book;
 import models.Category;
 import models.OLBook;
 import models.Quote;
+import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -67,8 +70,8 @@ public class SystemAdmin extends Controller {
                             publishDate = parts[2].replace("published", "").trim();
                         }
                         String goodReadsLink = bookElements.get(i).attr("href");
-                        Book book = new Book(bookTitle, authorName, avgRating, ratingsCount, publishDate, goodReadsLink, category, subCategory, null, null, orderIndex++);
-                        book.save();
+                        //Book book = new Book(bookTitle, authorName, avgRating, ratingsCount, publishDate, goodReadsLink, category, subCategory, null, null, orderIndex++);
+                        //book.save();
                     }
                 }
             }
@@ -96,55 +99,62 @@ public class SystemAdmin extends Controller {
 
     public Result importBooksOL(Long count) {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("C:\\basedir\\env\\open-library\\ol_dump_editions_2024-09-30\\ol_dump_editions_2024-09-30.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("C:\\basedir\\env\\open-library\\ol_dump_works_2024-09-30\\ol_dump_works_2024-09-30.txt"));
             String line;
             int index = 0;
+            Set<String> bookTitlesSet = new HashSet<>();
+            for(Book book : Book.find.all()) {
+                bookTitlesSet.add(book.getTitle());
+                System.out.println("Book titles set populated");
+            }
+
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split("\t");
-                String jsonPart = parts[4];
-                ObjectMapper objectMapper = new ObjectMapper();
-                JsonNode root = objectMapper.readTree(jsonPart);
-                String key = root.path("key").asText(null);
-                String title = root.path("title").asText(null);
-                JsonNode authorsNode = root.path("authors");
-                List<String> authorsList = new ArrayList<>();
-                if (authorsNode.isArray()) {
-                    for (JsonNode author : authorsNode) {
-                        authorsList.add(author.path("key").asText(null));
-                    }
-                }
-                String authors = String.join(", ", authorsList);
-                String isbn10 = root.path("isbn_10").isArray() ? root.path("isbn_10").get(0).asText(null) : null;
-                String isbn13 = root.path("isbn_13").isArray() ? root.path("isbn_13").get(0).asText(null) : null;
-                String publishedDate = root.path("publish_date").asText(null);
-                Integer pageCount = root.path("number_of_pages").asInt(0);
-                String oclcNumber = root.path("oclc_numbers").isArray() ? root.path("oclc_numbers").get(0).asText(null) : null;
-
-                if(title == null) {
-                    continue;
-                }
-
-                Book book = Book.findByTitle(title.trim());
-                if (book != null) {
-                    OLBook olBook = new OLBook();
-                    olBook.setKey(key);
-                    olBook.setTitle(title);
-                    olBook.setAuthor(authors);
-                    olBook.setIsbn10(isbn10);
-                    olBook.setIsbn13(isbn13);
-                    olBook.setPublishedDate(publishedDate);
-                    olBook.setPageCount(pageCount);
-                    olBook.setOclcNumber(oclcNumber);
-                    olBook.save();
-                    book.setOlBook(olBook);
-                    book.update();
-                }
-
                 index++;
                 if(index == count) {
+                    reader.close();
                     break;
                 }
-                System.out.println(index);
+                System.out.println("Index: " + index);
+                String[] parts = line.split("\t", 5);
+                if (parts.length < 5) continue;
+                String jsonData = parts[4];
+                JSONObject record = new JSONObject(jsonData);
+                String title = record.optString("title", null);
+                if (StringUtils.isBlank(title)) {
+                    continue;
+                } else {
+                    title = title.trim();
+                    if(!bookTitlesSet.contains(title)) {
+                        continue;
+                    }
+                }
+
+                Book book = Book.findByTitle(title);
+
+                System.out.printf("Processed: " + index);
+
+                String workKey = record.optString("key", null);
+                String description = record.optJSONObject("description") != null ? record.getJSONObject("description").optString("value", null) : null;
+                JSONArray covers = record.optJSONArray("covers");
+                String coverId = covers != null && covers.length() > 0 ? String.valueOf(covers.getInt(0)) : null;
+                JSONArray authors = record.optJSONArray("authors");
+                String authorKey = null;
+                if (authors != null && authors.length() > 0) {
+                    JSONObject authorObject = authors.getJSONObject(0).optJSONObject("author");
+                    if (authorObject != null) {
+                        authorKey = authorObject.optString("key", null);
+                    }
+                }
+
+                OLBook olBook = new OLBook();
+                olBook.setWorkKey(workKey);
+                olBook.setTitle(title);
+                olBook.setCoverId(coverId);
+                olBook.setDescription(description);
+                olBook.setAuthorKey(authorKey);
+                olBook.save();
+                book.setOlBook(olBook);
+                book.update();
             }
         } catch (Exception e) {
             e.printStackTrace();

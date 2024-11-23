@@ -29,7 +29,7 @@
         @for(book <- books) {
             <div class="home-section-1--book-card d-flex align-items-center mb-5 p-3">
                 <div class="home-section-1--book-card-left-col me-4">
-                    <a href="@routes.My.book(book.id)" target="_blank"><img src="@book.coverImageUrl" alt=""></a>
+                    <a href="@routes.My.book(book.id)" target="_blank"><img src="@book.getCoverImageUrl()" alt=""></a>
                 </div>
                 <div class="home-section-1--book-card--right-col">
                     <div class="home-section-1--book-title mb-1">@book.getTitle(50)</div>

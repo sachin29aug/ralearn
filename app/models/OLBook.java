@@ -1,23 +1,46 @@
 package models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "ol_book")
 public class OLBook extends BaseModel {
-    private String key;
+    private String workKey;
+
     private String title;
+
+    private String coverId;
+
+    @Lob
+    private String description;
+
+    private String authorKey;
+
     private String author;
-    private String isbn10;
+
+    private String authorDescription;
+
+    private String subjects;
+
+    private Float rating;
+
+    private Integer ratingCount;
+
     private String isbn13;
-    private String publishedDate;
-    private Integer pageCount;
-    private String oclcNumber;
 
     @OneToOne(mappedBy = "olBook")
     private Book book;
+
+    public String getWorkKey() {
+        return workKey;
+    }
+
+    public void setWorkKey(String workKey) {
+        this.workKey = workKey;
+    }
 
     public String getTitle() {
         return title;
@@ -27,12 +50,28 @@ public class OLBook extends BaseModel {
         this.title = title;
     }
 
-    public String getKey() {
-        return key;
+    public String getCoverId() {
+        return coverId;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setCoverId(String coverId) {
+        this.coverId = coverId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getAuthorKey() {
+        return authorKey;
+    }
+
+    public void setAuthorKey(String authorKey) {
+        this.authorKey = authorKey;
     }
 
     public String getAuthor() {
@@ -43,20 +82,36 @@ public class OLBook extends BaseModel {
         this.author = author;
     }
 
-    public Integer getPageCount() {
-        return pageCount;
+    public String getAuthorDescription() {
+        return authorDescription;
     }
 
-    public void setPageCount(Integer pageCount) {
-        this.pageCount = pageCount;
+    public void setAuthorDescription(String authorDescription) {
+        this.authorDescription = authorDescription;
     }
 
-    public String getIsbn10() {
-        return isbn10;
+    public String getSubjects() {
+        return subjects;
     }
 
-    public void setIsbn10(String isbn10) {
-        this.isbn10 = isbn10;
+    public void setSubjects(String subjects) {
+        this.subjects = subjects;
+    }
+
+    public Float getRating() {
+        return rating;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
+    }
+
+    public Integer getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(Integer ratingCount) {
+        this.ratingCount = ratingCount;
     }
 
     public String getIsbn13() {
@@ -67,19 +122,11 @@ public class OLBook extends BaseModel {
         this.isbn13 = isbn13;
     }
 
-    public String getPublishedDate() {
-        return publishedDate;
+    public Book getBook() {
+        return book;
     }
 
-    public void setPublishedDate(String publishedDate) {
-        this.publishedDate = publishedDate;
-    }
-
-    public String getOclcNumber() {
-        return oclcNumber;
-    }
-
-    public void setOclcNumber(String oclcNumber) {
-        this.oclcNumber = oclcNumber;
+    public void setBook(Book book) {
+        this.book = book;
     }
 }

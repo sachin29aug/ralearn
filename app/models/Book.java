@@ -32,15 +32,7 @@ public class Book extends BaseModel {
 
     public String subCategory;
 
-    public String isbn;
-
-    public String coverImageUrl;
-
-    public String description;
-
     public String previewUrl;
-
-    public String authorDescription;
 
     public Long orderIndex;
 
@@ -77,8 +69,6 @@ public class Book extends BaseModel {
             System.out.printf(randomBook.title == null ? "blank" : randomBook.title);
             System.out.printf(randomBook.author == null ? "blank" : randomBook.author);
             System.out.printf(randomBook.publishDate == null ? "blank" : randomBook.publishDate);
-            System.out.printf(randomBook.isbn == null ? "blank" : randomBook.isbn);
-            System.out.printf(randomBook.coverImageUrl == null ? "blank" : randomBook.coverImageUrl);
             System.out.printf(randomBook.previewUrl == null ? "blank" : randomBook.previewUrl);
             e.printStackTrace();
         }
@@ -99,20 +89,6 @@ public class Book extends BaseModel {
         randomBook.refresh();
 
         return randomBook;
-    }
-
-    public Book(String title, String author, Float averageRating, Integer ratingCount, String publishDate, String goodReadsUrl, String category, String subCategory, String isbn, String coverImageUrl, Long orderIndex) {
-        this.title = title;
-        this.author = author;
-        this.averageRating = averageRating;
-        this.ratingCount = ratingCount;
-        this.publishDate = publishDate;
-        this.goodReadsUrl = goodReadsUrl;
-        this.category = category;
-        this.subCategory = subCategory;
-        this.isbn = isbn;
-        this.coverImageUrl = coverImageUrl;
-        this.orderIndex = orderIndex;
     }
 
     // Getters and Setters
@@ -181,29 +157,9 @@ public class Book extends BaseModel {
         this.subCategory = subCategory;
     }
 
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
     public String getCoverImageUrl() {
         GoogleBook googleBook = this.getGoogleBook();
         return googleBook != null ? googleBook.getThumbnailUrl() : "";
-    }
-
-    public void setCoverImageUrl(String coverImageUrl) {
-        this.coverImageUrl = coverImageUrl;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getPreviewUrl() {
@@ -212,14 +168,6 @@ public class Book extends BaseModel {
 
     public void setPreviewUrl(String previewUrl) {
         this.previewUrl = previewUrl;
-    }
-
-    public String getAuthorDescription() {
-        return authorDescription;
-    }
-
-    public void setAuthorDescription(String authorDescription) {
-        this.authorDescription = authorDescription;
     }
 
     public Long getOrderIndex() {
