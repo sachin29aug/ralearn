@@ -32,12 +32,11 @@ public class Book extends BaseModel {
 
     public String subCategory;
 
-    public String previewUrl;
-
     public Long orderIndex;
 
-    @OneToOne(mappedBy = "book")
-    private GoogleBook googleBook;
+    @OneToOne
+    @JoinColumn(name = "gl_book_id")
+    private GBBook gbBook;
 
     @OneToOne
     @JoinColumn(name = "ol_book_id")
@@ -69,7 +68,6 @@ public class Book extends BaseModel {
             System.out.printf(randomBook.title == null ? "blank" : randomBook.title);
             System.out.printf(randomBook.author == null ? "blank" : randomBook.author);
             System.out.printf(randomBook.publishDate == null ? "blank" : randomBook.publishDate);
-            System.out.printf(randomBook.previewUrl == null ? "blank" : randomBook.previewUrl);
             e.printStackTrace();
         }
         return randomBooks;
@@ -158,16 +156,8 @@ public class Book extends BaseModel {
     }
 
     public String getCoverImageUrl() {
-        GoogleBook googleBook = this.getGoogleBook();
-        return googleBook != null ? googleBook.getThumbnailUrl() : "";
-    }
-
-    public String getPreviewUrl() {
-        return previewUrl;
-    }
-
-    public void setPreviewUrl(String previewUrl) {
-        this.previewUrl = previewUrl;
+        GBBook gbBook = this.getGbBook();
+        return gbBook != null ? gbBook.getThumbnailUrl() : "";
     }
 
     public Long getOrderIndex() {
@@ -178,12 +168,12 @@ public class Book extends BaseModel {
         this.orderIndex = orderIndex;
     }
 
-    public GoogleBook getGoogleBook() {
-        return googleBook;
+    public GBBook getGbBook() {
+        return gbBook;
     }
 
-    public void setGoogleBook(GoogleBook googleBook) {
-        this.googleBook = googleBook;
+    public void setGbBook(GBBook gbBook) {
+        this.gbBook = gbBook;
     }
 
     public OLBook getOlBook() {
@@ -213,8 +203,8 @@ public class Book extends BaseModel {
 
     public String getDescription(int length) {
         String googleBookDescription = "";
-        if(this.googleBook != null) {
-            googleBookDescription = this.googleBook.getDescription();
+        if(this.gbBook != null) {
+            googleBookDescription = this.gbBook.getDescription();
             if (googleBookDescription != null && googleBookDescription.length() > length) {
                 return googleBookDescription.substring(0, length);
             }
@@ -224,7 +214,7 @@ public class Book extends BaseModel {
     }
 
     public String getHtmlDescription() {
-        return this.googleBook.getDescription().replaceAll("(?<=\\.)\\s+", "</p><p>");
+        return this.gbBook.getDescription().replaceAll("(?<=\\.)\\s+", "</p><p>");
     }
 
     public String getGoodReadsAbsoluteUrl() {
@@ -240,7 +230,7 @@ public class Book extends BaseModel {
     }
 
     public String getGoogleBooksUrl() throws UnsupportedEncodingException {
-        GoogleBook googleBook = this.getGoogleBook();
-        return googleBook != null ? googleBook.getPreviewLink() : "";
+        GBBook gbBook = this.getGbBook();
+        return gbBook != null ? gbBook.getPreviewLink() : "";
     }
 }

@@ -1,6 +1,5 @@
 package controllers;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.ebean.DB;
 import io.ebean.Transaction;
@@ -51,24 +50,30 @@ public class SystemAdmin extends Controller {
                     Elements bookElements = htmlTag.select("a.leftAlignedImage");
                     Elements authorNames = htmlTag.select("a.authorName > span");
                     Elements details = htmlTag.select("span.greyText.smallText");
-
                     for (int i = 0; i < bookTitles.size(); i++) {
-                        String bookTitle = bookElements.get(i).attr("title");
-                        String authorName = authorNames.get(i).text();
+                        orderIndex++;
+                        Book book = new Book();
+                        book.setTitle(bookElements.get(i).attr("title"));
+                        book.setAuthor(authorNames.get(i).text());
                         String detailText = details.get(i).text();
                         String[] parts = detailText.split("—");
-                        //Float avgRating = parts[0].replace("avg rating ", "").trim();
-                        Float avgRating = 1.1f;
-                        //String ratingsCount = "";
-                        Integer ratingsCount = 1;
-                        String publishDate = "";
-                        if(parts.length > 1) {
-                            //ratingsCount = parts[1].replace("ratings", "").trim();
-                            publishDate = parts[2].replace("published", "").trim();
+                        try {
+                            book.setAverageRating(Float.valueOf(parts[0].replace("avg rating ", "").trim()));
+                        } catch (NumberFormatException e) {
+
                         }
-                        String goodReadsLink = bookElements.get(i).attr("href");
-                        //Book book = new Book(bookTitle, authorName, avgRating, ratingsCount, publishDate, goodReadsLink, category, subCategory, null, null, orderIndex++);
-                        //book.save();
+                        if(parts.length > 1) {
+                            try {
+                                book.setRatingCount(Integer.valueOf(parts[1].replace("ratings", "").replace(",", "").trim()));
+                            } catch (NumberFormatException e) {
+                            }
+                            book.setPublishDate(parts[2].replace("published", "").trim());
+                        }
+                        book.setGoodReadsUrl(bookElements.get(i).attr("href"));
+                        book.setCategory(category);
+                        book.setSubCategory(subCategory);
+                        book.setOrderIndex(orderIndex);
+                        book.save();
                     }
                 }
             }

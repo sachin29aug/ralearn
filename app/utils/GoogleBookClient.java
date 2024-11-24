@@ -1,7 +1,7 @@
 package utils;
 
 import models.Book;
-import models.GoogleBook;
+import models.GBBook;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -34,46 +34,45 @@ public class GoogleBookClient {
                     imageLinks = volumeInfo.optJSONObject("imageLinks");
                 }
 
-                GoogleBook googleBook = GoogleBook.findByBookId(book.id);
-                if(googleBook == null) {
-                    googleBook = new GoogleBook();
-                    googleBook.setBook(book);
+                GBBook gbBook = GBBook.findByBookId(book.id);
+                if(gbBook == null) {
+                    gbBook = new GBBook();
 
                     // Main fields
-                    googleBook.setGbId(jsonObject.optString("id"));
-                    googleBook.setEtag(jsonObject.optString("etag"));
-                    googleBook.setContentVersion(volumeInfo.optString("contentVersion"));
-                    googleBook.setTitle(volumeInfo.optString("title"));
-                    googleBook.setSubTitle(volumeInfo.optString("subtitle"));
-                    googleBook.setAuthors(convertArrayToCommaSeparatedString(volumeInfo.optJSONArray("authors")));
+                    gbBook.setGbId(jsonObject.optString("id"));
+                    gbBook.setEtag(jsonObject.optString("etag"));
+                    gbBook.setContentVersion(volumeInfo.optString("contentVersion"));
+                    gbBook.setTitle(volumeInfo.optString("title"));
+                    gbBook.setSubTitle(volumeInfo.optString("subtitle"));
+                    gbBook.setAuthors(convertArrayToCommaSeparatedString(volumeInfo.optJSONArray("authors")));
                     //volumeInfo.getJSONObject("authors").optString("description", "N/A") : "N/A";
                     //map.put("authorDescription", authorDescription);
-                    googleBook.setMainCategory(volumeInfo.optString("mainCategory"));
-                    googleBook.setCategories(convertArrayToCommaSeparatedString(volumeInfo.optJSONArray("categories")));
-                    googleBook.setDescription(volumeInfo.optString("description"));
-                    googleBook.setAverageRating(volumeInfo.optDouble("averageRating"));
-                    googleBook.setRatingsCount(volumeInfo.optInt("ratingsCount"));
-                    googleBook.setMaturityRating(volumeInfo.optString("maturityRating"));
+                    gbBook.setMainCategory(volumeInfo.optString("mainCategory"));
+                    gbBook.setCategories(convertArrayToCommaSeparatedString(volumeInfo.optJSONArray("categories")));
+                    gbBook.setDescription(volumeInfo.optString("description"));
+                    gbBook.setAverageRating(volumeInfo.optDouble("averageRating"));
+                    gbBook.setRatingsCount(volumeInfo.optInt("ratingsCount"));
+                    gbBook.setMaturityRating(volumeInfo.optString("maturityRating"));
 
                     // Links
-                    googleBook.setSelfLink(jsonObject.optString("selfLink"));
-                    googleBook.setPreviewLink(volumeInfo.optString("previewLink"));
+                    gbBook.setSelfLink(jsonObject.optString("selfLink"));
+                    gbBook.setPreviewLink(volumeInfo.optString("previewLink"));
                     if (imageLinks != null) {
-                        googleBook.setThumbnailUrl(imageLinks.optString("thumbnail"));
-                        googleBook.setSmallThumbnailUrl(imageLinks.optString("smallThumbnail"));
-                        googleBook.setSmallUrl(imageLinks.optString("small"));
-                        googleBook.setMediumUrl(imageLinks.optString("medium"));
-                        googleBook.setLargeUrl(imageLinks.optString("large"));
-                        googleBook.setExtraLargeUrl(imageLinks.optString("extraLarge"));
+                        gbBook.setThumbnailUrl(imageLinks.optString("thumbnail"));
+                        gbBook.setSmallThumbnailUrl(imageLinks.optString("smallThumbnail"));
+                        gbBook.setSmallUrl(imageLinks.optString("small"));
+                        gbBook.setMediumUrl(imageLinks.optString("medium"));
+                        gbBook.setLargeUrl(imageLinks.optString("large"));
+                        gbBook.setExtraLargeUrl(imageLinks.optString("extraLarge"));
                     }
-                    googleBook.setInfoLink(volumeInfo.optString("infoLink"));
-                    googleBook.setCanonicalVolumeLink(volumeInfo.optString("canonicalVolumeLink"));
+                    gbBook.setInfoLink(volumeInfo.optString("infoLink"));
+                    gbBook.setCanonicalVolumeLink(volumeInfo.optString("canonicalVolumeLink"));
 
                     if (saleInfo != null) {
-                        googleBook.setBuyLink(saleInfo.optString("buyLink"));
-                        googleBook.setSaleCountry(saleInfo.optString("country"));
-                        googleBook.setSaleability(saleInfo.optString("saleability"));
-                        googleBook.setEbook(saleInfo.optBoolean("isEbook"));
+                        gbBook.setBuyLink(saleInfo.optString("buyLink"));
+                        gbBook.setSaleCountry(saleInfo.optString("country"));
+                        gbBook.setSaleability(saleInfo.optString("saleability"));
+                        gbBook.setEbook(saleInfo.optBoolean("isEbook"));
                     }
 
                     // Industry identifiers (ISBNs)
@@ -82,42 +81,45 @@ public class GoogleBookClient {
                         for (int i = 0; i < industryIdentifiers.length(); i++) {
                             JSONObject identifier = industryIdentifiers.getJSONObject(i);
                             if ("ISBN_10".equals(identifier.getString("type"))) {
-                                googleBook.setIsbn10(identifier.getString("identifier"));
+                                gbBook.setIsbn10(identifier.getString("identifier"));
                             } else if ("ISBN_13".equals(identifier.getString("type"))) {
-                                googleBook.setIsbn13(identifier.getString("identifier"));
+                                gbBook.setIsbn13(identifier.getString("identifier"));
                             }
                         }
                     }
 
                     // Other info
-                    googleBook.setPublisher(volumeInfo.optString("publisher"));
-                    googleBook.setPublishedDate(volumeInfo.optString("publishedDate"));
-                    googleBook.setPageCount(volumeInfo.optInt("pageCount"));
-                    googleBook.setPrintedPageCount(volumeInfo.optInt("printedPageCount"));
+                    gbBook.setPublisher(volumeInfo.optString("publisher"));
+                    gbBook.setPublishedDate(volumeInfo.optString("publishedDate"));
+                    gbBook.setPageCount(volumeInfo.optInt("pageCount"));
+                    gbBook.setPrintedPageCount(volumeInfo.optInt("printedPageCount"));
 
                     // Format and access information
-                    googleBook.setLanguage(volumeInfo.optString("language"));
+                    gbBook.setLanguage(volumeInfo.optString("language"));
                     if (accessInfo != null) {
-                        googleBook.setViewability(accessInfo.optString("viewability"));
-                        googleBook.setEmbeddable(accessInfo.optBoolean("embeddable"));
-                        googleBook.setPublicDomain(accessInfo.optBoolean("publicDomain"));
-                        googleBook.setAccessViewStatus(accessInfo.optString("accessViewStatus"));
-                        googleBook.setPdfIsAvailable(accessInfo.optJSONObject("pdf").optBoolean("isAvailable"));
-                        googleBook.setEpubIsAvailable(accessInfo.optJSONObject("epub").optBoolean("isAvailable"));
-                        googleBook.setEpubAcsTokenLink(accessInfo.optJSONObject("epub").optString("acsTokenLink"));
+                        gbBook.setViewability(accessInfo.optString("viewability"));
+                        gbBook.setEmbeddable(accessInfo.optBoolean("embeddable"));
+                        gbBook.setPublicDomain(accessInfo.optBoolean("publicDomain"));
+                        gbBook.setAccessViewStatus(accessInfo.optString("accessViewStatus"));
+                        gbBook.setPdfIsAvailable(accessInfo.optJSONObject("pdf").optBoolean("isAvailable"));
+                        gbBook.setEpubIsAvailable(accessInfo.optJSONObject("epub").optBoolean("isAvailable"));
+                        gbBook.setEpubAcsTokenLink(accessInfo.optJSONObject("epub").optString("acsTokenLink"));
                     }
                     JSONObject readingModes = volumeInfo.optJSONObject("readingModes");
                     if (readingModes != null) {
-                        googleBook.setReadingModeText(readingModes.optBoolean("text", false));
-                        googleBook.setReadingModeImage(readingModes.optBoolean("image", false));
+                        gbBook.setReadingModeText(readingModes.optBoolean("text", false));
+                        gbBook.setReadingModeImage(readingModes.optBoolean("image", false));
                     }
                     JSONObject panelizationSummary = volumeInfo.optJSONObject("panelizationSummary");
                     if (panelizationSummary != null) {
-                        googleBook.setContainsEpubBubbles(panelizationSummary.optBoolean("containsEpubBubbles", false));
-                        googleBook.setContainsImageBubbles(panelizationSummary.optBoolean("containsImageBubbles", false));
+                        gbBook.setContainsEpubBubbles(panelizationSummary.optBoolean("containsEpubBubbles", false));
+                        gbBook.setContainsImageBubbles(panelizationSummary.optBoolean("containsImageBubbles", false));
                     }
 
-                    googleBook.save();
+                    gbBook.save();
+
+                    book.setGbBook(gbBook);
+                    book.update();
 
                     System.out.println("Processed: " + book.title);
                 }

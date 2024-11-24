@@ -4,7 +4,8 @@ import io.ebean.Finder;
 import jakarta.persistence.*;
 
 @Entity
-public class GoogleBook extends BaseModel {
+@Table(name = "gb_book")
+public class GBBook extends BaseModel {
     private String gbId;
     private String etag;
     private String contentVersion;
@@ -74,15 +75,14 @@ public class GoogleBook extends BaseModel {
     private boolean publicDomain;
     private String accessViewStatus;
 
-    @OneToOne
-    @JoinColumn(name = "book_id")
+    @OneToOne(mappedBy = "gbBook")
     private Book book;
 
-    public static Finder<Long, GoogleBook> find = new Finder<>(GoogleBook.class);
+    public static Finder<Long, GBBook> find = new Finder<>(GBBook.class);
 
     // Static methods
 
-    public static GoogleBook findByBookId(Long bookId) {
+    public static GBBook findByBookId(Long bookId) {
         return find.query().where().eq("book.id", bookId).findOne();
     }
 
