@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.ebean.DB;
 import io.ebean.Transaction;
-import models.Book;
-import models.Category;
-import models.OLBook;
-import models.Quote;
+import models.*;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -158,6 +155,59 @@ public class SystemAdmin extends Controller {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        return ok("Done");
+    }
+
+    public Result importAuthorsOL() {
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader("C:\\basedir\\env\\open-library\\ol_dump_authors_2024-09-30\\ol_dump_authors_2024-09-30.txt")); // This has 13652489 records and populates 28534 records in the ol_author table with bios
+            String line;
+            int index = 0;
+            while ((line = reader.readLine()) != null) {
+                //System.out.println(line);
+                index++;
+                System.out.println(index);
+
+                String[] parts = line.split("\t");
+                if (parts.length >= 5) {
+                    String jsonPart = parts[4].trim();
+                    JSONObject jsonObject = new JSONObject(jsonPart);
+
+                    String bio = null;
+                    JSONObject bioObject = jsonObject.optJSONObject("bio");
+                    if (bioObject != null) {
+                        bio = bioObject.optString("value");
+                    }
+                    if (StringUtils.isNotBlank(bio)) {
+                        String key = jsonObject.optString("key");
+                        String name = jsonObject.optString("name");
+                        String photoId = null;
+                        if (jsonObject.has("photos")) {
+                            JSONArray photos = jsonObject.getJSONArray("photos");
+                            if (photos.length() > 0) {
+                                photoId = "" + photos.getInt(0);
+                            }
+                        }
+
+                        OLAuthor olAuthor = new OLAuthor();
+                        olAuthor.setAuthorKey(key);
+                        olAuthor.setName(name);
+                        olAuthor.setBio(bio);
+                        olAuthor.setPhotoId(photoId);
+                        olAuthor.save();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         return ok("Done");
     }

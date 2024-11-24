@@ -240,6 +240,7 @@ public class Book extends BaseModel {
     }
 
     public String getGoogleBooksUrl() throws UnsupportedEncodingException {
-        return this.googleBook.getPreviewLink();
+        GoogleBook googleBook = this.getGoogleBook();
+        return googleBook != null ? googleBook.getPreviewLink() : "";
     }
 }
