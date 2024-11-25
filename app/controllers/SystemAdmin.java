@@ -43,38 +43,41 @@ public class SystemAdmin extends Controller {
                 String filePath = "datasets/" + category + "/" + subCategory + ".html";
                 File inputFile = new File(confDir, filePath);
                 Document doc = Jsoup.parse(inputFile, "UTF-8");
-
-                long orderIndex = 0;
-                for (Element htmlTag : doc.select("html")) {
-                    Elements bookTitles = htmlTag.select("a.bookTitle");
-                    Elements bookElements = htmlTag.select("a.leftAlignedImage");
-                    Elements authorNames = htmlTag.select("a.authorName > span");
-                    Elements details = htmlTag.select("span.greyText.smallText");
-                    for (int i = 0; i < bookTitles.size(); i++) {
-                        orderIndex++;
-                        Book book = new Book();
-                        book.setTitle(bookElements.get(i).attr("title"));
-                        book.setAuthor(authorNames.get(i).text());
-                        String detailText = details.get(i).text();
-                        String[] parts = detailText.split("—");
-                        try {
-                            book.setAverageRating(Float.valueOf(parts[0].replace("avg rating ", "").trim()));
-                        } catch (NumberFormatException e) {
-
-                        }
-                        if(parts.length > 1) {
-                            try {
-                                book.setRatingCount(Integer.valueOf(parts[1].replace("ratings", "").replace(",", "").trim()));
-                            } catch (NumberFormatException e) {
-                            }
-                            book.setPublishDate(parts[2].replace("published", "").trim());
-                        }
-                        book.setGoodReadsUrl(bookElements.get(i).attr("href"));
-                        book.setCategory(category);
-                        book.setSubCategory(subCategory);
-                        book.setOrderIndex(orderIndex);
-                        book.save();
+                Elements bookElements = doc.select("div.left[style='width: 75%;']");
+                for (Element bookElement : bookElements) {
+                    Element titleElement = bookElement.selectFirst("a.bookTitle");
+                    String title = titleElement != null ? titleElement.text() : null;
+                    if(title.length() > 250) {
+                        title = title.substring(0, 250);
                     }
+                    String goodReadsUrl = titleElement != null ? titleElement.attr("href") : null;
+                    Element authorElement = bookElement.selectFirst("a.authorName");
+                    String authorName = authorElement != null ? authorElement.text() : null;
+                    Element greyTextElement = bookElement.selectFirst("span.greyText.smallText");
+                    String greyText = greyTextElement != null ? greyTextElement.text() : null;
+                    Float rating = null;
+                    Integer ratingCount = null;
+                    String publishDate = null;
+                    if (greyText != null) {
+                        String[] parts = greyText.split("—");
+                        try {
+                            rating = Float.valueOf(parts[0].replace("avg rating", "").trim());
+                            ratingCount = parts.length > 1 ? Integer.valueOf(parts[1].replace("ratings", "").replace(",", "").trim()) : null;
+                        } catch (NumberFormatException e) {
+                        }
+                        publishDate = parts.length > 2 ? parts[2].replace("published", "").trim() : null;
+                    }
+
+                    Book book = new Book();
+                    book.setTitle(title);
+                    book.setAuthor(authorName);
+                    book.setAverageRating(rating);
+                    book.setRatingCount(ratingCount);
+                    book.setPublishDate(publishDate);
+                    book.setGoodReadsUrl(goodReadsUrl);
+                    book.setCategory(category);
+                    book.setSubCategory(subCategory);
+                    book.save();
                 }
             }
         }
