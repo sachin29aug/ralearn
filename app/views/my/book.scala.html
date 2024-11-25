@@ -21,7 +21,7 @@
         </div>
 
         <div class="book--cover-section">
-            <div class="text-center"><img class="book--cover-section-image" src="@book.getCoverImageUrl()"></div>
+            <div class="text-center"><img class="book--cover-section-image" src="@book.getGbBook().getThumbnailUrl()"></div>
         </div>
         <div class="book--details">
             <h4 class="book--details-title">@book.getTitle()</h4>
@@ -41,7 +41,7 @@
         </div>
 
         <div class="book--category-books">
-            <h4 class="fw-600 mb-3">You May Also Like in @Category.getDisplayTitle(book.getSubCategory())</h4>
+            <h4 class="fw-600 mb-3">You May Also Like in @Category.getDisplayTitle(book.getCategory())</h4>
             <div class="scrollable-cards-x">
                 @for(book <- sameSubCategoryBooks) {
                     <div class="scrollable-card-x">
@@ -52,7 +52,7 @@
         </div>
 
         <div class="text-center">
-            <a class="cls-more-options-modal-btn btn btn-primary mb-4" data-good-reads-url="@book.getGoodReadsAbsoluteUrl()" data-amazon-url="@book.getAmazonUrl()" data-google-books-preview-url="@book.getGoogleBooksUrl()" data-youtube-url="@book.getYoutubeUrl()" href="#">More Options</a>
+            <a class="cls-more-options-modal-btn btn btn-primary mb-4" data-good-reads-url="@book.getGrAbsoluteUrl()" data-amazon-url="@book.getAmazonUrl()" data-google-books-preview-url="@book.getGbBook().getPreviewLink()" data-youtube-url="@book.getYoutubeUrl()" href="#">More Options</a>
         </div>
     </div>
 

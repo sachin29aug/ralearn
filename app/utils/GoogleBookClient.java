@@ -17,7 +17,7 @@ public class GoogleBookClient {
 
     public static void importGoogleBookInfo(Book book) {
         try {
-            String url = BASE_URL + "?q=intitle:" +  book.title.replace(" ", "+") + "&key=" + API_KEY;
+            String url = BASE_URL + "?q=intitle:" +  book.getTitle().replace(" ", "+") + "&key=" + API_KEY;
             JSONObject responseJson = getJsonResponse(url);
             JSONArray items = responseJson.optJSONArray("items");
             JSONObject jsonObject = null;
@@ -121,7 +121,7 @@ public class GoogleBookClient {
                     book.setGbBook(gbBook);
                     book.update();
 
-                    System.out.println("Processed: " + book.title);
+                    System.out.println("Processed: " + book.getTitle());
                 }
             }
         } catch (Exception e) {

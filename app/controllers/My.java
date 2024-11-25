@@ -71,7 +71,7 @@ public class My extends Controller {
         Transaction txn = DB.beginTransaction();
         User user = CommonUtil.getUser(request);
         UserBook userBook = UserBook.find.byId(userBookId);
-        userBook.setBook(Book.getRandomBookByCategory(null, userBook.book.getSubCategory())); // When is use setBook() method only then the below update works
+        userBook.setBook(Book.getRandomBookByCategory(null, userBook.getBook().getCategory())); // When is use setBook() method only then the below update works
         userBook.update();
         txn.commit();
 
@@ -118,7 +118,7 @@ public class My extends Controller {
         List<Book> sameAuthorBooks = new ArrayList<>();
         List<Book> sameSubCategoryBooks = new ArrayList<>();
         for(int i = 1; i <= 3; i++) {
-            sameSubCategoryBooks.add(Book.getRandomBookByCategory(null, book.getSubCategory()));
+            sameSubCategoryBooks.add(Book.getRandomBookByCategory(null, book.getCategory()));
         }
         sameAuthorBooks = sameSubCategoryBooks;
 

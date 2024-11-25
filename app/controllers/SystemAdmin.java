@@ -27,6 +27,8 @@ public class SystemAdmin extends Controller {
     // Data Import and load related
 
     public Result importBooksGR() throws IOException {
+        // Todo: Multi author fix
+
         Map<String, List<String>> categoriesMap = new LinkedHashMap<>();
         categoriesMap.put("Personal Development", Arrays.asList("self-help", "productivity", "communication-skills", "creativity", "education", "biography", "philosophy"));
         categoriesMap.put("Mind & Spirit", Arrays.asList("psychology", "spirituality", "mindfulness"));
@@ -71,12 +73,12 @@ public class SystemAdmin extends Controller {
                     Book book = new Book();
                     book.setTitle(title);
                     book.setAuthor(authorName);
-                    book.setAverageRating(rating);
+                    book.setRating(rating);
                     book.setRatingCount(ratingCount);
-                    book.setPublishDate(publishDate);
-                    book.setGoodReadsUrl(goodReadsUrl);
+                    book.setPublished(publishDate);
+                    book.setGrUrl(goodReadsUrl);
                     book.setCategory(category);
-                    book.setSubCategory(subCategory);
+                    book.setCategory(subCategory);
                     book.save();
                 }
             }

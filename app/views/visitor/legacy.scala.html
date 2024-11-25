@@ -29,22 +29,22 @@
         @for(book <- books) {
             <div class="home-section-1--book-card d-flex align-items-center mb-5 p-3">
                 <div class="home-section-1--book-card-left-col me-4">
-                    <a href="@routes.My.book(book.id)" target="_blank"><img src="@book.getCoverImageUrl()" alt=""></a>
+                    <a href="@routes.My.book(book.id)" target="_blank"><img src="@book.getGbBook().getThumbnailUrl()" alt=""></a>
                 </div>
                 <div class="home-section-1--book-card--right-col">
                     <div class="home-section-1--book-title mb-1">@book.getTitle(50)</div>
                     <div class="home-section-1--book-author mb-2">by @book.getAuthor()</div>
-                    <div class="home-section-1--book-subcategory badge rounded-pill text-bg-dark px-3">@book.subCategory</div>
+                    <div class="home-section-1--book-subcategory badge rounded-pill text-bg-dark px-3">@book.getCategory()</div>
                     @**<div class="home-section-1--action-block d-flex mt-3">
                         <a class="me-5" href=""><i class="fa-solid fa-heart"></i></i></a>
                         <a class="me-5" href=""><i class="fa-solid fa-trash"></i></i></a>
                         <a href=""><i class="fa-solid fa-rotate"></i></i></a>
                     </div>**@
                     <div class="home-section-1--navigation-block d-flex mt-3">
-                        <a href="https://www.goodreads.com/@book.goodReadsUrl" target="_blank" class="btn-temp btn-primary goodreads me-3" title="Goodreads"><i class="fab fa-goodreads-g"></i></a>
-                        <a href="https://www.amazon.com/s?k=@book.getEncodedTitle()" target="_blank" class="btn-temp btn-primary amazon me-3" title="Amazon"><i class="fab fa-amazon"></i></a>
-                        <a href="https://www.youtube.com/results?search_query=@book.getEncodedTitleForSummary()" target="_blank" class="btn-temp btn-primary youtube me-3" title="YouTube"><i class="fab fa-youtube"></i></a>
-                        <a href="@book.getGoogleBooksUrl()" target="_blank" class="btn-temp btn-primary youtube" title="YouTube"><i class="fa-regular fa-eye"></i></a>
+                        <a href="@book.getGrAbsoluteUrl()" target="_blank" class="btn-temp btn-primary goodreads me-3" title="Goodreads"><i class="fab fa-goodreads-g"></i></a>
+                        <a href="@book.getAmazonUrl()" target="_blank" class="btn-temp btn-primary amazon me-3" title="Amazon"><i class="fab fa-amazon"></i></a>
+                        <a href="@book.getYoutubeUrl()" target="_blank" class="btn-temp btn-primary youtube me-3" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="@book.getGbBook().getPreviewLink()" target="_blank" class="btn-temp btn-primary youtube" title="YouTube"><i class="fa-regular fa-eye"></i></a>
                     </div>
                 </div>
             </div>

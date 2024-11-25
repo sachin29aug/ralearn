@@ -15,24 +15,20 @@ import java.util.*;
 
 @Entity
 public class Book extends BaseModel {
-    public String title;
+    private String title;
 
-    public String author;
+    private String author;
 
-    public Float averageRating;
+    private Float rating;
 
-    public Integer ratingCount;
+    private Integer ratingCount;
 
-    public String publishDate;
+    private String published;
+
+    private String category;
 
     @Column(length = 500)
-    public String goodReadsUrl;
-
-    public String category;
-
-    public String subCategory;
-
-    public Long orderIndex;
+    private String grUrl;
 
     @OneToOne
     @JoinColumn(name = "gl_book_id")
@@ -46,10 +42,6 @@ public class Book extends BaseModel {
 
     // Static methods
 
-    public static Book findByOrderIndex(String subCategory, int orderIndex) {
-        return find.query().where().eq("subCategory", subCategory).eq("order_index", orderIndex).findOne();
-    }
-
     public static Book findByTitle(String title) {
         List<Book> books = find.query().where().ieq("title", title).findList();
         return CollectionUtils.isEmpty(books) ? null : books.get(0);
@@ -61,13 +53,9 @@ public class Book extends BaseModel {
         try {
             for(String subCategory : subCategories) {
                 randomBook = getRandomBookByCategory(null, subCategory);
-                //randomBook.update();
                 randomBooks.add(randomBook);
             }
         } catch (Exception e) {
-            System.out.printf(randomBook.title == null ? "blank" : randomBook.title);
-            System.out.printf(randomBook.author == null ? "blank" : randomBook.author);
-            System.out.printf(randomBook.publishDate == null ? "blank" : randomBook.publishDate);
             e.printStackTrace();
         }
         return randomBooks;
@@ -76,11 +64,13 @@ public class Book extends BaseModel {
     public static Book getRandomBookByCategory(String category, String subCategory) {
         Book randomBook;
         if(category != null) {
-            randomBook = DB.find(Book.class).where().eq("category", category).gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
+            randomBook = DB.find(Book.class).where().eq("category", "spirituality").gt("rating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
+            //Category categoryObj = Category.findByTitle(category);
+            //randomBook = DB.find(Book.class).where().in("category", category).gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
         } else if(subCategory != null) {
-            randomBook = DB.find(Book.class).where().eq("subCategory", subCategory).gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
+            randomBook = DB.find(Book.class).where().eq("category", subCategory).gt("rating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
         } else {
-            randomBook = DB.find(Book.class).where().gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
+            randomBook = DB.find(Book.class).where().gt("rating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
         }
 
         GoogleBookClient.importGoogleBookInfo(randomBook);
@@ -89,116 +79,13 @@ public class Book extends BaseModel {
         return randomBook;
     }
 
-    // Getters and Setters
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public Float getAverageRating() {
-        return averageRating;
-    }
-
-    public void setAverageRating(Float averageRating) {
-        this.averageRating = averageRating;
-    }
-
-    public Integer getRatingCount() {
-        return ratingCount;
-    }
-
-    public void setRatingCount(Integer ratingCount) {
-        this.ratingCount = ratingCount;
-    }
-
-    public String getPublishDate() {
-        return publishDate;
-    }
-
-    public void setPublishDate(String publishDate) {
-        this.publishDate = publishDate;
-    }
-
-    public String getGoodReadsUrl() {
-        return goodReadsUrl;
-    }
-
-    public void setGoodReadsUrl(String goodReadsUrl) {
-        this.goodReadsUrl = goodReadsUrl;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getSubCategory() {
-        return subCategory;
-    }
-
-    public void setSubCategory(String subCategory) {
-        this.subCategory = subCategory;
-    }
-
-    public String getCoverImageUrl() {
-        GBBook gbBook = this.getGbBook();
-        return gbBook != null ? gbBook.getThumbnailUrl() : "";
-    }
-
-    public Long getOrderIndex() {
-        return orderIndex;
-    }
-
-    public void setOrderIndex(Long orderIndex) {
-        this.orderIndex = orderIndex;
-    }
-
-    public GBBook getGbBook() {
-        return gbBook;
-    }
-
-    public void setGbBook(GBBook gbBook) {
-        this.gbBook = gbBook;
-    }
-
-    public OLBook getOlBook() {
-        return olBook;
-    }
-
-    public void setOlBook(OLBook olBook) {
-        this.olBook = olBook;
-    }
-
-    // Other non-static methods
+    // Non-static methods
 
     public String getTitle(int length) {
         if(title != null && title.length() > length) {
             return title.substring(0, length);
         }
         return title;
-    }
-
-    public String getEncodedTitle() throws UnsupportedEncodingException {
-        return URLEncoder.encode(title.toLowerCase(), "UTF-8");
-    }
-
-    public String getEncodedTitleForSummary() throws UnsupportedEncodingException {
-        return URLEncoder.encode("Book summary for" + title.toLowerCase() + " by " + author, "UTF-8");
     }
 
     public String getDescription(int length) {
@@ -217,20 +104,89 @@ public class Book extends BaseModel {
         return this.gbBook.getDescription().replaceAll("(?<=\\.)\\s+", "</p><p>");
     }
 
-    public String getGoodReadsAbsoluteUrl() {
-        return "https://www.goodreads.com/" + goodReadsUrl;
+    public String getGrAbsoluteUrl() {
+        return "https://www.goodreads.com/" + grUrl;
     }
 
     public String getAmazonUrl() throws UnsupportedEncodingException {
-        return "https://www.amazon.com/s?k=" + this.getEncodedTitle();
+        return "https://www.amazon.com/s?k=" + URLEncoder.encode(title.toLowerCase(), "UTF-8");
     }
 
     public String getYoutubeUrl() throws UnsupportedEncodingException {
-        return "https://www.youtube.com/results?search_query=" + this.getEncodedTitleForSummary();
+        return "https://www.youtube.com/results?search_query=" + URLEncoder.encode("Book summary for" + title.toLowerCase() + " by " + author, "UTF-8");
     }
 
-    public String getGoogleBooksUrl() throws UnsupportedEncodingException {
-        GBBook gbBook = this.getGbBook();
-        return gbBook != null ? gbBook.getPreviewLink() : "";
+    // Getters Setters
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public Float getRating() {
+        return rating;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
+    }
+
+    public Integer getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(Integer ratingCount) {
+        this.ratingCount = ratingCount;
+    }
+
+    public String getPublished() {
+        return published;
+    }
+
+    public void setPublished(String published) {
+        this.published = published;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getGrUrl() {
+        return grUrl;
+    }
+
+    public void setGrUrl(String grUrl) {
+        this.grUrl = grUrl;
+    }
+
+    public GBBook getGbBook() {
+        return gbBook;
+    }
+
+    public void setGbBook(GBBook gbBook) {
+        this.gbBook = gbBook;
+    }
+
+    public OLBook getOlBook() {
+        return olBook;
+    }
+
+    public void setOlBook(OLBook olBook) {
+        this.olBook = olBook;
     }
 }

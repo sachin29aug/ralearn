@@ -36,7 +36,7 @@ public class UserBook extends BaseModel {
     }
 
     public static List<UserBook> findPastUserBooksBySubCategory(String subCategory, Long userId) {
-        return find.query().where().eq("book.subCategory", subCategory).lt("assigned", CommonUtil.removeTimeStamp(new Date())).eq("user.id", userId).orderBy("assigned desc").findList();
+        return find.query().where().eq("book.category", subCategory).lt("assigned", CommonUtil.removeTimeStamp(new Date())).eq("user.id", userId).orderBy("assigned desc").findList();
     }
 
     public static UserBook findByUserAndBookId(Long userId, Long bookId) {
