@@ -12,7 +12,7 @@ public class CommonUtil {
     }
 
     public static String getVersionedUrl(String url) {
-        return url + "?v=31";
+        return url + "?v=32";
     }
 
     // Session related
