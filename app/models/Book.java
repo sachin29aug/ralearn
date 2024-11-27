@@ -44,8 +44,12 @@ public class Book extends BaseModel {
     // Static methods
 
     public static Book findByTitle(String title) {
-        List<Book> books = find.query().where().ieq("title", title).findList();
+        List<Book> books = find.query().where().eq("title", title).findList();
         return CollectionUtils.isEmpty(books) ? null : books.get(0);
+    }
+
+    public static Book findByTitleAndAuthor(String title, String author) {
+        return find.query().where().eq("title", title).eq("author", author).findOne();
     }
 
     public static List<Book> getRandomBooks(List<Category> categories) {

@@ -50,7 +50,7 @@ public class SystemAdmin extends Controller {
                 }
                 String goodReadsUrl = titleElement != null ? titleElement.attr("href") : null;
                 Element authorElement = bookElement.selectFirst("a.authorName");
-                String authorName = authorElement != null ? authorElement.text() : null;
+                String author = authorElement != null ? authorElement.text() : null;
                 Element greyTextElement = bookElement.selectFirst("span.greyText.smallText:contains(avg rating)");
                 String greyText = greyTextElement != null ? greyTextElement.text() : null;
                 BigDecimal rating = null;
@@ -68,20 +68,26 @@ public class SystemAdmin extends Controller {
 
                 Book book = new Book();
                 book.setTitle(title);
-                book.setAuthor(authorName);
+                book.setAuthor(author);
                 book.setRating(rating);
                 book.setRatingCount(ratingCount);
                 book.setPublished(publishDate);
                 book.setGrUrl(goodReadsUrl);
-                book.setCategory(category);
+                //book.setCategory(category);
                 try {
                     book.save();
                 } catch (PersistenceException ex) {
                     Throwable cause = ex.getCause();
                     if (cause instanceof PSQLException && cause.getMessage().contains("duplicate key value violates unique constraint")) {
-
+                        book = Book.findByTitleAndAuthor(title, author);
+                    } else {
+                        throw ex;
                     }
                 }
+
+                BookCategory bookCategory = new BookCategory(book, category);
+                bookCategory.save();
+
                 recordsProcessedCount++;
             }
             System.out.println("Category: " + category.getTitle() + ", Records Processed: " + recordsProcessedCount);
