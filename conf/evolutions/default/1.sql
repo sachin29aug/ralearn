@@ -12,7 +12,7 @@ create table book (
   ol_book_id                    bigint,
   created                       timestamptz not null,
   updated                       timestamptz not null,
-  rating                        decimal(2,1),
+  rating                        decimal(3,2),
   title                         varchar(255),
   author                        varchar(255),
   published                     varchar(255),

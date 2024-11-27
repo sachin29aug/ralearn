@@ -17,7 +17,7 @@ public class Book extends BaseModel {
 
     private String author;
 
-    @Column(precision = 2, scale = 1)
+    @Column(precision = 3, scale = 2)
     private BigDecimal rating;
 
     private Integer ratingCount;

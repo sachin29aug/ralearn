@@ -45,7 +45,7 @@ public class SystemAdmin extends Controller {
                 String goodReadsUrl = titleElement != null ? titleElement.attr("href") : null;
                 Element authorElement = bookElement.selectFirst("a.authorName");
                 String authorName = authorElement != null ? authorElement.text() : null;
-                Element greyTextElement = bookElement.selectFirst("span.greyText.smallText");
+                Element greyTextElement = bookElement.selectFirst("span.greyText.smallText:contains(avg rating)");
                 String greyText = greyTextElement != null ? greyTextElement.text() : null;
                 BigDecimal rating = null;
                 Integer ratingCount = null;
