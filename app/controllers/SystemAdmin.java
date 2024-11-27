@@ -26,20 +26,19 @@ import java.util.*;
 
 public class SystemAdmin extends Controller {
 
-    // Data Import and load related
+    // Data Import related
 
     public Result importBooksGR() throws IOException {
         List<Category> categories = Category.findCategories();
+        String confDir = Paths.get("conf").toAbsolutePath().toString();
         for(Category category : categories) {
-            String confDir = Paths.get("conf").toAbsolutePath().toString();
-            String filePath = "datasets/" + category.getParent().getUrl() + "/" + category.getUrl() + ".html"; // Todo: slugify
-            File inputFile = new File(confDir, filePath);
-            Document doc = Jsoup.parse(inputFile, "UTF-8");
+            String categoryFilePath = "datasets/" + category.getParent().getUrl() + "/" + category.getUrl() + ".html";
+            File categoryFile = new File(confDir, categoryFilePath);
+            Document doc = Jsoup.parse(categoryFile, "UTF-8");
             Elements bookElements = doc.select("div.left[style='width: 75%;']");
             for (Element bookElement : bookElements) {
                 Element titleElement = bookElement.selectFirst("a.bookTitle");
-                String title = titleElement != null ? titleElement.text() : null;
-                title = title.replaceAll("\\s*\\([^)]*\\)$", "").trim(); // removing edition info
+                String title = titleElement != null ? titleElement.text().replaceAll("\\s*\\([^)]*\\)$", "").trim() : null;
                 if (title.length() > 250) {
                     title = title.substring(0, 250);
                 }

@@ -36,8 +36,8 @@ public class UserBook extends BaseModel {
         return find.query().where().eq("assigned", CommonUtil.removeTimeStamp(new Date())).eq("user.id", userId).orderBy("id desc").findList();
     }
 
-    public static List<UserBook> findPastUserBooksBySubCategory(String subCategory, Long userId) {
-        return find.query().where().eq("book.category", subCategory).lt("assigned", CommonUtil.removeTimeStamp(new Date())).eq("user.id", userId).orderBy("assigned desc").findList();
+    public static List<UserBook> findPastUserBooksBySubCategory(Long categoryId, Long userId) {
+        return find.query().where().eq("book.category.id", categoryId).lt("assigned", CommonUtil.removeTimeStamp(new Date())).eq("user.id", userId).orderBy("assigned desc").findList();
     }
 
     public static UserBook findByUserAndBookId(Long userId, Long bookId) {
@@ -61,6 +61,7 @@ public class UserBook extends BaseModel {
         for(UserCategory userCategory : user.userCategories) {
             categories.add(userCategory.getCategory());
         }*/
+        // TODO: use streams across
         List<Category> categories = user.getUserCategories().stream().map(UserCategory::getCategory).collect(Collectors.toList());
 
         List<UserBook> userBooks = new ArrayList<>();

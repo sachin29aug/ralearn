@@ -37,7 +37,7 @@
                 <a class="cls-subcategory-list-btn home--more-link me-3" data-subcategory-title="@userCategory.getCategory().getTitle()" href="#">More</a>
             </div>
             <div class="scrollable-cards-x">
-                @for(userBook <- UserBook.findPastUserBooksBySubCategory(userCategory.getCategory().title(), user.id)) {
+                @for(userBook <- UserBook.findPastUserBooksBySubCategory(userCategory.getCategory().getId(), user.id)) {
                     <div class="scrollable-card-x">
                         @_card3(userBook.book)
                     </div>
