@@ -33,7 +33,7 @@
         <h4 class="text-uppercase mb-4" style="font-weight: 600;">Previous Highlights</h4>
         @for(userCategory <- user.userCategories) {
             <div class="d-flex justify-content-between align-items-center mb-2">
-                <h4>@userCategory.getCategory().getDisplayTitle()</h4>
+                <h4>@userCategory.getCategory().getTitle()</h4>
                 <a class="cls-subcategory-list-btn home--more-link me-3" data-subcategory-title="@userCategory.getCategory().getTitle()" href="#">More</a>
             </div>
             <div class="scrollable-cards-x">

@@ -2,14 +2,12 @@ package models;
 
 import io.ebean.DB;
 import io.ebean.Finder;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import org.springframework.util.CollectionUtils;
 import utils.GoogleBookClient;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.util.*;
 
@@ -19,16 +17,18 @@ public class Book extends BaseModel {
 
     private String author;
 
-    private Float rating;
+    @Column(precision = 2, scale = 1)
+    private BigDecimal rating;
 
     private Integer ratingCount;
 
     private String published;
 
-    private String category;
-
     @Column(length = 500)
     private String grUrl;
+
+    @ManyToOne
+    private Category category;
 
     @OneToOne
     @JoinColumn(name = "gl_book_id")
@@ -47,12 +47,12 @@ public class Book extends BaseModel {
         return CollectionUtils.isEmpty(books) ? null : books.get(0);
     }
 
-    public static List<Book> getRandomBooks(List<String> subCategories) {
+    public static List<Book> getRandomBooks(List<Category> categories) {
         List<Book> randomBooks = new ArrayList<>();
         Book randomBook = null;
         try {
-            for(String subCategory : subCategories) {
-                randomBook = getRandomBookByCategory(null, subCategory);
+            for(Category category : categories) {
+                randomBook = getRandomBookByCategory(null, category.getId());
                 randomBooks.add(randomBook);
             }
         } catch (Exception e) {
@@ -61,14 +61,14 @@ public class Book extends BaseModel {
         return randomBooks;
     }
 
-    public static Book getRandomBookByCategory(String category, String subCategory) {
+    public static Book getRandomBookByCategory(Long parentCategoryId, Long categoryId) {
         Book randomBook;
-        if(category != null) {
-            randomBook = DB.find(Book.class).where().eq("category", "spirituality").gt("rating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
+        if(parentCategoryId != null) {
+            randomBook = DB.find(Book.class).where().eq("category.parent.id", parentCategoryId).gt("rating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
             //Category categoryObj = Category.findByTitle(category);
             //randomBook = DB.find(Book.class).where().in("category", category).gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
-        } else if(subCategory != null) {
-            randomBook = DB.find(Book.class).where().eq("category", subCategory).gt("rating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
+        } else if(categoryId != null) {
+            randomBook = DB.find(Book.class).where().eq("category.id", categoryId).gt("rating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
         } else {
             randomBook = DB.find(Book.class).where().gt("rating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
         }
@@ -134,11 +134,11 @@ public class Book extends BaseModel {
         this.author = author;
     }
 
-    public Float getRating() {
+    public BigDecimal getRating() {
         return rating;
     }
 
-    public void setRating(Float rating) {
+    public void setRating(BigDecimal rating) {
         this.rating = rating;
     }
 
@@ -158,11 +158,11 @@ public class Book extends BaseModel {
         this.published = published;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 

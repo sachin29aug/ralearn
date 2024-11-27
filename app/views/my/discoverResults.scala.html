@@ -7,10 +7,10 @@
 
         @if(category.getParent() == null) {
             <div class="row gx-2 mb-4">
-                @for(subCategory <- category.getSubCategories()) {
+                @for(categoryObj <- Category.findCategoriesByParent(category.getId())) {
                     <div class="col-4">
-                        <a id="id-discover-results-subcategory" class="discover-results--subcategory-block d-flex justify-content-center align-items-center mb-2 px-3" data-subcategory-id="@subCategory.id" href="#">
-                            <div class="discover-results--subcategory-block-text">@subCategory.getDisplayTitle()</div>
+                        <a id="id-discover-results-subcategory" class="discover-results--subcategory-block d-flex justify-content-center align-items-center mb-2 px-3" data-subcategory-id="@categoryObj.getId()" href="#">
+                            <div class="discover-results--subcategory-block-text">@categoryObj.getTitle()</div>
                         </a>
                     </div>
                 }

@@ -36,13 +36,13 @@ public class Visitor extends Controller {
     public Result signupLoginPost(Http.Request request) {
         String email = request.body().asFormUrlEncoded().get("email")[0];
         String password = request.body().asFormUrlEncoded().get("password")[0];
-        String subcategoryIds = request.body().asFormUrlEncoded().get("subcategoryIds")[0];
+        String categoryIds = request.body().asFormUrlEncoded().get("subcategoryIds")[0];
 
         User user = new User(email, cookieSigner.sign(password));
         user.save();
 
-        for(String subcategoryId : subcategoryIds.split(",")) {
-            UserCategory userCategory = new UserCategory(user, Category.find(subcategoryId));
+        for(String categoryId : categoryIds.split(",")) {
+            UserCategory userCategory = new UserCategory(user, Category.find(Long.valueOf(categoryId)));
             userCategory.save();
         }
 
@@ -85,32 +85,31 @@ public class Visitor extends Controller {
 
     // Legacy
 
-    public Result legacy(Long categoryId) {
-        String category = "";
-        if(categoryId == 1) {
-            category = "Personal Development";
-        } else if (categoryId == 2) {
-            category = "Mind & Spirit";
-        } else if (categoryId == 3) {
-            category = "Business & Economics";
-        } else if (categoryId == 4) {
-            category = "Family & Lifestyle";
-        } else if (categoryId == 5) {
-            category = "Science & Environment";
-        } else if (categoryId == 6) {
-            category = "Arts & Humanities";
+    public Result legacy(Long parentCategoryId) {
+        String parentCategory = "";
+        if(parentCategoryId == 1) {
+            parentCategory = "Personal Development";
+        } else if (parentCategoryId == 2) {
+            parentCategory = "Mind & Spirit";
+        } else if (parentCategoryId == 3) {
+            parentCategory = "Business & Economics";
+        } else if (parentCategoryId == 4) {
+            parentCategory = "Family & Lifestyle";
+        } else if (parentCategoryId == 5) {
+            parentCategory = "Science & Environment";
+        } else if (parentCategoryId == 6) {
+            parentCategory = "Arts & Humanities";
         } else {
-            category = "Personal Development";
+            parentCategory = "Personal Development";
         }
 
         List<Book> randomBooks = new ArrayList<>();
-        Map<String, List<String>> categoriesMap = Category.getCategoriesMap();
-        List<String> subCategories = categoriesMap.get(category);
-        for(String subCategory : subCategories) {
-            Book randomBook = Book.getRandomBookByCategory(null, subCategory);
+        List<Category> categories = Category.findCategoriesByParent(Long.valueOf(parentCategoryId));
+        for(Category category : categories) {
+            Book randomBook = Book.getRandomBookByCategory(null, category.getId());
             randomBooks.add(randomBook);
         }
 
-        return ok(views.html.visitor.legacy.render(category, randomBooks));
+        return ok(views.html.visitor.legacy.render(parentCategory, randomBooks));
     }
 }

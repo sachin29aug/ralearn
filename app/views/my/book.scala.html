@@ -41,7 +41,7 @@
         </div>
 
         <div class="book--category-books">
-            <h4 class="fw-600 mb-3">You May Also Like in @Category.getDisplayTitle(book.getCategory())</h4>
+            <h4 class="fw-600 mb-3">You May Also Like in book.getCategory().getTitle()</h4>
             <div class="scrollable-cards-x">
                 @for(book <- sameSubCategoryBooks) {
                     <div class="scrollable-card-x">

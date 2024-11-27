@@ -13,12 +13,14 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import play.mvc.Controller;
 import play.mvc.Result;
+import utils.CommonUtil;
 import utils.GoogleBookClient;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -27,60 +29,47 @@ public class SystemAdmin extends Controller {
     // Data Import and load related
 
     public Result importBooksGR() throws IOException {
-        // Todo: Multi author fix
-
-        Map<String, List<String>> categoriesMap = new LinkedHashMap<>();
-        categoriesMap.put("Personal Development", Arrays.asList("self-help", "productivity", "communication-skills", "creativity", "education", "biography", "philosophy"));
-        categoriesMap.put("Mind & Spirit", Arrays.asList("psychology", "spirituality", "mindfulness"));
-        categoriesMap.put("Business & Economics", Arrays.asList("business", "economics", "leadership", "entrepreneurship", "marketing"));
-        categoriesMap.put("Family & Lifestyle", Arrays.asList("childrens", "parenting", "travel"));
-        categoriesMap.put("Science & Environment", Arrays.asList("science", "environment", "gardening"));
-        categoriesMap.put("Arts & Humanities", Arrays.asList("art", "design", "architecture", "folklore", "history", "politics", "law"));
-
-        for(Map.Entry<String, List<String>> entry : categoriesMap.entrySet()) {
-            String category = entry.getKey();
-            List<String> subCategories = entry.getValue();
-            for (String subCategory: subCategories) {
-                String confDir = Paths.get("conf").toAbsolutePath().toString();
-                String filePath = "datasets/" + category + "/" + subCategory + ".html";
-                File inputFile = new File(confDir, filePath);
-                Document doc = Jsoup.parse(inputFile, "UTF-8");
-                Elements bookElements = doc.select("div.left[style='width: 75%;']");
-                for (Element bookElement : bookElements) {
-                    Element titleElement = bookElement.selectFirst("a.bookTitle");
-                    String title = titleElement != null ? titleElement.text() : null;
-                    if(title.length() > 250) {
-                        title = title.substring(0, 250);
-                    }
-                    String goodReadsUrl = titleElement != null ? titleElement.attr("href") : null;
-                    Element authorElement = bookElement.selectFirst("a.authorName");
-                    String authorName = authorElement != null ? authorElement.text() : null;
-                    Element greyTextElement = bookElement.selectFirst("span.greyText.smallText");
-                    String greyText = greyTextElement != null ? greyTextElement.text() : null;
-                    Float rating = null;
-                    Integer ratingCount = null;
-                    String publishDate = null;
-                    if (greyText != null) {
-                        String[] parts = greyText.split("—");
-                        try {
-                            rating = Float.valueOf(parts[0].replace("avg rating", "").trim());
-                            ratingCount = parts.length > 1 ? Integer.valueOf(parts[1].replace("ratings", "").replace(",", "").trim()) : null;
-                        } catch (NumberFormatException e) {
-                        }
-                        publishDate = parts.length > 2 ? parts[2].replace("published", "").trim() : null;
-                    }
-
-                    Book book = new Book();
-                    book.setTitle(title);
-                    book.setAuthor(authorName);
-                    book.setRating(rating);
-                    book.setRatingCount(ratingCount);
-                    book.setPublished(publishDate);
-                    book.setGrUrl(goodReadsUrl);
-                    book.setCategory(category);
-                    book.setCategory(subCategory);
-                    book.save();
+        List<Category> categories = Category.findCategories();
+        for(Category category : categories) {
+            String confDir = Paths.get("conf").toAbsolutePath().toString();
+            String filePath = "datasets/" + category.getParent().getUrl() + "/" + category.getUrl() + ".html"; // Todo: slugify
+            File inputFile = new File(confDir, filePath);
+            Document doc = Jsoup.parse(inputFile, "UTF-8");
+            Elements bookElements = doc.select("div.left[style='width: 75%;']");
+            for (Element bookElement : bookElements) {
+                Element titleElement = bookElement.selectFirst("a.bookTitle");
+                String title = titleElement != null ? titleElement.text() : null;
+                title = title.replaceAll("\\s*\\([^)]*\\)$", "").trim(); // removing edition info
+                if (title.length() > 250) {
+                    title = title.substring(0, 250);
                 }
+                String goodReadsUrl = titleElement != null ? titleElement.attr("href") : null;
+                Element authorElement = bookElement.selectFirst("a.authorName");
+                String authorName = authorElement != null ? authorElement.text() : null;
+                Element greyTextElement = bookElement.selectFirst("span.greyText.smallText");
+                String greyText = greyTextElement != null ? greyTextElement.text() : null;
+                BigDecimal rating = null;
+                Integer ratingCount = null;
+                String publishDate = null;
+                if (greyText != null) {
+                    String[] parts = greyText.split("—");
+                    try {
+                        rating = new BigDecimal(parts[0].replace("avg rating", "").trim());
+                        ratingCount = parts.length > 1 ? Integer.valueOf(parts[1].replace("ratings", "").replace(",", "").trim()) : null;
+                    } catch (NumberFormatException e) {
+                    }
+                    publishDate = parts.length > 2 ? parts[2].replace("published", "").trim() : null;
+                }
+
+                Book book = new Book();
+                book.setTitle(title);
+                book.setAuthor(authorName);
+                book.setRating(rating);
+                book.setRatingCount(ratingCount);
+                book.setPublished(publishDate);
+                book.setGrUrl(goodReadsUrl);
+                book.setCategory(category);
+                book.save();
             }
         }
 
@@ -252,63 +241,63 @@ public class SystemAdmin extends Controller {
     public Result setupCategories() {
         Transaction txn = DB.beginTransaction();
         try {
-            Map<String, List<String>> categoriesMap = Category.getCategoriesMap();
+            Category parentCategory = saveCategory("Personal Development", "fas fa-user-graduate", null);
+            parentCategory.save();
+            saveCategory("Self Help", "fas fa-heart", parentCategory);
+            saveCategory("Productivity", "fas fa-tasks", parentCategory);
+            saveCategory("Communication Skills", "fas fa-comments", parentCategory);
+            saveCategory("Creativity", "fas fa-lightbulb", parentCategory);
+            saveCategory("Education", "fas fa-graduation-cap", parentCategory);
+            saveCategory("Biography", "fas fa-user", parentCategory);
+            saveCategory("Philosophy", "fas fa-book", parentCategory);
 
-            Category category1 = new Category("Personal Development", "fas fa-user-graduate", null);
-            DB.save(category1);
-            List<String> subCategoryNames = categoriesMap.get(category1.title);
-            for(String subCategoryName : subCategoryNames) {
-                Category subCategory = new Category(subCategoryName, null, category1);
-                DB.save(subCategory);
-            }
+            parentCategory = saveCategory("Mind & Spirit", "fas fa-brain", null);
+            saveCategory("Psychology", "fas fa-brain", parentCategory);
+            saveCategory("Spirituality", "fas fa-leaf", parentCategory);
+            saveCategory("Mindfulness", "fas fa-seedling", parentCategory);
 
-            Category category2 = new Category("Mind & Spirit", "fas fa-brain", null);
-            DB.save(category2);
-            subCategoryNames = categoriesMap.get(category2.title);
-            for(String subCategoryName : subCategoryNames) {
-                Category subCategory = new Category(subCategoryName, null, category2);
-                DB.save(subCategory);
-            }
+            parentCategory = saveCategory("Business & Economics", "fas fa-briefcase", null);
+            saveCategory("Business", "fas fa-briefcase", parentCategory);
+            saveCategory("Economics", "fas fa-chart-line", parentCategory);
+            saveCategory("Leadership", "fas fa-users", parentCategory);
+            saveCategory("Entrepreneurship", "fas fa-lightbulb", parentCategory);
+            saveCategory("Marketing", "fas fa-bullhorn", parentCategory);
 
-            Category category3 = new Category("Business & Economics", "fas fa-briefcase", null);
-            DB.save(category3);
-            subCategoryNames = categoriesMap.get(category3.title);
-            for(String subCategoryName : subCategoryNames) {
-                Category subCategory = new Category(subCategoryName, null, category3);
-                DB.save(subCategory);
-            }
+            parentCategory = saveCategory("Family & Lifestyle", "fas fa-home", null);
+            saveCategory("Childrens", "fas fa-child", parentCategory);
+            saveCategory("Parenting", "fas fa-baby", parentCategory);
+            saveCategory("Travel", "fas fa-plane", parentCategory);
 
-            Category category4 = new Category("Family & Lifestyle", "fas fa-home", null);
-            DB.save(category4);
-            subCategoryNames = categoriesMap.get(category4.title);
-            for(String subCategoryName : subCategoryNames) {
-                Category subCategory = new Category(subCategoryName, null, category4);
-                DB.save(subCategory);
-            }
+            parentCategory = saveCategory("Science & Environment", "fas fa-flask", null);
+            saveCategory("Science", "fas fa-flask", parentCategory);
+            saveCategory("Environment", "fas fa-tree", parentCategory);
+            saveCategory("Gardening", "fas fa-leaf", parentCategory);
 
-            Category category5 = new Category("Science & Environment", "fas fa-flask", null);
-            DB.save(category5);
-            subCategoryNames = categoriesMap.get(category5.title);
-            for(String subCategoryName : subCategoryNames) {
-                Category subCategory = new Category(subCategoryName, null, category5);
-                DB.save(subCategory);
-            }
-
-            Category category6 = new Category("Arts & Humanities", "fas fa-palette", null);
-            DB.save(category6);
-            subCategoryNames = categoriesMap.get(category6.title);
-            for(String subCategoryName : subCategoryNames) {
-                Category subCategory = new Category(subCategoryName, null, category6);
-                DB.save(subCategory);
-            }
+            parentCategory = saveCategory("Arts & Humanities", "fas fa-palette", null);
+            saveCategory("Art", "fas fa-palette", parentCategory);
+            saveCategory("Design", "fas fa-pencil-ruler", parentCategory);
+            saveCategory("Architecture", "fas fa-building", parentCategory);
+            saveCategory("Folklore", "fas fa-feather-alt", parentCategory);
+            saveCategory("History", "fas fa-landmark", parentCategory);
+            saveCategory("Politics", "fas fa-balance-scale", parentCategory);
+            saveCategory("Law", "fas fa-gavel", parentCategory);
 
             txn.commit();
         } catch (Exception e) {
             e.printStackTrace();
             return ok(e.getMessage());
         }
-
         return ok("Done");
+    }
+
+    private Category saveCategory(String title, String faIconClass, Category parent) {
+        Category category = new Category();
+        category.setTitle(title);
+        category.setUrl(CommonUtil.slugify(title));
+        category.setFaIconClass(faIconClass);
+        category.setParent(parent);
+        category.save();
+        return category;
     }
 
     /* The wrapper code to refer when coding custom jobs

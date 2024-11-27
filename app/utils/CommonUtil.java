@@ -1,6 +1,8 @@
 package utils;
 
+import com.github.slugify.Slugify;
 import models.User;
+import org.apache.commons.lang3.StringUtils;
 import play.mvc.Http;
 
 import java.util.Calendar;
@@ -44,5 +46,16 @@ public class CommonUtil {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         return calendar.getTime();
+    }
+
+    // Other
+
+    public static String slugify(String inputString) {
+        String slug = "";
+        if(StringUtils.isNotBlank(inputString)) {
+            Slugify slugify = new Slugify();
+            slug = slugify.slugify(inputString);
+        }
+        return slug;
     }
 }

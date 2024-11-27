@@ -8,6 +8,7 @@ import utils.CommonUtil;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class UserBook extends BaseModel {
@@ -56,15 +57,15 @@ public class UserBook extends BaseModel {
     }
 
     public static void generateUserBooks(User user, boolean today, boolean past) {
-        List<String> subCategoryTitles = new ArrayList<>();
+       /* List<Category> categories = new ArrayList<>();
         for(UserCategory userCategory : user.userCategories) {
-            Category category = Category.find("" + userCategory.category.id);
-            subCategoryTitles.add(category.title);
-        }
+            categories.add(userCategory.getCategory());
+        }*/
+        List<Category> categories = user.getUserCategories().stream().map(UserCategory::getCategory).collect(Collectors.toList());
 
         List<UserBook> userBooks = new ArrayList<>();
         if(today) {
-            List<Book> books = Book.getRandomBooks(subCategoryTitles);
+            List<Book> books = Book.getRandomBooks(categories);
             for (Book book : books) {
                 UserBook userBook = new UserBook(user, book);
                 userBook.save();
@@ -74,7 +75,7 @@ public class UserBook extends BaseModel {
 
         if(past) {
             for (int i = 5; i >= 1; i--) {
-                List<Book> books = Book.getRandomBooks(subCategoryTitles);
+                List<Book> books = Book.getRandomBooks(categories);
                 for (Book book : books) {
                     UserBook userBook = new UserBook(user, book);
                     userBook.assigned = CommonUtil.incrementDateByDays(new Date(), -i);

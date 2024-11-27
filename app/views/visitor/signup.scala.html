@@ -26,14 +26,14 @@
 
         <div id="subcategories-page" style="display: none;">
             <h2 class="mb-5">Follow topics you're interested in to get recommendations?</h2>
-            @for(parentCategory <- parentCategories) {
+            @for(parentCategory <- Category.findParentCategories()) {
                 <div id="id-category-@parentCategory.id-subcategories" style="display: none;">
-                    @for(subCategory <- parentCategory.subCategories) {
-                        <a class="category-pill d-block" data-subcategory-id="@subCategory.id" href="#">
+                    @for(category <- Category.findCategoriesByParent(parentCategory.id)) {
+                        <a class="category-pill d-block" data-subcategory-id="@category.id" href="#">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex ms-4">
-                                    <div class="category-pill--icon me-3"><i class="@subCategory.faIconClass"></i></div>
-                                    <div class="category-pill--text">@subCategory.getDisplayTitle()</div>
+                                    <div class="category-pill--icon me-3"><i class="@category.faIconClass"></i></div>
+                                    <div class="category-pill--text">@category.getTitle()</div>
                                 </div>
                                 <div class="me-3">
                                     <div class="category-pill--icon"><i class="fas fa-circle"></i></div>
