@@ -2,7 +2,9 @@ package controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.ebean.DB;
+import io.ebean.DuplicateKeyException;
 import io.ebean.Transaction;
+import jakarta.persistence.PersistenceException;
 import models.*;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -11,6 +13,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.postgresql.util.PSQLException;
 import play.mvc.Controller;
 import play.mvc.Result;
 import utils.CommonUtil;
@@ -29,6 +32,7 @@ public class SystemAdmin extends Controller {
     // Data Import related
 
     public Result importBooksGR() throws IOException {
+        //Transaction txn = DB.beginTransaction();
         List<Category> categories = Category.findCategories();
         String confDir = Paths.get("conf").toAbsolutePath().toString();
         for(Category category : categories) {
@@ -36,6 +40,8 @@ public class SystemAdmin extends Controller {
             File categoryFile = new File(confDir, categoryFilePath);
             Document doc = Jsoup.parse(categoryFile, "UTF-8");
             Elements bookElements = doc.select("div.left[style='width: 75%;']");
+            System.out.println("Category: " + category.getTitle() + ", Total Records: " + bookElements.size());
+            int recordsProcessedCount = 0;
             for (Element bookElement : bookElements) {
                 Element titleElement = bookElement.selectFirst("a.bookTitle");
                 String title = titleElement != null ? titleElement.text().replaceAll("\\s*\\([^)]*\\)$", "").trim() : null;
@@ -68,10 +74,22 @@ public class SystemAdmin extends Controller {
                 book.setPublished(publishDate);
                 book.setGrUrl(goodReadsUrl);
                 book.setCategory(category);
-                book.save();
+                try {
+                    book.save();
+                } catch (PersistenceException ex) {
+                    Throwable cause = ex.getCause();
+                    if (cause instanceof PSQLException && cause.getMessage().contains("duplicate key value violates unique constraint")) {
+
+                    }
+                }
+                recordsProcessedCount++;
             }
+            System.out.println("Category: " + category.getTitle() + ", Records Processed: " + recordsProcessedCount);
+            System.out.println();
         }
 
+        //txn.commit();
+        System.out.printf("Done");
         return ok("Done");
     }
 

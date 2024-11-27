@@ -12,6 +12,7 @@ import java.net.URLEncoder;
 import java.util.*;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"title", "author"})})
 public class Book extends BaseModel {
     private String title;
 

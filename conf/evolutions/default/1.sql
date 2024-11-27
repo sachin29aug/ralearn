@@ -19,6 +19,7 @@ create table book (
   gr_url                        varchar(500),
   constraint uq_book_gl_book_id unique (gl_book_id),
   constraint uq_book_ol_book_id unique (ol_book_id),
+  constraint uq_book_title_author unique (title,author),
   constraint pk_book primary key (id)
 );
 
