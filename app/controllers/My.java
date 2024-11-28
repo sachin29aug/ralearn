@@ -71,7 +71,7 @@ public class My extends Controller {
         Transaction txn = DB.beginTransaction();
         User user = CommonUtil.getUser(request);
         UserBook userBook = UserBook.find.byId(userBookId);
-        userBook.setBook(Book.getRandomBookByCategory(null, userBook.getBook().getCategory().getId()));
+        userBook.setBook(Book.getRandomBookByCategory(null, userBook.getCategory().getId()));
         userBook.update();
         txn.commit();
 
@@ -107,6 +107,13 @@ public class My extends Controller {
         return ok(views.html.my.list.render(listName, userBooks));
     }
 
+    public Result categoryList(Http.Request request, Long id) {
+        User user = CommonUtil.getUser(request);
+        Category category = Category.find(id);
+        List<UserBook> userBooks = UserBook.findUserBooksByCategory(user.getId(), category.getId());
+        return ok(views.html.my.list.render(category.getTitle(), userBooks));
+    }
+
     public Result book(Http.Request request, Long id) {
         User user = CommonUtil.getUser(request);
         UserBook userBook = UserBook.findByUserAndBookId(user.id, id);
@@ -116,12 +123,11 @@ public class My extends Controller {
         }
 
         Book book = Book.find.byId(id);
-        List<Book> sameAuthorBooks = new ArrayList<>();
         List<Book> sameSubCategoryBooks = new ArrayList<>();
         for(int i = 1; i <= 3; i++) {
-            sameSubCategoryBooks.add(Book.getRandomBookByCategory(null, book.getCategory().getId()));
+            sameSubCategoryBooks.add(Book.getRandomBookByCategory(null, userBook.getCategory().getId()));
         }
-        sameAuthorBooks = sameSubCategoryBooks;
+        List<Book> sameAuthorBooks = sameSubCategoryBooks;
 
         return ok(views.html.my.book.render(book, userBook, sameAuthorBooks, sameSubCategoryBooks));
     }

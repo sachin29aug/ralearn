@@ -14,6 +14,12 @@ import java.util.*;
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"title", "author"})})
 public class Book extends BaseModel {
+    // TODO:
+    //  => Include shelved count in BookCategory
+    //  => Search feature
+    //  => Data Quality
+    //  => Data load GR and CPT
+
     private String title;
 
     private String author;

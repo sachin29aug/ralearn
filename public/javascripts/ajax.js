@@ -58,8 +58,8 @@ function recentListsGet() {
     });
 }
 
-function subcategoryListsGet(subcategoryTitle) {
-    let url = "/list/" + subcategoryTitle;
+function categoryListsGet(categoryId) {
+    let url = "/list/category/" + categoryId;
     $.ajax({
     	url: url,
     	type : 'GET',

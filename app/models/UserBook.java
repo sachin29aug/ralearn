@@ -40,6 +40,10 @@ public class UserBook extends BaseModel {
         return find.query().where().eq("assigned", CommonUtil.removeTimeStamp(new Date())).eq("user.id", userId).orderBy("id desc").findList();
     }
 
+    public static List<UserBook> findUserBooksByCategory(Long userId, Long categoryId) {
+        return find.query().where().eq("user.id", userId).eq("category.id", categoryId).orderBy("assigned desc").findList();
+    }
+
     public static List<UserBook> findPastUserBooksByCategory(Long userId, Long categoryId) {
         return find.query().where().eq("user.id", userId).eq("category.id", categoryId).lt("assigned", CommonUtil.removeTimeStamp(new Date())).orderBy("assigned desc").findList();
     }

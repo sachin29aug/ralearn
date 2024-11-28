@@ -165,9 +165,9 @@ $(document).ready(function() {
         recentListsGet();
     });
 
-    $(document.body).on("click", ".cls-subcategory-list-btn", function(e) {
+    $(document.body).on("click", ".cls-category-list-btn", function(e) {
         e.preventDefault();
-        subcategoryListsGet($(this).data("subcategory-title"));
+        categoryListsGet($(this).data("category-id"));
     });
 });
 

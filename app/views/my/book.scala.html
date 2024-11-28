@@ -23,32 +23,44 @@
         <div class="book--cover-section">
             <div class="text-center"><img class="book--cover-section-image" src="@book.getGbBook().getThumbnailUrl()"></div>
         </div>
-        <div class="book--details">
+        <div class="book--details mb-4">
             <h4 class="book--details-title">@book.getTitle()</h4>
             <div class="book--details-author mb-4">@book.getAuthor()</div>
-            <p>@Html(book.getHtmlDescription())</p>
+
+            <hr>
+            <div class="mb-3">Mastering Focus in a Distracted World</div>
+            <div class="mb-3">A practical guide to achieving high levels of productivity by cultivating deep focus and eliminating distractions.</div>
+            <hr>
+
+            @**<p>@Html(book.getHtmlDescription())</p>**@
+            <p>Deep Work" is Cal Newport's manifesto for achieving success in a world filled with distractions. Newport argues that the ability to focus deeply on cognitively demanding tasks is a rare and valuable skill in the modern workplace.</p>
+            <p>Through practical strategies, case studies, and scientific insights, he explains how to create environments conducive to deep work and avoid the pitfalls of shallow work. This book is an essential tool for anyone striving for excellence and meaningful accomplishments.</p>
         </div>
 
-        <div class="book--author-books mt-5">
-            <h4 class="fw-600 mb-3">Also by @book.getAuthor()</h4>
-            <div class="scrollable-cards-x">
-                @for(book <- sameAuthorBooks) {
-                    <div class="scrollable-card-x">
-                        @_card3(book)
-                    </div>
-                }
-            </div>
+        <h4 class="fw-600 mb-3">Notable Quotes from the book</h4>
+        @_quote()
+        @_quote()
+
+        <h4 class="fw-600 mb-3">About the Author</h4>
+        <p>Cal Newport is a computer science professor and writer known for his expertise in productivity and digital minimalism.</p>
+
+        @_space(null, 5)
+        <h4 class="fw-600 mb-3">Related Books</h4>
+        <div class="scrollable-cards-x">
+            @for(book <- sameSubCategoryBooks) {
+                <div class="scrollable-card-x">
+                    @_card3(book)
+                </div>
+            }
         </div>
 
-        <div class="book--category-books">
-            <h4 class="fw-600 mb-3">You May Also Like in book.getCategory().getTitle()</h4>
-            <div class="scrollable-cards-x">
-                @for(book <- sameSubCategoryBooks) {
-                    <div class="scrollable-card-x">
-                        @_card3(book)
-                    </div>
-                }
+        <h4 class="fw-600 mb-3">Also by @book.getAuthor()</h4>
+        <div class="scrollable-cards-x">
+            @for(book <- sameAuthorBooks) {
+            <div class="scrollable-card-x">
+                @_card3(book)
             </div>
+            }
         </div>
 
         <div class="text-center">
