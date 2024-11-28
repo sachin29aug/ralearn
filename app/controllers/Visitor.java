@@ -70,7 +70,7 @@ public class Visitor extends Controller {
             Date maxAssignedDate = UserBook.findMaxAssignedDate(user.id);
             LocalDate maxAssignedDateLocal = maxAssignedDate.toInstant().atZone(userZoneId).toLocalDate();
             if (currentDateInUserZone.isAfter(maxAssignedDateLocal)) {
-                UserBook.generateUserBooks(user, true, false);
+                UserBook.generateRandomUserBooks(user, true, false);
             }
 
             return ok(views.html.my.home.render(user)).addingToSession(request, "email", user.email).addingToSession(request, "userId", String.valueOf(user.id));

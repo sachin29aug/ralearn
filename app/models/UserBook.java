@@ -18,15 +18,19 @@ public class UserBook extends BaseModel {
     @ManyToOne
     public Book book;
 
+    @ManyToOne
+    private Category category;
+
     public Date assigned;
 
     public Date lastAccessed;
 
     public Boolean favorite;
 
-    public UserBook(User user, Book book) {
+    public UserBook(User user, Book book, Category category) {
         this.user = user;
         this.book = book;
+        this.category = category;
         assigned = CommonUtil.removeTimeStamp(new Date());
     }
 
@@ -36,8 +40,8 @@ public class UserBook extends BaseModel {
         return find.query().where().eq("assigned", CommonUtil.removeTimeStamp(new Date())).eq("user.id", userId).orderBy("id desc").findList();
     }
 
-    public static List<UserBook> findPastUserBooksBySubCategory(Long categoryId, Long userId) {
-        return find.query().where().eq("book.category.id", categoryId).lt("assigned", CommonUtil.removeTimeStamp(new Date())).eq("user.id", userId).orderBy("assigned desc").findList();
+    public static List<UserBook> findPastUserBooksByCategory(Long userId, Long categoryId) {
+        return find.query().where().eq("user.id", userId).eq("category.id", categoryId).lt("assigned", CommonUtil.removeTimeStamp(new Date())).orderBy("assigned desc").findList();
     }
 
     public static UserBook findByUserAndBookId(Long userId, Long bookId) {
@@ -56,29 +60,27 @@ public class UserBook extends BaseModel {
         return find.query().where().eq("user.id", userId).orderBy("assigned desc").setMaxRows(1).findOne().assigned;
     }
 
-    public static void generateUserBooks(User user, boolean today, boolean past) {
-       /* List<Category> categories = new ArrayList<>();
+    public static void generateRandomUserBooks(User user, boolean today, boolean past) {
+       /** List<Category> categories = new ArrayList<>();
         for(UserCategory userCategory : user.userCategories) {
             categories.add(userCategory.getCategory());
         }*/
-        // TODO: use streams across
-        List<Category> categories = user.getUserCategories().stream().map(UserCategory::getCategory).collect(Collectors.toList());
 
-        List<UserBook> userBooks = new ArrayList<>();
+        // TODO: use streams across.. after this is tested that this is working.. i guess we can use user.getUserCategories() list directly..
+        List<Category> categories = user.getUserCategories().stream().map(UserCategory::getCategory).collect(Collectors.toList());
         if(today) {
-            List<Book> books = Book.getRandomBooks(categories);
-            for (Book book : books) {
-                UserBook userBook = new UserBook(user, book);
+            for(Category category : categories) {
+                Book randomBook = Book.getRandomBookByCategory(null, category.getId());
+                UserBook userBook = new UserBook(user, randomBook, category);
                 userBook.save();
-                userBooks.add(userBook);
             }
         }
 
         if(past) {
             for (int i = 5; i >= 1; i--) {
-                List<Book> books = Book.getRandomBooks(categories);
-                for (Book book : books) {
-                    UserBook userBook = new UserBook(user, book);
+                for(Category category : categories) {
+                    Book randomBook = Book.getRandomBookByCategory(null, category.getId());
+                    UserBook userBook = new UserBook(user, randomBook, category);
                     userBook.assigned = CommonUtil.incrementDateByDays(new Date(), -i);
                     userBook.save();
                 }
@@ -86,12 +88,22 @@ public class UserBook extends BaseModel {
         }
     }
 
+    // Getter Setters
+
     public Book getBook() {
         return book;
     }
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Boolean getFavorite() {

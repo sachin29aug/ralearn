@@ -39,6 +39,9 @@ public class Book extends BaseModel {
     @JoinColumn(name = "ol_book_id")
     private OLBook olBook;
 
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookCategory> bookCategories;
+
     public static Finder<Long, Book> find = new Finder<>(Book.class);
 
     // Static methods
@@ -52,32 +55,18 @@ public class Book extends BaseModel {
         return find.query().where().eq("title", title).eq("author", author).findOne();
     }
 
-    public static List<Book> getRandomBooks(List<Category> categories) {
-        List<Book> randomBooks = new ArrayList<>();
-        Book randomBook = null;
-        try {
-            for(Category category : categories) {
-                randomBook = getRandomBookByCategory(null, category.getId());
-                randomBooks.add(randomBook);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return randomBooks;
-    }
-
     public static Book getRandomBookByCategory(Long parentCategoryId, Long categoryId) {
         Book randomBook;
+        BookCategory bookCategory;
         if(parentCategoryId != null) {
-            randomBook = DB.find(Book.class).where().eq("category.parent.id", parentCategoryId).gt("rating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
-            //Category categoryObj = Category.findByTitle(category);
-            //randomBook = DB.find(Book.class).where().in("category", category).gt("averageRating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
+            bookCategory = DB.find(BookCategory.class).where().eq("category.parent.id", parentCategoryId).gt("book.rating", 3.7).gt("book.ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
         } else if(categoryId != null) {
-            randomBook = DB.find(Book.class).where().eq("category.id", categoryId).gt("rating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
+            bookCategory = DB.find(BookCategory.class).where().eq("category.id", categoryId).gt("book.rating", 3.7).gt("book.ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
         } else {
-            randomBook = DB.find(Book.class).where().gt("rating", 3.7).gt("ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
+            bookCategory = DB.find(BookCategory.class).where().gt("book.rating", 3.7).gt("book.ratingCount", 10000).setMaxRows(1).orderBy("RANDOM()").findOne();
         }
 
+        randomBook = bookCategory.getBook();
         GoogleBookClient.importGoogleBookInfo(randomBook);
         randomBook.refresh();
 
@@ -193,5 +182,13 @@ public class Book extends BaseModel {
 
     public void setOlBook(OLBook olBook) {
         this.olBook = olBook;
+    }
+
+    public List<BookCategory> getBookCategories() {
+        return bookCategories;
+    }
+
+    public void setBookCategories(List<BookCategory> bookCategories) {
+        this.bookCategories = bookCategories;
     }
 }

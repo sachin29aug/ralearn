@@ -11,16 +11,16 @@
             <div class="card-2--title mb-1">@book.getTitle(50)</div>
             <div class="d-flex align-items-center mb-3">
                 <div class="card-2--author me-2">@book.getAuthor()</div>
-                @defining(Category.find(book.getCategory().getId())) { categoryObj =>
+                @defining(userBook.getCategory()) { category =>
                     <div class="card-2--category-pill d-flex align-items-center px-3 py-1">
-                        <i class="@categoryObj.getFaIconClass() me-2"></i>
-                        <div>@categoryObj.getTitle()</div>
+                        <i class="@category.getFaIconClass() me-2"></i>
+                        <div>@category.getTitle()</div>
                     </div>
                 }
             </div>
             <div class="card-2--summary">@book.getDescription(150)...</div>
         </a>
-
+c
         <div class="card-2--icon-buttons d-flex justify-content-between mx-auto mt-4">
             <a id="id-card2-shuffle-btn" data-user-book-id="@userBook.id" href="#">@_circularIcon("fas fa-random")</a>
             <a class="cls-share-btn" data-share-url="@routes.My.book(book.id)" data-share-title="@book.getTitle(50)" href="#">@_circularIcon("fa-solid fa-arrow-up-from-bracket")</a>

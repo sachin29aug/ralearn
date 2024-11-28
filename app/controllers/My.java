@@ -18,9 +18,9 @@ public class My extends Controller {
 
     public Result home(Http.Request request) {
         User user = CommonUtil.getUser(request);
-        List<UserBook> userBooks = user.userBooks;
+        List<UserBook> userBooks = user.getUserBooks();
         if(CollectionUtils.isEmpty(userBooks)) {
-            UserBook.generateUserBooks(user, true, true);
+            UserBook.generateRandomUserBooks(user, true, true);
         }
 
         return ok(views.html.my.home.render(user));
@@ -41,9 +41,9 @@ public class My extends Controller {
         List<UserBook> userBooks = new ArrayList<>();
         for(int i = 1; i <= 5; i++) {
             if(category.getParent() == null) {
-                userBooks.add(new UserBook(user, Book.getRandomBookByCategory(category.getId(), null)));
+                userBooks.add(new UserBook(user, Book.getRandomBookByCategory(category.getId(), null), category));
             } else {
-                userBooks.add(new UserBook(user, Book.getRandomBookByCategory(null, category.getId())));
+                userBooks.add(new UserBook(user, Book.getRandomBookByCategory(null, category.getId()), category));
             }
         }
         return ok(views.html.my.discoverResults.render(category, userBooks));
