@@ -71,6 +71,13 @@
 }
 
 .book {
+    //
+    .nav-pills .nav-link {
+        color: #003366;
+        background-color: #f9f6ee;
+    }
+    //
+
     &--cover-section {
         background: linear-gradient(135deg, #fff5cc 0%, #ffeb99 100%);
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);

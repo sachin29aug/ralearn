@@ -419,6 +419,10 @@ hr {
   color: #191970;
 }
 
+.book .nav-pills .nav-link {
+  color: #003366;
+  background-color: #f9f6ee;
+}
 .book--cover-section {
   background: linear-gradient(135deg, #fff5cc 0%, #ffeb99 100%);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -661,7 +665,6 @@ hr {
 .card-3 {
   color: #003366;
   max-width: 230px;
-  min-height: 285px;
 }
 .card-3--cover-image {
   width: 100px;
