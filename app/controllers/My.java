@@ -124,9 +124,9 @@ public class My extends Controller {
 
         Book book = Book.find.byId(id);
         List<Book> sameSubCategoryBooks = new ArrayList<>();
-        for(int i = 1; i <= 3; i++) {
+        /*for(int i = 1; i <= 3; i++) {
             sameSubCategoryBooks.add(Book.getRandomBookByCategory(null, userBook.getCategory().getId()));
-        }
+        }*/
         List<Book> sameAuthorBooks = sameSubCategoryBooks;
 
         return ok(views.html.my.book.render(book, userBook, sameAuthorBooks, sameSubCategoryBooks));

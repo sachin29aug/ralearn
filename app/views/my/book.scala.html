@@ -38,50 +38,51 @@
             <p>Deep Work" is Cal Newport's manifesto for achieving success in a world filled with distractions. Newport argues that the ability to focus deeply on cognitively demanding tasks is a rare and valuable skill in the modern workplace.</p>
             <p>Through practical strategies, case studies, and scientific insights, he explains how to create environments conducive to deep work and avoid the pitfalls of shallow work. This book is an essential tool for anyone striving for excellence and meaningful accomplishments.</p>
         </div>
-
-        <ul class="nav nav-pills bg-white rounded-pill p-2">
-            <li class="nav-item text-center w-50">
-                <a class="nav-link rounded-pill text-decoration-none active" data-bs-toggle="tab" href="#book">Book</a>
-            </li>
-            <li class="nav-item text-center w-50">
-                <a class="nav-link rounded-pill text-decoration-none active" data-bs-toggle="tab" href="#author">Author</a>
-            </li>
-        </ul>
-        <div class="tab-content mt-4">
-            <div class="tab-pane container active show" id="book">
-                <div class="mb-4">
-                    <h4 class="fw-600 mb-3">Notable Quotes</h4>
-                    @_quote()
-                    @_quote()
-                </div>
-
-                <h4 class="fw-600 mb-3">Related Books</h4>
-                <div class="scrollable-cards-x">
-                    @for(book <- sameSubCategoryBooks) {
-                    <div class="scrollable-card-x">
-                        @_card3(book, false)
+        <div class="book--tabs mb-4">
+            <ul class="nav nav-pills bg-white rounded-pill p-2">
+                <li class="nav-item text-center w-50">
+                    <a class="nav-link rounded-pill text-decoration-none active" data-bs-toggle="tab" href="#book">Book</a>
+                </li>
+                <li class="nav-item text-center w-50">
+                    <a class="nav-link rounded-pill text-decoration-none" data-bs-toggle="tab" href="#author">Author</a>
+                </li>
+            </ul>
+            <div class="tab-content mt-4">
+                <div class="tab-pane container active show" id="book">
+                    <div class="mb-4">
+                        <h4 class="fw-600 mb-3">Notable Quotes</h4>
+                        @_quote()
+                        @_quote()
                     </div>
-                    }
-                </div>
-            </div>
-            <div class="tab-pane container fade" id="author">
-                <h4 class="fw-600 mb-3">About the Author</h4>
-                <p>Cal Newport is a computer science professor and writer known for his expertise in productivity and digital minimalism.</p>
 
-                <div class="mb-4">
-                    <h4 class="fw-600 mb-3">Quotes by @book.getAuthor()</h4>
-                    @_quote()
-                    @_quote()
-                </div>
-
-
-                <h4 class="fw-600 mb-3">Other works by @book.getAuthor()</h4>
-                <div class="scrollable-cards-x">
-                    @for(book <- sameAuthorBooks) {
-                    <div class="scrollable-card-x">
-                        @_card3(book, false)
+                    <h4 class="fw-600 mb-3">Related Books</h4>
+                    <div class="scrollable-cards-x">
+                        @for(book <- sameSubCategoryBooks) {
+                        <div class="scrollable-card-x">
+                            @_card3(book, false)
+                        </div>
+                        }
                     </div>
-                    }
+                </div>
+                <div class="tab-pane container fade" id="author">
+                    <h4 class="fw-600 mb-3">About the Author</h4>
+                    <p>Cal Newport is a computer science professor and writer known for his expertise in productivity and digital minimalism.</p>
+
+                    <div class="mb-4">
+                        <h4 class="fw-600 mb-3">Quotes by @book.getAuthor()</h4>
+                        @_quote()
+                        @_quote()
+                    </div>
+
+
+                    <h4 class="fw-600 mb-3">Other works by @book.getAuthor()</h4>
+                    <div class="scrollable-cards-x">
+                        @for(book <- sameAuthorBooks) {
+                        <div class="scrollable-card-x">
+                            @_card3(book, false)
+                        </div>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
