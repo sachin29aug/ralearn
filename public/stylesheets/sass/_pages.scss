@@ -72,7 +72,9 @@
 
 .book {
     &--cover-section {
-        background: linear-gradient(135deg, #fff5cc 0%, #ffeb99 100%);
+        //background: linear-gradient(135deg, #fff5cc 0%, #ffeb99 100%);
+        //background: linear-gradient(135deg, #fffde7 0%, #ffeb99 100%);
+        background: radial-gradient(circle, #fff9d6 40%, #ffe082 100%);
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         margin-left: -16px;
         margin-right: -16px;
