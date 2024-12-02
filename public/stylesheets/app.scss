@@ -4,6 +4,15 @@
 
 // Components
 
+.category-pill-small {
+    border-radius: 20px;
+    font-size: 11px;
+    background: #E1ECF2;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    width: fit-content;
+}
+
 .card-1 {
     background-color: #fffbea;
     border-radius: 10px;
@@ -96,14 +105,6 @@
         height: 25px;
         border: 1px solid #003366;
         border-radius: 50%;
-    }
-
-    &--category-pill {
-        border-radius: 20px;
-        font-size: 11px;
-        background: #E1ECF2;
-        padding-top: 2px;
-        padding-bottom: 2px;
     }
 
     &--author {

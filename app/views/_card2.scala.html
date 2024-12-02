@@ -11,12 +11,7 @@
             <div class="card-2--title mb-1">@book.getTitle(50)</div>
             <div class="d-flex align-items-center mb-3">
                 <div class="card-2--author me-2">@book.getAuthor()</div>
-                @defining(userBook.getCategory()) { category =>
-                    <div class="card-2--category-pill d-flex align-items-center px-3 py-1">
-                        <i class="@category.getFaIconClass() me-2"></i>
-                        <div>@category.getTitle()</div>
-                    </div>
-                }
+                @_categoryPillSmall(userBook.getCategory())
             </div>
             <div class="card-2--summary">@book.getDescription(150)...</div>
         </a>
