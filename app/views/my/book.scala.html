@@ -32,23 +32,22 @@
                 <div class="fw-bold">Mastering Focus in a Distracted World</div>
             </div>
             <div class="fst-italic">A practical guide to achieving high levels of productivity by cultivating deep focus and eliminating distractions.</div>
-            <hr class="mb-4">
-
-            @**<p>@Html(book.getHtmlDescription())</p>**@
-            <p>Deep Work" is Cal Newport's manifesto for achieving success in a world filled with distractions. Newport argues that the ability to focus deeply on cognitively demanding tasks is a rare and valuable skill in the modern workplace.</p>
-            <p>Through practical strategies, case studies, and scientific insights, he explains how to create environments conducive to deep work and avoid the pitfalls of shallow work. This book is an essential tool for anyone striving for excellence and meaningful accomplishments.</p>
         </div>
         <div class="book--tabs mb-4">
             <ul class="nav nav-pills bg-white rounded-pill p-2">
                 <li class="nav-item text-center w-50">
-                    <a class="nav-link rounded-pill text-decoration-none active" data-bs-toggle="tab" href="#book">Book</a>
+                    <a class="nav-link rounded-pill text-decoration-none active" data-bs-toggle="tab" href="#book">Overview</a>
                 </li>
                 <li class="nav-item text-center w-50">
                     <a class="nav-link rounded-pill text-decoration-none" data-bs-toggle="tab" href="#author">Author</a>
                 </li>
             </ul>
-            <div class="tab-content mt-4">
+            <div class="tab-content">
                 <div class="tab-pane container active show" id="book">
+                    @**<p>@Html(book.getHtmlDescription())</p>**@
+                    <p>Deep Work" is Cal Newport's manifesto for achieving success in a world filled with distractions. Newport argues that the ability to focus deeply on cognitively demanding tasks is a rare and valuable skill in the modern workplace.</p>
+                    <p>Through practical strategies, case studies, and scientific insights, he explains how to create environments conducive to deep work and avoid the pitfalls of shallow work. This book is an essential tool for anyone striving for excellence and meaningful accomplishments.</p>
+
                     <div class="mb-4">
                         <h4 class="fw-600 mb-3">Notable Quotes</h4>
                         @_quote()

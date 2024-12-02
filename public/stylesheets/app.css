@@ -448,6 +448,9 @@ hr {
 .book--details-author {
   font-weight: 600;
 }
+.book--tabs .nav {
+  margin-bottom: 36px;
+}
 .book--tabs .nav-pills {
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
 }

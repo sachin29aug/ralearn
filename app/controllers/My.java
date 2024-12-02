@@ -124,6 +124,9 @@ public class My extends Controller {
 
         Book book = Book.find.byId(id);
         List<Book> sameSubCategoryBooks = new ArrayList<>();
+        sameSubCategoryBooks.add(book);
+        sameSubCategoryBooks.add(book);
+        sameSubCategoryBooks.add(book);
         /*for(int i = 1; i <= 3; i++) {
             sameSubCategoryBooks.add(Book.getRandomBookByCategory(null, userBook.getCategory().getId()));
         }*/
