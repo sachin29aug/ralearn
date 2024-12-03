@@ -25,9 +25,10 @@
         </div>
         <div class="book--details mb-4">
             <h4 class="book--details-title">@book.getTitle()</h4>
-            <div class="book--details-author mb-4">@book.getAuthor()</div>
+            <div class="book--details-author mb-2">@book.getAuthor()</div>
 
             <div class="d-flex flex-wrap gap-2 mb-4">
+                <div class="rating-pill">@book.getRatingCategoryText</div>
                 @for(bookCategory <- book.getBookCategories()) {
                     @_categoryPillSmall(bookCategory.getCategory())
                 }

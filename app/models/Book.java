@@ -116,6 +116,26 @@ public class Book extends BaseModel {
         return "https://www.youtube.com/results?search_query=" + URLEncoder.encode("Book summary for" + title.toLowerCase() + " by " + author, "UTF-8");
     }
 
+    public String getRatingCategoryText() {
+        if (rating == null || ratingCount == null) {
+            return null;
+        }
+
+        if (rating.compareTo(new BigDecimal("5.0")) == 0 && ratingCount > 500) {
+            return "Top Rated";
+        } else if (rating.compareTo(new BigDecimal("4.0")) >= 0 && ratingCount > 500) {
+            return "Highly Rated";
+        } else if (rating.compareTo(new BigDecimal("3.0")) >= 0 && ratingCount > 500) {
+            return "Well-Liked";
+        } else if (rating.compareTo(new BigDecimal("3.0")) >= 0 && ratingCount < 100) {
+            return "Hidden Gem";
+        } else if (rating.compareTo(new BigDecimal("3.0")) < 0 && ratingCount < 100) {
+            return "For the Curious";
+        } else {
+            return null;
+        }
+    }
+
     // Getters Setters
 
     public String getTitle() {
