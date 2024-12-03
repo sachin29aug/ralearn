@@ -262,18 +262,32 @@
 }
 
 .rate-book {
-    i {
+    &--star-icon {
         font-size: 24px;
-        color: #FFD700;
+        //color: #FFD700;
         cursor: pointer;
         transition: transform 0.2s ease-in-out;
     }
 
-    i.fa-regular {
+    &--star-icon.fa-regular {
         color: #D3D3D3;
     }
 
-    i:hover {
+    &--star-icon.selected {
+        color: #FFD700;
+    }
+
+    &--star-icon:hover {
         transform: scale(1.2);
+    }
+
+    &--modal {
+        .modal-content {
+            border-radius: 25px;
+        }
+
+        .modal-body {
+            margin-top: -20px;
+        }
     }
 }

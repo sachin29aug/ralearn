@@ -779,17 +779,25 @@ hr {
   font-weight: 600;
 }
 
-.rate-book i {
+.rate-book--star-icon {
   font-size: 24px;
-  color: #FFD700;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
 }
-.rate-book i.fa-regular {
+.rate-book--star-icon.fa-regular {
   color: #D3D3D3;
 }
-.rate-book i:hover {
+.rate-book--star-icon.selected {
+  color: #FFD700;
+}
+.rate-book--star-icon:hover {
   transform: scale(1.2);
+}
+.rate-book--modal .modal-content {
+  border-radius: 25px;
+}
+.rate-book--modal .modal-body {
+  margin-top: -20px;
 }
 
 /*# sourceMappingURL=app.css.map */
