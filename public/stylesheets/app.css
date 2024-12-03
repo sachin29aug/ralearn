@@ -779,4 +779,17 @@ hr {
   font-weight: 600;
 }
 
+.rate-book i {
+  font-size: 24px;
+  color: #FFD700;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+.rate-book i.fa-regular {
+  color: #D3D3D3;
+}
+.rate-book i:hover {
+  transform: scale(1.2);
+}
+
 /*# sourceMappingURL=app.css.map */

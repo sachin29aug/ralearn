@@ -260,3 +260,20 @@
         font-weight: 600;
     }
 }
+
+.rate-book {
+    i {
+        font-size: 24px;
+        color: #FFD700;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+    }
+
+    i.fa-regular {
+        color: #D3D3D3;
+    }
+
+    i:hover {
+        transform: scale(1.2);
+    }
+}
