@@ -2,10 +2,32 @@
 
 @layout.main("RaLearn", "discover-page") {
     <div class="discover">
-        <div class="discover--search-bar position-relative mb-5">
-            <!--<i class="position-absolute fas fa-search"></i>-->
-            <i class="discover--search-bar-icon position-absolute fa-solid fa-magnifying-glass"></i>
-            <input type="text"placeholder="Title, author or category">
+        <div class="d-flex align-items-center mb-5">
+            <a data-bs-toggle="modal" data-bs-target="#customSidebarModal" href="#"><i class="discover--hamburger-icon fa-solid fa-bars me-3"></i></a>
+            <div class="discover--search-bar w-100 position-relative">
+                <!--<i class="position-absolute fas fa-search"></i>-->
+                <i class="discover--search-bar-icon position-absolute fa-solid fa-magnifying-glass"></i>
+                <input type="text"placeholder="Title, author or category">
+            </div>
+        </div>
+
+        <div class="modal modal-fullscreen custom-sidebar-modal fade" id="customSidebarModal" tabindex="-1" aria-labelledby="sidebarModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="sidebarModalLabel">Categories</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group">
+                            <li class="list-group-item">Inspiration & Personal Growth</li>
+                            <li class="list-group-item">Health & Meditation</li>
+                            <li class="list-group-item">Career & Business</li>
+                            <li class="list-group-item">Relationship & Family</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <h4 class="mb-4">Categories</h4>

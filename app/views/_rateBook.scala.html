@@ -12,6 +12,7 @@
 
 <div id="id-rate-book-target" class="rate-book d-flex align-items-center">
     @defining(UserRating.findByUserAndBookId(userId, bookId)) { userRating =>
+        <hr>
         <div class="me-3">@if(userRating == null){Rate this book}else{You Rated it}:</div>
         @rateBookStars(bookId, userRating)
 
@@ -31,5 +32,6 @@
                 </div>
             </div>
         </div>
+        <hr>
     }
 </div>

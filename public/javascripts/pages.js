@@ -240,7 +240,6 @@ $(document).ready(function() {
     $(document.body).on("click", "#id-submit-review-btn", function(e) {
         e.preventDefault();
         userRatingPost($(this).data("book-id"), null, $('#id-rating-text-area').val().trim());
-
         let rateBookModal = bootstrap.Modal.getInstance(document.getElementById("id-rate-book-modal"));
         rateBookModal.hide();
     });

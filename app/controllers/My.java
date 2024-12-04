@@ -31,7 +31,8 @@ public class My extends Controller {
         User user = CommonUtil.getUser(request);
         List<Book> randomBooksAcross = new ArrayList<>();
         for(int i = 1; i <= 5; i++) {
-            randomBooksAcross.add(Book.getRandomBookByCategory(null, null));
+            // Todo: Remove Mock
+            randomBooksAcross.add(Book.getRandomBookByCategoryMock(null, null));
         }
         return ok(views.html.my.discover.render(user, randomBooksAcross));
     }
@@ -42,9 +43,11 @@ public class My extends Controller {
         List<UserBook> userBooks = new ArrayList<>();
         for(int i = 1; i <= 5; i++) {
             if(category.getParent() == null) {
-                userBooks.add(new UserBook(user, Book.getRandomBookByCategory(category.getId(), null), category));
+                // Todo: Remove Mock
+                userBooks.add(new UserBook(user, Book.getRandomBookByCategoryMock(category.getId(), null), category));
             } else {
-                userBooks.add(new UserBook(user, Book.getRandomBookByCategory(null, category.getId()), category));
+                // Todo: Remove Mock
+                userBooks.add(new UserBook(user, Book.getRandomBookByCategoryMock(null, category.getId()), category));
             }
         }
         return ok(views.html.my.discoverResults.render(category, userBooks));

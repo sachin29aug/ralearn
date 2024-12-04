@@ -65,13 +65,9 @@
                         @_quote()
                     </div>
 
-                    <hr>
-
-                    @if(userBook.getUser() != null) {
+                    @if(userBook != null && userBook.getUser() != null) {
                         @_rateBook(userBook.getUser().getId(), book.getId())
                     }
-
-                    <hr>
 
                     @_spacer(4)
 

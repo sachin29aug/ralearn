@@ -463,6 +463,9 @@ hr {
   background: linear-gradient(135deg, #fff5cc 0%, #ffeb99 100%);
 }
 
+.discover--hamburger-icon {
+  font-size: 24px;
+}
 .discover--search-bar-icon {
   font-size: 25px;
   top: 50%;
@@ -575,6 +578,26 @@ hr {
 .home-section-1--author {
   color: #666666;
   font-size: 16px;
+}
+
+/* Restrict the modal width to 75% */
+.custom-sidebar-modal .modal-dialog {
+  max-width: 85vw; /* 75% of the viewport width */
+  margin: 0; /* Remove default centering */
+  height: 100%; /* Full height for a sidebar look */
+  transition: none; /* Prevent default modal animation */
+}
+
+/* Initial off-screen position */
+.custom-sidebar-modal .modal-content {
+  transform: translateX(-100%); /* Start off-screen to the left */
+  transition: transform 0.3s ease-out; /* Smooth slide-in */
+  height: 100%; /* Ensure full height for consistency */
+}
+
+/* Slide into view when modal is open */
+.custom-sidebar-modal.show .modal-content {
+  transform: translateX(0); /* Bring modal into view */
 }
 
 .category-pill-small {

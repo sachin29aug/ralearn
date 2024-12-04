@@ -67,6 +67,10 @@ public class Book extends BaseModel {
         return find.query().where().eq("title", title).eq("author", author).findOne();
     }
 
+    public static Book getRandomBookByCategoryMock(Long parentCategoryId, Long categoryId) {
+        return Book.find(289020L);
+    }
+
     public static Book getRandomBookByCategory(Long parentCategoryId, Long categoryId) {
         Book randomBook;
         BookCategory bookCategory;
