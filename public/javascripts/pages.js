@@ -188,6 +188,16 @@ $(document).ready(function() {
         e.preventDefault();
         discoverCategoryPost($(this).data("subcategory-id"));
     });
+
+    $(document).on("click", "#id-discover-hamburger-btn", function (e) {
+        e.preventDefault();
+        $("#side-menu").addClass("open");
+    });
+
+    $(document).on("click", "#close-menu", function (e) {
+        e.preventDefault();
+        $("#side-menu").removeClass("open");
+    });
 });
 
 // Feedback related
