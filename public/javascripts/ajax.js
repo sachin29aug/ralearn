@@ -224,6 +224,20 @@ function discoverCategoryPost(categoryId) {
     });
 }
 
+function userRatingPost(bookId, rating, text) {
+    $.ajax({
+        url: '/book/user/rating/' +  bookId,
+        type : 'POST',
+        data: {"rating": rating, "text": text},
+        success: function(response) {
+
+        },
+        error: function(response, error) {
+
+        }
+    });
+}
+
 function replaceHtml(targetElementId, response, url, scrollToTop) {
     $("#" + targetElementId).html("");
     let targetElementHtml = $(response).find("#" + targetElementId).html();

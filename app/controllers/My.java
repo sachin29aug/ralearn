@@ -4,6 +4,7 @@ import io.ebean.DB;
 import io.ebean.Transaction;
 import models.*;
 import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 import play.mvc.Controller;
 import play.mvc.Http;
@@ -87,7 +88,6 @@ public class My extends Controller {
             userBook.setFavorite(false);
         }
         userBook.update();
-
         return ok(views.html.my.home.render(user));
     }
 
@@ -133,5 +133,22 @@ public class My extends Controller {
         List<Book> sameAuthorBooks = sameSubCategoryBooks;
 
         return ok(views.html.my.book.render(book, userBook, sameAuthorBooks, sameSubCategoryBooks));
+    }
+
+    public Result bookUserRatingPost(Http.Request request, Long bookId) {
+        User user = CommonUtil.getUser(request);
+        Book book = Book.find(bookId);
+        UserRating userRating = UserRating.findByUserAndBookId(user.id, book.id);
+        if(userRating == null) {
+            userRating = new UserRating(user, book);
+        }
+        Integer rating = Integer.valueOf(request.body().asFormUrlEncoded().get("rating")[0]);
+        userRating.setRating(rating);
+        String text = request.body().asFormUrlEncoded().get("text")[0];
+        if(StringUtils.isNotBlank(text)) {
+            userRating.setText(text);
+        }
+        userRating.saveOrUpdate();
+        return ok();
     }
 }

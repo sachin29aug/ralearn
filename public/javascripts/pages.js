@@ -222,6 +222,7 @@ $(document).ready(function() {
 
     $(document.body).on("click", ".rate-book--stars .fa-star", function(e) {
         let selectedRating = $(this).data("value");
+        userRatingPost($(this).data("book-id"), selectedRating, null);
         $(".rate-book--modal .fa-star").removeClass("fa-solid selected").addClass("fa-regular");
         $(".rate-book--modal .fa-star").each(function (index) {
             if (index < selectedRating) {

@@ -19,6 +19,7 @@ public class Book extends BaseModel {
     //  => Search feature
     //  => Data Quality
     //  => Data load GR and CPT
+    //  => Authenticated and SSL annotations
 
     private String title;
 
@@ -51,6 +52,10 @@ public class Book extends BaseModel {
     public static Finder<Long, Book> find = new Finder<>(Book.class);
 
     // Static methods
+
+    public static Book find(Long id) {
+        return find.byId(id);
+    }
 
     public static Book findByTitle(String title) {
         List<Book> books = find.query().where().eq("title", title).findList();

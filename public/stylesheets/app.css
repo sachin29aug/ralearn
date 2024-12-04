@@ -780,7 +780,7 @@ hr {
 }
 
 .rate-book--star-icon {
-  font-size: 24px;
+  font-size: 22px;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
 }

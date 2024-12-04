@@ -10,9 +10,9 @@
                 @if(userBook != null) {
                 <a id="id-element-book-@book.id" class="cls-favorite-btn me-3" data-book-id="@book.id" href="#">
                     @if(BooleanUtils.isTrue(userBook.getFavorite())) {
-                     @_circularIcon("fa-solid fa-heart")
+                        @_circularIcon("fa-solid fa-heart")
                     } else {
-                     @_circularIcon("fa-regular fa-heart")
+                        @_circularIcon("fa-regular fa-heart")
                     }
                 </a>
                 }
@@ -67,7 +67,7 @@
 
                     <hr>
 
-                    @_rateBook()
+                    @_rateBook(book.getId())
 
                     <hr>
 

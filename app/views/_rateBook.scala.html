@@ -1,18 +1,18 @@
-@()
+@(bookId: Long)
 
-@rateBookStars() = {
+@rateBookStars(bookId: Long) = {
     <div class="rate-book--stars d-flex justify-content-center gap-2">
-        <i class="rate-book--star-icon fa-regular fa-star" data-value="1"></i>
-        <i class="rate-book--star-icon fa-regular fa-star" data-value="2"></i>
-        <i class="rate-book--star-icon fa-regular fa-star" data-value="3"></i>
-        <i class="rate-book--star-icon fa-regular fa-star" data-value="4"></i>
-        <i class="rate-book--star-icon fa-regular fa-star" data-value="5"></i>
+        <i class="rate-book--star-icon fa-regular fa-star" data-value="1" data-book-id="@bookId"></i>
+        <i class="rate-book--star-icon fa-regular fa-star" data-value="2" data-book-id="@bookId"></i>
+        <i class="rate-book--star-icon fa-regular fa-star" data-value="3" data-book-id="@bookId"></i>
+        <i class="rate-book--star-icon fa-regular fa-star" data-value="4" data-book-id="@bookId"></i>
+        <i class="rate-book--star-icon fa-regular fa-star" data-value="5" data-book-id="@bookId"></i>
     </div>
 }
 
 <div class="rate-book d-flex align-items-center">
     <div class="me-3">Rate this book:</div>
-    @rateBookStars()
+    @rateBookStars(bookId)
 
     <div id="id-rate-book-modal" class="rate-book--modal modal fade">
         <div class="modal-dialog modal-dialog-centered">
@@ -23,7 +23,7 @@
                 <div class="modal-body text-center mt-n5 pt-0 pb-4">
                     <h4 class="fw-bold mb-3">Thanks for rating!</h4>
                     <div class="mb-3 px-3">You can also share your thoughts about the book (Optional).</div>
-                    @rateBookStars()
+                    @rateBookStars(bookId)
                     <textarea class="w-100 my-4" placeholder="Share your thoughts about the book (Optional)..." rows="4"></textarea>
                     <a type="button" class="btn btn-primary" href="#">Submit Your Review</a>
                 </div>

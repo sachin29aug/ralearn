@@ -24,6 +24,18 @@ public class BaseModel extends Model {
       created = new Date();
    }*/
 
+   // Other
+
+   public void saveOrUpdate() {
+      if(id == null) {
+         save();
+      } else {
+         update();
+      }
+   }
+
+   // Getters Setters
+
    public Long getId() {
       return id;
    }
