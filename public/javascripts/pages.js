@@ -210,7 +210,7 @@ $(document).ready(function() {
 // Rate book related
 
 $(document).ready(function() {
-    $(".rate-book--stars .fa-star").on("mouseover", function () {
+    $(document.body).on("mouseover", ".rate-book--stars .fa-star", function(e) {
         let rating = $(this).data("value");
         $(".rate-book--stars .fa-star").removeClass("fa-solid selected").addClass("fa-regular");
         $(".rate-book--stars .fa-star").each(function (index) {
@@ -220,7 +220,7 @@ $(document).ready(function() {
         });
     });
 
-    $(".rate-book--stars .fa-star").on("click", function () {
+    $(document.body).on("click", ".rate-book--stars .fa-star", function(e) {
         let selectedRating = $(this).data("value");
         $(".rate-book--modal .fa-star").removeClass("fa-solid selected").addClass("fa-regular");
         $(".rate-book--modal .fa-star").each(function (index) {
@@ -229,7 +229,7 @@ $(document).ready(function() {
             }
         });
 
-        const rateBookModal = new bootstrap.Modal(document.getElementById("id-rate-book-modal"));
+        let rateBookModal = new bootstrap.Modal(document.getElementById("id-rate-book-modal"));
         rateBookModal.show();
     });
 });
