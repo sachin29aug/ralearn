@@ -142,13 +142,15 @@ public class My extends Controller {
         if(userRating == null) {
             userRating = new UserRating(user, book);
         }
-        Integer rating = Integer.valueOf(request.body().asFormUrlEncoded().get("rating")[0]);
-        userRating.setRating(rating);
-        String text = request.body().asFormUrlEncoded().get("text")[0];
+        String rating = CommonUtil.getRequestBodyParam(request, "rating");
+        if(StringUtils.isNotBlank(rating)) {
+            userRating.setRating(Integer.valueOf(rating));
+        }
+        String text = CommonUtil.getRequestBodyParam(request, "text");
         if(StringUtils.isNotBlank(text)) {
             userRating.setText(text);
         }
         userRating.saveOrUpdate();
-        return ok();
+        return book(request, bookId);
     }
 }

@@ -67,7 +67,9 @@
 
                     <hr>
 
-                    @_rateBook(book.getId())
+                    @if(userBook.getUser() != null) {
+                        @_rateBook(userBook.getUser().getId(), book.getId())
+                    }
 
                     <hr>
 

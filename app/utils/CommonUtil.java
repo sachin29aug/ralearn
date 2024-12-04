@@ -17,6 +17,13 @@ public class CommonUtil {
         return url + "?v=32";
     }
 
+    // Request related
+
+    public static String getRequestBodyParam(Http.Request request, String key) {
+        String[] valuesArray = request.body().asFormUrlEncoded().get(key);
+        return (valuesArray != null && valuesArray.length > 0) ? valuesArray[0] : null;
+    }
+
     // Session related
 
     public static User getUser(Http.Request request) {

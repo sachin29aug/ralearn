@@ -230,7 +230,7 @@ function userRatingPost(bookId, rating, text) {
         type : 'POST',
         data: {"rating": rating, "text": text},
         success: function(response) {
-
+            replaceHtml("id-rate-book-target", response, null, null);
         },
         error: function(response, error) {
 

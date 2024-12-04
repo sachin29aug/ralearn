@@ -1,33 +1,35 @@
-@(bookId: Long)
+@(userId: Long, bookId: Long)
 
-@rateBookStars(bookId: Long) = {
+@rateBookStars(bookId: Long, userRating: UserRating) = {
     <div class="rate-book--stars d-flex justify-content-center gap-2">
-        <i class="rate-book--star-icon fa-regular fa-star" data-value="1" data-book-id="@bookId"></i>
-        <i class="rate-book--star-icon fa-regular fa-star" data-value="2" data-book-id="@bookId"></i>
-        <i class="rate-book--star-icon fa-regular fa-star" data-value="3" data-book-id="@bookId"></i>
-        <i class="rate-book--star-icon fa-regular fa-star" data-value="4" data-book-id="@bookId"></i>
-        <i class="rate-book--star-icon fa-regular fa-star" data-value="5" data-book-id="@bookId"></i>
+        <i class="rate-book--star-icon fa-star @if(userRating != null && userRating.getRating() >= 1){selected fa-solid}else{fa-regular}" data-value="1" data-book-id="@bookId"></i>
+        <i class="rate-book--star-icon fa-star @if(userRating != null && userRating.getRating() >= 2){selected fa-solid}else{fa-regular}" data-value="2" data-book-id="@bookId"></i>
+        <i class="rate-book--star-icon fa-star @if(userRating != null && userRating.getRating() >= 3){selected fa-solid}else{fa-regular}" data-value="3" data-book-id="@bookId"></i>
+        <i class="rate-book--star-icon fa-star @if(userRating != null && userRating.getRating() >= 4){selected fa-solid}else{fa-regular}" data-value="4" data-book-id="@bookId"></i>
+        <i class="rate-book--star-icon fa-star @if(userRating != null && userRating.getRating() == 5){selected fa-solid}else{fa-regular}" data-value="5" data-book-id="@bookId"></i>
     </div>
 }
 
-<div class="rate-book d-flex align-items-center">
-    <div class="me-3">Rate this book:</div>
-    @rateBookStars(bookId)
+<div id="id-rate-book-target" class="rate-book d-flex align-items-center">
+    @defining(UserRating.findByUserAndBookId(userId, bookId)) { userRating =>
+        <div class="me-3">@if(userRating == null){Rate this book}else{You Rated it}:</div>
+        @rateBookStars(bookId, userRating)
 
-    <div id="id-rate-book-modal" class="rate-book--modal modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header border-0 pb-0">
-                    <a data-bs-dismiss="modal" class="ms-auto" href="#">@_circularIcon("fa-solid fa-xmark")</a>
-                </div>
-                <div class="modal-body text-center mt-n5 pt-0 pb-4">
-                    <h4 class="fw-bold mb-3">Thanks for rating!</h4>
-                    <div class="mb-3 px-3">You can also share your thoughts about the book (Optional).</div>
-                    @rateBookStars(bookId)
-                    <textarea class="w-100 my-4" placeholder="Share your thoughts about the book (Optional)..." rows="4"></textarea>
-                    <a type="button" class="btn btn-primary" href="#">Submit Your Review</a>
+        <div id="id-rate-book-modal" class="rate-book--modal modal fade">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header border-0 pb-0">
+                        <a data-bs-dismiss="modal" class="ms-auto" href="#">@_circularIcon("fa-solid fa-xmark")</a>
+                    </div>
+                    <div class="modal-body text-center mt-n5 pt-0 pb-4">
+                        <h4 class="fw-bold mb-3">Thanks for rating!</h4>
+                        <div class="mb-3 px-3">You can also share your thoughts about the book (Optional).</div>
+                        @rateBookStars(bookId, userRating)
+                        <textarea id="id-rating-text-area" class="w-100 my-4" placeholder="Share your thoughts about the book (Optional)..." rows="4"></textarea>
+                        <a id="id-submit-review-btn" class="btn btn-primary" data-book-id="@bookId" href="#">Submit Your Review</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
 </div>

@@ -230,7 +230,18 @@ $(document).ready(function() {
             }
         });
 
-        let rateBookModal = new bootstrap.Modal(document.getElementById("id-rate-book-modal"));
-        rateBookModal.show();
+        let rateBookModalElement = document.getElementById("id-rate-book-modal");
+        if (!rateBookModalElement.classList.contains("show")) {
+            let rateBookModal = new bootstrap.Modal(rateBookModalElement);
+            rateBookModal.show();
+        }
+    });
+
+    $(document.body).on("click", "#id-submit-review-btn", function(e) {
+        e.preventDefault();
+        userRatingPost($(this).data("book-id"), null, $('#id-rating-text-area').val().trim());
+
+        let rateBookModal = bootstrap.Modal.getInstance(document.getElementById("id-rate-book-modal"));
+        rateBookModal.hide();
     });
 });
