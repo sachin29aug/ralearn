@@ -5,9 +5,7 @@
 <div class="card-4">
     <a class="cls-book-details-btn" data-book-id="@book.id">
         <div class="d-flex">
-            @defining(book.getGbBook()) { gbBook =>
-                <img class="card-4--cover-image me-4 mb-2" src="@if(gbBook != null){@gbBook.getThumbnailUrl()}else{@Book.getMockBook().getGbBook().getThumbnailUrl()}">
-            }
+            <img class="card-4--cover-image me-4 mb-2" src="@if(book.getGbBook() !=null){@book.getGbBook().getThumbnailUrl()}">
             <div>
                 <div class="card-4--title">@book.getTitle(50)</div>
                 <div class="card-4--author mb-2">@book.getAuthor()</div>

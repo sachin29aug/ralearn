@@ -25,3 +25,9 @@ $(document).ready(function() {
         $("#gb-preview").hide();
     });
 });
+
+function hideBSBackDrop() {
+    $('.modal-backdrop').addClass('d-none');
+    $('.modal').hide();
+    $('body').css('overflow', 'auto');
+}

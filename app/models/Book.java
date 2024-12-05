@@ -67,14 +67,6 @@ public class Book extends BaseModel {
         return find.query().where().eq("title", title).eq("author", author).findOne();
     }
 
-    public static Book getRandomBookByCategoryMock(Long parentCategoryId, Long categoryId) {
-        return Book.find(289020L);
-    }
-
-    public static Book getMockBook() {
-        return Book.find(277466L);
-    }
-
     public static Book getRandomBookByCategory(Long parentCategoryId, Long categoryId) {
         Book randomBook;
         BookCategory bookCategory;
@@ -87,14 +79,14 @@ public class Book extends BaseModel {
         }
 
         randomBook = bookCategory.getBook();
-        GoogleBookClient.importGoogleBookInfo(randomBook);
-        randomBook.refresh();
+        //GoogleBookClient.importGoogleBookInfo(randomBook);
+        //randomBook.refresh();
 
         return randomBook;
     }
 
     public static List<Book> search(String searchTerm) {
-        return find.query().where().or().ilike("title", "%" + searchTerm + "%").ilike("author", "%" + searchTerm + "%").endOr().findList();
+        return find.query().where().or().ilike("title", "%" + searchTerm + "%").ilike("author", "%" + searchTerm + "%").endOr().setMaxRows(5).findList();
     }
 
     // Non-static methods
@@ -213,6 +205,9 @@ public class Book extends BaseModel {
     }
 
     public GBBook getGbBook() {
+        if(gbBook == null) {
+            return GoogleBookClient.importGoogleBookInfo(this);
+        }
         return gbBook;
     }
 

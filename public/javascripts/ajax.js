@@ -22,6 +22,7 @@ function bookDetailsGet(bookId) {
     	url: url,
     	type : 'GET',
     	success: function(response) {
+    	    hideBSBackDrop();
     		replaceHtml("id-page", response, url, true);
     	},
     	error: function(request, error) {

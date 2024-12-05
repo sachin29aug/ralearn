@@ -15,7 +15,8 @@ public class GoogleBookClient {
     private static final String BASE_URL = "https://www.googleapis.com/books/v1/volumes";
     // Later we can use url like this which returns more info: https://www.googleapis.com/books/v1/volumes/tQ1C-rvAfJUC where tQ1C-rvAfJUC is gId
 
-    public static void importGoogleBookInfo(Book book) {
+    public static GBBook importGoogleBookInfo(Book book) {
+
         try {
             String url = BASE_URL + "?q=intitle:" +  book.getTitle().replace(" ", "+") + "&key=" + API_KEY;
             JSONObject responseJson = getJsonResponse(url);
@@ -34,7 +35,7 @@ public class GoogleBookClient {
                     imageLinks = volumeInfo.optJSONObject("imageLinks");
                 }
 
-                GBBook gbBook = GBBook.findByBookId(book.id);
+                gbBook = GBBook.findByBookId(book.id);
                 if(gbBook == null) {
                     gbBook = new GBBook();
 
@@ -127,6 +128,8 @@ public class GoogleBookClient {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return gbBook;
     }
 
     private static JSONObject getJsonResponse(String urlString) throws Exception {
