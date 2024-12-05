@@ -21,6 +21,7 @@ public class Book extends BaseModel {
     //  => Data load GR and CPT
     //  => Authenticated and SSL annotations
     //  => CommonUtil.getRequestBodyParam() everywhere
+    //  => gb/gl naming convention
 
     private String title;
 
@@ -71,6 +72,10 @@ public class Book extends BaseModel {
         return Book.find(289020L);
     }
 
+    public static Book getMockBook() {
+        return Book.find(277466L);
+    }
+
     public static Book getRandomBookByCategory(Long parentCategoryId, Long categoryId) {
         Book randomBook;
         BookCategory bookCategory;
@@ -87,6 +92,10 @@ public class Book extends BaseModel {
         randomBook.refresh();
 
         return randomBook;
+    }
+
+    public static List<Book> search(String searchTerm) {
+        return find.query().where().or().ilike("title", "%" + searchTerm + "%").ilike("author", "%" + searchTerm + "%").endOr().findList();
     }
 
     // Non-static methods

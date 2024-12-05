@@ -238,6 +238,22 @@ function userRatingPost(bookId, rating, text) {
     });
 }
 
+function bookSearchPost(searchTerm, htmlReplacementTargetId) {
+    $(".spinner").css("display", "flex");
+    $.ajax({
+        url: '/book/search',
+        method: 'POST',
+        data: {"searchTerm": searchTerm},
+        success: function (response) {
+            $(".spinner").css("display", "none");
+            replaceHtml(htmlReplacementTargetId, response, null, null);
+        },
+        error: function (response, error) {
+
+        },
+    });
+}
+
 function replaceHtml(targetElementId, response, url, scrollToTop) {
     $("#" + targetElementId).html("");
     let targetElementHtml = $(response).find("#" + targetElementId).html();

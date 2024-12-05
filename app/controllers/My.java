@@ -156,4 +156,10 @@ public class My extends Controller {
         userRating.saveOrUpdate();
         return book(request, bookId);
     }
+
+    public Result bookSearch(Http.Request request) {
+        String searchTerm = CommonUtil.getRequestBodyParam(request, "searchTerm");
+        List<Book> books = Book.search(searchTerm);
+        return ok(views.html.my.bookSearchResults.render(books));
+    }
 }

@@ -1,0 +1,9 @@
+@(books: List[Book])
+
+<div>
+    <div id="id-book-search-results-target">
+        @for(book <- books) {
+            @_card4(book, false, false)
+        }
+    </div>
+</div>

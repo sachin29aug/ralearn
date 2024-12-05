@@ -21,6 +21,7 @@ GET     /list/:listName                                     controllers.My.list(
 GET     /list/category/:id                                  controllers.My.categoryList(request: Request, id: Long)
 GET     /book/:id                                           controllers.My.book(request: Request, id: Long)
 POST    /book/user/rating/:bookId                           controllers.My.bookUserRatingPost(request: Request, bookId: Long)
+POST    /book/search                                        controllers.My.bookSearch(request: Request)
 
 # System Admin
 GET     /import/books/gr/4agf9t                             controllers.SystemAdmin.importBooksGR

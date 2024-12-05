@@ -203,12 +203,25 @@ $(document).ready(function() {
         e.preventDefault();
         discoverCategoryPost($(this).data("subcategory-id"));
     });
+});
 
+// Discover - Search related
+
+$(document).ready(function () {
     $(document.body).on("focus", "#id-discover-search-input", function(e) {
         e.preventDefault();
         $('#id-discover-search-modal').modal('show');
+        $("#id-discover-search-modal-input").focus();
+    });
+
+    $(document.body).on("input", "#id-discover-search-modal-input", function(e) {
+        const searchTerm = $(this).val().trim();
+        if (searchTerm.length > 2) {
+          bookSearchPost(searchTerm, "id-book-search-results-target");
+        }
     });
 });
+
 
 // Feedback related
 
