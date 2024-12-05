@@ -198,6 +198,11 @@ $(document).ready(function() {
         e.preventDefault();
         $("#side-menu").removeClass("open");
     });
+
+    $(document.body).on("click", ".cls-category-btn", function(e) {
+        e.preventDefault();
+        discoverCategoryPost($(this).data("subcategory-id"));
+    });
 });
 
 // Feedback related

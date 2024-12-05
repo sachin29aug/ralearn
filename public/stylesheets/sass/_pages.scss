@@ -307,10 +307,11 @@
         box-shadow: none;
     }
 
-    /* .accordion-button:not(.collapsed) {
-        padding-top: 0;
-        padding-bottom: 0;
-    } */
+    .accordion-body {
+        i {
+            width: 30px;
+        }
+    }
 }
 
 .side-menu.open {

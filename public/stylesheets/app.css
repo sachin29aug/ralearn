@@ -592,10 +592,6 @@ hr {
   transform: translateX(-100%);
   transition: transform 0.4s ease-in-out;
   overflow-y: auto;
-  /* .accordion-button:not(.collapsed) {
-      padding-top: 0;
-      padding-bottom: 0;
-  } */
 }
 .side-menu .accordion-item {
   background: none;
@@ -604,6 +600,9 @@ hr {
 .side-menu .accordion-button {
   background: none;
   box-shadow: none;
+}
+.side-menu .accordion-body i {
+  width: 30px;
 }
 
 .side-menu.open {

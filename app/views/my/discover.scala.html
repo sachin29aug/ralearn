@@ -23,11 +23,11 @@
                             <a class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#flush-@parentCategory.getId()" href="">@parentCategory.getTitle()</a>
                         </h2>
                         <div id="flush-@parentCategory.getId()" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body py-0">
+                            <div class="accordion-body ms-3 py-0">
                                 @for(category <- Category.findCategoriesByParent(parentCategory.id)) {
                                     <div class="d-flex align-items-center mb-3">
-                                        <i class="@category.getFaIconClass() me-3"></i>
-                                        <a href="#">@category.getTitle()</a>
+                                        <i class="@category.getFaIconClass()"></i>
+                                        <a class="cls-category-btn" data-subcategory-id="@category.getId()" href="#">@category.getTitle()</a>
                                     </div>
                                 }
                             </div>
