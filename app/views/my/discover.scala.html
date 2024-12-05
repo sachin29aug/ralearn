@@ -3,14 +3,15 @@
 @layout.main("RaLearn", "discover-page") {
     <div class="discover">
         <div class="d-flex align-items-center mb-5">
-            <a id="id-discover-hamburger-btn" href="#"><i class="discover--hamburger-icon fa-solid fa-bars me-3"></i></a>
+            <a id="id-discover-hamburger-btn" class="me-3" href="#"><i class="discover--hamburger-icon fa-solid fa-bars"></i></a>
             <div class="discover--search-bar w-100 position-relative">
                 <!--<i class="position-absolute fas fa-search"></i>-->
                 <i class="discover--search-bar-icon position-absolute fa-solid fa-magnifying-glass"></i>
-                <input type="text"placeholder="Title, author or category">
+                <input id="id-discover-search-input" type="text" placeholder="Title, author or category">
             </div>
         </div>
 
+        <!-- Side bar -->
         <nav id="side-menu" class="side-menu py-3">
             <div class="d-flex justify-content-between align-items-center mb-4 px-3">
                 <h1 class="menu-title">Categories</h1>
@@ -36,6 +37,27 @@
                 }
             </div>
         </nav>
+
+        <!-- Search Modal -->
+        <div class="modal" id="id-discover-search-modal">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content pt-4 px-3">
+                    <div class="d-flex align-items-center mb-5">
+                        <a class="me-3" data-bs-dismiss="modal" href="#"><i class="discover--hamburger-icon fa-solid fa-angle-left"></i></a>
+                        <div class="discover--search-bar w-100 position-relative">
+                            <i class="discover--search-bar-icon position-absolute fa-solid fa-magnifying-glass"></i>
+                            <input id="id-discover-search-modal-input" type="text" placeholder="Title, author or category">
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-book-open mb-5" style="font-size: 100px; margin-top: 100px;"></i>
+                        <h4 class="mb-3 fw-bold">Discover your next favorite read...</h4>
+                        <!--<div class="mb-3">Dive into a world of ideas, stories, and inspiration.</div>-->
+                        <div style="font-style: italic; color: #6c757d;">Examples: "Self-Help", "Philosophy", "Stephen Covey"</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <h4 class="mb-4">Categories</h4>
         <div class="row">

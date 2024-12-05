@@ -203,6 +203,11 @@ $(document).ready(function() {
         e.preventDefault();
         discoverCategoryPost($(this).data("subcategory-id"));
     });
+
+    $(document.body).on("focus", "#id-discover-search-input", function(e) {
+        e.preventDefault();
+        $('#id-discover-search-modal').modal('show');
+    });
 });
 
 // Feedback related
