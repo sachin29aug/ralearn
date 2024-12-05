@@ -16,7 +16,6 @@ import java.util.*;
 public class Book extends BaseModel {
     // TODO:
     //  => Include shelved count in BookCategory
-    //  => Search feature
     //  => Data Quality
     //  => Data load GR and CPT
     //  => Authenticated and SSL annotations
