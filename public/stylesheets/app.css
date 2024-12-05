@@ -592,6 +592,10 @@ hr {
   transform: translateX(-100%);
   transition: transform 0.4s ease-in-out;
   overflow-y: auto;
+  /* .accordion-button:not(.collapsed) {
+      padding-top: 0;
+      padding-bottom: 0;
+  } */
 }
 .side-menu .accordion-item {
   background: none;

@@ -306,6 +306,11 @@
         background: none;
         box-shadow: none;
     }
+
+    /* .accordion-button:not(.collapsed) {
+        padding-top: 0;
+        padding-bottom: 0;
+    } */
 }
 
 .side-menu.open {
