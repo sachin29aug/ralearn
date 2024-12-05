@@ -16,7 +16,7 @@ public class GoogleBookClient {
     // Later we can use url like this which returns more info: https://www.googleapis.com/books/v1/volumes/tQ1C-rvAfJUC where tQ1C-rvAfJUC is gId
 
     public static GBBook importGoogleBookInfo(Book book) {
-
+        GBBook gbBook = null;
         try {
             String url = BASE_URL + "?q=intitle:" +  book.getTitle().replace(" ", "+") + "&key=" + API_KEY;
             JSONObject responseJson = getJsonResponse(url);
