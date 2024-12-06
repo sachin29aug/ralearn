@@ -20,7 +20,6 @@ public class Book extends BaseModel {
     //  => Data load GR and CPT
     //  => Authenticated and SSL annotations
     //  => CommonUtil.getRequestBodyParam() everywhere
-    //  => gb/gl naming convention
 
     private String title;
 
@@ -42,6 +41,10 @@ public class Book extends BaseModel {
     @OneToOne
     @JoinColumn(name = "gl_book_id")
     private GBBook gbBook;
+
+    @OneToOne
+    @JoinColumn(name = "cpt_book_id")
+    private CPTBook cptBook;
 
     @OneToOne
     @JoinColumn(name = "ol_book_id")
@@ -83,6 +86,10 @@ public class Book extends BaseModel {
         //randomBook.refresh();
 
         return randomBook;
+    }
+
+    public static List<Book> getRandomBooks(int count) {
+        return find.query().setMaxRows(count).orderBy("RANDOM()").findList();
     }
 
     public static List<Book> search(String searchTerm) {
@@ -229,5 +236,13 @@ public class Book extends BaseModel {
 
     public void setBookCategories(List<BookCategory> bookCategories) {
         this.bookCategories = bookCategories;
+    }
+
+    public CPTBook getCptBook() {
+        return cptBook;
+    }
+
+    public void setCptBook(CPTBook cptBook) {
+        this.cptBook = cptBook;
     }
 }

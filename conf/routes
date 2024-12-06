@@ -28,8 +28,10 @@ GET     /import/books/gr/4agf9t                             controllers.SystemAd
 GET     /import/books/gb/4agf9t:count                       controllers.SystemAdmin.importBooksGB(count: Long)
 GET     /import/books/ol/4agf9t/:count                      controllers.SystemAdmin.importBooksOL(count: Long)
 GET     /import/authors/ol/4agf9t                           controllers.SystemAdmin.importAuthorsOL()
-GET     /import/quotes/kaggle/4agf9t                        controllers.SystemAdmin.importQuotesKaggle
-GET     /setup/categories/4agf9t                            controllers.SystemAdmin.setupCategories
+GET     /import/quotes/kaggle/4agf9t                        controllers.SystemAdmin.importQuotesKaggle()
+GET     /import/books/cpt/4agf9t                            controllers.SystemAdmin.importBooksCPT()
+GET     /export/books/cpt/4agf9t                            controllers.SystemAdmin.exportBooksCPT()
+GET     /setup/categories/4agf9t                            controllers.SystemAdmin.setupCategories()
 
 # Legacy
 GET     /legacy/:categoryId                                 controllers.Visitor.legacy(categoryId: Long)

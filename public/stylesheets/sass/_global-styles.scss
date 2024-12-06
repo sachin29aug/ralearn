@@ -210,6 +210,21 @@ hr {
     }
 }
 
+.accordion-item {
+    background: none;
+    border: none;
+}
+
+.accordion-button {
+    background: none;
+    box-shadow: none;
+}
+
+.accordion-button:not(.collapsed) {
+    background: none;
+    box-shadow: none;
+}
+
 .scrollable-cards-x {
     overflow-x: auto;
     overflow-y: hidden;

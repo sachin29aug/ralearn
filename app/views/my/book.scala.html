@@ -35,46 +35,29 @@
             </div>
 
             <hr>
-            <div class="d-flex align-items-center mb-1">
-                <i class="fas fa-lightbulb me-3"></i>
-                <div class="fw-bold">Mastering Focus in a Distracted World</div>
-            </div>
-            <div class="fst-italic">A practical guide to achieving high levels of productivity by cultivating deep focus and eliminating distractions.</div>
-            <div class="accordion accordion-flush" id="accordionFlushExample">
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <a class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#flush-1" href="">More Insights</a>
-                    </h2>
-                    <div id="flush-1" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body ms-3 py-0">
-                            Key Themes and Takeaways:
-                            <ul>
-                                <li>Rapid cognition is often accurate and valuable.</li>
-                                <li>Intuition plays a crucial role in decision-making.</li>
-                                <li>Overthinking can sometimes hinder effective judgment.</li>
-                            </ul>
-
-                            Target Audience:
-                            <ul>
-                                <li>Psychology enthusiasts.</li>
-                                <li>Professionals interested in decision-making strategies.</li>
-                                <li>Readers curious about human behavior and intuition.</li>
-                            </ul>
-
-                            Mood and Style: Engaging, thought-provoking, and analytical, with a blend of storytelling and scientific insight.
-
-                            Actionable Ideas:
-                            <ul>
-                                <li>Practice observing and analyzing your intuitive responses in daily decisions.</li>
-                                <li>Identify patterns in successful snap judgments and learn from them.</li>
-                                <li>Balance instinctive thinking with deliberate reasoning for better outcomes.</li>
-                            </ul>
-
-                            Book’s Unique Selling Proposition (USP): Blink redefines the way we think about thinking, showing how intuition can be a powerful tool when understood and harnessed effectively.
+            @defining(book.getCptBook()) { cptBook =>
+                <div class="d-flex align-items-center mb-1">
+                    <i class="fas fa-lightbulb me-3"></i>
+                    <div class="fw-bold">@if(cptBook != null){@cptBook.getHeadline()}else{Mastering Focus in a Distracted World}</div>
+                </div>
+                <div class="fst-italic">@if(cptBook != null){@cptBook.getTeaser()}else{A practical guide to achieving high levels of productivity by cultivating deep focus and eliminating distractions.}</div>
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <a class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#flush-1" href="">More Insights</a>
+                        </h2>
+                        <div id="flush-1" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body ms-3 py-0">
+                                <div class="mb-2 mt-4 fw-bold">Key Themes and Takeaways:</div> <p>@if(cptBook != null){@cptBook.getConcept()}</p>
+                                <div class="mb-2 fw-bold">Target Audience:</div> <p>@if(cptBook != null){@cptBook.getAudience()}</p>
+                                <div class="mb-2 fw-bold">Mood and Style:</div> <p>@if(cptBook != null){@cptBook.getToneStyle()}</p>
+                                <div class="mb-2 fw-bold">Actionable Ideas:</div> <p>@if(cptBook != null){@cptBook.getActionableIdeas()}</p>
+                                <div class="fw-bold">USP:</div> <p>@if(cptBook != null){@cptBook.getUsp()}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
             <hr>
             @_spacer(4)
         </div>

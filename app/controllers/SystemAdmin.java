@@ -2,7 +2,6 @@ package controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.ebean.DB;
-import io.ebean.DuplicateKeyException;
 import io.ebean.Transaction;
 import jakarta.persistence.PersistenceException;
 import models.*;
@@ -19,25 +18,22 @@ import play.mvc.Result;
 import utils.CommonUtil;
 import utils.GoogleBookClient;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.util.*;
 
 public class SystemAdmin extends Controller {
+    private static final String CONF_DIR = Paths.get("conf").toAbsolutePath().toString();
 
     // Data Import related
 
     public Result importBooksGR() throws IOException {
         //Transaction txn = DB.beginTransaction();
         List<Category> categories = Category.findCategories();
-        String confDir = Paths.get("conf").toAbsolutePath().toString();
         for(Category category : categories) {
             String categoryFilePath = "datasets/" + category.getParent().getUrl() + "/" + category.getUrl() + ".html";
-            File categoryFile = new File(confDir, categoryFilePath);
+            File categoryFile = new File(CONF_DIR, categoryFilePath);
             Document doc = Jsoup.parse(categoryFile, "UTF-8");
             Elements bookElements = doc.select("div.left[style='width: 75%;']");
             System.out.println("Category: " + category.getTitle() + ", Total Records: " + bookElements.size());
@@ -236,9 +232,8 @@ public class SystemAdmin extends Controller {
 
     public Result importQuotesKaggle() throws IOException {
         Transaction txn = DB.beginTransaction();
-        String confDir = Paths.get("conf").toAbsolutePath().toString();
         String filePath = "datasets-1/quotes/quotes-kaggle-abirate.jsonl";
-        File file = new File(confDir, filePath);
+        File file = new File(CONF_DIR, filePath);
         BufferedReader br = new BufferedReader(new FileReader(file));
         ObjectMapper objectMapper = new ObjectMapper();
         String line;
@@ -257,6 +252,90 @@ public class SystemAdmin extends Controller {
         }
         txn.commit();
         return ok("Done");
+    }
+
+    public Result importBooksCPT() throws IOException {
+        Transaction txn = DB.beginTransaction();
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(new File(CONF_DIR, "datasets-1/cpt/books-cpt-output.csv")));
+            br.readLine();
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] row = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+
+                long bookId = Long.valueOf(row[0].trim());
+                String headline = row[3].trim();
+                String teaser = row[4].trim();
+                String description = row[5].trim();
+                String authorBio = row[6].trim();
+                String concept = row[9].trim();
+                String audience = row[10].trim();
+                String toneStyle = row[11].trim();
+                String actionableIdeas = row[12].trim();
+                String usp = row[13].trim();
+                String bookQuotes = row[7].trim();
+                String authorQuotes = row[8].trim();
+                String authorName = row[2].trim();
+
+                CPTBook cptBook = new CPTBook();
+                cptBook.setHeadline(headline);
+                cptBook.setTeaser(teaser);
+                cptBook.setDescription(description);
+                cptBook.setAuthorBio(authorBio);
+                cptBook.setConcept(concept);
+                cptBook.setAudience(audience);
+                cptBook.setToneStyle(toneStyle);
+                cptBook.setActionableIdeas(actionableIdeas);
+                cptBook.setUsp(usp);
+                cptBook.save();
+
+                Book book = Book.find(bookId);
+                book.setCptBook(cptBook);
+                book.update();
+
+                if (bookQuotes != null && !bookQuotes.trim().isEmpty()) {
+                    String[] quotes = bookQuotes.split("\\|");
+                    for (String quoteText : quotes) {
+                        Quote quote = new Quote();
+                        quote.setText(quoteText.trim());
+                        quote.setBook(book);
+                        quote.save();
+                    }
+                }
+
+                if (authorQuotes != null && !authorQuotes.trim().isEmpty()) {
+                    String[] quotes = authorQuotes.split("\\|");
+                    for (String quoteText : quotes) {
+                        Quote quote = new Quote();
+                        quote.setText(quoteText.trim());
+                        quote.setBook(book);
+                        quote.setAuthor(authorName);
+                        quote.save();
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            br.close();
+        }
+        txn.commit();
+        return ok("Done");
+    }
+
+    // Data Export related
+
+    public Result exportBooksCPT() {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintWriter writer = new PrintWriter(outputStream);
+        writer.println("id,title slug,author slug");
+        List<Book> books = Book.getRandomBooks(50);
+        for (Book book : books) {
+            writer.printf("%s,%s,%s%n", book.getId(), CommonUtil.slugify(book.getTitle()), CommonUtil.slugify(book.getAuthor()));
+        }
+        writer.flush();
+        return ok(outputStream.toByteArray()).as("text/csv").withHeader("Content-Disposition", "attachment; filename=books-cpt.csv");
     }
 
     // Data Setup related

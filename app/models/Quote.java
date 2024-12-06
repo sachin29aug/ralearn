@@ -3,6 +3,7 @@ package models;
 import io.ebean.Finder;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Quote extends BaseModel {
@@ -13,6 +14,9 @@ public class Quote extends BaseModel {
 
     @Lob
     public String tags;
+
+    @ManyToOne
+    private Book book;
 
     public static Finder<Long, Quote> find = new Finder<>(Quote.class);
 
@@ -47,5 +51,13 @@ public class Quote extends BaseModel {
 
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
     }
 }
