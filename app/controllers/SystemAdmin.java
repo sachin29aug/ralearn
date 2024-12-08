@@ -264,6 +264,10 @@ public class SystemAdmin extends Controller {
             while ((line = br.readLine()) != null) {
                 String[] row = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
+                for (int i = 0; i < row.length; i++) {
+                    row[i] = row[i].replaceAll("^\"|\"$", "");
+                }
+
                 long bookId = Long.valueOf(row[0].trim());
                 String headline = row[3].trim();
                 String teaser = row[4].trim();
@@ -274,6 +278,7 @@ public class SystemAdmin extends Controller {
                 String toneStyle = row[11].trim();
                 String actionableIdeas = row[12].trim();
                 String usp = row[13].trim();
+                String topics = row[14].trim();
                 String bookQuotes = row[7].trim();
                 String authorQuotes = row[8].trim();
                 String authorName = row[2].trim();
@@ -288,6 +293,7 @@ public class SystemAdmin extends Controller {
                 cptBook.setToneStyle(toneStyle);
                 cptBook.setActionableIdeas(actionableIdeas);
                 cptBook.setUsp(usp);
+                cptBook.setTopics(topics);
                 cptBook.save();
 
                 Book book = Book.find(bookId);
@@ -332,7 +338,7 @@ public class SystemAdmin extends Controller {
         writer.println("id,title slug,author slug");*/
         StringBuilder sb = new StringBuilder();
         sb.append("id,title slug,author slug").append("\n");
-        List<Book> books = Book.getRandomBooks(10);
+        List<Book> books = Book.getRandomBooksCPT(5);
         for (Book book : books) {
             sb.append(String.format("%s,%s,%s%n", book.getId(), CommonUtil.slugify(book.getTitle()), CommonUtil.slugify(book.getAuthor())));
             //writer.printf("%s,%s,%s%n", book.getId(), CommonUtil.slugify(book.getTitle()), CommonUtil.slugify(book.getAuthor()));

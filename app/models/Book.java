@@ -89,8 +89,8 @@ public class Book extends BaseModel {
         return randomBook;
     }
 
-    public static List<Book> getRandomBooks(int count) {
-        return find.query().setMaxRows(count).orderBy("RANDOM()").findList();
+    public static List<Book> getRandomBooksCPT(int count) {
+        return find.query().where().isNull("cptBook.id").setMaxRows(count).orderBy("RANDOM()").findList();
     }
 
     public static List<Book> search(String searchTerm) {

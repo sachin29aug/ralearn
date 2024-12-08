@@ -18,6 +18,7 @@ public class CPTBook extends BaseModel {
     private String toneStyle;
     private String actionableIdeas;
     private String usp;
+    private String topics;
 
     @OneToOne(mappedBy = "cptBook")
     private Book book;
@@ -100,5 +101,13 @@ public class CPTBook extends BaseModel {
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public String getTopics() {
+        return topics;
+    }
+
+    public void setTopics(String topics) {
+        this.topics = topics;
     }
 }

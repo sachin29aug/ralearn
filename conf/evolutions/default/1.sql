@@ -47,6 +47,7 @@ create table cpt_book (
   tone_style                    varchar(255),
   actionable_ideas              varchar(255),
   usp                           varchar(255),
+  topics                        varchar(255),
   constraint pk_cpt_book primary key (id)
 );
 
