@@ -384,6 +384,9 @@ hr {
     transform: rotate(360deg);
   }
 }
+.more-options-modal {
+  z-index: 1080;
+}
 .more-options-modal .modal-content {
   border-radius: 35px 35px 0px 0px;
 }

@@ -386,6 +386,8 @@ hr {
 }
 
 .more-options-modal {
+    z-index: 1080;
+
     .modal-content {
         border-radius: 35px 35px 0px 0px;
     }
