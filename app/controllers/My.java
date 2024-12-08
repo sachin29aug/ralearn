@@ -116,10 +116,13 @@ public class My extends Controller {
 
     public Result book(Http.Request request, Long id) {
         User user = CommonUtil.getUser(request);
-        UserBook userBook = UserBook.findByUserAndBookId(user.id, id);
-        if (userBook != null) {
-            userBook.setLastAccessed(new Date());
-            userBook.update();
+        UserBook userBook = null;
+        if(user != null) {
+            userBook = UserBook.findByUserAndBookId(user.id, id);
+            if (userBook != null) {
+                userBook.setLastAccessed(new Date());
+                userBook.update();
+            }
         }
 
         Book book = Book.find.byId(id);

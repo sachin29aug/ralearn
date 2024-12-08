@@ -7,6 +7,7 @@ import play.mvc.Http;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
 
 public class CommonUtil {
     public static String getVersionedUrl(play.api.mvc.Call url) {
@@ -28,11 +29,11 @@ public class CommonUtil {
 
     public static User getUser(Http.Request request) {
         String userId = getUserId(request);
-        return User.find(userId);
+        return userId != null ? User.find(userId) : null;
     }
 
     public static String getUserId(Http.Request request) {
-        return request.session().get("userId").get();
+        return request.session().get("userId").orElse(null);
     }
 
     // Date related

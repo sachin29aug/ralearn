@@ -8,13 +8,13 @@
         <div class="top-right-btn-group">
             <div class="d-flex">
                 @if(userBook != null) {
-                <a id="id-element-book-@book.id" class="cls-favorite-btn me-3" data-book-id="@book.id" href="#">
-                    @if(BooleanUtils.isTrue(userBook.getFavorite())) {
-                        @_circularIcon("fa-solid fa-heart")
-                    } else {
-                        @_circularIcon("fa-regular fa-heart")
-                    }
-                </a>
+                    <a id="id-element-book-@book.id" class="cls-favorite-btn me-3" data-book-id="@book.id" href="#">
+                        @if(BooleanUtils.isTrue(userBook.getFavorite())) {
+                            @_circularIcon("fa-solid fa-heart")
+                        } else {
+                            @_circularIcon("fa-regular fa-heart")
+                        }
+                    </a>
                 }
                 <a class="cls-share-btn" data-share-url="@routes.My.book(book.id)" data-share-title="@book.getTitle(50)" href="#">@_circularIcon("fa-solid fa-arrow-up-from-bracket")</a>
             </div>
@@ -73,7 +73,8 @@
             </ul>
             <div class="tab-content">
                 <div class="tab-pane container active show" id="book">
-                    <p>@Html(book.getHtmlDescription())</p>
+                    @if(book.getCptBook() != null){@Html(book.getCptBook().getDescription())}else{@Html(book.getHtmlDescription())}
+                    @**<p>@Html(book.getHtmlDescription())</p>**@
                     @**
                     <p>Deep Work" is Cal Newport's manifesto for achieving success in a world filled with distractions. Newport argues that the ability to focus deeply on cognitively demanding tasks is a rare and valuable skill in the modern workplace.</p>
                     <p>Through practical strategies, case studies, and scientific insights, he explains how to create environments conducive to deep work and avoid the pitfalls of shallow work. This book is an essential tool for anyone striving for excellence and meaningful accomplishments.</p>

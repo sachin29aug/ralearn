@@ -20,6 +20,7 @@ public class Book extends BaseModel {
     //  => Data load GR and CPT
     //  => Authenticated and SSL annotations
     //  => CommonUtil.getRequestBodyParam() everywhere
+    //  => User find(String id)..should be long
 
     private String title;
 

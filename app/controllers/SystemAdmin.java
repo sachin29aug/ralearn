@@ -327,15 +327,19 @@ public class SystemAdmin extends Controller {
     // Data Export related
 
     public Result exportBooksCPT() {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        /*ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintWriter writer = new PrintWriter(outputStream);
-        writer.println("id,title slug,author slug");
-        List<Book> books = Book.getRandomBooks(50);
+        writer.println("id,title slug,author slug");*/
+        StringBuilder sb = new StringBuilder();
+        sb.append("id,title slug,author slug").append("\n");
+        List<Book> books = Book.getRandomBooks(10);
         for (Book book : books) {
-            writer.printf("%s,%s,%s%n", book.getId(), CommonUtil.slugify(book.getTitle()), CommonUtil.slugify(book.getAuthor()));
+            sb.append(String.format("%s,%s,%s%n", book.getId(), CommonUtil.slugify(book.getTitle()), CommonUtil.slugify(book.getAuthor())));
+            //writer.printf("%s,%s,%s%n", book.getId(), CommonUtil.slugify(book.getTitle()), CommonUtil.slugify(book.getAuthor()));
         }
-        writer.flush();
-        return ok(outputStream.toByteArray()).as("text/csv").withHeader("Content-Disposition", "attachment; filename=books-cpt.csv");
+        //writer.flush();
+        //return ok(outputStream.toByteArray()).as("text/csv").withHeader("Content-Disposition", "attachment; filename=books-cpt.csv");
+        return ok(sb.toString());
     }
 
     // Data Setup related
