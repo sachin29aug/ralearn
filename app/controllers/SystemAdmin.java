@@ -333,19 +333,59 @@ public class SystemAdmin extends Controller {
     // Data Export related
 
     public Result exportBooksCPT() {
-        /*ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintWriter writer = new PrintWriter(outputStream);
-        writer.println("id,title slug,author slug");*/
+        // Prompt text
         StringBuilder sb = new StringBuilder();
-        sb.append("id,title slug,author slug").append("\n");
+        sb.append("I am building a book recommendation website and need concise, original content for each book to enhance user experience. Please generate the following details:\n")
+            .append("Core Content:\n")
+            .append("    Headline: A catchy, engaging tagline summarizing the book in one sentence. (minimum 5 words)\n")
+            .append("    Teaser: A short summary (2-3 sentences) capturing the essence of the book.\n")
+            .append("    Description: A longer, unique synopsis highlighting the book's key appeal. At least 4 paragraphs. Enclose it in <p></p> so that I can render it as it is as html\n")
+            .append("    Author Bio: A brief bio about the author\n")
+            .append("    Book Quotes: 2-5 memorable quotes from the book (short and non-spoiler).\n")
+            .append("    Author Quotes: 2-5 insightful quotes from the author related to the book.\n")
+            .append("Additional Details:\n")
+            .append("    Concept: Theme and Key takeaways (at least 3 points, separated by |).\n")
+            .append("    Audience: A concise description of who would enjoy or benefit from the book.\n")
+            .append("    Tone: A brief description of the book's style (e.g., \"insightful and relatable\").\n")
+            .append("    Ideas: Actionable tips or takeaways (at least 3 points, separated by |)\n")
+            .append("    USP: What sets this book apart from others in its genre.\n")
+            .append("    Topics: The various topics or tags this book belongs to. It could be anything like category, genre, topics etc. Please provide as many topics as you can, so that I can use this during the search implementation for the website\n")
+            .append("Input Information: 5 book records directly pasted on the chat, at the end of the prompt, with following format: id, title slug, author slug\n")
+            .append("Expected Output: The output should be of same format with additional columns and data. Please paste it here only in CSV format which I can simply copy and paste to a csv file.\n")
+            .append("Notes:\n")
+            .append("    Use | for fields like Concept, Book Quotes, Author Quotes, and Ideas to format as bullets in the UI.\n")
+            .append("    Ensure all content is original, engaging, and plagiarism-free. Avoid direct excerpts or copyrighted text.\n")
+            .append("    Please provide detailed, rich descriptions for the book titles in this CSV. I am okay with waiting if it requires processing in smaller batches. Please put stronger focus on generating dynamic, context-sensitive content for each book. I am ok it takes longer and  it requires more advanced logic, but I need quality content. Please generate high-quality, dynamic, context-sensitive content for each book.\n")
+            .append("\n");
+
+        // Prompt data
+
+        boolean attachment = false;
+        ByteArrayOutputStream outputStream = null;
+        PrintWriter writer = null;
+        String csvHeader = "id,title slug,author slug\n";
+        sb.append(csvHeader);
+        if(attachment) {
+            outputStream = new ByteArrayOutputStream();
+            writer = new PrintWriter(outputStream);
+            writer.print(csvHeader);
+        }
+
         List<Book> books = Book.getRandomBooksCPT(5);
         for (Book book : books) {
-            sb.append(String.format("%s,%s,%s%n", book.getId(), CommonUtil.slugify(book.getTitle()), CommonUtil.slugify(book.getAuthor())));
-            //writer.printf("%s,%s,%s%n", book.getId(), CommonUtil.slugify(book.getTitle()), CommonUtil.slugify(book.getAuthor()));
+            String csvRecord = String.format("%s,%s,%s%n", book.getId(), CommonUtil.slugify(book.getTitle()), CommonUtil.slugify(book.getAuthor()));
+            if(attachment) {
+                writer.print(csvRecord);
+            }
+            sb.append(csvRecord);
         }
-        //writer.flush();
-        //return ok(outputStream.toByteArray()).as("text/csv").withHeader("Content-Disposition", "attachment; filename=books-cpt.csv");
-        return ok(sb.toString());
+
+        if(attachment) {
+            writer.flush();
+            return ok(outputStream.toByteArray()).as("text/csv").withHeader("Content-Disposition", "attachment; filename=books-cpt.csv");
+        } else {
+            return ok(sb.toString());
+        }
     }
 
     // Data Setup related
