@@ -54,6 +54,9 @@ public class Book extends BaseModel {
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookCategory> bookCategories;
 
+    @OneToMany(mappedBy = "book")
+    private List<Quote> quotes;
+
     public static Finder<Long, Book> find = new Finder<>(Book.class);
 
     // Static methods
@@ -245,5 +248,13 @@ public class Book extends BaseModel {
 
     public void setCptBook(CPTBook cptBook) {
         this.cptBook = cptBook;
+    }
+
+    public List<Quote> getQuotes() {
+        return quotes;
+    }
+
+    public void setQuotes(List<Quote> quotes) {
+        this.quotes = quotes;
     }
 }

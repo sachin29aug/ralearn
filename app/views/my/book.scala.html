@@ -1,6 +1,7 @@
 @(book: models.Book, userBook: UserBook, sameAuthorBooks: List[Book], sameSubCategoryBooks: List[Book])
 
 @import org.apache.commons.lang3.BooleanUtils
+@import org.springframework.util.CollectionUtils
 
 @layout.main("RaLearn", "book-page") {
     <div class="book">
@@ -83,8 +84,13 @@
 
                     <div class="mb-4">
                         <h4 class="fw-600 mb-3">Notable Quotes</h4>
-                        @_quote()
-                        @_quote()
+                        @defining(book.getQuotes()) { bookQuotes =>
+                            @if(!CollectionUtils.isEmpty(bookQuotes)) {
+                                @for(bookQuote <- bookQuotes) {
+                                    @_quote(bookQuote)
+                                }
+                            }
+                        }
                     </div>
 
                     @if(userBook != null && userBook.getUser() != null) {
@@ -104,12 +110,12 @@
                 </div>
                 <div class="tab-pane container fade" id="author">
                     <h4 class="fw-600 mb-3">About the Author</h4>
-                    <p>Cal Newport is a computer science professor and writer known for his expertise in productivity and digital minimalism.</p>
+                    <p>@if(book.getCptBook() != null){@book.getCptBook().getAuthorBio()}else{Cal Newport is a computer science professor and writer known for his expertise in productivity and digital minimalism.}</p>
 
                     <div class="mb-4">
                         <h4 class="fw-600 mb-3">Quotes by @book.getAuthor()</h4>
-                        @_quote()
-                        @_quote()
+                        @_quote(Quote.getRandomQuote())
+                        @_quote(Quote.getRandomQuote())
                     </div>
 
                     @_spacer(5)

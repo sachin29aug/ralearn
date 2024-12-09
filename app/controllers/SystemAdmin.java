@@ -332,8 +332,8 @@ public class SystemAdmin extends Controller {
             .append("    teaser: A short summary (at least 20 words) capturing the essence of the book.\n")
             .append("    description: A longer, unique synopsis highlighting the book's key appeal. At least 4 paragraphs and should be informative. Enclose it in <p></p> so that I can render it as it is as html\n")
             .append("    author bio: A brief bio about the author\n")
-            .append("    book quotes: 2-5 memorable quotes from the book (short and non-spoiler).\n")
-            .append("    author quotes: 2-5 insightful quotes from the author related to the book.\n")
+            .append("    book quotes: 2-5 memorable quotes from the book (short and non-spoiler, minimum 20 words).\n")
+            .append("    author quotes: 2-5 insightful quotes from the author related to the book, minimum 20 words.\n")
             .append("Additional Details:\n")
             .append("    theme and concept: (***at least 3 distinct points***, separated by |. I see you are providing 2 points, please provide at least 3).\n")
             .append("    audience: A concise description of who would enjoy or benefit from the book.\n")
@@ -341,7 +341,7 @@ public class SystemAdmin extends Controller {
             .append("    actionable ideas: Actionable tips or ideas (at least 3 points, separated by |)\n")
             .append("    usp: What sets this book apart from others in its genre.\n")
             .append("    topics: The various topics or tags this book belongs to. It could be anything like category, genre, topics etc. Please provide as many topics as you can, so that I can use this during the search implementation for the website\n")
-            .append("Input Information: 5 book records directly pasted on the chat, at the end of the prompt, with following format: id, title slug, author slug\n")
+            .append("Input Information: 5 book records directly pasted on the chat, at the end of the prompt, with following format: id, title slug, author\n")
             .append("Expected Output: The output should be of same format with additional columns and data. Please paste it here only in CSV format which I can simply copy and paste to a csv file.\n")
             .append("Notes:\n")
             .append("    Use | for fields like Concept, Book Quotes, Author Quotes, and Ideas to format as bullets in the UI.\n")
@@ -355,7 +355,7 @@ public class SystemAdmin extends Controller {
         boolean attachment = false;
         ByteArrayOutputStream outputStream = null;
         PrintWriter writer = null;
-        String csvHeader = "id,title slug,author slug\n";
+        String csvHeader = "id,title slug,author\n";
         sb.append(csvHeader);
         if(attachment) {
             outputStream = new ByteArrayOutputStream();
@@ -365,7 +365,7 @@ public class SystemAdmin extends Controller {
 
         List<Book> books = Book.getRandomBooksCPT(5);
         for (Book book : books) {
-            String csvRecord = String.format("%s,%s,%s%n", book.getId(), CommonUtil.slugify(book.getTitle()), CommonUtil.slugify(book.getAuthor()));
+            String csvRecord = String.format("%s,%s,%s%n", book.getId(), CommonUtil.slugify(book.getTitle()), book.getAuthor());
             if(attachment) {
                 writer.print(csvRecord);
             }
