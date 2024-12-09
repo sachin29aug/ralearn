@@ -13,9 +13,9 @@ public class CPTBook extends BaseModel {
     private String description;
     @Lob
     private String authorBio;
-    private String concept; // Key themes and takeaways
+    private String themeConcept;
     private String audience;
-    private String toneStyle;
+    private String styleTone;
     private String actionableIdeas;
     private String usp;
     private String topics;
@@ -55,12 +55,20 @@ public class CPTBook extends BaseModel {
         this.authorBio = authorBio;
     }
 
-    public String getConcept() {
-        return concept;
+    public String getThemeConcept() {
+        return themeConcept;
     }
 
-    public void setConcept(String concept) {
-        this.concept = concept;
+    public void setThemeConcept(String themeConcept) {
+        this.themeConcept = themeConcept;
+    }
+
+    public String getStyleTone() {
+        return styleTone;
+    }
+
+    public void setStyleTone(String styleTone) {
+        this.styleTone = styleTone;
     }
 
     public String getAudience() {
@@ -69,14 +77,6 @@ public class CPTBook extends BaseModel {
 
     public void setAudience(String audience) {
         this.audience = audience;
-    }
-
-    public String getToneStyle() {
-        return toneStyle;
-    }
-
-    public void setToneStyle(String toneStyle) {
-        this.toneStyle = toneStyle;
     }
 
     public String getActionableIdeas() {

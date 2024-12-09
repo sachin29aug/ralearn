@@ -269,37 +269,28 @@ public class SystemAdmin extends Controller {
                 }
 
                 long bookId = Long.valueOf(row[0].trim());
-                String headline = row[3].trim();
-                String teaser = row[4].trim();
-                String description = row[5].trim();
-                String authorBio = row[6].trim();
-                String concept = row[9].trim();
-                String audience = row[10].trim();
-                String toneStyle = row[11].trim();
-                String actionableIdeas = row[12].trim();
-                String usp = row[13].trim();
-                String topics = row[14].trim();
-                String bookQuotes = row[7].trim();
-                String authorQuotes = row[8].trim();
-                String authorName = row[2].trim();
-
-                CPTBook cptBook = new CPTBook();
-                cptBook.setHeadline(headline);
-                cptBook.setTeaser(teaser);
-                cptBook.setDescription(description);
-                cptBook.setAuthorBio(authorBio);
-                cptBook.setConcept(concept);
-                cptBook.setAudience(audience);
-                cptBook.setToneStyle(toneStyle);
-                cptBook.setActionableIdeas(actionableIdeas);
-                cptBook.setUsp(usp);
-                cptBook.setTopics(topics);
-                cptBook.save();
-
                 Book book = Book.find(bookId);
+                CPTBook cptBook = book.getCptBook();
+                if(cptBook == null) {
+                    cptBook = new CPTBook();
+                }
+                cptBook.setHeadline(row[3].trim());
+                cptBook.setTeaser(row[4].trim());
+                cptBook.setDescription(row[5].trim());
+                cptBook.setAuthorBio(row[6].trim());
+                cptBook.setThemeConcept(row[9].trim());
+                cptBook.setAudience(row[10].trim());
+                cptBook.setStyleTone(row[11].trim());
+                cptBook.setActionableIdeas(row[12].trim());
+                cptBook.setUsp(row[13].trim());
+                cptBook.setTopics(row[14].trim());
+                cptBook.saveOrUpdate();
                 book.setCptBook(cptBook);
                 book.update();
 
+                String bookQuotes = row[7].trim();
+                String authorQuotes = row[8].trim();
+                String authorName = row[2].trim();
                 if (bookQuotes != null && !bookQuotes.trim().isEmpty()) {
                     String[] quotes = bookQuotes.split("\\|");
                     for (String quoteText : quotes) {
@@ -337,25 +328,26 @@ public class SystemAdmin extends Controller {
         StringBuilder sb = new StringBuilder();
         sb.append("I am building a book recommendation website and need concise, original content for each book to enhance user experience. Please generate the following details:\n")
             .append("Core Content:\n")
-            .append("    Headline: A catchy, engaging tagline summarizing the book in one sentence. (minimum 5 words)\n")
-            .append("    Teaser: A short summary (2-3 sentences) capturing the essence of the book.\n")
-            .append("    Description: A longer, unique synopsis highlighting the book's key appeal. At least 4 paragraphs. Enclose it in <p></p> so that I can render it as it is as html\n")
-            .append("    Author Bio: A brief bio about the author\n")
-            .append("    Book Quotes: 2-5 memorable quotes from the book (short and non-spoiler).\n")
-            .append("    Author Quotes: 2-5 insightful quotes from the author related to the book.\n")
+            .append("    headline: A catchy, engaging tagline summarizing the book in one sentence. (minimum 10 words)\n")
+            .append("    teaser: A short summary (at least 20 words) capturing the essence of the book.\n")
+            .append("    description: A longer, unique synopsis highlighting the book's key appeal. At least 4 paragraphs and should be informative. Enclose it in <p></p> so that I can render it as it is as html\n")
+            .append("    author bio: A brief bio about the author\n")
+            .append("    book quotes: 2-5 memorable quotes from the book (short and non-spoiler).\n")
+            .append("    author quotes: 2-5 insightful quotes from the author related to the book.\n")
             .append("Additional Details:\n")
-            .append("    Concept: Theme and Key takeaways (at least 3 points, separated by |).\n")
-            .append("    Audience: A concise description of who would enjoy or benefit from the book.\n")
-            .append("    Tone: A brief description of the book's style (e.g., \"insightful and relatable\").\n")
-            .append("    Ideas: Actionable tips or takeaways (at least 3 points, separated by |)\n")
-            .append("    USP: What sets this book apart from others in its genre.\n")
-            .append("    Topics: The various topics or tags this book belongs to. It could be anything like category, genre, topics etc. Please provide as many topics as you can, so that I can use this during the search implementation for the website\n")
+            .append("    theme and concept: (***at least 3 distinct points***, separated by |. I see you are providing 2 points, please provide at least 3).\n")
+            .append("    audience: A concise description of who would enjoy or benefit from the book.\n")
+            .append("    content style and tone: A brief description of the book's content Style and tone.\n")
+            .append("    actionable ideas: Actionable tips or ideas (at least 3 points, separated by |)\n")
+            .append("    usp: What sets this book apart from others in its genre.\n")
+            .append("    topics: The various topics or tags this book belongs to. It could be anything like category, genre, topics etc. Please provide as many topics as you can, so that I can use this during the search implementation for the website\n")
             .append("Input Information: 5 book records directly pasted on the chat, at the end of the prompt, with following format: id, title slug, author slug\n")
             .append("Expected Output: The output should be of same format with additional columns and data. Please paste it here only in CSV format which I can simply copy and paste to a csv file.\n")
             .append("Notes:\n")
             .append("    Use | for fields like Concept, Book Quotes, Author Quotes, and Ideas to format as bullets in the UI.\n")
             .append("    Ensure all content is original, engaging, and plagiarism-free. Avoid direct excerpts or copyrighted text.\n")
             .append("    Please provide detailed, rich descriptions for the book titles in this CSV. I am okay with waiting if it requires processing in smaller batches. Please put stronger focus on generating dynamic, context-sensitive content for each book. I am ok it takes longer and  it requires more advanced logic, but I need quality content. Please generate high-quality, dynamic, context-sensitive content for each book.\n")
+            .append("Ensure the `Concept` field always includes **exactly 3 distinct points separated by pipes (|)**. This is critical for proper implementation.\n")
             .append("\n");
 
         // Prompt data
