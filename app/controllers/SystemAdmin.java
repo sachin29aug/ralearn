@@ -278,18 +278,18 @@ public class SystemAdmin extends Controller {
                 cptBook.setTeaser(row[4].trim());
                 cptBook.setDescription(row[5].trim());
                 cptBook.setAuthorBio(row[6].trim());
-                cptBook.setThemeConcept(row[9].trim());
-                cptBook.setAudience(row[10].trim());
-                cptBook.setStyleTone(row[11].trim());
-                cptBook.setActionableIdeas(row[12].trim());
-                cptBook.setUsp(row[13].trim());
-                cptBook.setTopics(row[14].trim());
+                cptBook.setThemeConcept(row[7].trim());
+                cptBook.setAudience(row[8].trim());
+                cptBook.setStyleTone(row[9].trim());
+                cptBook.setActionableIdeas(row[10].trim());
+                cptBook.setUsp(row[11].trim());
+                cptBook.setTopics(row[12].trim());
                 cptBook.saveOrUpdate();
                 book.setCptBook(cptBook);
                 book.update();
 
-                String bookQuotes = row[7].trim();
-                String authorQuotes = row[8].trim();
+                String bookQuotes = row[13].trim();
+                String authorQuotes = row[14].trim();
                 String authorName = row[2].trim();
                 if (bookQuotes != null && !bookQuotes.trim().isEmpty()) {
                     String[] quotes = bookQuotes.split("\\|");
@@ -332,7 +332,7 @@ public class SystemAdmin extends Controller {
             .append("    teaser: A short summary (at least 20 words) capturing the essence of the book.\n")
             .append("    description: A longer, unique synopsis highlighting the book's key appeal. At least 4 paragraphs and should be informative. Enclose it in <p></p> so that I can render it as it is as html\n")
             .append("    author bio: A brief bio about the author\n")
-            .append("    book quotes: 2-5 quotes from the book (non-spoiler, **minimum 20 words**). If quotes are small please provide excerpts from the book. \n")
+            .append("    book quotes: 2-5 quotes from the book (non-spoiler, **minimum 20 words**). If quotes are short please provide excerpts from the book. \n")
             .append("    author quotes: 2-5 quotes from the author (non-spoiler, not necessarily related to this book, **minimum 20 words**).\n")
             .append("Additional Details:\n")
             .append("    theme and concept: (***at least 3 distinct points***, separated by |. I see you are providing 2 points, please provide at least 3).\n")
@@ -342,7 +342,7 @@ public class SystemAdmin extends Controller {
             .append("    usp: What sets this book apart from others in its genre.\n")
             .append("    topics: The various topics or tags this book belongs to. It could be anything like category, genre, topics etc. Please provide as many topics as you can, so that I can use this during the search implementation for the website\n")
             .append("Input Information: 5 book records directly pasted on the chat, at the end of the prompt, with following format: id, title slug, author\n")
-            .append("Expected Output: The output should be of same format with additional columns and data. Please paste it here only in CSV format which I can simply copy and paste to a csv file.\n")
+            .append("Expected Output: The output should be of same format with additional columns and data. Please paste it here only in CSV format which I can simply copy and paste to a csv file. Please follow this order: id,titleSlug,author,headline,teaser,description,authorBio,themeConcept,audience,styleTone,actionableIdeas,usp,topics,bookQuotes,authorQuotes \n")
             .append("Notes:\n")
             .append("    Use | for fields like Concept, Book Quotes, Author Quotes, and Ideas to format as bullets in the UI.\n")
             .append("    Ensure all content is original, engaging, and plagiarism-free. Avoid direct excerpts or copyrighted text.\n")
