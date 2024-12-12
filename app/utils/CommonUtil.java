@@ -5,9 +5,10 @@ import models.User;
 import org.apache.commons.lang3.StringUtils;
 import play.mvc.Http;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Optional;
+import java.util.List;
 
 public class CommonUtil {
     public static String getVersionedUrl(play.api.mvc.Call url) {
@@ -56,14 +57,18 @@ public class CommonUtil {
         return calendar.getTime();
     }
 
-    // Other
+    // String related
 
-    public static String slugify(String inputString) {
+    public static String slugify(String str) {
         String slug = "";
-        if(StringUtils.isNotBlank(inputString)) {
+        if(StringUtils.isNotBlank(str)) {
             Slugify slugify = new Slugify();
-            slug = slugify.slugify(inputString);
+            slug = slugify.slugify(str);
         }
         return slug;
+    }
+
+    public static List<String> splitToList(String str) {
+        return Arrays.asList(str.split("\\|"));
     }
 }

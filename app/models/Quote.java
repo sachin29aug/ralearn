@@ -23,7 +23,7 @@ public class Quote extends BaseModel {
     // Static methods
 
     public static Quote getRandomQuote() {
-        Quote quote = find.query().setMaxRows(1).orderBy("RANDOM()").findOne();
+        Quote quote = find.query().where().isNull("book.id").setMaxRows(1).orderBy("RANDOM()").findOne();
         return quote;
     }
 

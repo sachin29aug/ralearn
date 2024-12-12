@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"title", "author"})})
@@ -123,6 +124,14 @@ public class Book extends BaseModel {
 
     public String getHtmlDescription() {
         return this.gbBook.getDescription().replaceAll("(?<=\\.)\\s+", "</p><p>");
+    }
+
+    public List<Quote> getBookQuotes() {
+        return this.getQuotes().stream().filter(quote -> quote.getAuthor() == null).collect(Collectors.toList());
+    }
+
+    public List<Quote> getAuthorQuotes() {
+        return this.getQuotes().stream().filter(quote -> quote.getAuthor() != null).collect(Collectors.toList());
     }
 
     public String getGrAbsoluteUrl() {
