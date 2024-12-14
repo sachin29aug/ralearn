@@ -24,6 +24,10 @@ public class Category extends BaseModel {
         return find.byId(id);
     }
 
+    public static Category findByUrl(String url) {
+        return find.query().where().eq("url", url).findOne();
+    }
+
     public static List<Category> findCategories() {
         return find.query().where().isNotNull("parent").findList();
     }

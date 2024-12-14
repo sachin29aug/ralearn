@@ -29,8 +29,17 @@ public class SystemAdmin extends Controller {
     // Data Import related
 
     public Result importBooksGR() throws IOException {
-        //Transaction txn = DB.beginTransaction();
-        List<Category> categories = Category.findCategories();
+        // Transaction txn = DB.beginTransaction();
+        // List<Category> categories = Category.findCategories();
+        List<Category> categories = new ArrayList<>();
+        categories.add(Category.findByUrl("mystery"));
+        categories.add(Category.findByUrl("fantasy"));
+        categories.add(Category.findByUrl("science-fiction"));
+        categories.add(Category.findByUrl("thriller"));
+        categories.add(Category.findByUrl("historical-fiction"));
+        categories.add(Category.findByUrl("young-adult"));
+        categories.add(Category.findByUrl("classics"));
+        categories.add(Category.findByUrl("humor"));
         for(Category category : categories) {
             String categoryFilePath = "datasets/" + category.getParent().getUrl() + "/" + category.getUrl() + ".html";
             File categoryFile = new File(CONF_DIR, categoryFilePath);
@@ -425,6 +434,18 @@ public class SystemAdmin extends Controller {
             saveCategory("History", "fas fa-landmark", parentCategory);
             saveCategory("Politics", "fas fa-balance-scale", parentCategory);
             saveCategory("Law", "fas fa-gavel", parentCategory);
+
+            parentCategory = saveCategory("Fiction", "fas fa-book-open", null);
+            parentCategory.save();
+            saveCategory("Romance", "fas fa-heart", parentCategory);
+            saveCategory("Mystery", "fas fa-search", parentCategory);
+            saveCategory("Fantasy", "fas fa-hat-wizard", parentCategory);
+            saveCategory("Science Fiction", "fas fa-rocket", parentCategory);
+            saveCategory("Thriller", "fas fa-theater-masks", parentCategory);
+            saveCategory("Historical Fiction", "fas fa-landmark", parentCategory);
+            saveCategory("Young Adult", "fas fa-user-friends", parentCategory);
+            saveCategory("Classics", "fas fa-book", parentCategory);
+            saveCategory("Humor", "fas fa-laugh", parentCategory);
 
             txn.commit();
         } catch (Exception e) {
