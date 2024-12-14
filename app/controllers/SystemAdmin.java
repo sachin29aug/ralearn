@@ -30,16 +30,9 @@ public class SystemAdmin extends Controller {
 
     public Result importBooksGR() throws IOException {
         // Transaction txn = DB.beginTransaction();
-        // List<Category> categories = Category.findCategories();
-        List<Category> categories = new ArrayList<>();
-        categories.add(Category.findByUrl("mystery"));
-        categories.add(Category.findByUrl("fantasy"));
-        categories.add(Category.findByUrl("science-fiction"));
-        categories.add(Category.findByUrl("thriller"));
-        categories.add(Category.findByUrl("historical-fiction"));
-        categories.add(Category.findByUrl("young-adult"));
-        categories.add(Category.findByUrl("classics"));
-        categories.add(Category.findByUrl("humor"));
+        List<Category> categories = Category.findCategories();
+        /*List<Category> categories = new ArrayList<>();
+        categories.add(Category.findByUrl("mystery"));*/
         for(Category category : categories) {
             String categoryFilePath = "datasets/" + category.getParent().getUrl() + "/" + category.getUrl() + ".html";
             File categoryFile = new File(CONF_DIR, categoryFilePath);
@@ -53,9 +46,10 @@ public class SystemAdmin extends Controller {
                 if (title.length() > 250) {
                     title = title.substring(0, 250);
                 }
-                String goodReadsUrl = titleElement != null ? titleElement.attr("href") : null;
+                String bookGrUrl = titleElement != null ? titleElement.attr("href").trim() : null;
                 Element authorElement = bookElement.selectFirst("a.authorName");
-                String author = authorElement != null ? authorElement.text() : null;
+                String authorName = authorElement != null ? authorElement.text() : null;
+                String authorGrUrl = authorElement != null ? authorElement.attr("href").trim() : null;
                 Element greyTextElement = bookElement.selectFirst("span.greyText.smallText:contains(avg rating)");
                 String greyText = greyTextElement != null ? greyTextElement.text() : null;
                 BigDecimal rating = null;
@@ -71,27 +65,46 @@ public class SystemAdmin extends Controller {
                     publishDate = parts.length > 2 ? parts[2].replace("published", "").trim() : null;
                 }
 
-                Book book = new Book();
+                Author author = new Author();
+                author.setName(authorName);
+                author.setGrUrl(authorGrUrl);
+                try {
+                    author.save();
+                } catch (PersistenceException ex) {
+                    Throwable cause = ex.getCause();
+                    if (cause instanceof PSQLException && cause.getMessage().contains("duplicate key value violates unique constraint")) {
+                        // Nothing
+                    } else {
+                        throw ex;
+                    }
+                }
+
+                Book book = Book.findByGrUrl(bookGrUrl);
+                if(book != null) {
+                    book.setAuthor(author);
+                    book.update();
+                }
+
+                /*Book book = new Book();
                 book.setTitle(title);
                 book.setAuthor(author);
                 book.setRating(rating);
                 book.setRatingCount(ratingCount);
                 book.setPublished(publishDate);
-                book.setGrUrl(goodReadsUrl);
-                //book.setCategory(category);
+                book.setGrUrl(bookGrUrl);
                 try {
                     book.save();
                 } catch (PersistenceException ex) {
                     Throwable cause = ex.getCause();
                     if (cause instanceof PSQLException && cause.getMessage().contains("duplicate key value violates unique constraint")) {
-                        book = Book.findByTitleAndAuthor(title, author);
+                        book = Book.findByTitleAndAuthor(title, author.getName());
                     } else {
                         throw ex;
                     }
                 }
 
                 BookCategory bookCategory = new BookCategory(book, category);
-                bookCategory.save();
+                bookCategory.save();*/
 
                 recordsProcessedCount++;
             }

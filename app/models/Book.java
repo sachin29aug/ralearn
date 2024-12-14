@@ -25,7 +25,7 @@ public class Book extends BaseModel {
 
     private String title;
 
-    private String author;
+    //private String author;
 
     @Column(precision = 3, scale = 2)
     private BigDecimal rating;
@@ -39,6 +39,9 @@ public class Book extends BaseModel {
 
     @ManyToOne
     private Category category;
+
+    @ManyToOne
+    private Author author;
 
     @OneToOne
     @JoinColumn(name = "gl_book_id")
@@ -64,6 +67,10 @@ public class Book extends BaseModel {
 
     public static Book find(Long id) {
         return find.byId(id);
+    }
+
+    public static Book findByGrUrl(String grUrl) {
+        return find.query().where().eq("grUrl", grUrl.trim()).findOne();
     }
 
     public static Book findByTitle(String title) {
@@ -176,11 +183,11 @@ public class Book extends BaseModel {
         this.title = title;
     }
 
-    public String getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 
