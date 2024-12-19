@@ -27,6 +27,11 @@ public class Book extends BaseModel {
     //    => /book/show/58613345-harry-potter-and-the-half-blood-prince
     //    => /book/show/58613224-harry-potter-and-the-deathly-hallows
 
+    // Statistics (Dec-19-2024)
+    // select count(*) from book_category; -- 45711
+    // select count(*) from book; -- 31115
+    // select count(*) from author; -- 16787
+
     private String title;
 
     //private String author;

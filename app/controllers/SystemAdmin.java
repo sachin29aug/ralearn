@@ -30,9 +30,9 @@ public class SystemAdmin extends Controller {
 
     public Result importBooksGR() throws IOException {
         //Transaction txn = DB.beginTransaction();
-        //List<Category> categories = Category.findCategories();
-        List<Category> categories = new ArrayList<>();
-        categories.add(Category.findByUrl("mystery"));
+        List<Category> categories = Category.findCategories();
+        //List<Category> categories = new ArrayList<>();
+        //categories.add(Category.findByUrl("mystery"));
         int totalRecordsScannedCount = 0;
         int booksScanned = 0;
         for(Category category : categories) {
@@ -118,7 +118,7 @@ public class SystemAdmin extends Controller {
 
                 recordsScannedCount++;
                 totalRecordsScannedCount++;
-                //System.out.println(totalRecordsScannedCount);
+                System.out.println(totalRecordsScannedCount);
             }
             System.out.println("Category: " + category.getTitle() + ", Records Processed: " + recordsScannedCount);
             System.out.println();
