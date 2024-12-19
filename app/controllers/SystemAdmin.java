@@ -276,11 +276,14 @@ public class SystemAdmin extends Controller {
         while ((line = br.readLine()) != null) {
             try {
                 Map<String, Object> quoteData = objectMapper.readValue(line, Map.class);
-                Quote quote = new Quote();
-                quote.text = ((String) quoteData.get("quote")).trim().replace("\"", "").replace("“", "").replace("”", "");
-                quote.author = ((String) quoteData.get("author")).trim();
-                quote.tags = String.join(",", (List<String>) quoteData.get("tags"));
-                quote.save();
+                String quoteText = ((String) quoteData.get("quote")).trim().replace("\"", "").replace("“", "").replace("”", "");
+                if(quoteText.length() <= CommonUtil.DISCARD_QUOTE_CHAR_LIMIT) {
+                    Quote quote = new Quote();
+                    quote.text = quoteText;
+                    quote.authorName = ((String) quoteData.get("author")).trim();
+                    quote.tags = String.join(",", (List<String>) quoteData.get("tags"));
+                    quote.save();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 break;
@@ -310,23 +313,22 @@ public class SystemAdmin extends Controller {
                 if(cptBook == null) {
                     cptBook = new CPTBook();
                 }
-                cptBook.setHeadline(row[3].trim());
-                cptBook.setTeaser(row[4].trim());
-                cptBook.setDescription(row[5].trim());
-                cptBook.setAuthorBio(row[6].trim());
-                cptBook.setThemeConcept(row[7].trim());
-                cptBook.setAudience(row[8].trim());
-                cptBook.setStyleTone(row[9].trim());
-                cptBook.setActionableIdeas(row[10].trim());
-                cptBook.setUsp(row[11].trim());
-                cptBook.setTopics(row[12].trim());
+                cptBook.setHeadline(row[4].trim());
+                cptBook.setTeaser(row[5].trim());
+                cptBook.setDescription(row[6].trim());
+                cptBook.setAuthorBio(row[7].trim());
+                cptBook.setThemeConcept(row[8].trim());
+                cptBook.setAudience(row[9].trim());
+                cptBook.setStyleTone(row[10].trim());
+                cptBook.setActionableIdeas(row[11].trim());
+                cptBook.setUsp(row[12].trim());
+                cptBook.setTopics(row[13].trim());
                 cptBook.saveOrUpdate();
                 book.setCptBook(cptBook);
                 book.update();
 
-                String bookQuotes = row[13].trim();
-                String authorQuotes = row[14].trim();
-                String authorName = row[2].trim();
+                String bookQuotes = row[14].trim();
+                String authorQuotes = row[15].trim();
                 if (bookQuotes != null && !bookQuotes.trim().isEmpty()) {
                     String[] quotes = bookQuotes.split("\\|");
                     for (String quoteText : quotes) {
@@ -343,7 +345,7 @@ public class SystemAdmin extends Controller {
                         Quote quote = new Quote();
                         quote.setText(quoteText.trim());
                         quote.setBook(book);
-                        quote.setAuthor(authorName);
+                        quote.setAuthor(Author.find(Long.valueOf(row[2].trim())));
                         quote.save();
                     }
                 }
@@ -377,8 +379,8 @@ public class SystemAdmin extends Controller {
             .append("    actionable ideas: Actionable tips or ideas (at least 3 points, separated by |)\n")
             .append("    usp: What sets this book apart from others in its genre.\n")
             .append("    topics: The various topics or tags this book belongs to. It could be anything like category, genre, topics etc. Please provide as many topics as you can, so that I can use this during the search implementation for the website\n")
-            .append("Input Information: 5 book records directly pasted on the chat, at the end of the prompt, with following format: id, title slug, author\n")
-            .append("Expected Output: The output should be of same format with additional columns and data. Please paste it here only in CSV format which I can simply copy and paste to a csv file. Please follow this order: id,titleSlug,author,headline,teaser,description,authorBio,themeConcept,audience,styleTone,actionableIdeas,usp,topics,bookQuotes,authorQuotes \n")
+            .append("Input Information: 5 book records directly pasted on the chat, at the end of the prompt, with following format: bookId, titleSlug, authorId, authorName\n")
+            .append("Expected Output: The output should be of same format with additional columns and data. Please paste it here only in CSV format which I can simply copy and paste to a csv file. Please follow this order: bookId,titleSlug,authorId,authorName,headline,teaser,description,authorBio,themeConcept,audience,styleTone,actionableIdeas,usp,topics,bookQuotes,authorQuotes \n")
             .append("Notes:\n")
             .append("    Use | for fields like Concept, Book Quotes, Author Quotes, and Ideas to format as bullets in the UI.\n")
             .append("    Ensure all content is original, engaging, and plagiarism-free. Avoid direct excerpts or copyrighted text.\n")
@@ -391,7 +393,7 @@ public class SystemAdmin extends Controller {
         boolean attachment = false;
         ByteArrayOutputStream outputStream = null;
         PrintWriter writer = null;
-        String csvHeader = "id,title slug,author\n";
+        String csvHeader = "bookId,titleSlug,authorId,authorName\n";
         sb.append(csvHeader);
         if(attachment) {
             outputStream = new ByteArrayOutputStream();
@@ -401,7 +403,7 @@ public class SystemAdmin extends Controller {
 
         List<Book> books = Book.getRandomBooksCPT(5);
         for (Book book : books) {
-            String csvRecord = String.format("%s,%s,%s%n", book.getId(), CommonUtil.slugify(book.getTitle()), book.getAuthor());
+            String csvRecord = String.format("%s,%s,%s,%s%n", book.getId(), CommonUtil.slugify(book.getTitle()), book.getAuthor().getId(), book.getAuthor().getName());
             if(attachment) {
                 writer.print(csvRecord);
             }

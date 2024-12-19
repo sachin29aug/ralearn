@@ -10,7 +10,7 @@
             </div>
             <div class="card-2--title mb-1">@book.getTitle(50)</div>
             <div class="d-flex align-items-center mb-3">
-                <div class="card-2--author me-2">@book.getAuthor()</div>
+                <div class="card-2--author me-2">@book.getAuthor().getName()</div>
                 @_categoryPillSmall(userBook.getCategory())
             </div>
             <div class="card-2--summary">@book.getDescription(150)...</div>

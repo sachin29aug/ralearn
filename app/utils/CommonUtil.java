@@ -11,6 +11,10 @@ import java.util.Date;
 import java.util.List;
 
 public class CommonUtil {
+    // Constants
+
+    public static final int DISCARD_QUOTE_CHAR_LIMIT = 200;
+
     public static String getVersionedUrl(play.api.mvc.Call url) {
         return getVersionedUrl(url.toString());
     }

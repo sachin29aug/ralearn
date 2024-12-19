@@ -19,6 +19,10 @@ public class Author extends BaseModel {
 
     public static Finder<Long, Author> find = new Finder<>(Author.class);
 
+    public static Author find(Long id) {
+        return find.byId(id);
+    }
+
     public static Author findByGrUrl(String grUrl) {
         return find.query().where().eq("grUrl", grUrl).findOne();
     }

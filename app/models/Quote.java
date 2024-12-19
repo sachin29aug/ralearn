@@ -10,10 +10,13 @@ public class Quote extends BaseModel {
     @Lob
     public String text;
 
-    public String author;
+    public String authorName;
 
     @Lob
     public String tags;
+
+    @ManyToOne
+    public Author author;
 
     @ManyToOne
     private Book book;
@@ -37,11 +40,19 @@ public class Quote extends BaseModel {
         this.text = text;
     }
 
-    public String getAuthor() {
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 

@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"title", "author"})})
 public class Book extends BaseModel {
     // TODO:
+    //  => Content Generation - In progress
     //  => Include shelved count in BookCategory
     //  => Data Quality
-    //  => Data load GR and CPT
     //  => Authenticated and SSL annotations
     //  => CommonUtil.getRequestBodyParam() everywhere
     //  => User find(String id)..should be long
@@ -114,7 +114,7 @@ public class Book extends BaseModel {
     }
 
     public static List<Book> search(String searchTerm) {
-        return find.query().where().or().ilike("title", "%" + searchTerm + "%").ilike("author", "%" + searchTerm + "%").endOr().setMaxRows(5).findList();
+        return find.query().where().or().ilike("title", "%" + searchTerm + "%").ilike("author.name", "%" + searchTerm + "%").endOr().setMaxRows(5).findList();
     }
 
     // Non-static methods

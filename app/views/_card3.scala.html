@@ -8,7 +8,7 @@
         <div class="d-flex align-items-center mb-1">
             <div class="card-3--title">@book.getTitle(50)</div>
         </div>
-        <div class="card-3--author mb-2">@book.getAuthor()</div>
+        <div class="card-3--author mb-2">@book.getAuthor().getName()</div>
         @if(BooleanUtils.isTrue(showDescription)) {
             <div class="card-3--summary">@book.getDescription(50)...</div>
         }
