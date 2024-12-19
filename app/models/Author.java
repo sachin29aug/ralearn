@@ -20,7 +20,7 @@ public class Author extends BaseModel {
     public static Finder<Long, Author> find = new Finder<>(Author.class);
 
     public static Author findByGrUrl(String grUrl) {
-        return find.query().where().eq("grUrl", grUrl.trim()).findOne();
+        return find.query().where().eq("grUrl", grUrl).findOne();
     }
 
     // Getters Setters

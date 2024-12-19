@@ -22,6 +22,10 @@ public class Book extends BaseModel {
     //  => Authenticated and SSL annotations
     //  => CommonUtil.getRequestBodyParam() everywhere
     //  => User find(String id)..should be long
+    //  => Issues like below where the books were not inserted from the gr feed. e.g. below mystery books were not inserted
+    //    => /book/show/58613424-harry-potter-and-the-goblet-of-fire
+    //    => /book/show/58613345-harry-potter-and-the-half-blood-prince
+    //    => /book/show/58613224-harry-potter-and-the-deathly-hallows
 
     private String title;
 
@@ -70,7 +74,7 @@ public class Book extends BaseModel {
     }
 
     public static Book findByGrUrl(String grUrl) {
-        return find.query().where().eq("grUrl", grUrl.trim()).findOne();
+        return find.query().where().eq("grUrl", grUrl).findOne();
     }
 
     public static Book findByTitle(String title) {

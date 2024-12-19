@@ -29,17 +29,19 @@ public class SystemAdmin extends Controller {
     // Data Import related
 
     public Result importBooksGR() throws IOException {
-        // Transaction txn = DB.beginTransaction();
-        List<Category> categories = Category.findCategories();
-        /*List<Category> categories = new ArrayList<>();
-        categories.add(Category.findByUrl("mystery"));*/
+        //Transaction txn = DB.beginTransaction();
+        //List<Category> categories = Category.findCategories();
+        List<Category> categories = new ArrayList<>();
+        categories.add(Category.findByUrl("mystery"));
+        int totalRecordsScannedCount = 0;
+        int booksScanned = 0;
         for(Category category : categories) {
             String categoryFilePath = "datasets/" + category.getParent().getUrl() + "/" + category.getUrl() + ".html";
             File categoryFile = new File(CONF_DIR, categoryFilePath);
             Document doc = Jsoup.parse(categoryFile, "UTF-8");
             Elements bookElements = doc.select("div.left[style='width: 75%;']");
             System.out.println("Category: " + category.getTitle() + ", Total Records: " + bookElements.size());
-            int recordsProcessedCount = 0;
+            int recordsScannedCount = 0;
             for (Element bookElement : bookElements) {
                 Element titleElement = bookElement.selectFirst("a.bookTitle");
                 String title = titleElement != null ? titleElement.text().replaceAll("\\s*\\([^)]*\\)$", "").trim() : null;
@@ -49,7 +51,7 @@ public class SystemAdmin extends Controller {
                 String bookGrUrl = titleElement != null ? titleElement.attr("href").trim() : null;
                 Element authorElement = bookElement.selectFirst("a.authorName");
                 String authorName = authorElement != null ? authorElement.text() : null;
-                String authorGrUrl = authorElement != null ? authorElement.attr("href").trim() : null;
+                String authorGrUrl = authorElement != null ? authorElement.attr("href").trim().replace("https://www.goodreads.com", "") : null;
                 Element greyTextElement = bookElement.selectFirst("span.greyText.smallText:contains(avg rating)");
                 String greyText = greyTextElement != null ? greyTextElement.text() : null;
                 BigDecimal rating = null;
@@ -73,16 +75,23 @@ public class SystemAdmin extends Controller {
                 } catch (PersistenceException ex) {
                     Throwable cause = ex.getCause();
                     if (cause instanceof PSQLException && cause.getMessage().contains("duplicate key value violates unique constraint")) {
-                        // Nothing
+                        author = Author.findByGrUrl(authorGrUrl);
+                        if(author == null) {
+                            System.out.printf(authorGrUrl);
+                        }
                     } else {
+                        ex.printStackTrace();
                         throw ex;
                     }
                 }
 
                 Book book = Book.findByGrUrl(bookGrUrl);
                 if(book != null) {
+                    booksScanned++;
                     book.setAuthor(author);
                     book.update();
+                } else {
+                    System.out.println(bookGrUrl);
                 }
 
                 /*Book book = new Book();
@@ -99,6 +108,7 @@ public class SystemAdmin extends Controller {
                     if (cause instanceof PSQLException && cause.getMessage().contains("duplicate key value violates unique constraint")) {
                         book = Book.findByTitleAndAuthor(title, author.getName());
                     } else {
+                        ex.printStackTrace();
                         throw ex;
                     }
                 }
@@ -106,14 +116,18 @@ public class SystemAdmin extends Controller {
                 BookCategory bookCategory = new BookCategory(book, category);
                 bookCategory.save();*/
 
-                recordsProcessedCount++;
+                recordsScannedCount++;
+                totalRecordsScannedCount++;
+                //System.out.println(totalRecordsScannedCount);
             }
-            System.out.println("Category: " + category.getTitle() + ", Records Processed: " + recordsProcessedCount);
+            System.out.println("Category: " + category.getTitle() + ", Records Processed: " + recordsScannedCount);
             System.out.println();
         }
 
         //txn.commit();
-        System.out.printf("Done");
+        System.out.println("totalRecordsScannedCount: " + totalRecordsScannedCount);
+        System.out.println("booksScanned: " + booksScanned);
+        System.out.println("Done");
         return ok("Done");
     }
 
