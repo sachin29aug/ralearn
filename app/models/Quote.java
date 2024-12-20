@@ -87,4 +87,12 @@ public class Quote extends BaseModel {
     public void setSource(Source source) {
         this.source = source;
     }
+
+    public Integer getLikesCount() {
+        return likesCount;
+    }
+
+    public void setLikesCount(Integer likesCount) {
+        this.likesCount = likesCount;
+    }
 }

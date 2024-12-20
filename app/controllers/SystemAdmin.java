@@ -1,5 +1,6 @@
 package controllers;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.ebean.DB;
 import io.ebean.Transaction;
@@ -272,7 +273,8 @@ public class SystemAdmin extends Controller {
         String line;
         while ((line = br.readLine()) != null) {
             try {
-                Map<String, Object> quoteData = objectMapper.readValue(line, Map.class);
+                TypeReference<Map<String, Object>> typeRef = new TypeReference<>() {};
+                Map<String, Object> quoteData = objectMapper.readValue(line, typeRef);
                 String quoteText = ((String) quoteData.get("quote")).trim().replace("\"", "").replace("“", "").replace("”", "");
                 if(quoteText.length() <= CommonUtil.DISCARD_QUOTE_CHAR_LIMIT) {
                     Quote quote = new Quote();
@@ -294,19 +296,36 @@ public class SystemAdmin extends Controller {
     public Result importQuotesGR() throws IOException {
         //Transaction txn = DB.beginTransaction();
         Document doc = Jsoup.parse(new File(CONF_DATASETS_DIR, "/quotes/quotes-gr.html"), "UTF-8");
-        Elements quotes = doc.select(".quote");
-        for (Element quote : quotes) {
-            String quoteText = quote.select(".quoteText").text().replace("―", "").trim();
-            String authorUrl = quote.select(".quoteAvatar").attr("href");
-            Elements tagElements = quote.select(".greyText.smallText.left a");
-            //String tags = tagElements.eachText().stream().reduce((tag1, tag2) -> tag1 + ", " + tag2).orElse("");
-            String likesText = quote.select(".right .smallText").text();
-            int likesCount = Integer.parseInt(likesText.split(" ")[0].replace(",", ""));
-            System.out.println("Quote: " + quoteText);
-            System.out.println("Author URL: " + authorUrl);
-            //System.out.println("Tags: " + tags);
-            System.out.println("Likes: " + likesCount);
-            System.out.println("-----------------------------------");
+        Elements quoteElements = doc.select(".quote");
+        for (Element quoteElement : quoteElements) {
+            String rawQuoteText = quoteElement.select(".quoteText").text().replace("\u201C", "").replace("\u201D", "");
+            int lastDashIndex = rawQuoteText.lastIndexOf("―");
+            String quoteText = rawQuoteText.substring(0, lastDashIndex).trim();
+            String authorName = rawQuoteText.substring(lastDashIndex + 1).trim();
+            String authorUrl = quoteElement.select(".quoteAvatar").attr("href").trim();
+            Elements tagElements = quoteElement.select(".greyText.smallText.left a");
+            String tags = tagElements.eachText().stream().reduce((tag1, tag2) -> tag1 + ", " + tag2).orElse("");
+            int likesCount = Integer.parseInt(quoteElement.select(".right .smallText").text().split(" ")[0].replace(",", ""));
+
+            if(quoteText.length() <= CommonUtil.DISCARD_QUOTE_CHAR_LIMIT) {
+                Quote quote = new Quote();
+                quote.setText(quoteText);
+                quote.setAuthorName(authorName);
+                quote.setTags(tags);
+                quote.setLikesCount(likesCount);
+                quote.setSource(Quote.Source.GR);
+                if(StringUtils.isNotBlank(authorUrl) && authorUrl.startsWith("/author/show/")) {
+                    Author author = Author.findByGrUrl(authorUrl);
+                    if(author == null) {
+                        author = new Author();
+                        author.setName(authorName);
+                        author.setGrUrl(authorUrl);
+                        author.save();
+                    }
+                    quote.setAuthor(author);
+                }
+                quote.save();
+            }
         }
 
         //txn.commit();
