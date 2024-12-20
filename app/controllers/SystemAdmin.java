@@ -294,9 +294,10 @@ public class SystemAdmin extends Controller {
     }
 
     public Result importQuotesGR() throws IOException {
-        //Transaction txn = DB.beginTransaction();
+        Transaction txn = DB.beginTransaction();
         Document doc = Jsoup.parse(new File(CONF_DATASETS_DIR, "/quotes/quotes-gr.html"), "UTF-8");
         Elements quoteElements = doc.select(".quote");
+        int count = 0;
         for (Element quoteElement : quoteElements) {
             String rawQuoteText = quoteElement.select(".quoteText").text().replace("\u201C", "").replace("\u201D", "");
             int lastDashIndex = rawQuoteText.lastIndexOf("―");
@@ -326,9 +327,11 @@ public class SystemAdmin extends Controller {
                 }
                 quote.save();
             }
+
+            System.out.println(++count);
         }
 
-        //txn.commit();
+        txn.commit();
         return ok("Done");
     }
 
