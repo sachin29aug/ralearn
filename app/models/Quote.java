@@ -1,27 +1,35 @@
 package models;
 
 import io.ebean.Finder;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Quote extends BaseModel {
-    @Lob
-    public String text;
+    public enum Source {
+        KAGGLE,
+        GR;
+    }
 
-    public String authorName;
+    @Lob
+    private String text;
+
+    private String authorName;
 
     @Lob
-    public String tags;
+    private String tags;
 
     @ManyToOne
-    public Author author;
+    private Author author;
 
     @ManyToOne
     private Book book;
 
-    public static Finder<Long, Quote> find = new Finder<>(Quote.class);
+    private Integer likesCount;
+
+    @Enumerated(EnumType.STRING)
+    private Source source;
+
+    private static Finder<Long, Quote> find = new Finder<>(Quote.class);
 
     // Static methods
 
@@ -70,5 +78,13 @@ public class Quote extends BaseModel {
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public Source getSource() {
+        return source;
+    }
+
+    public void setSource(Source source) {
+        this.source = source;
     }
 }

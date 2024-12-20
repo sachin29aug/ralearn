@@ -24,7 +24,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class SystemAdmin extends Controller {
-    private static final String CONF_DIR = Paths.get("conf").toAbsolutePath().toString();
+    private static final String CONF_DATASETS_DIR = Paths.get("conf").toAbsolutePath().toString() + "/datasets";
 
     // Data Import related
 
@@ -36,9 +36,7 @@ public class SystemAdmin extends Controller {
         int totalRecordsScannedCount = 0;
         int booksScanned = 0;
         for(Category category : categories) {
-            String categoryFilePath = "datasets/" + category.getParent().getUrl() + "/" + category.getUrl() + ".html";
-            File categoryFile = new File(CONF_DIR, categoryFilePath);
-            Document doc = Jsoup.parse(categoryFile, "UTF-8");
+            Document doc = Jsoup.parse(new File(CONF_DATASETS_DIR, "/books/gr/" + category.getParent().getUrl() + "/" + category.getUrl() + ".html"), "UTF-8");
             Elements bookElements = doc.select("div.left[style='width: 75%;']");
             System.out.println("Category: " + category.getTitle() + ", Total Records: " + bookElements.size());
             int recordsScannedCount = 0;
@@ -268,8 +266,7 @@ public class SystemAdmin extends Controller {
 
     public Result importQuotesKaggle() throws IOException {
         Transaction txn = DB.beginTransaction();
-        String filePath = "datasets-1/quotes/quotes-kaggle-abirate.jsonl";
-        File file = new File(CONF_DIR, filePath);
+        File file = new File(CONF_DATASETS_DIR, "/quotes/quotes-kaggle-abirate.jsonl");
         BufferedReader br = new BufferedReader(new FileReader(file));
         ObjectMapper objectMapper = new ObjectMapper();
         String line;
@@ -279,9 +276,10 @@ public class SystemAdmin extends Controller {
                 String quoteText = ((String) quoteData.get("quote")).trim().replace("\"", "").replace("“", "").replace("”", "");
                 if(quoteText.length() <= CommonUtil.DISCARD_QUOTE_CHAR_LIMIT) {
                     Quote quote = new Quote();
-                    quote.text = quoteText;
-                    quote.authorName = ((String) quoteData.get("author")).trim();
-                    quote.tags = String.join(",", (List<String>) quoteData.get("tags"));
+                    quote.setText(quoteText);
+                    quote.setAuthorName(((String) quoteData.get("author")).trim());
+                    quote.setTags(String.join(",", (List<String>) quoteData.get("tags")));
+                    quote.setSource(Quote.Source.KAGGLE);
                     quote.save();
                 }
             } catch (Exception e) {
@@ -293,11 +291,33 @@ public class SystemAdmin extends Controller {
         return ok("Done");
     }
 
+    public Result importQuotesGR() throws IOException {
+        //Transaction txn = DB.beginTransaction();
+        Document doc = Jsoup.parse(new File(CONF_DATASETS_DIR, "/quotes/quotes-gr.html"), "UTF-8");
+        Elements quotes = doc.select(".quote");
+        for (Element quote : quotes) {
+            String quoteText = quote.select(".quoteText").text().replace("―", "").trim();
+            String authorUrl = quote.select(".quoteAvatar").attr("href");
+            Elements tagElements = quote.select(".greyText.smallText.left a");
+            //String tags = tagElements.eachText().stream().reduce((tag1, tag2) -> tag1 + ", " + tag2).orElse("");
+            String likesText = quote.select(".right .smallText").text();
+            int likesCount = Integer.parseInt(likesText.split(" ")[0].replace(",", ""));
+            System.out.println("Quote: " + quoteText);
+            System.out.println("Author URL: " + authorUrl);
+            //System.out.println("Tags: " + tags);
+            System.out.println("Likes: " + likesCount);
+            System.out.println("-----------------------------------");
+        }
+
+        //txn.commit();
+        return ok("Done");
+    }
+
     public Result importBooksCPT() throws IOException {
         Transaction txn = DB.beginTransaction();
         BufferedReader br = null;
         try {
-            br = new BufferedReader(new FileReader(new File(CONF_DIR, "datasets-1/cpt/books-cpt-output.csv")));
+            br = new BufferedReader(new FileReader(new File(CONF_DATASETS_DIR, "/books/books-cpt-output.csv")));
             br.readLine();
             String line;
             while ((line = br.readLine()) != null) {
