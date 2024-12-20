@@ -377,6 +377,7 @@ public class SystemAdmin extends Controller {
                         Quote quote = new Quote();
                         quote.setText(quoteText.trim());
                         quote.setBook(book);
+                        quote.setSource(Quote.Source.CPT);
                         quote.save();
                     }
                 }
@@ -388,6 +389,7 @@ public class SystemAdmin extends Controller {
                         quote.setText(quoteText.trim());
                         quote.setBook(book);
                         quote.setAuthor(Author.find(Long.valueOf(row[2].trim())));
+                        quote.setSource(Quote.Source.CPT);
                         quote.save();
                     }
                 }
@@ -405,15 +407,17 @@ public class SystemAdmin extends Controller {
 
     public Result exportBooksCPT() {
         // Prompt text
+        int RECORD_COUNT = 50;
+        int BATCH_COUNT = 5;
         StringBuilder sb = new StringBuilder();
         sb.append("I am building a book recommendation website and need concise, original content for each book to enhance user experience. Please generate the following details:\n")
             .append("Core Content:\n")
             .append("    headline: A catchy, engaging tagline summarizing the book in one sentence. (minimum 10 words)\n")
             .append("    teaser: A short summary (at least 20 words) capturing the essence of the book.\n")
-            .append("    description: A longer, unique synopsis highlighting the book's key appeal. At least 4 paragraphs and should be informative. Enclose it in <p></p> so that I can render it as it is as html\n")
+            .append("    description: A longer, unique synopsis highlighting the book's key appeal. At least 6 paragraphs and should be informative. Enclose it in <p></p> so that I can render it as it is as html\n")
             .append("    author bio: A brief bio about the author (at least 40 words) \n")
-            .append("    book quotes: 2-5 quotes from the book (non-spoiler, **minimum 20 words**). If quotes are short, provide contextually accurate excerpts from the book that directly relate to its theme, message, or core ideas. Ensure these quotes are not generic or unrelated and reflect the content of the book.\n")
-            .append("    author quotes: 2-5 quotes from the author (non-spoiler, not necessarily related to this book, **minimum 20 words**). Ensure the quotes are either directly attributed to the author or are paraphrased insights that match their known perspective. Avoid generic quotes or misattributed statements.\n")
+            .append("    book quotes: 2-5 quotes from the book (non-spoiler, **minimum 20 words**). If quotes are short, provide contextually accurate excerpts from the book that directly relate to its theme, message, or core ideas. Ensure these quotes are not generic or unrelated and reflect the content of the book. Don't enclose these in single or double quotes. \n")
+            .append("    author quotes: 2-5 quotes from the author (non-spoiler, not necessarily related to this book, **minimum 20 words**). Ensure the quotes are either directly attributed to the author or are paraphrased insights that match their known perspective. Avoid generic quotes or misattributed statements.  Don't enclose these in single or double quotes.\n")
             .append("Additional Details:\n")
             .append("    theme and concept: (***at least 3 distinct points***, separated by |. I see you are providing 2 points, please provide at least 3).\n")
             .append("    audience: A concise description of who would enjoy or benefit from the book.\n")
@@ -428,6 +432,7 @@ public class SystemAdmin extends Controller {
             .append("    Ensure all content is original, engaging, and plagiarism-free. Avoid direct excerpts or copyrighted text.\n")
             .append("    Please provide detailed, rich descriptions for the book titles in this CSV. I am okay with waiting if it requires processing in smaller batches. Please put stronger focus on generating dynamic, context-sensitive content for each book. I am ok it takes longer and  it requires more advanced logic, but I need quality content. Please generate high-quality, dynamic, context-sensitive content for each book.\n")
             .append("Ensure the `Concept` field always includes **exactly 3 distinct points separated by pipes (|)**. This is critical for proper implementation.\n")
+            .append("\nThere are " + RECORD_COUNT + " records in the request you can process them in " + (RECORD_COUNT / BATCH_COUNT) + " batches\n")
             .append("\n");
 
         // Prompt data
@@ -443,7 +448,7 @@ public class SystemAdmin extends Controller {
             writer.print(csvHeader);
         }
 
-        List<Book> books = Book.getRandomBooksCPT(5);
+        List<Book> books = Book.getRandomBooksCPT(RECORD_COUNT);
         for (Book book : books) {
             String csvRecord = String.format("%s,%s,%s,%s%n", book.getId(), CommonUtil.slugify(book.getTitle()), book.getAuthor().getId(), book.getAuthor().getName());
             if(attachment) {

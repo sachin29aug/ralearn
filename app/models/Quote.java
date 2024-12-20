@@ -7,7 +7,8 @@ import jakarta.persistence.*;
 public class Quote extends BaseModel {
     public enum Source {
         KAGGLE,
-        GR;
+        GR,
+        CPT;
     }
 
     @Lob

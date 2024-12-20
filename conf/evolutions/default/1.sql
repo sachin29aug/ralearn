@@ -164,7 +164,7 @@ create table quote (
   author_name                   varchar(255),
   tags                          text,
   source                        varchar(6),
-  constraint ck_quote_source check ( source in ('KAGGLE','GR')),
+  constraint ck_quote_source check ( source in ('KAGGLE','GR','CPT')),
   constraint pk_quote primary key (id)
 );
 
