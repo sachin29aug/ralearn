@@ -338,6 +338,7 @@ public class SystemAdmin extends Controller {
     public Result importBooksCPT() throws IOException {
         Transaction txn = DB.beginTransaction();
         BufferedReader br = null;
+        StringBuilder sb = new StringBuilder();
         try {
             br = new BufferedReader(new FileReader(new File(CONF_DATASETS_DIR, "/books/books-cpt-output.csv")));
             br.readLine();
@@ -400,6 +401,8 @@ public class SystemAdmin extends Controller {
                         quote.save();
                     }
                 }
+
+                sb.append("<a target='_blank' href='http://localhost:9100/book/" + bookId + "'>" + book.getTitle() + "</a>\n\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -407,32 +410,32 @@ public class SystemAdmin extends Controller {
             br.close();
         }
         txn.commit();
-        return ok("Done");
+        return ok(sb.toString().replaceAll("\\n", "<br>")).as("text/html");
     }
 
     // Data Export related
 
     public Result exportBooksCPT() {
         // Prompt text
-        int RECORD_COUNT = 5;
+        int RECORD_COUNT = 2;
         int BATCH_COUNT = 5;
         StringBuilder sb = new StringBuilder();
-        sb.append("I am building a book recommendation website and need concise, original content for each book to enhance user experience. Please generate the following details:\n")
+        sb.append("I am building a book recommendation website and need concise, original, and engaging content for each book to enhance user experience. Please generate the following details:\n")
             .append("    headline: A catchy, engaging tagline summarizing the book in one sentence. (minimum 10 words)\n")
             .append("    teaser: A short summary (at least 20 words) capturing the essence of the book.\n")
-            .append("    description: A longer, unique synopsis highlighting the book's key appeal. At least 6 paragraphs and should be informative. Enclose it in <p></p> so that it can rendered as-it-is as html\n")
-            .append("    theme and concept: (***at least 3 distinct points***, separated by |).\n")
-            .append("    key takeaways: provides a high-level summary of the book's main insights (***at least 3 distinct points***, separated by |).\n")
-            .append("    actionable ideas: Actionable tips or ideas (at least 3 points, separated by |)\n")
+            .append("    description: A longer, unique synopsis highlighting the book's key appeal. At least 6 paragraphs and should be informative. Enclose it in <p> tags so that it can be rendered as-is in HTML.\n")
+            .append("    theme and concept: Provide exactly 3 distinct, well-defined points separated by |. Each point should describe the overarching principles or abstract ideas that underpin the book’s message. Focus on the book's philosophy and core themes without diving into specific lessons or actions. Avoid generic phrasing, and ensure each point conveys a meaningful insight into the book’s essence.\n")
+            .append("    key takeaways: Provide at least 3 specific and concise insights separated by |. Each takeaway should summarize the intellectual or conceptual value the book offers to the reader. Focus on what the reader will learn or understand from the book. Avoid prescribing specific actions here; instead, highlight the main lessons or unique frameworks the book provides.\n")
+            .append("    actionable ideas: Provide exactly 3 practical, specific, and actionable steps separated by |. These ideas should focus on what readers can directly implement after reading the book. Tailor the suggestions to the book's themes, ensuring they are tangible and relatable. Avoid broad or vague advice.\n")
             .append("    audience: A concise description of who would enjoy or benefit from the book.\n")
-            .append("    style and tone: A brief description of the book's content Style and tone.\n")
+            .append("    style, tone and mood: Provide a concise description (** 1-2 sentences **) blending the book’s narrative style and emotional atmosphere. Use vivid and descriptive language to ensure clarity and engagement. Highlight both how the book is written (style and tone) and how it makes the reader feel (mood), avoiding generic phrasing.\n")
             .append("    usp: What sets this book apart from others in its genre.\n")
-            .append("    topics: The various topics or tags this book belongs to. It could be anything like category, genre, topics etc. Please provide as many topics as you can, so that I can use this during the search implementation for the website\n")
-            .append("    setting: populate this only if the book has a significant time, place, or cultural context, otherwise, leave it blank.\n")
-            .append("    impactful passages: powerful and contextually relevant excerpts from the book \n")
-            .append("    author bio: A brief bio about the author (** at least 50 words **) \n")
-            .append("    book quotes: 2-5 quotes from the book (non-spoiler, **minimum 20 words**). If quotes are short, provide contextually accurate excerpts from the book that directly relate to its theme, message, or core ideas. Ensure these quotes are not generic or unrelated and reflect the content of the book. Don't enclose these in single or double quotes. \n")
-            .append("    author quotes: 2-5 quotes from the author (non-spoiler, not necessarily related to this book, **minimum 20 words**). Ensure the quotes are either directly attributed to the author or are paraphrased insights that match their known perspective. Avoid generic quotes or misattributed statements.  Don't enclose these in single or double quotes.\n")
+            .append("    topics: Include a mix of broad and specific topics/tags (e.g., category, genre, themes, and concepts) to support search implementation.\n")
+            .append("    setting: Populate this only if the book has a significant time, place, or cultural context, otherwise leave it blank.\n")
+            .append("    impactful passages: Include powerful excerpts from the book, ensuring they are contextually relevant and non-spoiler. Provide at least 2 passages that resonate with the book’s themes.\n")
+            .append("    author bio: Provide a brief bio about the author (at least 50 words).\n")
+            .append("    book quotes: Provide 2-5 quotes from the book (non-spoiler, minimum 20 words). Ensure they are tied to the book’s themes or ideas. If quotes are short, provide contextually accurate excerpts from the book that directly relate to its theme, message, or core ideas. Ensure these quotes are not generic or unrelated and reflect the content of the book. Don't enclose these in single or double quotes. \n")
+            .append("    author quotes: Provide 2-5 quotes from the author (non-spoiler, not necessarily related to this book, **minimum 20 words**). Ensure the quotes are either directly attributed to the author or are paraphrased insights that match their known perspective. Avoid generic quotes or misattributed statements.  Don't enclose these in single or double quotes.\n")
             .append("Input Information: 5 book records directly pasted on the chat, at the end of the prompt, with following format: bookId, titleSlug, authorId, authorName\n")
             .append("Expected Output: The output should be of same format with additional columns and data. Please paste it here only in CSV format which I can simply copy and paste to a csv file. Please follow this order: bookId,titleSlug,authorId,authorName,headline,teaser,description,themeConcept,keyTakeaways,actionableIdeas,audience,styleTone,,usp,topics,setting,impactfulPassages,authorBio,bookQuotes,authorQuotes \n")
             .append("Notes:\n")
@@ -440,7 +443,7 @@ public class SystemAdmin extends Controller {
             .append("    Ensure all content is original, engaging, and plagiarism-free. Avoid direct excerpts or copyrighted text.\n")
             .append("    Please provide detailed, rich descriptions for the book titles in this CSV. I am okay with waiting if it requires processing in smaller batches. Please put stronger focus on generating dynamic, context-sensitive content for each book. I am ok it takes longer and  it requires more advanced logic, but I need quality content. Please generate high-quality, dynamic, context-sensitive content for each book.\n")
             .append("Ensure the `Concept` field always includes **exactly 3 distinct points separated by pipes (|)**. This is critical for proper implementation.\n")
-            .append("\nThere are " + RECORD_COUNT + " records in the request you can process them in " + (RECORD_COUNT / BATCH_COUNT) + " batches\n")
+            //.append("\nThere are " + RECORD_COUNT + " records in the request you can process them in " + (RECORD_COUNT / BATCH_COUNT) + " batches\n")
             .append("\n");
 
         // Prompt data
