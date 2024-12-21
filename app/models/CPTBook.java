@@ -17,6 +17,8 @@ public class CPTBook extends BaseModel {
     private String usp;
     private String topics;
     private String setting;
+    @Lob
+    private String impactfulPassages;
 
     @OneToOne(mappedBy = "cptBook")
     private Book book;
@@ -115,5 +117,13 @@ public class CPTBook extends BaseModel {
 
     public void setSetting(String setting) {
         this.setting = setting;
+    }
+
+    public String getImpactfulPassages() {
+        return impactfulPassages;
+    }
+
+    public void setImpactfulPassages(String impactfulPassages) {
+        this.impactfulPassages = impactfulPassages;
     }
 }

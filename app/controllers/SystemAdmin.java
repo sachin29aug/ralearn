@@ -366,16 +366,17 @@ public class SystemAdmin extends Controller {
                 cptBook.setUsp(row[12].trim());
                 cptBook.setTopics(row[13].trim());
                 cptBook.setSetting(row[14].trim());
+                cptBook.setImpactfulPassages(row[15].trim());
                 cptBook.saveOrUpdate();
                 book.setCptBook(cptBook);
                 book.update();
 
                 long authorId = Long.valueOf(row[2].trim());
                 Author author = Author.find(authorId);
-                author.setBio(row[15].trim());
+                author.setBio(row[16].trim());
                 author.update();
 
-                String bookQuotes = row[16].trim();
+                String bookQuotes = row[17].trim();
                 if (bookQuotes != null && !bookQuotes.trim().isEmpty()) {
                     String[] quotes = bookQuotes.split("\\|");
                     for (String quoteText : quotes) {
@@ -387,7 +388,7 @@ public class SystemAdmin extends Controller {
                     }
                 }
 
-                String authorQuotes = row[17].trim();
+                String authorQuotes = row[18].trim();
                 if (authorQuotes != null && !authorQuotes.trim().isEmpty()) {
                     String[] quotes = authorQuotes.split("\\|");
                     for (String quoteText : quotes) {
@@ -421,18 +422,19 @@ public class SystemAdmin extends Controller {
             .append("    teaser: A short summary (at least 20 words) capturing the essence of the book.\n")
             .append("    description: A longer, unique synopsis highlighting the book's key appeal. At least 6 paragraphs and should be informative. Enclose it in <p></p> so that it can rendered as-it-is as html\n")
             .append("    theme and concept: (***at least 3 distinct points***, separated by |).\n")
-            .append("    Key takeaways: provides a high-level summary of the book's main insights (***at least 3 distinct points***, separated by |).\n")
+            .append("    key takeaways: provides a high-level summary of the book's main insights (***at least 3 distinct points***, separated by |).\n")
             .append("    actionable ideas: Actionable tips or ideas (at least 3 points, separated by |)\n")
             .append("    audience: A concise description of who would enjoy or benefit from the book.\n")
             .append("    style and tone: A brief description of the book's content Style and tone.\n")
             .append("    usp: What sets this book apart from others in its genre.\n")
             .append("    topics: The various topics or tags this book belongs to. It could be anything like category, genre, topics etc. Please provide as many topics as you can, so that I can use this during the search implementation for the website\n")
             .append("    setting: populate this only if the book has a significant time, place, or cultural context, otherwise, leave it blank.\n")
-            .append("    author bio: A brief bio about the author (at least 50 words) \n")
+            .append("    impactful passages: powerful and contextually relevant excerpts from the book \n")
+            .append("    author bio: A brief bio about the author (** at least 50 words **) \n")
             .append("    book quotes: 2-5 quotes from the book (non-spoiler, **minimum 20 words**). If quotes are short, provide contextually accurate excerpts from the book that directly relate to its theme, message, or core ideas. Ensure these quotes are not generic or unrelated and reflect the content of the book. Don't enclose these in single or double quotes. \n")
             .append("    author quotes: 2-5 quotes from the author (non-spoiler, not necessarily related to this book, **minimum 20 words**). Ensure the quotes are either directly attributed to the author or are paraphrased insights that match their known perspective. Avoid generic quotes or misattributed statements.  Don't enclose these in single or double quotes.\n")
             .append("Input Information: 5 book records directly pasted on the chat, at the end of the prompt, with following format: bookId, titleSlug, authorId, authorName\n")
-            .append("Expected Output: The output should be of same format with additional columns and data. Please paste it here only in CSV format which I can simply copy and paste to a csv file. Please follow this order: bookId,titleSlug,authorId,authorName,headline,teaser,description,themeConcept,keyTakeaways,actionableIdeas,audience,styleTone,,usp,topics,setting,authorBio,bookQuotes,authorQuotes \n")
+            .append("Expected Output: The output should be of same format with additional columns and data. Please paste it here only in CSV format which I can simply copy and paste to a csv file. Please follow this order: bookId,titleSlug,authorId,authorName,headline,teaser,description,themeConcept,keyTakeaways,actionableIdeas,audience,styleTone,,usp,topics,setting,impactfulPassages,authorBio,bookQuotes,authorQuotes \n")
             .append("Notes:\n")
             .append("    Use | for fields like themeConcept, bookQuotes, authorQuotes, and actionableIdeas to format as bullets in the UI.\n")
             .append("    Ensure all content is original, engaging, and plagiarism-free. Avoid direct excerpts or copyrighted text.\n")

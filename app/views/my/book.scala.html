@@ -1,6 +1,7 @@
 @(book: models.Book, userBook: UserBook, sameAuthorBooks: List[Book], sameSubCategoryBooks: List[Book])
 
 @import org.apache.commons.lang3.BooleanUtils
+@import org.apache.commons.lang3.StringUtils
 @import org.springframework.util.CollectionUtils
 @import utils.CommonUtil
 
@@ -59,16 +60,31 @@
                                             <li>@themeConceptItem</li>
                                         }
                                     </ul>
-                                    <div class="mb-2 fw-bold">Target Audience:</div> <p>@cptBook.getAudience()</p>
-                                    <div class="mb-2 fw-bold">Content Style and Tone:</div> <p>@cptBook.getStyleTone()</p>
+                                    <div class="mb-2 mt-4 fw-bold">Key Takeaways:</div>
+                                    <ul>
+                                        @for(keyTakeawayItem <- CommonUtil.splitToList(cptBook.getKeyTakeaways())) {
+                                            <li>@keyTakeawayItem</li>
+                                        }
+                                    </ul>
                                     <div class="mb-2 fw-bold">Actionable Ideas:</div>
                                     <ul>
                                         @for(actionableIdeasItem <- CommonUtil.splitToList(cptBook.getActionableIdeas())) {
                                             <li>@actionableIdeasItem</li>
                                         }
                                     </ul>
+                                    <div class="mb-2 fw-bold">Target Audience:</div> <p>@cptBook.getAudience()</p>
+                                    <div class="mb-2 fw-bold">Content Style and Tone:</div> <p>@cptBook.getStyleTone()</p>
                                     <div class="fw-bold">USP:</div> <p>@cptBook.getUsp()</p>
                                     <div class="fw-bold">Topics:</div> <p>@cptBook.getTopics()</p>
+                                    @if(StringUtils.isNotBlank(cptBook.getSetting())) {
+                                        <div class="fw-bold">Setting:</div> <p>@cptBook.getSetting()</p>
+                                    }
+                                    <div class="mb-2 fw-bold">Impactful Passages:</div>
+                                    <ul>
+                                        @for(impactfulPassageItem <- CommonUtil.splitToList(cptBook.getImpactfulPassages())) {
+                                            <li>@impactfulPassageItem</li>
+                                        }
+                                    </ul>
                                 </div>
                             </div>
                         </div>

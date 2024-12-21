@@ -9,7 +9,7 @@ create table author (
   created                       timestamptz not null,
   updated                       timestamptz not null,
   name                          varchar(255),
-  bio                           varchar(255),
+  bio                           text,
   gr_url                        varchar(255),
   constraint uq_author_gr_url unique (gr_url),
   constraint pk_author primary key (id)
@@ -60,6 +60,7 @@ create table cpt_book (
   usp                           varchar(255),
   topics                        varchar(255),
   setting                       varchar(255),
+  impactful_passages            text,
   constraint pk_cpt_book primary key (id)
 );
 
