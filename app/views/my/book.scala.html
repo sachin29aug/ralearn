@@ -6,171 +6,166 @@
 @import utils.CommonUtil
 
 @layout.main("RaLearn", "book-page") {
-    <div class="book">
-        <a class="top-left-btn-group" onclick="event.preventDefault(); homeGet();" href="#">@_circularIcon("fas fa-arrow-left")</a>
-        <div class="top-right-btn-group">
-            <div class="d-flex">
-                @if(userBook != null) {
-                    <a id="id-element-book-@book.id" class="cls-favorite-btn me-3" data-book-id="@book.id" href="#">
-                        @if(BooleanUtils.isTrue(userBook.getFavorite())) {
-                            @_circularIcon("fa-solid fa-heart")
-                        } else {
-                            @_circularIcon("fa-regular fa-heart")
-                        }
-                    </a>
-                }
-                <a class="cls-share-btn" data-share-url="@routes.My.book(book.id)" data-share-title="@book.getTitle(50)" href="#">@_circularIcon("fa-solid fa-arrow-up-from-bracket")</a>
-            </div>
-        </div>
-
-        <div class="book--cover-section">
-            <div class="text-center"><img class="book--cover-section-image" src="@book.getGbBook().getThumbnailUrl()"></div>
-        </div>
-        <div class="book--details mb-4">
-            <h4 class="book--details-title">@book.getTitle()</h4>
-            <div class="book--details-author mb-2">@book.getAuthor().getName()</div>
-
-            <div class="d-flex flex-wrap gap-2 mb-4">
-                @defining(book.getRatingCategoryText()) { ratingCategoryText =>
-                    @if(ratingCategoryText != null){<div class="rating-pill">@ratingCategoryText</div>}
-                }
-                @for(bookCategory <- book.getBookCategories()) {
-                    @_categoryPillSmall(bookCategory.getCategory())
-                }
+    @defining(book.getCptBook()) { cptBook =>
+        <div class="book">
+            <a class="top-left-btn-group" onclick="event.preventDefault(); homeGet();" href="#">@_circularIcon("fas fa-arrow-left")</a>
+            <div class="top-right-btn-group">
+                <div class="d-flex">
+                    @if(userBook != null) {
+                        <a id="id-element-book-@book.id" class="cls-favorite-btn me-3" data-book-id="@book.id" href="#">
+                            @if(BooleanUtils.isTrue(userBook.getFavorite())) {
+                                @_circularIcon("fa-solid fa-heart")
+                            } else {
+                                @_circularIcon("fa-regular fa-heart")
+                            }
+                        </a>
+                    }
+                    <a class="cls-share-btn" data-share-url="@routes.My.book(book.id)" data-share-title="@book.getTitle(50)" href="#">@_circularIcon("fa-solid fa-arrow-up-from-bracket")</a>
+                </div>
             </div>
 
-            <hr>
-            @defining(book.getCptBook()) { cptBook =>
+            <div class="book--cover-section">
+                <div class="text-center"><img class="book--cover-section-image" src="@book.getGbBook().getThumbnailUrl()"></div>
+            </div>
+            <div class="book--details mb-4">
+                <h4 class="book--details-title">@book.getTitle()</h4>
+                <div class="book--details-author mb-2">@book.getAuthor().getName()</div>
+
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    @defining(book.getRatingCategoryText()) { ratingCategoryText =>
+                        @if(ratingCategoryText != null){<div class="rating-pill">@ratingCategoryText</div>}
+                    }
+                    @for(bookCategory <- book.getBookCategories()) {
+                        @_categoryPillSmall(bookCategory.getCategory())
+                    }
+                </div>
+
+                <hr>
+
                 <div class="d-flex align-items-center mb-1">
                     <i class="fas fa-lightbulb me-3"></i>
                     <div class="fw-bold">@if(cptBook != null){@cptBook.getHeadline()}else{Mastering Focus in a Distracted World}</div>
                 </div>
                 <div class="fst-italic">@if(cptBook != null){@cptBook.getTeaser()}else{A practical guide to achieving high levels of productivity by cultivating deep focus and eliminating distractions.}</div>
-                @if(cptBook != null) {
-                    <div class="accordion accordion-flush" id="accordionFlushExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <a class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#flush-1" href="">More Insights</a>
-                            </h2>
-                            <div id="flush-1" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body ms-3 py-0">
-                                    <div class="mb-2 mt-4 fw-bold">Theme and Concept:</div>
-                                    <ul>
-                                        @for(themeConceptItem <- CommonUtil.splitToList(cptBook.getThemeConcept())) {
-                                            <li>@themeConceptItem</li>
-                                        }
-                                    </ul>
-                                    <div class="mb-2 mt-4 fw-bold">Key Takeaways:</div>
-                                    <ul>
-                                        @for(keyTakeawayItem <- CommonUtil.splitToList(cptBook.getKeyTakeaways())) {
-                                            <li>@keyTakeawayItem</li>
-                                        }
-                                    </ul>
-                                    <div class="mb-2 fw-bold">Actionable Ideas:</div>
-                                    <ul>
-                                        @for(actionableIdeasItem <- CommonUtil.splitToList(cptBook.getActionableIdeas())) {
-                                            <li>@actionableIdeasItem</li>
-                                        }
-                                    </ul>
-                                    <div class="mb-2 fw-bold">Target Audience:</div> <p>@cptBook.getAudience()</p>
-                                    <div class="mb-2 fw-bold">Content Style and Tone:</div> <p>@cptBook.getStyleTone()</p>
-                                    <div class="fw-bold">USP:</div> <p>@cptBook.getUsp()</p>
-                                    <div class="fw-bold">Topics:</div> <p>@cptBook.getTopics()</p>
-                                    @if(StringUtils.isNotBlank(cptBook.getSetting())) {
-                                        <div class="fw-bold">Setting:</div> <p>@cptBook.getSetting()</p>
+
+                <hr>
+                @_spacer(4)
+            </div>
+
+            <div class="book--tabs mb-4">
+                <ul class="nav nav-pills d-flex bg-white rounded-pill p-2">
+                    <li class="nav-item flex-grow-1 text-center">
+                        <a class="nav-link rounded-pill text-decoration-none active" data-bs-toggle="tab" href="#book">Overview</a>
+                    </li>
+                    <li class="nav-item flex-grow-1 text-center">
+                        <a class="nav-link rounded-pill text-decoration-none" data-bs-toggle="tab" href="#author">Author</a>
+                    </li>
+                    <li class="nav-item flex-grow-1 text-center">
+                        <a class="nav-link rounded-pill text-decoration-none" data-bs-toggle="tab" href="#insights">Insights</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane container active show" id="book">
+                        @if(book.getCptBook() != null){@Html(book.getCptBook().getDescription())}else{@Html(book.getHtmlDescription())}
+                        @**<p>@Html(book.getHtmlDescription())</p>**@
+                        @**
+                        <p>Deep Work" is Cal Newport's manifesto for achieving success in a world filled with distractions. Newport argues that the ability to focus deeply on cognitively demanding tasks is a rare and valuable skill in the modern workplace.</p>
+                        <p>Through practical strategies, case studies, and scientific insights, he explains how to create environments conducive to deep work and avoid the pitfalls of shallow work. This book is an essential tool for anyone striving for excellence and meaningful accomplishments.</p>
+                        **@
+
+                        <div class="mb-4">
+                            <h4 class="fw-600 mb-3">Notable Quotes</h4>
+                            @defining(book.getBookQuotes()) { bookQuotes =>
+                                @if(!CollectionUtils.isEmpty(bookQuotes)) {
+                                    @for(bookQuote <- bookQuotes) {
+                                        @_quote(bookQuote)
                                     }
-                                    <div class="mb-2 fw-bold">Impactful Passages:</div>
-                                    <ul>
-                                        @for(impactfulPassageItem <- CommonUtil.splitToList(cptBook.getImpactfulPassages())) {
-                                            <li>@impactfulPassageItem</li>
-                                        }
-                                    </ul>
-                                </div>
+                                }
+                            }
+                        </div>
+
+                        @if(userBook != null && userBook.getUser() != null) {
+                            @_rateBook(userBook.getUser().getId(), book.getId())
+                        }
+
+                        @_spacer(4)
+
+                        <h4 class="fw-600 mb-3">Related Books</h4>
+                        <div class="scrollable-cards-x">
+                            @for(book <- sameSubCategoryBooks) {
+                            <div class="scrollable-card-x">
+                                @_card3(book, false)
                             </div>
+                            }
                         </div>
                     </div>
-                }
-            }
-            <hr>
-            @_spacer(4)
-        </div>
+                    <div class="tab-pane container fade" id="author">
+                        <h4 class="fw-600 mb-3">About the Author</h4>
+                        <p>@if(book.getCptBook() != null){@book.getAuthor().getBio()}else{Cal Newport is a computer science professor and writer known for his expertise in productivity and digital minimalism.}</p>
 
-        <div class="book--tabs mb-4">
-            <ul class="nav nav-pills bg-white rounded-pill p-2">
-                <li class="nav-item text-center w-50">
-                    <a class="nav-link rounded-pill text-decoration-none active" data-bs-toggle="tab" href="#book">Overview</a>
-                </li>
-                <li class="nav-item text-center w-50">
-                    <a class="nav-link rounded-pill text-decoration-none" data-bs-toggle="tab" href="#author">Author</a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane container active show" id="book">
-                    @if(book.getCptBook() != null){@Html(book.getCptBook().getDescription())}else{@Html(book.getHtmlDescription())}
-                    @**<p>@Html(book.getHtmlDescription())</p>**@
-                    @**
-                    <p>Deep Work" is Cal Newport's manifesto for achieving success in a world filled with distractions. Newport argues that the ability to focus deeply on cognitively demanding tasks is a rare and valuable skill in the modern workplace.</p>
-                    <p>Through practical strategies, case studies, and scientific insights, he explains how to create environments conducive to deep work and avoid the pitfalls of shallow work. This book is an essential tool for anyone striving for excellence and meaningful accomplishments.</p>
-                    **@
-
-                    <div class="mb-4">
-                        <h4 class="fw-600 mb-3">Notable Quotes</h4>
-                        @defining(book.getBookQuotes()) { bookQuotes =>
-                            @if(!CollectionUtils.isEmpty(bookQuotes)) {
-                                @for(bookQuote <- bookQuotes) {
-                                    @_quote(bookQuote)
+                        <div class="mb-4">
+                            <h4 class="fw-600 mb-3">Quotes by @book.getAuthor().getName()</h4>
+                            @defining(book.getAuthorQuotes()) { authorQuotes =>
+                                @if(!CollectionUtils.isEmpty(authorQuotes)) {
+                                    @for(authorQuote <- authorQuotes) {
+                                        @_quote(authorQuote)
+                                    }
                                 }
                             }
-                        }
-                    </div>
-
-                    @if(userBook != null && userBook.getUser() != null) {
-                        @_rateBook(userBook.getUser().getId(), book.getId())
-                    }
-
-                    @_spacer(4)
-
-                    <h4 class="fw-600 mb-3">Related Books</h4>
-                    <div class="scrollable-cards-x">
-                        @for(book <- sameSubCategoryBooks) {
-                        <div class="scrollable-card-x">
-                            @_card3(book, false)
                         </div>
-                        }
-                    </div>
-                </div>
-                <div class="tab-pane container fade" id="author">
-                    <h4 class="fw-600 mb-3">About the Author</h4>
-                    <p>@if(book.getCptBook() != null){@book.getAuthor().getBio()}else{Cal Newport is a computer science professor and writer known for his expertise in productivity and digital minimalism.}</p>
 
-                    <div class="mb-4">
-                        <h4 class="fw-600 mb-3">Quotes by @book.getAuthor().getName()</h4>
-                        @defining(book.getAuthorQuotes()) { authorQuotes =>
-                            @if(!CollectionUtils.isEmpty(authorQuotes)) {
-                                @for(authorQuote <- authorQuotes) {
-                                    @_quote(authorQuote)
-                                }
+                        @_spacer(5)
+                        <h4 class="fw-600 mb-3">Other works by @book.getAuthor().getName()</h4>
+                        <div class="scrollable-cards-x">
+                            @for(book <- sameAuthorBooks) {
+                            <div class="scrollable-card-x">
+                                @_card3(book, false)
+                            </div>
                             }
-                        }
-                    </div>
-
-                    @_spacer(5)
-                    <h4 class="fw-600 mb-3">Other works by @book.getAuthor().getName()</h4>
-                    <div class="scrollable-cards-x">
-                        @for(book <- sameAuthorBooks) {
-                        <div class="scrollable-card-x">
-                            @_card3(book, false)
                         </div>
+                    </div>
+                    <div class="tab-pane container fade" id="insights">
+                        @if(cptBook != null) {
+                            <div class="mb-2 mt-4 fw-bold">Theme and Concept:</div>
+                            <ul>
+                                @for(themeConceptItem <- CommonUtil.splitToList(cptBook.getThemeConcept())) {
+                                    <li>@themeConceptItem</li>
+                                }
+                            </ul>
+                            <div class="mb-2 mt-4 fw-bold">Key Takeaways:</div>
+                            <ul>
+                                @for(keyTakeawayItem <- CommonUtil.splitToList(cptBook.getKeyTakeaways())) {
+                                    <li>@keyTakeawayItem</li>
+                                }
+                            </ul>
+                            <div class="mb-2 fw-bold">Actionable Ideas:</div>
+                            <ul>
+                                @for(actionableIdeasItem <- CommonUtil.splitToList(cptBook.getActionableIdeas())) {
+                                    <li>@actionableIdeasItem</li>
+                                }
+                            </ul>
+                            <div class="mb-2 fw-bold">Target Audience:</div> <p>@cptBook.getAudience()</p>
+                            <div class="mb-2 fw-bold">Content Style and Tone:</div> <p>@cptBook.getStyleTone()</p>
+                            <div class="fw-bold">USP:</div> <p>@cptBook.getUsp()</p>
+                            <div class="fw-bold">Topics:</div> <p>@cptBook.getTopics()</p>
+                            @if(StringUtils.isNotBlank(cptBook.getSetting())) {
+                                <div class="fw-bold">Setting:</div> <p>@cptBook.getSetting()</p>
+                            }
+                            <div class="mb-2 fw-bold">Impactful Passages:</div>
+                            <ul>
+                                @for(impactfulPassageItem <- CommonUtil.splitToList(cptBook.getImpactfulPassages())) {
+                                    <li>@impactfulPassageItem</li>
+                                }
+                            </ul>
                         }
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="text-center">
-            <a class="cls-more-options-modal-btn btn btn-primary mb-4" data-good-reads-url="@book.getGrAbsoluteUrl()" data-amazon-url="@book.getAmazonUrl()" data-google-books-preview-url="@book.getGbBook().getPreviewLink()" data-youtube-url="@book.getYoutubeUrl()" href="#">More Options</a>
+            <div class="text-center">
+                <a class="cls-more-options-modal-btn btn btn-primary mb-4" data-good-reads-url="@book.getGrAbsoluteUrl()" data-amazon-url="@book.getAmazonUrl()" data-google-books-preview-url="@book.getGbBook().getPreviewLink()" data-youtube-url="@book.getYoutubeUrl()" href="#">More Options</a>
+            </div>
         </div>
-    </div>
-
+    }
     @layout._footerNavBar("home-tab")
 }
