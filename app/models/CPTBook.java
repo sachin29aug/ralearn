@@ -2,8 +2,6 @@ package models;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 @Table(name = "cpt_book")
 public class CPTBook extends BaseModel {
@@ -11,14 +9,14 @@ public class CPTBook extends BaseModel {
     private String teaser;
     @Lob
     private String description;
-    @Lob
-    private String authorBio;
     private String themeConcept;
+    private String keyTakeaways;
+    private String actionableIdeas;
     private String audience;
     private String styleTone;
-    private String actionableIdeas;
     private String usp;
     private String topics;
+    private String setting;
 
     @OneToOne(mappedBy = "cptBook")
     private Book book;
@@ -45,14 +43,6 @@ public class CPTBook extends BaseModel {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getAuthorBio() {
-        return authorBio;
-    }
-
-    public void setAuthorBio(String authorBio) {
-        this.authorBio = authorBio;
     }
 
     public String getThemeConcept() {
@@ -109,5 +99,21 @@ public class CPTBook extends BaseModel {
 
     public void setTopics(String topics) {
         this.topics = topics;
+    }
+
+    public String getKeyTakeaways() {
+        return keyTakeaways;
+    }
+
+    public void setKeyTakeaways(String keyTakeaways) {
+        this.keyTakeaways = keyTakeaways;
+    }
+
+    public String getSetting() {
+        return setting;
+    }
+
+    public void setSetting(String setting) {
+        this.setting = setting;
     }
 }

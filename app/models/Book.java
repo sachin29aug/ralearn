@@ -27,6 +27,9 @@ public class Book extends BaseModel {
     //    => /book/show/58613345-harry-potter-and-the-half-blood-prince
     //    => /book/show/58613224-harry-potter-and-the-deathly-hallows
 
+    // Publication Year (First published)
+    // actionableIdeas (Provides readers with clear actions or methods inspired by the book's content). Delivers hands-on, practical steps for implementation.
+
     // Statistics (Dec-19-2024)
     // select count(*) from book_category; -- 45711
     // select count(*) from book; -- 31115

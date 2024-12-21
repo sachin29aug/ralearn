@@ -125,7 +125,7 @@
                 </div>
                 <div class="tab-pane container fade" id="author">
                     <h4 class="fw-600 mb-3">About the Author</h4>
-                    <p>@if(book.getCptBook() != null){@book.getCptBook().getAuthorBio()}else{Cal Newport is a computer science professor and writer known for his expertise in productivity and digital minimalism.}</p>
+                    <p>@if(book.getCptBook() != null){@book.getAuthor().getBio()}else{Cal Newport is a computer science professor and writer known for his expertise in productivity and digital minimalism.}</p>
 
                     <div class="mb-4">
                         <h4 class="fw-600 mb-3">Quotes by @book.getAuthor().getName()</h4>

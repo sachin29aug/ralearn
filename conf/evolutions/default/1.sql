@@ -52,13 +52,14 @@ create table cpt_book (
   headline                      varchar(255),
   teaser                        varchar(255),
   description                   text,
-  author_bio                    text,
   theme_concept                 varchar(255),
+  key_takeaways                 varchar(255),
+  actionable_ideas              varchar(255),
   audience                      varchar(255),
   style_tone                    varchar(255),
-  actionable_ideas              varchar(255),
   usp                           varchar(255),
   topics                        varchar(255),
+  setting                       varchar(255),
   constraint pk_cpt_book primary key (id)
 );
 

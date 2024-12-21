@@ -10,6 +10,7 @@ import java.util.List;
 public class Author extends BaseModel {
     private String name;
 
+    // Source: CPT
     private String bio;
 
     private String grUrl;
