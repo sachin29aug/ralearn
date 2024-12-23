@@ -235,6 +235,7 @@ li {
 }
 
 .accordion-button {
+    --bs-accordion-btn-focus-box-shadow: none;
     background: none;
     box-shadow: none;
 }
@@ -242,6 +243,10 @@ li {
 .accordion-button:not(.collapsed) {
     background: none;
     box-shadow: none;
+}
+
+.accordion-button, .accordion-body {
+    color: #003366;
 }
 
 .scrollable-cards-x {

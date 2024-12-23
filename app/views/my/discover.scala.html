@@ -17,13 +17,13 @@
                 <h1 class="menu-title">Categories</h1>
                 <a id="close-menu" class="close-btn" href="#">@_circularIcon("fa-solid fa-xmark")</a>
             </div>
-            <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion accordion-flush" id="accordion-categories">
                 @for(parentCategory <- Category.findParentCategories()) {
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <a class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#flush-@parentCategory.getId()" href="">@parentCategory.getTitle()</a>
+                            <a class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapse-@parentCategory.getId()" href="">@parentCategory.getTitle()</a>
                         </h2>
-                        <div id="flush-@parentCategory.getId()" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div id="collapse-@parentCategory.getId()" class="accordion-collapse collapse" data-bs-parent="#accordion-categories">
                             <div class="accordion-body ms-3 py-0">
                                 @for(category <- Category.findCategoriesByParent(parentCategory.id)) {
                                     <div class="d-flex align-items-center mb-3">

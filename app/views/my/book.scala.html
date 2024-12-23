@@ -5,6 +5,27 @@
 @import org.springframework.util.CollectionUtils
 @import utils.CommonUtil
 
+@accordion(id: String, label: String, items: List[String], singleItem: String) = {
+    <div class="accordion accordion-flush" id="accordion-@id">
+        <div class="accordion-item">
+            <div class="accordion-header fw-bold">
+                <a class="accordion-button collapsed px-0" data-bs-toggle="collapse" data-bs-target="#collapse-@id" href="">@label</a>
+            </div>
+            <div id="collapse-@id" class="accordion-collapse collapse" data-bs-parent="#accordion-@id">
+                <div class="accordion-body p-0">
+                    @if(!CollectionUtils.isEmpty(items)) {
+                        @for(item <- items) {
+                            <li>@item</li>
+                        }
+                    } else {
+                        @singleItem
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 @layout.main("RaLearn", "book-page") {
     @defining(book.getCptBook()) { cptBook =>
         <div class="book">
@@ -126,37 +147,18 @@
                     </div>
                     <div class="tab-pane container fade" id="insights">
                         @if(cptBook != null) {
-                            <div class="mb-2 mt-4 fw-bold">Theme and Concept:</div>
-                            <ul>
-                                @for(themeConceptItem <- CommonUtil.splitToList(cptBook.getThemeConcept())) {
-                                    <li>@themeConceptItem</li>
-                                }
-                            </ul>
-                            <div class="mb-2 mt-4 fw-bold">Key Takeaways:</div>
-                            <ul>
-                                @for(keyTakeawayItem <- CommonUtil.splitToList(cptBook.getKeyTakeaways())) {
-                                    <li>@keyTakeawayItem</li>
-                                }
-                            </ul>
-                            <div class="mb-2 fw-bold">Actionable Ideas:</div>
-                            <ul>
-                                @for(actionableIdeasItem <- CommonUtil.splitToList(cptBook.getActionableIdeas())) {
-                                    <li>@actionableIdeasItem</li>
-                                }
-                            </ul>
-                            <div class="mb-2 fw-bold">Target Audience:</div> <p>@cptBook.getAudience()</p>
-                            <div class="mb-2 fw-bold">Content Style and Tone:</div> <p>@cptBook.getStyleTone()</p>
-                            <div class="fw-bold">USP:</div> <p>@cptBook.getUsp()</p>
-                            <div class="fw-bold">Topics:</div> <p>@cptBook.getTopics()</p>
+                            @accordion("tc", "Theme and Concept", CommonUtil.splitToList(cptBook.getThemeConcept()), null)
+                            @accordion("kts", "Key Takeaways", CommonUtil.splitToList(cptBook.getKeyTakeaways()), null)
+                            @accordion("ais", "Actionable Ideas", CommonUtil.splitToList(cptBook.getActionableIdeas()), null)
+                            @accordion("ta", "Target Audience", null, cptBook.getAudience())
+                            @accordion("cst", "Content Style and Tone", null, cptBook.getStyleTone())
+                            @accordion("usp", "USP", null, cptBook.getUsp())
+                            @accordion("ta", "Target Audience", null, cptBook.getAudience())
+                            @accordion("topics", "Topics", null, cptBook.getTopics())
                             @if(StringUtils.isNotBlank(cptBook.getSetting())) {
-                                <div class="fw-bold">Setting:</div> <p>@cptBook.getSetting()</p>
+                                @accordion("setting", "Setting", null, cptBook.getSetting())
                             }
-                            <div class="mb-2 fw-bold">Impactful Passages:</div>
-                            <ul>
-                                @for(impactfulPassageItem <- CommonUtil.splitToList(cptBook.getImpactfulPassages())) {
-                                    <li>@impactfulPassageItem</li>
-                                }
-                            </ul>
+                            @accordion("ips", "Impactful Passages", CommonUtil.splitToList(cptBook.getImpactfulPassages()), null)
                         }
                     </div>
                 </div>

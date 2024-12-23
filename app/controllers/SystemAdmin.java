@@ -439,6 +439,7 @@ public class SystemAdmin extends Controller {
             .append("Input Information: 5 book records directly pasted on the chat, at the end of the prompt, with following format: bookId, titleSlug, authorId, authorName\n")
             .append("Expected Output: The output should be of same format with additional columns and data. Please paste it here only in CSV format which I can simply copy and paste to a csv file. Please follow this order: bookId,titleSlug,authorId,authorName,headline,teaser,description,themeConcept,keyTakeaways,actionableIdeas,audience,styleTone,,usp,topics,setting,impactfulPassages,authorBio,bookQuotes,authorQuotes \n")
             .append("Notes:\n")
+            .append("    Enclose all the columns data inside double quotes except bookId and authorId. Please don't put any quotes within the quotes \n")
             .append("    Use | for fields like themeConcept, bookQuotes, authorQuotes, and actionableIdeas to format as bullets in the UI.\n")
             .append("    Ensure all content is original, engaging, and plagiarism-free. Avoid direct excerpts or copyrighted text.\n")
             .append("    Please provide detailed, rich descriptions for the book titles in this CSV. I am okay with waiting if it requires processing in smaller batches. Please put stronger focus on generating dynamic, context-sensitive content for each book. I am ok it takes longer and  it requires more advanced logic, but I need quality content. Please generate high-quality, dynamic, context-sensitive content for each book.\n")
