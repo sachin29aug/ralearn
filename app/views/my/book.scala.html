@@ -5,14 +5,14 @@
 @import org.springframework.util.CollectionUtils
 @import utils.CommonUtil
 
-@accordion(id: String, label: String, items: List[String], singleItem: String) = {
-    <div class="accordion accordion-flush" id="accordion-@id">
+@accordion(id: String, label: String, items: List[String], singleItem: String, collapse: Boolean) = {
+    <div class="accordion-plus-minus accordion accordion-flush mb-4" id="accordion-@id">
         <div class="accordion-item">
-            <div class="accordion-header fw-bold">
-                <a class="accordion-button collapsed px-0" data-bs-toggle="collapse" data-bs-target="#collapse-@id" href="">@label</a>
+            <div class="accordion-header ">
+                <a class="accordion-button @if(BooleanUtils.isTrue(collapse)){collapsed} px-3" data-bs-toggle="collapse" data-bs-target="#collapse-@id" href="">@label</a>
             </div>
-            <div id="collapse-@id" class="accordion-collapse collapse" data-bs-parent="#accordion-@id">
-                <div class="accordion-body p-0">
+            <div id="collapse-@id" class="accordion-collapse @if(BooleanUtils.isTrue(collapse)){collapse}else{show}" data-bs-parent="#accordion-@id">
+                <div class="accordion-body mt-4 p-0">
                     @if(!CollectionUtils.isEmpty(items)) {
                         @for(item <- items) {
                             <li>@item</li>
@@ -147,25 +147,24 @@
                     </div>
                     <div class="tab-pane container fade" id="insights">
                         @if(cptBook != null) {
-                            @accordion("tc", "Theme and Concept", CommonUtil.splitToList(cptBook.getThemeConcept()), null)
-                            @accordion("kts", "Key Takeaways", CommonUtil.splitToList(cptBook.getKeyTakeaways()), null)
-                            @accordion("ais", "Actionable Ideas", CommonUtil.splitToList(cptBook.getActionableIdeas()), null)
-                            @accordion("ta", "Target Audience", null, cptBook.getAudience())
-                            @accordion("cst", "Content Style and Tone", null, cptBook.getStyleTone())
-                            @accordion("usp", "USP", null, cptBook.getUsp())
-                            @accordion("ta", "Target Audience", null, cptBook.getAudience())
-                            @accordion("topics", "Topics", null, cptBook.getTopics())
+                            @accordion("tc", "Theme and Concept", CommonUtil.splitToList(cptBook.getThemeConcept()), null, false)
+                            @accordion("kts", "Key Takeaways", CommonUtil.splitToList(cptBook.getKeyTakeaways()), null, true)
+                            @accordion("ais", "Actionable Ideas", CommonUtil.splitToList(cptBook.getActionableIdeas()), null, true)
+                            @accordion("ta", "Target Audience", null, cptBook.getAudience(), true)
+                            @accordion("cst", "Content Style and Tone", null, cptBook.getStyleTone(), true)
+                            @accordion("usp", "USP", null, cptBook.getUsp(), true)
+                            @accordion("topics", "Topics", null, cptBook.getTopics(), true)
                             @if(StringUtils.isNotBlank(cptBook.getSetting())) {
-                                @accordion("setting", "Setting", null, cptBook.getSetting())
+                                @accordion("setting", "Setting", null, cptBook.getSetting(), true)
                             }
-                            @accordion("ips", "Impactful Passages", CommonUtil.splitToList(cptBook.getImpactfulPassages()), null)
+                            @accordion("ips", "Impactful Passages", CommonUtil.splitToList(cptBook.getImpactfulPassages()), null, true)
                         }
                     </div>
                 </div>
             </div>
 
             <div class="text-center">
-                <a class="cls-more-options-modal-btn btn btn-primary mb-4" data-good-reads-url="@book.getGrAbsoluteUrl()" data-amazon-url="@book.getAmazonUrl()" data-google-books-preview-url="@book.getGbBook().getPreviewLink()" data-youtube-url="@book.getYoutubeUrl()" href="#">More Options</a>
+                <a class="cls-more-options-modal-btn btn btn-primary my-4" data-good-reads-url="@book.getGrAbsoluteUrl()" data-amazon-url="@book.getAmazonUrl()" data-google-books-preview-url="@book.getGbBook().getPreviewLink()" data-youtube-url="@book.getYoutubeUrl()" href="#">More Options</a>
             </div>
         </div>
     }

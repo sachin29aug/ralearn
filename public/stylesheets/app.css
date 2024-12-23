@@ -261,6 +261,32 @@ li:before {
   color: #003366;
 }
 
+.accordion-plus-minus .accordion-button {
+  position: relative;
+  font-size: 18px;
+  color: #003366;
+  background: #FFF9DB;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
+}
+.accordion-plus-minus .accordion-button::before {
+  content: "\f068";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.accordion-plus-minus .accordion-button.collapsed::before {
+  content: "\f067";
+}
+.accordion-plus-minus .accordion-button::after {
+  display: none;
+}
+.accordion-plus-minus .accordion-button:not(.collapsed) {
+  background: #FFECB3;
+}
+
 .scrollable-cards-x {
   overflow-x: auto;
   overflow-y: hidden;

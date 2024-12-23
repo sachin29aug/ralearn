@@ -417,7 +417,7 @@ public class SystemAdmin extends Controller {
 
     public Result exportBooksCPT() {
         // Prompt text
-        int RECORD_COUNT = 2;
+        int RECORD_COUNT = 5;
         int BATCH_COUNT = 5;
         StringBuilder sb = new StringBuilder();
         sb.append("I am building a book recommendation website and need concise, original, and engaging content for each book to enhance user experience. Please generate the following details:\n")
