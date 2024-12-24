@@ -69,7 +69,7 @@ a:hover {
 
 label {
   font-weight: 500;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 18px;
   margin-bottom: 8px;
 }
@@ -86,6 +86,12 @@ input, select {
   height: 55px;
   padding-left: 16px;
   padding-right: 16px;
+}
+
+input:focus {
+  outline: none;
+  border: 1.5px solid #FFC107;
+  transition: box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
 }
 
 textarea {
@@ -147,20 +153,19 @@ li:before {
 }
 
 .error {
-  background-color: #fce8e6;
-  color: #d93025;
+  background-color: #FFE6E6;
+  color: #D93025;
   border: 1px solid transparent;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
-  line-height: 24px;
-  letter-spacing: 0.5px;
+  line-height: 1.33;
 }
 
 .error, .success {
   padding-left: 16px;
   padding-right: 16px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   border-radius: 5px;
 }
 
@@ -189,7 +194,7 @@ li:before {
 
 .btn-primary {
   background: linear-gradient(269.4deg, #EFE825 -3.26%, #D7D319 98.79%);
-  color: #3A3A30;
+  color: #003366;
 }
 .btn-primary.disabled {
   color: rgba(60, 60, 60, 0.75);

@@ -115,6 +115,20 @@ $(document).ready(function() {
 $(document).ready(function() {
     $(document.body).on("click", "#id-login-btn", function(e) {
         e.preventDefault();
+        let email = $("#id-login-email").val().trim();;
+        let password = $("#id-login-password").val().trim();;
+
+        if (email === "") {
+            displayError("Please enter your email address.");
+            return;
+        } else if(password === "") {
+            displayError("Please enter your password.");
+            return;
+        } else if(!isValidEmail()) {
+            displayError("Please enter a valid email address.");
+            return;
+        }
+
         loginPost();
     });
 });

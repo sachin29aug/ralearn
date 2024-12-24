@@ -31,3 +31,13 @@ function hideBSBackDrop() {
     $('.modal').hide();
     $('body').css('overflow', 'auto');
 }
+
+function displayError(msg) {
+    $(".error").text(msg);
+    $(".error").show();
+}
+
+function isValidEmail(email) {
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+}

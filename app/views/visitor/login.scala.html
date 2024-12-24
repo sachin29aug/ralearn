@@ -7,26 +7,36 @@
                 <span class="logo--ra">Ra</span>
                 <span class="logo--learn">Learn</span>
             </div>
-            <h3 class="mb-3">Login</h3>
-            <a class="mb-4" href="@routes.Visitor.signup()">New to RaLearn? Sign up for free</a>
+            <h3 class="mb-3">Sign in</h3>
         </div>
 
         <input type="hidden" id="id-return-url" name="returnUrl" value="@returnUrl" />
 
+        <div class="error my-4" style="display: none;"></div>
+
         <div class="text-start my-4">
             <label for="id-login-email" class="form-label">Email</label>
-            <input type="email" id="id-login-email" maxlength="40">
-            <div id="id-login-email-error" class="error text-start mt-2" style="display: none;"></div>
+            <input type="email" id="id-login-email" maxlength="40" autofocus>
         </div>
 
-        <div class="text-start mb-4 position-relative">
-            <label for="id-login-password" class="form-label d-flex justify-content-between d-block">Password</label>
+        @_spacer(2)
+
+        <div class="text-start position-relative">
+            <div class="d-flex justify-content-between align-items-center">
+                <label for="id-login-password" class="form-label d-flex justify-content-between d-block">Password</label>
+                <a class="text-decoration-underline mb-2" href="#">Forgot?</a>
+            </div>
             <input type="password" id="id-login-password">
-            <div id="id-login-password-error" class="error text-start position-fixed mt-2" style="display: none;"></div>
         </div>
 
-        <div class="fixed-bottom-btn-group text-center">
-            <a id="id-login-btn" class="btn btn-primary" href="#">Login</a>
+        @_spacer(4) @_spacer(2)
+
+        <div class="text-center mb-3">
+            <a id="id-login-btn" class="btn btn-primary" href="#">Sign in</a>
         </div>
+
+        <div class="text-center">
+            <a href="@routes.Visitor.signup()">Don't have an account? <span class="text-decoration-underline">Sign up</span></a>
+        <div>
     </div>
 }
