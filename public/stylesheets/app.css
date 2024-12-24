@@ -267,6 +267,8 @@ li:before {
   color: #003366;
   background: #FFF9DB;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
+  padding-top: 11px;
+  padding-bottom: 11px;
 }
 .accordion-plus-minus .accordion-button::before {
   content: "\f068";
@@ -284,7 +286,7 @@ li:before {
   display: none;
 }
 .accordion-plus-minus .accordion-button:not(.collapsed) {
-  background: #FFECB3;
+  background: #FFF9DB;
 }
 
 .scrollable-cards-x {

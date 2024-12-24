@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"title", "author"})})
 public class Book extends BaseModel {
     // TODO:
+    //  => Automate pg dump and restore
+    //  => Presentable and feedback ready website
     //  => Content Generation - In progress
     //  => Include shelved count in BookCategory
     //  => Data Quality

@@ -148,16 +148,16 @@
                     <div class="tab-pane container fade" id="insights">
                         @if(cptBook != null) {
                             @accordion("tc", "Theme and Concept", CommonUtil.splitToList(cptBook.getThemeConcept()), null, false)
-                            @accordion("kts", "Key Takeaways", CommonUtil.splitToList(cptBook.getKeyTakeaways()), null, true)
-                            @accordion("ais", "Actionable Ideas", CommonUtil.splitToList(cptBook.getActionableIdeas()), null, true)
-                            @accordion("ta", "Target Audience", null, cptBook.getAudience(), true)
-                            @accordion("cst", "Content Style and Tone", null, cptBook.getStyleTone(), true)
-                            @accordion("usp", "USP", null, cptBook.getUsp(), true)
-                            @accordion("topics", "Topics", null, cptBook.getTopics(), true)
+                            @accordion("kts", "Key Takeaways", CommonUtil.splitToList(cptBook.getKeyTakeaways()), null, false)
+                            @accordion("ais", "Actionable Ideas", CommonUtil.splitToList(cptBook.getActionableIdeas()), null, false)
+                            @accordion("ta", "Target Audience", null, cptBook.getAudience(), false)
+                            @accordion("cst", "Content Style and Tone", null, cptBook.getStyleTone(), false)
+                            @accordion("usp", "USP", null, cptBook.getUsp(), false)
+                            @accordion("topics", "Topics", null, cptBook.getTopics(), false)
                             @if(StringUtils.isNotBlank(cptBook.getSetting())) {
-                                @accordion("setting", "Setting", null, cptBook.getSetting(), true)
+                                @accordion("setting", "Setting", null, cptBook.getSetting(), false)
                             }
-                            @accordion("ips", "Impactful Passages", CommonUtil.splitToList(cptBook.getImpactfulPassages()), null, true)
+                            @accordion("ips", "Impactful Passages", CommonUtil.splitToList(cptBook.getImpactfulPassages()), null, false)
                         }
                     </div>
                 </div>
