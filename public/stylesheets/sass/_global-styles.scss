@@ -426,6 +426,32 @@ li {
     }
 }
 
+.progress-bar {
+    width: 80%;
+
+    .step {
+        width: 16px;
+        height: 16px;
+        background-color: #EEE;
+        //border-radius: 50%;
+        border: 2px solid transparent;
+
+          &.active, &.completed {
+              background-color: #003366;
+          }
+    }
+
+    .line {
+        flex: 1;
+        height: 2px;
+        background-color: #EEE;
+
+        &.completed {
+            background-color: #003366;
+        }
+    }
+}
+
 .spinner {
     display: none;
     position: fixed;

@@ -418,6 +418,27 @@ li:before {
   background: #FFFFF0;
 }
 
+.progress-bar {
+  width: 80%;
+}
+.progress-bar .step {
+  width: 16px;
+  height: 16px;
+  background-color: #EEE;
+  border: 2px solid transparent;
+}
+.progress-bar .step.active, .progress-bar .step.completed {
+  background-color: #003366;
+}
+.progress-bar .line {
+  flex: 1;
+  height: 2px;
+  background-color: #EEE;
+}
+.progress-bar .line.completed {
+  background-color: #003366;
+}
+
 .spinner {
   display: none;
   position: fixed;
