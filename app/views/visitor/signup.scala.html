@@ -1,9 +1,13 @@
 @(parentCategories: List[Category])
 
-@layout.main("RaLearn", "signup-page") {
+@layout.main("Sign up", "signup-page") {
     <div class="signup">
+        <div class="logo text-center mb-3" style="font-size: 24px;">
+            <span class="logo--ra">Ra</span>
+            <span class="logo--learn">Learn</span>
+        </div>
         <div id="categories-page">
-            <h2 class="mb-5">What categories are you interested in?</h2>
+            <h3 class="text-center mb-4">What categories are you interested in?</h3>
             <div class="category-pills">
                 @for(parentCategory <- parentCategories) {
                     <a class="category-pill d-block" data-subcategories-div-id="id-category-@parentCategory.id-subcategories" href="#">
@@ -25,7 +29,7 @@
         </div>
 
         <div id="subcategories-page" style="display: none;">
-            <h2 class="mb-5">Follow topics you're interested in to get recommendations?</h2>
+            <h3 class="text-center mb-4">Follow topics you're interested in to get recommendations?</h3>
             @for(parentCategory <- Category.findParentCategories()) {
                 <div id="id-category-@parentCategory.id-subcategories" style="display: none;">
                     @for(category <- Category.findCategoriesByParent(parentCategory.id)) {
@@ -49,8 +53,7 @@
         </div>
 
         <div id="email-password-page" class="email-password-page" style="display: none;">
-            <h2 class="mb-5">Welcome to RaLearn. What's your email?</h2>
-
+            <h3 class="text-center mb-4">Welcome to RaLearn. What's your email?</h3>
             <div class="text-start mb-4">
                 <label for="id-signup-email" class="form-label">Email</label>
                 <input type="email" id="id-signup-email" maxlength="40">
