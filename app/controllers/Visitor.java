@@ -11,10 +11,7 @@ import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Visitor extends Controller {
     private final CookieSigner cookieSigner;
@@ -47,7 +44,7 @@ public class Visitor extends Controller {
             userCategory.save();
         }
 
-        return ok(views.html.visitor.welcome.render(user)).addingToSession(request, "email", user.email).addingToSession(request, "userId", String.valueOf(user.id));
+        return ok(views.html.visitor.welcome.render(user)).addingToSession(request, "email", user.getEmail()).addingToSession(request, "userId", String.valueOf(user.id));
     }
 
     // Login related
@@ -74,7 +71,7 @@ public class Visitor extends Controller {
                 UserBook.generateRandomUserBooks(user, true, false);
             }
 
-            return ok(views.html.my.home.render(user)).addingToSession(request, "email", user.email).addingToSession(request, "userId", String.valueOf(user.id));
+            return ok(views.html.my.home.render(user)).addingToSession(request, "email", user.getEmail()).addingToSession(request, "userId", String.valueOf(user.id));
         }
     }
 
@@ -85,11 +82,19 @@ public class Visitor extends Controller {
     public Result forgotPasswordPost(Http.Request request) {
         String email = CommonUtil.getRequestBodyParam(request, "email");
         User user = User.findByEmail(email);
-        if(user == null) {
-            return ok(views.html.visitor.login.render(null));
-        } else {
-            return ok(views.html.visitor.login.render(null));
+        if(user != null) {
+            user.setPasswordResetToken(UUID.randomUUID().toString());
+            user.update();
+            System.out.println("/reset-password/" + user.getPasswordResetToken());
         }
+        return ok(views.html.visitor.login.render(null));
+    }
+
+    public Result resetPassword(String token) {
+        if (User.findByPasswordResetToken(token) == null) {
+            return badRequest("Invalid or expired reset link.");
+        }
+        return ok(views.html.visitor.resetPassword.render());
     }
 
     public Result logout(Http.Request request) {

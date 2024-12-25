@@ -11,13 +11,15 @@ import java.util.List;
 @Entity
 @Table(name = "user_table")
 public class User extends BaseModel {
-    public String firstName;
+    private String firstName;
 
-    public String lastName;
+    private String lastName;
 
-    public String email;
+    private String email;
 
-    public String password;
+    private String password;
+
+    private String passwordResetToken;
 
     @OneToMany(mappedBy = "user")
     public List<UserCategory> userCategories;
@@ -33,12 +35,16 @@ public class User extends BaseModel {
 
     public static Finder<Long, User> find = new Finder<>(User.class);
 
+    public static User find(String id) {
+        return find.byId(Long.valueOf(id));
+    }
+
     public static User findByEmail(String email) {
         return find.query().where().ieq("email", email).findOne();
     }
 
-    public static User find(String id) {
-        return find.byId(Long.valueOf(id));
+    public static User findByPasswordResetToken(String token) {
+        return find.query().where().eq("passwordResetToken", token).findOne();
     }
 
     public static User authenticate(String email, String password) {
@@ -91,5 +97,13 @@ public class User extends BaseModel {
 
     public void setUserBooks(List<UserBook> userBooks) {
         this.userBooks = userBooks;
+    }
+
+    public String getPasswordResetToken() {
+        return passwordResetToken;
+    }
+
+    public void setPasswordResetToken(String passwordResetToken) {
+        this.passwordResetToken = passwordResetToken;
     }
 }

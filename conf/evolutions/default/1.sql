@@ -178,6 +178,7 @@ create table user_table (
   last_name                     varchar(255),
   email                         varchar(255),
   password                      varchar(255),
+  password_reset_token          varchar(255),
   constraint pk_user_table primary key (id)
 );
 

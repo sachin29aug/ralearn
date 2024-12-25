@@ -5,6 +5,7 @@ GET     /login                                              controllers.Visitor.
 POST    /login                                              controllers.Visitor.loginPost(request: Request)
 GET     /forgot-password                                    controllers.Visitor.forgotPassword()
 POST    /forgot-password                                    controllers.Visitor.forgotPasswordPost(request: Request)
+GET     /reset-password/:token                              controllers.Visitor.resetPassword(token: String)
 GET     /logout                                             controllers.Visitor.logout(request: Request)
 
 # My

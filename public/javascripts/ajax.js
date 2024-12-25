@@ -178,9 +178,7 @@ function forgotPasswordPost(email) {
             displaySuccessMessage("If an account is associated with this email address, you will receive instructions to reset your password shortly.");
         },
         error: function(response, error) {
-            if (response.status === HTTP_STATUS.BAD_REQUEST) {
-                const errorMessage = response.responseText;
-            }
+
         }
     });
 }
