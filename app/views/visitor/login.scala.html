@@ -1,6 +1,6 @@
 @(returnUrl: String)
 
-@layout.main("RaLearn", "login-page") {
+@layout.main("Sign in", "login-page") {
     <div class="login">
         <div class="text-center">
             <div class="logo my-3">
@@ -24,12 +24,12 @@
         <div class="text-start position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <label for="id-login-password" class="form-label d-flex justify-content-between d-block">Password</label>
-                <a class="text-decoration-underline mb-2" href="#">Forgot?</a>
+                <a class="text-decoration-underline mb-2" href="@routes.Visitor.forgotPassword()">Forgot?</a>
             </div>
             <input type="password" id="id-login-password">
         </div>
 
-        @_spacer(4) @_spacer(2)
+        @_spacer(4) @_spacer(3)
 
         <div class="text-center mb-3">
             <a id="id-login-btn" class="btn btn-primary" href="#">Sign in</a>

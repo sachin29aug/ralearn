@@ -168,6 +168,23 @@ function loginPost() {
     });
 }
 
+function forgotPasswordPost(email) {
+    $.ajax({
+        url: '/forgot-password',
+        type : 'POST',
+        data: {"email" : email},
+        success: function(response) {
+            replaceHtml("id-page", response, null, null);
+            displaySuccessMessage("If an account is associated with this email address, you will receive instructions to reset your password shortly.");
+        },
+        error: function(response, error) {
+            if (response.status === HTTP_STATUS.BAD_REQUEST) {
+                const errorMessage = response.responseText;
+            }
+        }
+    });
+}
+
 function card2ShufflePost(userBookId) {
     $.ajax({
         url: '/shuffle/' + userBookId,

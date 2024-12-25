@@ -3,6 +3,8 @@ GET     /signup                                             controllers.Visitor.
 POST    /signup/login                                       controllers.Visitor.signupLoginPost(request: Request)
 GET     /login                                              controllers.Visitor.login(returnUrl: String ?= null)
 POST    /login                                              controllers.Visitor.loginPost(request: Request)
+GET     /forgot-password                                    controllers.Visitor.forgotPassword()
+POST    /forgot-password                                    controllers.Visitor.forgotPasswordPost(request: Request)
 GET     /logout                                             controllers.Visitor.logout(request: Request)
 
 # My

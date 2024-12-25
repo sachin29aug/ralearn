@@ -35,6 +35,12 @@
 
         <div id="id-page">
             <div class="@pageClass">
+                <div class="success position-absolute mt-3 mx-3 z-1" style="display: none;">
+                    <div class="d-flex">
+                        <div class="success-message"></div>
+                        <a onclick="event.preventDefault(); closeSuccessMessage();" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
                 <div class="container-fluid">
                     @content
                 </div>

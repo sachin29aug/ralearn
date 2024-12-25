@@ -32,9 +32,19 @@ function hideBSBackDrop() {
     $('body').css('overflow', 'auto');
 }
 
-function displayError(msg) {
+function displayErrorMessage(msg) {
     $(".error").text(msg);
     $(".error").show();
+}
+
+function displaySuccessMessage(msg) {
+    $(".success-message").text(msg);
+    $(".success").show();
+}
+
+function closeSuccessMessage(msg) {
+    $(".success-message").text('');
+    $(".success").hide();
 }
 
 function isValidEmail(email) {

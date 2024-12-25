@@ -5,6 +5,7 @@ import play.api.libs.crypto.CookieSigner;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
+import utils.CommonUtil;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
@@ -74,6 +75,20 @@ public class Visitor extends Controller {
             }
 
             return ok(views.html.my.home.render(user)).addingToSession(request, "email", user.email).addingToSession(request, "userId", String.valueOf(user.id));
+        }
+    }
+
+    public Result forgotPassword() {
+        return ok(views.html.visitor.forgotPassword.render());
+    }
+
+    public Result forgotPasswordPost(Http.Request request) {
+        String email = CommonUtil.getRequestBodyParam(request, "email");
+        User user = User.findByEmail(email);
+        if(user == null) {
+            return ok(views.html.visitor.login.render(null));
+        } else {
+            return ok(views.html.visitor.login.render(null));
         }
     }
 
