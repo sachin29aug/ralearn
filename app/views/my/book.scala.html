@@ -70,7 +70,7 @@
                 <div class="fst-italic">@if(cptBook != null){@cptBook.getTeaser()}else{A practical guide to achieving high levels of productivity by cultivating deep focus and eliminating distractions.}</div>
 
                 <hr>
-                @_spacer(4)
+                @sp(4)
             </div>
 
             <div class="book--tabs mb-4">
@@ -109,7 +109,7 @@
                             @_rateBook(userBook.getUser().getId(), book.getId())
                         }
 
-                        @_spacer(4)
+                        @sp(4)
 
                         <h4 class="fw-600 mb-3">Related Books</h4>
                         <div class="scrollable-cards-x">
@@ -135,7 +135,7 @@
                             }
                         </div>
 
-                        @_spacer(5)
+                        @sp(5)
                         <h4 class="fw-600 mb-3">Other works by @book.getAuthor().getName()</h4>
                         <div class="scrollable-cards-x">
                             @for(book <- sameAuthorBooks) {
