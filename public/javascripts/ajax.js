@@ -119,13 +119,13 @@ function profileGet() {
 
 // Post calls
 
-function signupLoginPost(subcategoryIds) {
+function signupLoginPost(categoryIds) {
     let requestParams = {
         firstname: $('#id-signup-firstname').val(),
         lastname: $('#id-signup-lastname').val(),
         email: $('#id-signup-email').val(),
         password: $('#id-signup-password').val(),
-        subcategoryIds: subcategoryIds.join(','),
+        categoryIds: categoryIds.join(','),
         _csrfToken: $('[name=_csrfToken]').val()
     };
 

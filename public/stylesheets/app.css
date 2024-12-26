@@ -481,7 +481,7 @@ li:before {
   margin-top: 120px;
 }
 
-.signup .category-pill {
+.signup .option-pill {
   border: 1px solid #d3d3d3;
   border-radius: 25px;
   filter: drop-shadow(0px 2px 4px rgba(51, 16, 50, 0.15));
@@ -489,15 +489,15 @@ li:before {
   padding-top: 12px;
   padding-bottom: 12px;
 }
-.signup .category-pill.selected {
+.signup .option-pill.selected {
   background: #fffcdd;
   border-color: #ffcc00;
   box-shadow: 0 4px 12px rgba(255, 204, 0, 0.3);
 }
-.signup .category-pill.selected .category-pill--icon {
+.signup .option-pill.selected .category-pill--icon {
   color: #E3B500;
 }
-.signup .category-pill:hover {
+.signup .option-pill:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .signup .email-password-page .fa-eye {

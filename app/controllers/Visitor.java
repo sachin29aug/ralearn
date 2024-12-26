@@ -44,7 +44,7 @@ public class Visitor extends Controller {
         user.setPassword(cookieSigner.sign(password));
         user.save();
 
-        String categoryIds = request.body().asFormUrlEncoded().get("subcategoryIds")[0];
+        String categoryIds = request.body().asFormUrlEncoded().get("categoryIds")[0];
         for(String categoryId : categoryIds.split(",")) {
             UserCategory userCategory = new UserCategory(user, Category.find(Long.valueOf(categoryId)));
             userCategory.save();

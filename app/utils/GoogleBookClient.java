@@ -18,30 +18,23 @@ public class GoogleBookClient {
     public static GBBook importGoogleBookInfo(Book book) {
         GBBook gbBook = null;
         try {
-            String url = BASE_URL + "?q=intitle:" +  book.getTitle().replace(" ", "+") + "&key=" + API_KEY;
+            String url = BASE_URL + "?q=intitle:" +  book.getTitle().replace(" ", "+") + "+inauthor:" + book.getAuthor().getName().replace(" ", "+") + "&key=" + API_KEY;
+            System.out.println(url);
             JSONObject responseJson = getJsonResponse(url);
-            JSONArray items = responseJson.optJSONArray("items");
-            JSONObject jsonObject = null;
-            JSONObject volumeInfo = null;
-            JSONObject saleInfo = null;
-            JSONObject accessInfo = null;
-            JSONObject imageLinks = null;
-            if(items != null && items.length() > 0) {
-                jsonObject = items.getJSONObject(0);
-                if (jsonObject != null) {
-                    volumeInfo = jsonObject.getJSONObject("volumeInfo");
-                    saleInfo = jsonObject.optJSONObject("saleInfo");
-                    accessInfo = jsonObject.optJSONObject("accessInfo");
-                    imageLinks = volumeInfo.optJSONObject("imageLinks");
-                }
+            JSONObject jsonResponseItem = getBestJsonResponseItem(responseJson);
+            if(jsonResponseItem != null) {
+                JSONObject volumeInfo = jsonResponseItem.getJSONObject("volumeInfo");
+                JSONObject saleInfo = jsonResponseItem.optJSONObject("saleInfo");
+                JSONObject accessInfo = jsonResponseItem.optJSONObject("accessInfo");
+                JSONObject imageLinks = volumeInfo.optJSONObject("imageLinks");
 
                 gbBook = GBBook.findByBookId(book.id);
                 if(gbBook == null) {
                     gbBook = new GBBook();
 
                     // Main fields
-                    gbBook.setGbId(jsonObject.optString("id"));
-                    gbBook.setEtag(jsonObject.optString("etag"));
+                    gbBook.setGbId(jsonResponseItem.optString("id"));
+                    gbBook.setEtag(jsonResponseItem.optString("etag"));
                     gbBook.setContentVersion(volumeInfo.optString("contentVersion"));
                     gbBook.setTitle(volumeInfo.optString("title"));
                     gbBook.setSubTitle(volumeInfo.optString("subtitle"));
@@ -56,7 +49,7 @@ public class GoogleBookClient {
                     gbBook.setMaturityRating(volumeInfo.optString("maturityRating"));
 
                     // Links
-                    gbBook.setSelfLink(jsonObject.optString("selfLink"));
+                    gbBook.setSelfLink(jsonResponseItem.optString("selfLink"));
                     gbBook.setPreviewLink(volumeInfo.optString("previewLink"));
                     if (imageLinks != null) {
                         gbBook.setThumbnailUrl(imageLinks.optString("thumbnail"));
@@ -158,6 +151,45 @@ public class GoogleBookClient {
         }
 
         return new JSONObject(content.toString());
+    }
+
+    private static JSONObject getBestJsonResponseItem(JSONObject responseJson) {
+        JSONArray items = responseJson.optJSONArray("items");
+        JSONObject bestItem = null;
+        if(items != null && items.length() > 0) {
+            bestItem = items.optJSONObject(0);
+            int highestRatingsCount = 0;
+            double highestAverageRating = 0;
+            String latestPublishedDate = "1900-01-01";
+            for (int i = 0; i < items.length(); i++) {
+                JSONObject currentItem = items.optJSONObject(i);
+                JSONObject volumeInfo = currentItem.optJSONObject("volumeInfo");
+                if (volumeInfo == null || volumeInfo.optJSONObject("imageLinks") == null) {
+                    continue;
+                }
+                int currentRatingsCount = volumeInfo.optInt("ratingsCount", 0);
+                double currentAverageRating = volumeInfo.optDouble("averageRating", 0);
+                String currentPublishedDate = volumeInfo.optString("publishedDate", "1900-01-01");
+                if (currentRatingsCount > highestRatingsCount) {
+                    bestItem = currentItem;
+                    highestRatingsCount = currentRatingsCount;
+                    highestAverageRating = currentAverageRating;
+                    latestPublishedDate = currentPublishedDate;
+                } else if (currentRatingsCount == highestRatingsCount) {
+                    if (currentAverageRating > highestAverageRating) {
+                        bestItem = currentItem;
+                        highestAverageRating = currentAverageRating;
+                        latestPublishedDate = currentPublishedDate;
+                    } else if (currentAverageRating == highestAverageRating) {
+                        if (currentPublishedDate.compareTo(latestPublishedDate) > 0) {
+                            bestItem = currentItem;
+                            latestPublishedDate = currentPublishedDate;
+                        }
+                    }
+                }
+            }
+        }
+        return bestItem;
     }
 
     private static String convertArrayToCommaSeparatedString(JSONArray jsonArray) {

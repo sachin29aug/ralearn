@@ -1,51 +1,70 @@
 // Signup - related
 
 $(document).ready(function() {
-    // Signup - Categories
+    // Signup - Interests and Categories
 
-    var selectedPillCount = 0;
-    $(document.body).on("click", ".category-pill", function(e) {
+    var selectedInterestsCount = 0;
+    $(document.body).on("click", "#interests-page .option-pill", function(e) {
         e.preventDefault();
         if ($(this).hasClass("selected")) {
             $(this).removeClass("selected");
-            selectedPillCount++;
+            selectedInterestsCount++;
         } else {
             $(this).addClass("selected");
-            selectedPillCount--;
+            selectedInterestsCount--;
         }
 
-        if(selectedPillCount == 0) {
-            $(".signup--continue-btn").addClass("disabled");
+        if(selectedInterestsCount == 0) {
+            $("#interests-page .signup--continue-btn").addClass("disabled");
         } else {
-            $(".signup--continue-btn").removeClass("disabled");
+            $("#interests-page .signup--continue-btn").removeClass("disabled");
         }
+    });
+
+    var selectedCategoriesCount = 0;
+    $(document.body).on("click", "#categories-page .option-pill", function(e) {
+        e.preventDefault();
+        if ($(this).hasClass("selected")) {
+            $(this).removeClass("selected");
+            selectedCategoriesCount++;
+        } else {
+            $(this).addClass("selected");
+            selectedCategoriesCount--;
+        }
+
+        if(selectedCategoriesCount == 0) {
+            $("#categories-page .signup--continue-btn").addClass("disabled");
+        } else {
+            $("#categories-page .signup--continue-btn").removeClass("disabled");
+        }
+    });
+
+    $(document.body).on("click", "#interests-page .signup--continue-btn", function(e) {
+        e.preventDefault();
+        $("#interests-page").hide();
+        $("#categories-page").show();
+        $(".option-pills .option-pill").each(function() {
+            let interestCategoriesDivId = $(this).data("interest-categories-div-id");
+            if ($(this).hasClass("selected")) {
+                $("#" + interestCategoriesDivId).show();
+            } else {
+                $("#" + interestCategoriesDivId).hide();
+                $("#" + interestCategoriesDivId + " .option-pill").removeClass("selected");
+            }
+        });
     });
 
     $(document.body).on("click", "#categories-page .signup--continue-btn", function(e) {
         e.preventDefault();
-        selectedPillCount == 0;
-        //$(".signup--continue-btn").addClass("disabled");
         $("#categories-page").hide();
-        $("#subcategories-page").show();
-        $(".category-pills .category-pill.selected").each(function() {
-            let subcategoriesDivId = $(this).data("subcategories-div-id");
-            $("#" + subcategoriesDivId).show();
-        });
-    });
-
-    $(document.body).on("click", "#subcategories-page .signup--continue-btn", function(e) {
-        e.preventDefault();
-        $(".signup--continue-btn").addClass("disabled");
-        $("#subcategories-page").hide();
         $("#email-password-page").show();
         $("#id-signup-firstname").focus();
     });
 
-    $(document.body).on("click", "#subcategories-page .signup--back-btn", function(e) {
+    $(document.body).on("click", "#categories-page .signup--back-btn", function(e) {
         e.preventDefault();
-        //$(".signup--continue-btn").addClass("disabled");
-        $("#subcategories-page").hide();
-        $("#categories-page").show();
+        $("#categories-page").hide();
+        $("#interests-page").show();
     });
 
     // Signup - Email password
@@ -53,7 +72,6 @@ $(document).ready(function() {
     var firstNameValidated = false;
     var emailValidated = false;
     var passwordValidated = false;
-
     $('#id-signup-firstname').blur(function () {
         let firstName = $(this).val();
         if (firstName === "") {
@@ -118,18 +136,18 @@ $(document).ready(function() {
 
     $(document.body).on("click", "#email-password-page .signup--continue-btn", function(e) {
         e.preventDefault();
-        let subcategoryIds = [];
-        $('#subcategories-page .category-pill.selected').each(function() {
-            let subcategoryId = $(this).data('subcategory-id');
-            subcategoryIds.push(subcategoryId);
+        let categoryIds = [];
+        $('#categories-page .option-pill.selected').each(function() {
+            let categoryId = $(this).data('category-id');
+            categoryIds.push(categoryId);
         });
-        signupLoginPost(subcategoryIds);
+        signupLoginPost(categoryIds);
     });
 
     $(document.body).on("click", "#email-password-page .signup--back-btn", function(e) {
         e.preventDefault();
         $("#email-password-page").hide();
-        $("#subcategories-page").show();
+        $("#categories-page").show();
     });
 
     // Signup - Welcome

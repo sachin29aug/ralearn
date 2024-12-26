@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class Book extends BaseModel {
     // TODO:
     //  => Presentable and feedback ready website (Pre MVP feedback..)
+    //      => Public flow (In progress)
     //  => Content Generation - In progress
     //  => ---------------------------------
     //  => System admin behind admin login (Authenticated and SSL annotations)
