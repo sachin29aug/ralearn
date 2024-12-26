@@ -3,7 +3,7 @@
 <div class="progress-bar">
     <div class="d-flex align-items-center flex-row">
         @for(i <- 1 to totalSteps) {
-            <div class="step @if(i <= stepNumber){completed} rounded-circle"></div>
+            <div class="step @if(i == stepNumber){active}else{@if(i < stepNumber){completed}} rounded-circle"></div>
             @if(i < totalSteps) {
                 <div class="line @if(i < stepNumber){completed}"></div>
             }

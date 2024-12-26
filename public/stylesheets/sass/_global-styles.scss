@@ -17,6 +17,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     color: inherit;
+    font-weight: 600;
     margin-bottom: 1.5rem;
 }
 
@@ -186,13 +187,22 @@ li {
 
 .btn-primary {
     //background: linear-gradient(269.4deg, #EFE825 -3.26%, #D7D319 98.79%);
+
     background: linear-gradient(90deg, #FFEA1C, #FFDB33);
     color: #003366;
+
+    //color: #FFFFFF;
+    //background: linear-gradient(to right, #ffcc00, #ffaa00);
 
     &.disabled {
         color: rgba(60, 60, 60, 0.75);
         background: linear-gradient(269.4deg, #F3EFAA -3.26%, #F7F3C4 98.79%);
     }
+
+    /* &:hover {
+      background: linear-gradient(to right, #ffaa00, #ff8800);
+      box-shadow: 0 6px 12px rgba(255, 170, 0, 0.5);
+    } */
 }
 
 .btn-white {
@@ -427,12 +437,15 @@ li {
         width: 16px;
         height: 16px;
         background-color: #EEE;
-        //border-radius: 50%;
         border: 2px solid transparent;
 
-          &.active, &.completed {
-              background-color: #003366;
-          }
+        &.active {
+            background-color: #E3B500;
+        }
+
+        &.completed {
+            background-color: #003366;
+        }
     }
 
     .line {
