@@ -19,10 +19,10 @@ public class Book extends BaseModel {
     //  => Presentable and feedback ready website (Pre MVP feedback..)
     //  => Content Generation - In progress
     //  => ---------------------------------
+    //  => System admin behind admin login (Authenticated and SSL annotations)
     //  => Include shelved count in BookCategory
     //  => Automate pg dump and restore
     //  => Data Quality
-    //  => Authenticated and SSL annotations
     //  => CommonUtil.getRequestBodyParam() everywhere
     //  => User find(String id)..should be long
     //  => Issues like below where the books were not inserted from the gr feed. e.g. below mystery books were not inserted
@@ -60,7 +60,7 @@ public class Book extends BaseModel {
     private Author author;
 
     @OneToOne
-    @JoinColumn(name = "gl_book_id")
+    @JoinColumn(name = "gb_book_id")
     private GBBook gbBook;
 
     @OneToOne
@@ -110,7 +110,7 @@ public class Book extends BaseModel {
         }
 
         randomBook = bookCategory.getBook();
-        //GoogleBookClient.importGoogleBookInfo(randomBook);
+        GoogleBookClient.importGoogleBookInfo(randomBook);
         //randomBook.refresh();
 
         return randomBook;

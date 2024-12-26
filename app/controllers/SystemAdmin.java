@@ -130,6 +130,16 @@ public class SystemAdmin extends Controller {
         return ok("Done");
     }
 
+    public Result importBookGB(Long bookId) {
+        try {
+            Book book = Book.find(bookId);
+            GoogleBookClient.importGoogleBookInfo(book);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ok("Done");
+    }
+
     public Result importBooksGB(Long count) {
         try {
             long i = 0;

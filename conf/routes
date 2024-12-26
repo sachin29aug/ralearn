@@ -28,6 +28,7 @@ POST    /book/search                                        controllers.My.bookS
 
 # System Admin
 GET     /import/books/gr/4agf9t                             controllers.SystemAdmin.importBooksGR
+GET     /import/book/gb/4agf9t/:bookId                      controllers.SystemAdmin.importBookGB(bookId: Long)
 GET     /import/books/gb/4agf9t:count                       controllers.SystemAdmin.importBooksGB(count: Long)
 GET     /import/books/ol/4agf9t/:count                      controllers.SystemAdmin.importBooksOL(count: Long)
 GET     /import/authors/ol/4agf9t                           controllers.SystemAdmin.importAuthorsOL()

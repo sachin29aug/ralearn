@@ -436,22 +436,24 @@ li {
     .step {
         width: 16px;
         height: 16px;
-        background-color: #EEE;
+        background-color: #DDD;
         border: 2px solid transparent;
 
         &.active {
             background-color: #E3B500;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         &.completed {
             background-color: #003366;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
     }
 
     .line {
         flex: 1;
         height: 2px;
-        background-color: #EEE;
+        background-color: #DDD;
 
         &.completed {
             background-color: #003366;

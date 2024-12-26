@@ -2,7 +2,20 @@
 
 @layout.main("RaLearn", "welcome-page") {
     <div class="signup">
+        <div class="logo" style="font-size: 24px;">
+            <span class="logo--ra">Ra</span>
+            <span class="logo--learn">Learn</span>
+        </div>
+
+        @sp(4)
         <div id="welcome-page" class="welcome-page">
+            <div class="d-flex">
+                <i class="fas fa-arrow-left me-4"></i>
+                @_progressBar(4, 4)
+            </div>
+
+            @sp(4) @sp(4)
+
             <h2 class="mb-5">Nice to meet you, @user.getEmail()</h2>
             <p>We’re all set to generate a personalized book feed based on your selections. You can also explore recent suggestions on the next page.</p>
             <p>Click 'Begin' to start your journey!</p>

@@ -406,19 +406,21 @@ li:before {
 .progress-bar .step {
   width: 16px;
   height: 16px;
-  background-color: #EEE;
+  background-color: #DDD;
   border: 2px solid transparent;
 }
 .progress-bar .step.active {
   background-color: #E3B500;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .progress-bar .step.completed {
   background-color: #003366;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .progress-bar .line {
   flex: 1;
   height: 2px;
-  background-color: #EEE;
+  background-color: #DDD;
 }
 .progress-bar .line.completed {
   background-color: #003366;

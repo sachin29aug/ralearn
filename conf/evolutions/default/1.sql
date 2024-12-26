@@ -20,7 +20,7 @@ create table book (
   rating_count                  integer,
   category_id                   bigint,
   author_id                     bigint,
-  gl_book_id                    bigint,
+  gb_book_id                    bigint,
   cpt_book_id                   bigint,
   ol_book_id                    bigint,
   created                       timestamptz not null,
@@ -29,7 +29,7 @@ create table book (
   title                         varchar(255),
   published                     varchar(255),
   gr_url                        varchar(500),
-  constraint uq_book_gl_book_id unique (gl_book_id),
+  constraint uq_book_gb_book_id unique (gb_book_id),
   constraint uq_book_cpt_book_id unique (cpt_book_id),
   constraint uq_book_ol_book_id unique (ol_book_id),
   constraint uq_book_title_author unique (title,author),
@@ -231,7 +231,7 @@ alter table book add constraint fk_book_category_id foreign key (category_id) re
 create index ix_book_author_id on book (author_id);
 alter table book add constraint fk_book_author_id foreign key (author_id) references author (id) on delete restrict on update restrict;
 
-alter table book add constraint fk_book_gl_book_id foreign key (gl_book_id) references gb_book (id) on delete restrict on update restrict;
+alter table book add constraint fk_book_gb_book_id foreign key (gb_book_id) references gb_book (id) on delete restrict on update restrict;
 
 alter table book add constraint fk_book_cpt_book_id foreign key (cpt_book_id) references cpt_book (id) on delete restrict on update restrict;
 
@@ -286,7 +286,7 @@ drop index if exists ix_book_category_id;
 alter table if exists book drop constraint if exists fk_book_author_id;
 drop index if exists ix_book_author_id;
 
-alter table if exists book drop constraint if exists fk_book_gl_book_id;
+alter table if exists book drop constraint if exists fk_book_gb_book_id;
 
 alter table if exists book drop constraint if exists fk_book_cpt_book_id;
 
