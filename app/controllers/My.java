@@ -135,7 +135,7 @@ public class My extends Controller {
         }*/
         List<Book> sameAuthorBooks = sameSubCategoryBooks;
 
-        return ok(views.html.my.book.render(book, userBook, sameAuthorBooks, sameSubCategoryBooks));
+        return ok(views.html.my.book.render(user, book, userBook, sameAuthorBooks, sameSubCategoryBooks));
     }
 
     public Result bookUserRatingPost(Http.Request request, Long bookId) {

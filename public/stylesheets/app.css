@@ -466,6 +466,15 @@ li:before {
   font-size: 14px;
 }
 
+.cta-banner {
+  background: #FFF8E1;
+  border: 1px solid #FFD700;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.cta-banner .btn {
+  background: linear-gradient(135deg, #FFD700, #FFC107);
+}
+
 @media (min-width: 768px) {
   .login-page .container-fluid, .signup-page .container-fluid {
     box-shadow: none;

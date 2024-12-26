@@ -1,4 +1,4 @@
-@(book: models.Book, userBook: UserBook, sameAuthorBooks: List[Book], sameSubCategoryBooks: List[Book])
+@(user: User, book: models.Book, userBook: UserBook, sameAuthorBooks: List[Book], sameSubCategoryBooks: List[Book])
 
 @import org.apache.commons.lang3.BooleanUtils
 @import org.apache.commons.lang3.StringUtils
@@ -69,7 +69,15 @@
                 </div>
                 <div class="fst-italic">@if(cptBook != null){@cptBook.getTeaser()}else{A practical guide to achieving high levels of productivity by cultivating deep focus and eliminating distractions.}</div>
 
+                @if(user == null) {
+                    <div class="cta-banner my-4 px-3 py-4">
+                        <div class="text-center mb-3">Sign up to get personalized recommendations and save your favorite books!</div>
+                        <a href="/signup" class="btn btn-primary">Sign Up</a>
+                    </div>
+                }
+
                 <hr>
+
                 @sp(4)
             </div>
 
@@ -168,5 +176,8 @@
             </div>
         </div>
     }
-    @layout._footerNavBar("home-tab")
+
+    @if(user != null) {
+        @layout._footerNavBar("home-tab")
+    }
 }
