@@ -32,6 +32,13 @@ function hideBSBackDrop() {
     $('body').css('overflow', 'auto');
 }
 
+function isValidEmail(email) {
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+}
+
+// Error Success messages related
+
 function displayErrorMessage(msg) {
     $(".error").text(msg);
     $(".error").show();
@@ -47,7 +54,12 @@ function closeSuccessMessage(msg) {
     $(".success").hide();
 }
 
-function isValidEmail(email) {
-    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailPattern.test(email);
+function displayFieldErrorMessage(fieldErrorElement, msg) {
+    fieldErrorElement.text(msg);
+    fieldErrorElement.show();
+}
+
+function hideFieldErrorMessage(fieldErrorElement) {
+    fieldErrorElement.text("");
+    fieldErrorElement.hide();
 }

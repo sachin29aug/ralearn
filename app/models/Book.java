@@ -25,6 +25,7 @@ public class Book extends BaseModel {
     //  => Data Quality
     //  => CommonUtil.getRequestBodyParam() everywhere
     //  => User find(String id)..should be long
+    //  => Server side input fields sanitization and error handling
     //  => Issues like below where the books were not inserted from the gr feed. e.g. below mystery books were not inserted
     //    => /book/show/58613424-harry-potter-and-the-goblet-of-fire
     //    => /book/show/58613345-harry-potter-and-the-half-blood-prince

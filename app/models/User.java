@@ -28,11 +28,6 @@ public class User extends BaseModel {
     @OrderBy("id")
     public List<UserBook> userBooks;
 
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
-
     public static Finder<Long, User> find = new Finder<>(User.class);
 
     public static User find(String id) {

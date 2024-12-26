@@ -121,6 +121,8 @@ function profileGet() {
 
 function signupLoginPost(subcategoryIds) {
     let requestParams = {
+        firstname: $('#id-signup-firstname').val(),
+        lastname: $('#id-signup-lastname').val(),
         email: $('#id-signup-email').val(),
         password: $('#id-signup-password').val(),
         subcategoryIds: subcategoryIds.join(','),

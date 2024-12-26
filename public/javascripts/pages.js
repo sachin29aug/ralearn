@@ -1,6 +1,8 @@
-// Signup related
+// Signup - related
 
 $(document).ready(function() {
+    // Signup - Categories
+
     var selectedPillCount = 0;
     $(document.body).on("click", ".category-pill", function(e) {
         e.preventDefault();
@@ -22,7 +24,7 @@ $(document).ready(function() {
     $(document.body).on("click", "#categories-page .signup--continue-btn", function(e) {
         e.preventDefault();
         selectedPillCount == 0;
-        $(".signup--continue-btn").addClass("disabled");
+        //$(".signup--continue-btn").addClass("disabled");
         $("#categories-page").hide();
         $("#subcategories-page").show();
         $(".category-pills .category-pill.selected").each(function() {
@@ -36,28 +38,51 @@ $(document).ready(function() {
         $(".signup--continue-btn").addClass("disabled");
         $("#subcategories-page").hide();
         $("#email-password-page").show();
+        $("#id-signup-firstname").focus();
     });
 
+    $(document.body).on("click", "#subcategories-page .signup--back-btn", function(e) {
+        e.preventDefault();
+        //$(".signup--continue-btn").addClass("disabled");
+        $("#subcategories-page").hide();
+        $("#categories-page").show();
+    });
+
+    // Signup - Email password
+
+    var firstNameValidated = false;
     var emailValidated = false;
     var passwordValidated = false;
-    $('#id-signup-email').blur(function () {
-        let email = $(this).val();
-        let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (email === "") {
-            $("#id-signup-email-error").text("Email is required");
-            $("#id-signup-email-error").show();
-            emailValidated = false;
-            $("#id-signup-email-password-continue-btn").addClass("disabled");
-        } else if (!emailPattern.test(email)) {
-            $("#id-signup-email-error").text("Please enter a valid email address");
-            $("#id-signup-email-error").show();
-            emailValidated = false;
+
+    $('#id-signup-firstname').blur(function () {
+        let firstName = $(this).val();
+        if (firstName === "") {
+            firstNameValidated = false;
+            displayFieldErrorMessage($("#id-signup-firstname-error"), "First Name is required");
             $("#id-signup-email-password-continue-btn").addClass("disabled");
         } else {
-         	$("#id-signup-email-error").text("");
-         	$("#id-signup-email-error").hide();
-         	emailValidated = true;
-         	if(passwordValidated) {
+            firstNameValidated = true;
+            hideFieldErrorMessage($("#id-signup-firstname-error"));
+            if(emailValidated && passwordValidated) {
+                $("#id-signup-email-password-continue-btn").removeClass("disabled");
+            }
+        }
+    });
+
+    $('#id-signup-email').blur(function () {
+        let email = $(this).val();
+        if (email === "") {
+            emailValidated = false;
+            displayFieldErrorMessage($("#id-signup-email-error"), "Email is required");
+            $("#id-signup-email-password-continue-btn").addClass("disabled");
+        } else if (!isValidEmail(email)) {
+            emailValidated = false;
+            displayFieldErrorMessage($("#id-signup-email-error"), "Please enter a valid email address");
+            $("#id-signup-email-password-continue-btn").addClass("disabled");
+        } else {
+            emailValidated = true;
+            hideFieldErrorMessage($("#id-signup-email-error"));
+         	if(passwordValidated && firstNameValidated) {
                 $("#id-signup-email-password-continue-btn").removeClass("disabled");
             }
          }
@@ -66,20 +91,17 @@ $(document).ready(function() {
     $('#id-signup-password').blur(function () {
         let password = $(this).val();
         if (password === "") {
-            $("#id-signup-password-error").text("Password is required");
-            $("#id-signup-password-error").show();
             passwordValidated = false;
+            displayFieldErrorMessage($("#id-signup-password-error"), "Password is required");
             $("#id-signup-email-password-continue-btn").addClass("disabled");
         } else if (password.trim().length < 8) {
-            $("#id-signup-password-error").text("Password must be at least 8 characters long");
-            $("#id-signup-password-error").show();
             passwordValidated = false;
+            displayFieldErrorMessage($("#id-signup-password-error"), "Password must be at least 8 characters long");
             $("#id-signup-email-password-continue-btn").addClass("disabled");
         } else {
-            $("#id-signup-password-error").text("");
-            $("#id-signup-password-error").hide();
             passwordValidated = true;
-            if(emailValidated) {
+            hideFieldErrorMessage($("#id-signup-password-error"));
+            if(firstNameValidated && emailValidated) {
                 $("#id-signup-email-password-continue-btn").removeClass("disabled");
             }
         }
@@ -103,6 +125,14 @@ $(document).ready(function() {
         });
         signupLoginPost(subcategoryIds);
     });
+
+    $(document.body).on("click", "#email-password-page .signup--back-btn", function(e) {
+        e.preventDefault();
+        $("#email-password-page").hide();
+        $("#subcategories-page").show();
+    });
+
+    // Signup - Welcome
 
     $(document.body).on("click", "#welcome-page .signup--continue-btn", function(e) {
         e.preventDefault();

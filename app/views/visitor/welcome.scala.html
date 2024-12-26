@@ -10,15 +10,14 @@
         @sp(4)
         <div id="welcome-page" class="welcome-page">
             <div class="d-flex">
-                <i class="fas fa-arrow-left me-4"></i>
                 @_progressBar(4, 4)
             </div>
 
             @sp(4) @sp(4)
 
-            <h2 class="mb-5">Nice to meet you, @user.getEmail()</h2>
-            <p>We’re all set to generate a personalized book feed based on your selections. You can also explore recent suggestions on the next page.</p>
-            <p>Click 'Begin' to start your journey!</p>
+            <h2 class="mb-5">Welcome, @user.getFirstName()! Let’s build your personalized book feed</h2>
+            <p>We're setting up your home feed with today's book recommendations in each category you selected, along with a curated list of books from the past 5 days.</p>
+            <p>Click 'Begin' to start discovering your next great read!</p>
             <div class="fixed-bottom-btn-group">
                 <a class="signup--continue-btn btn btn-primary" href="#">Begin</a>
             </div>

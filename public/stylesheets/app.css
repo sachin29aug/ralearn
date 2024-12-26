@@ -13,6 +13,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   color: inherit;
   font-weight: 600;
+  line-height: 1.5;
   margin-bottom: 1.5rem;
 }
 
@@ -384,7 +385,7 @@ li:before {
 }
 .footer-nav-bar .active .footer-nav-bar--icon, .footer-nav-bar .active .footer-nav-bar--icon-text {
   opacity: unset;
-  color: #D7D319;
+  color: #E3B500;
 }
 @media (min-width: 768px) {
   .footer-nav-bar--item {

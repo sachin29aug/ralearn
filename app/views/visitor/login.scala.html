@@ -16,7 +16,7 @@
 
         <div class="text-start my-4">
             <label for="id-login-email" class="form-label">Email</label>
-            <input type="email" id="id-login-email" maxlength="40" autofocus>
+            <input type="email" id="id-login-email" maxlength="254" autofocus>
         </div>
 
         @sp(2)
@@ -26,7 +26,7 @@
                 <label for="id-login-password" class="form-label d-flex justify-content-between d-block">Password</label>
                 <a class="text-decoration-underline mb-2" href="@routes.Visitor.forgotPassword()">Forgot?</a>
             </div>
-            <input type="password" id="id-login-password">
+            <input type="password" id="id-login-password" maxlength="64">
         </div>
 
         @sp(4) @sp(3)

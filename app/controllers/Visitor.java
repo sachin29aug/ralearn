@@ -32,13 +32,19 @@ public class Visitor extends Controller {
     }
 
     public Result signupLoginPost(Http.Request request) {
-        String email = request.body().asFormUrlEncoded().get("email")[0];
-        String password = request.body().asFormUrlEncoded().get("password")[0];
-        String categoryIds = request.body().asFormUrlEncoded().get("subcategoryIds")[0];
+        String firstname = CommonUtil.getRequestBodyParam(request, "firstname");
+        String lastname = CommonUtil.getRequestBodyParam(request, "lastname");
+        String email = CommonUtil.getRequestBodyParam(request, "email");
+        String password = CommonUtil.getRequestBodyParam(request, "password");
 
-        User user = new User(email, cookieSigner.sign(password));
+        User user = new User();
+        user.setFirstName(firstname);
+        user.setLastName(lastname);
+        user.setEmail(email);
+        user.setPassword(cookieSigner.sign(password));
         user.save();
 
+        String categoryIds = request.body().asFormUrlEncoded().get("subcategoryIds")[0];
         for(String categoryId : categoryIds.split(",")) {
             UserCategory userCategory = new UserCategory(user, Category.find(Long.valueOf(categoryId)));
             userCategory.save();
