@@ -34,7 +34,7 @@ public class Book extends BaseModel {
     //    => /book/show/58613224-harry-potter-and-the-deathly-hallows
 
     // References:
-    // => duolingo, dribble, headspace, spotify, udemy, blinkist
+    // => duolingo, dribble, headspace, spotify, udemy, blinkist, appetize.io
 
     // Publication Year (First published)
     // actionableIdeas (Provides readers with clear actions or methods inspired by the book's content). Delivers hands-on, practical steps for implementation.
