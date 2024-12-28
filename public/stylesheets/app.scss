@@ -19,35 +19,6 @@
     width: fit-content;
 }
 
-.card-1 {
-    background-color: #fffbea;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    color: #3A3A30;
-
-    &:hover {
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    }
-
-    &--category {
-        background-color: #FFD700;
-        color: #3A3A30;
-        border-radius: 5px;
-    }
-
-    &--cover-image {
-        border-radius: 10px;
-        width: 110px;
-        height: auto;
-        //height: 175px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border: 2px solid #FFD700;
-        transition: border-color 0.3s ease;
-        margin-top: -15px;
-        margin-right: -23px;
-    }
-}
-
 .card-2 {
     //background-color: #FAF8BD;
     //background: linear-gradient(135deg, #ffeb99 0%, #ffe066 100%);

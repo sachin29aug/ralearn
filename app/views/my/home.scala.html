@@ -9,7 +9,7 @@
                 <span class="logo--ra">Ra</span>
                 <span class="logo--learn">Learn</span>
             </div>
-            <div class="home--top-section">
+            <div class="home--top-section fs-5">
                 <a id="id-recent-list-btn" href="#">
                     <i class="home--top-section-icon fa-solid fa-clock-rotate-left me-2"></i>
                 </a>
@@ -23,14 +23,16 @@
 
         @_quote(Quote.getRandomQuote())
 
-        <h4 class="text-uppercase mb-3" style="font-weight: 600;">Today's Picks</h4>
+        @sp(4)
+
+        <h4 class="text-uppercase mb-3">Today's Picks</h4>
         <div class="mb-5">
             @for(userBook <- UserBook.findTodayUserBooks(user.id)) {
                 @_card2(userBook)
             }
         </div>
 
-        <h4 class="text-uppercase mb-4" style="font-weight: 600;">Previous Highlights</h4>
+        <h4 class="text-uppercase mb-4">Previous Highlights</h4>
         @for(userCategory <- user.getUserCategories()) {
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <h4>@userCategory.getCategory().getTitle()</h4>

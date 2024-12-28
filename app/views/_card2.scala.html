@@ -2,18 +2,16 @@
 
 @import org.apache.commons.lang3.BooleanUtils
 
-<div class="card-2 px-4 py-4">
+<div class="card-2 p-4">
     @defining(userBook.getBook()) { book =>
         <a class="card-2--content-section cls-book-details-btn" data-book-id="@book.id" href="#">
-            <div class="text-center">
-                <img class="card-2--cover-image mb-5" src="@book.getGbBook().getThumbnailUrl()">
-            </div>
-            <div class="card-2--title mb-1">@book.getTitle(50)</div>
-            <div class="d-flex align-items-center mb-3">
+            <div class="text-center"><img class="card-2--cover-image mb-4" src="@book.getGbBook().getThumbnailUrl()"></div>
+            <div class="card-2--title fs-5 fw-bold mb-2">@book.getTitle(50)</div>
+            <div class="d-flex align-items-center fs-8 mb-3">
                 <div class="card-2--author me-2">@book.getAuthor().getName()</div>
                 @_categoryPillSmall(userBook.getCategory())
             </div>
-            <div class="card-2--summary">@book.getDescription(150)...</div>
+            <div class="card-2--summary fs-7">@book.getDescription(150)...</div>
         </a>
 
         <div class="card-2--icon-buttons d-flex justify-content-between mx-auto mt-4">

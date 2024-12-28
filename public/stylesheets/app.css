@@ -104,11 +104,14 @@ li {
 li:before {
   content: "\f058";
   font-family: "Font Awesome 5 Free";
-  font-weight: 900;
   color: #ffd700;
   margin-right: 15px;
 }
 
+.logo {
+  font-size: 32px;
+  font-weight: 700;
+}
 .logo--ra {
   color: #003366;
 }
@@ -248,7 +251,6 @@ li:before {
 .accordion-plus-minus .accordion-button::before {
   content: "\f068";
   font-family: "Font Awesome 5 Free";
-  font-weight: 900;
   position: absolute;
   right: 16px;
   top: 50%;
@@ -670,31 +672,6 @@ li:before {
   border-radius: 20px;
   padding: 4px 10px;
   width: fit-content;
-}
-
-.card-1 {
-  background-color: #fffbea;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  color: #3A3A30;
-}
-.card-1:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-}
-.card-1--category {
-  background-color: #FFD700;
-  color: #3A3A30;
-  border-radius: 5px;
-}
-.card-1--cover-image {
-  border-radius: 10px;
-  width: 110px;
-  height: auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 2px solid #FFD700;
-  transition: border-color 0.3s ease;
-  margin-top: -15px;
-  margin-right: -23px;
 }
 
 .card-2 {
