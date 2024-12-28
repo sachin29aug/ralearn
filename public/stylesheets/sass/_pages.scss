@@ -54,7 +54,6 @@
         .fa-eye {
             color: #3A3A30;
             opacity: 0.6;
-            font-size: 20px;
         }
     }
 }
@@ -64,13 +63,9 @@
 .home {
     &--top-section {
         margin-top: 8px;
-        &-icon {
-            font-size: 24px;
-        }
     }
 
     &--more-link {
-        font-weight: 700;
         color: #191970;
     }
 }
@@ -92,24 +87,12 @@
         }
 
         &-image {
-            width: 140px;
-            //height: 180px;
+            height: 175px;
             object-fit: cover;
             box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
             border: 4px solid #e0e0e0;
             transition: border-color 0.3s ease;
        }
-    }
-
-    &--details {
-        &-title {
-            font-size: 24px;
-            font-weight: 600;
-        }
-
-        &-author {
-            font-weight: 600;
-        }
     }
 
     &--tabs {
@@ -123,7 +106,6 @@
 
         .nav-pills .nav-link {
             color: #003366;
-            font-weight: 600;
             transition: all 0.3s ease-in-out;
         }
 
@@ -134,13 +116,8 @@
 }
 
 .discover {
-    &--hamburger-icon {
-        font-size: 26px;
-    }
-
     &--search-bar  {
         &-icon {
-            font-size: 25px;
             top: 50%;
             left: 15px;
             transform: translateY(-50%);
@@ -175,12 +152,7 @@
             box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
         }
 
-        &-text {
-            font-size: 18px;
-        }
-
         &-icon {
-            font-size: 20px;
             opacity: 0.8;
         }
     }
@@ -200,7 +172,6 @@
     }
 
     &--success-icon {
-        font-size: 80px;
         text-shadow: -1px -1px 2px rgba(255, 255, 255, 0.4), 2px 2px 4px rgba(0, 0, 0, 0.3);
         //text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         /* background: radial-gradient(circle, #FFD700 20%, #C0A340 50%, #3A3A87 100%);//radial-gradient(circle, #FFD700 30%, #3A3A87 100%);
@@ -223,7 +194,6 @@
         }
 
         &-text {
-            font-size: 12px;
             text-overflow: ellipsis;
             overflow: hidden;
         }
@@ -236,7 +206,6 @@
     }
 
     &--item-categories {
-        font-size: 14px;
         max-width: 210px;
         overflow: hidden;
         display: -webkit-box;
@@ -277,14 +246,11 @@
         }
 
         &--book-title {
-            font-family: 'Merriweather', serif;
-            font-size: 18px;
             color: #333333;
         }
 
         &--author {
             color: #666666;
-            font-size: 16px;
         }
     }
 }
@@ -320,15 +286,12 @@
 }
 
 .menu-title {
-    font-size: 18px;
-    font-weight: bold;
     margin: 0;
 }
 
 .close-btn {
     background: none;
     border: none;
-    font-size: 20px;
     cursor: pointer;
     color: #333;
 }

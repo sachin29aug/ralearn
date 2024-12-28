@@ -6,7 +6,6 @@
 
 .category-pill-small {
     border-radius: 20px;
-    font-size: 11px;
     background: #E1ECF2;
     padding-top: 2px;
     padding-bottom: 2px;
@@ -16,8 +15,6 @@
 .rating-pill {
     background: #FFD700;
     border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
     padding: 4px 10px;
     width: fit-content;
 }
@@ -32,27 +29,10 @@
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     }
 
-    &--title {
-        font-size: 20px;
-        font-weight: 700;
-    }
-
-    &--author {
-        font-size: 14px;
-        font-weight: 400;
-    }
-
     &--category {
         background-color: #FFD700;
         color: #3A3A30;
-        font-size: 12px;
-        font-weight: 500;
         border-radius: 5px;
-    }
-
-    &--summary {
-        font-size: 12px;
-        font-weight: 300;
     }
 
     &--cover-image {
@@ -104,11 +84,6 @@
         transition: border-color 0.3s ease;
     }
 
-    &--title {
-        font-size: 16px;
-        font-weight: 600;
-    }
-
     &--category-icon-circle {
         width: 25px;
         height: 25px;
@@ -116,21 +91,9 @@
         border-radius: 50%;
     }
 
-    &--author {
-        font-size: 12px;
-        font-weight: 400;
-    }
-
     &--category {
         background-color: #FFD700;
-        font-size: 12px;
-        font-weight: 500;
         border-radius: 5px;
-    }
-
-    &--summary {
-        font-size: 12px;
-        font-weight: 400;
     }
 
     &--icon-buttons {
@@ -152,8 +115,6 @@
     }
 
     &--title {
-        font-size: 16px;
-        font-weight: 600;
         max-width: 200px;
         //white-space: normal;
         text-overflow: ellipsis;
@@ -169,27 +130,17 @@
     }
 
     &--category-icon {
-        font-size: 12px;
         transform: translate(-50%, -50%);
         top: 50%;
         left: 50%;
     }
 
-    &--author {
-        font-size: 12px;
-        font-weight: 400;
-    }
-
     &--category {
         background-color: #FFD700;
-        font-size: 12px;
-        font-weight: 500;
         border-radius: 5px;
     }
 
     &--summary {
-        font-size: 12px;
-        font-weight: 400;
         max-width: 200px;
         white-space: normal;
         text-overflow: ellipsis;
@@ -215,22 +166,13 @@
     }
 
     &--title {
-        font-size: 16px;
-        font-weight: 600;
         max-width: 200px;
         text-overflow: ellipsis;
         overflow: hidden;
         min-height: 25px;
     }
 
-    &--author {
-        font-size: 12px;
-        font-weight: 400;
-    }
-
     &--summary {
-        font-size: 12px;
-        font-weight: 400;
         white-space: normal;
         text-overflow: ellipsis;
     }
@@ -257,13 +199,11 @@
     &--author {
         //color: #757165;
         color: #6c757d;
-        font-weight: 600;
     }
 }
 
 .rate-book {
     &--star-icon {
-        font-size: 22px;
         cursor: pointer;
         transition: transform 0.2s ease-in-out;
     }

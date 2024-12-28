@@ -1,20 +1,25 @@
 body {
-  color: #003366;
   font-family: "Merriweather", serif;
-  font-size: 16px;
-  line-height: 1.6;
-  letter-spacing: 0.75px;
-}
-
-.fw-600 {
-  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #003366;
+  margin-bottom: 1rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: inherit;
-  font-weight: 600;
-  line-height: 1.5;
-  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.fs-7 {
+  font-size: 0.875rem;
+}
+
+.fs-8 {
+  font-size: 0.75rem;
+}
+
+.fs-18 {
+  font-size: 1.125rem;
 }
 
 .container-fluid {
@@ -47,17 +52,12 @@ a:hover {
 }
 
 label {
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 18px;
   margin-bottom: 8px;
 }
 
 input, select {
   color: #3A3A30;
   letter-spacing: 0.75px;
-  font-size: 16px;
-  line-height: 20px;
   border: 1px solid rgba(87, 79, 107, 0.25);
   box-shadow: 0px 3px 8px rgba(49, 49, 49, 0.1);
   border-radius: 5px;
@@ -77,17 +77,8 @@ textarea {
   border: 1px solid rgba(87, 79, 107, 0.25) !important;
   box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.08) !important;
   border-radius: 15px !important;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 22.5px;
   padding-left: 26px;
   padding-top: 14px;
-}
-@media (min-width: 768px) {
-  textarea {
-    font-size: 18px;
-    line-height: 27px;
-  }
 }
 textarea::placeholder {
   color: rgb(147, 142, 160);
@@ -115,14 +106,9 @@ li:before {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   color: #ffd700;
-  font-size: 18px;
   margin-right: 15px;
 }
 
-.logo {
-  font-size: 32px;
-  font-weight: 700;
-}
 .logo--ra {
   color: #003366;
 }
@@ -137,9 +123,6 @@ li:before {
   padding-top: 12px;
   padding-bottom: 12px;
   border-radius: 5px;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1.5;
   border: 1px solid transparent;
 }
 
@@ -155,8 +138,6 @@ li:before {
 }
 
 .button, .btn {
-  font-size: 16px;
-  font-weight: 600;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2509803922);
   border-radius: 31.5px;
   border: none;
@@ -258,7 +239,6 @@ li:before {
 
 .accordion-plus-minus .accordion-button {
   position: relative;
-  font-size: 18px;
   color: #003366;
   background: #FFF9DB;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
@@ -319,7 +299,6 @@ li:before {
 
 .circular-icon--circle {
   color: #f7f7f7;
-  font-size: 40px;
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.5);
@@ -330,7 +309,6 @@ li:before {
 }
 .circular-icon--icon {
   color: #003366;
-  font-size: 22px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -339,7 +317,6 @@ li:before {
 
 .icon-label {
   display: block;
-  font-size: 0.75rem;
   color: #003366;
   text-align: center;
   margin-top: 5px;
@@ -364,7 +341,6 @@ li:before {
   opacity: 0.6;
 }
 .footer-nav-bar--icon {
-  font-size: 22px;
   margin-bottom: 6px;
 }
 @media (min-width: 768px) {
@@ -373,15 +349,7 @@ li:before {
   }
 }
 .footer-nav-bar--icon-text {
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 14px;
   display: block;
-}
-@media (min-width: 768px) {
-  .footer-nav-bar--icon-text {
-    font-size: 14px;
-  }
 }
 .footer-nav-bar .active .footer-nav-bar--icon, .footer-nav-bar .active .footer-nav-bar--icon-text {
   opacity: unset;
@@ -462,9 +430,6 @@ li:before {
 .more-options-modal .modal-content {
   border-radius: 35px 35px 0px 0px;
 }
-.more-options-modal a, .more-options-modal i {
-  font-size: 14px;
-}
 
 .cta-banner {
   background: #FFF8E1;
@@ -512,17 +477,12 @@ li:before {
 .signup .email-password-page .fa-eye {
   color: #3A3A30;
   opacity: 0.6;
-  font-size: 20px;
 }
 
 .home--top-section {
   margin-top: 8px;
 }
-.home--top-section-icon {
-  font-size: 24px;
-}
 .home--more-link {
-  font-weight: 700;
   color: #191970;
 }
 
@@ -542,18 +502,11 @@ li:before {
   }
 }
 .book--cover-section-image {
-  width: 140px;
+  height: 175px;
   object-fit: cover;
   box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
   border: 4px solid #e0e0e0;
   transition: border-color 0.3s ease;
-}
-.book--details-title {
-  font-size: 24px;
-  font-weight: 600;
-}
-.book--details-author {
-  font-weight: 600;
 }
 .book--tabs .nav {
   margin-bottom: 36px;
@@ -563,18 +516,13 @@ li:before {
 }
 .book--tabs .nav-pills .nav-link {
   color: #003366;
-  font-weight: 600;
   transition: all 0.3s ease-in-out;
 }
 .book--tabs .nav-pills .nav-link.active {
   background: linear-gradient(135deg, #fff5cc 0%, #ffeb99 100%);
 }
 
-.discover--hamburger-icon {
-  font-size: 26px;
-}
 .discover--search-bar-icon {
-  font-size: 25px;
   top: 50%;
   left: 15px;
   transform: translateY(-50%);
@@ -603,11 +551,7 @@ li:before {
   transform: scale(0.98);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
 }
-.discover--category-block-text, .discover--preferred-subcategory-block-text {
-  font-size: 18px;
-}
 .discover--category-block-icon, .discover--preferred-subcategory-block-icon {
-  font-size: 20px;
   opacity: 0.8;
 }
 .discover--category-block {
@@ -621,7 +565,6 @@ li:before {
   margin-top: 80px;
 }
 .feedback--success-icon {
-  font-size: 80px;
   text-shadow: -1px -1px 2px rgba(255, 255, 255, 0.4), 2px 2px 4px rgba(0, 0, 0, 0.3);
   /* background: radial-gradient(circle, #FFD700 20%, #C0A340 50%, #3A3A87 100%);//radial-gradient(circle, #FFD700 30%, #3A3A87 100%);
   -webkit-background-clip: text;
@@ -639,7 +582,6 @@ li:before {
   background: linear-gradient(135deg, #fff9e6 0%, #ffe6b3 100%);
 }
 .discover-results--subcategory-block-text {
-  font-size: 12px;
   text-overflow: ellipsis;
   overflow: hidden;
 }
@@ -648,7 +590,6 @@ li:before {
   color: #4169E1;
 }
 .profile--item-categories {
-  font-size: 14px;
   max-width: 210px;
   overflow: hidden;
   display: -webkit-box;
@@ -678,13 +619,10 @@ li:before {
   transition: border-color 0.3s ease;
 }
 .home-section-1--book-title {
-  font-family: "Merriweather", serif;
-  font-size: 18px;
   color: #333333;
 }
 .home-section-1--author {
   color: #666666;
-  font-size: 16px;
 }
 
 .side-menu {
@@ -709,22 +647,18 @@ li:before {
 }
 
 .menu-title {
-  font-size: 18px;
-  font-weight: bold;
   margin: 0;
 }
 
 .close-btn {
   background: none;
   border: none;
-  font-size: 20px;
   cursor: pointer;
   color: #333;
 }
 
 .category-pill-small {
   border-radius: 20px;
-  font-size: 11px;
   background: #E1ECF2;
   padding-top: 2px;
   padding-bottom: 2px;
@@ -734,8 +668,6 @@ li:before {
 .rating-pill {
   background: #FFD700;
   border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
   padding: 4px 10px;
   width: fit-content;
 }
@@ -749,24 +681,10 @@ li:before {
 .card-1:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
-.card-1--title {
-  font-size: 20px;
-  font-weight: 700;
-}
-.card-1--author {
-  font-size: 14px;
-  font-weight: 400;
-}
 .card-1--category {
   background-color: #FFD700;
   color: #3A3A30;
-  font-size: 12px;
-  font-weight: 500;
   border-radius: 5px;
-}
-.card-1--summary {
-  font-size: 12px;
-  font-weight: 300;
 }
 .card-1--cover-image {
   border-radius: 10px;
@@ -800,29 +718,15 @@ li:before {
   border: 4px solid #e0e0e0;
   transition: border-color 0.3s ease;
 }
-.card-2--title {
-  font-size: 16px;
-  font-weight: 600;
-}
 .card-2--category-icon-circle {
   width: 25px;
   height: 25px;
   border: 1px solid #003366;
   border-radius: 50%;
 }
-.card-2--author {
-  font-size: 12px;
-  font-weight: 400;
-}
 .card-2--category {
   background-color: #FFD700;
-  font-size: 12px;
-  font-weight: 500;
   border-radius: 5px;
-}
-.card-2--summary {
-  font-size: 12px;
-  font-weight: 400;
 }
 .card-2--icon-buttons {
   width: 85%;
@@ -839,8 +743,6 @@ li:before {
   border: 4px solid #003366;
 }
 .card-3--title {
-  font-size: 16px;
-  font-weight: 600;
   max-width: 200px;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -853,24 +755,15 @@ li:before {
   border-radius: 50%;
 }
 .card-3--category-icon {
-  font-size: 12px;
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
 }
-.card-3--author {
-  font-size: 12px;
-  font-weight: 400;
-}
 .card-3--category {
   background-color: #FFD700;
-  font-size: 12px;
-  font-weight: 500;
   border-radius: 5px;
 }
 .card-3--summary {
-  font-size: 12px;
-  font-weight: 400;
   max-width: 200px;
   white-space: normal;
   text-overflow: ellipsis;
@@ -890,20 +783,12 @@ li:before {
   border: 4px solid #003366;
 }
 .card-4--title {
-  font-size: 16px;
-  font-weight: 600;
   max-width: 200px;
   text-overflow: ellipsis;
   overflow: hidden;
   min-height: 25px;
 }
-.card-4--author {
-  font-size: 12px;
-  font-weight: 400;
-}
 .card-4--summary {
-  font-size: 12px;
-  font-weight: 400;
   white-space: normal;
   text-overflow: ellipsis;
 }
@@ -921,11 +806,9 @@ li:before {
 }
 .quote--author {
   color: #6c757d;
-  font-weight: 600;
 }
 
 .rate-book--star-icon {
-  font-size: 22px;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
 }

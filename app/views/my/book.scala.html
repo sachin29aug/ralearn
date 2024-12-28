@@ -103,7 +103,7 @@
                         **@
 
                         <div class="mb-4">
-                            <h4 class="fw-600 mb-3">Notable Quotes</h4>
+                            <h4 class="fw-semibold mb-3">Notable Quotes</h4>
                             @defining(book.getBookQuotes()) { bookQuotes =>
                                 @if(!CollectionUtils.isEmpty(bookQuotes)) {
                                     @for(bookQuote <- bookQuotes) {
@@ -119,7 +119,7 @@
 
                         @sp(4)
 
-                        <h4 class="fw-600 mb-3">Related Books</h4>
+                        <h4 class="fw-semibold mb-3">Related Books</h4>
                         <div class="scrollable-cards-x">
                             @for(book <- sameSubCategoryBooks) {
                             <div class="scrollable-card-x">
@@ -129,11 +129,11 @@
                         </div>
                     </div>
                     <div class="tab-pane container fade" id="author">
-                        <h4 class="fw-600 mb-3">About the Author</h4>
+                        <h4 class="fw-semibold mb-3">About the Author</h4>
                         <p>@if(book.getCptBook() != null){@book.getAuthor().getBio()}else{Cal Newport is a computer science professor and writer known for his expertise in productivity and digital minimalism.}</p>
 
                         <div class="mb-4">
-                            <h4 class="fw-600 mb-3">Quotes by @book.getAuthor().getName()</h4>
+                            <h4 class="fw-semibold mb-3">Quotes by @book.getAuthor().getName()</h4>
                             @defining(book.getAuthorQuotes()) { authorQuotes =>
                                 @if(!CollectionUtils.isEmpty(authorQuotes)) {
                                     @for(authorQuote <- authorQuotes) {
@@ -144,7 +144,7 @@
                         </div>
 
                         @sp(5)
-                        <h4 class="fw-600 mb-3">Other works by @book.getAuthor().getName()</h4>
+                        <h4 class="fw-semibold mb-3">Other works by @book.getAuthor().getName()</h4>
                         <div class="scrollable-cards-x">
                             @for(book <- sameAuthorBooks) {
                             <div class="scrollable-card-x">
