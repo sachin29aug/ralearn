@@ -70,10 +70,6 @@ public class Book extends BaseModel {
     @JoinColumn(name = "cpt_book_id")
     private CPTBook cptBook;
 
-    @OneToOne
-    @JoinColumn(name = "ol_book_id")
-    private OLBook olBook;
-
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookCategory> bookCategories;
 
@@ -259,14 +255,6 @@ public class Book extends BaseModel {
 
     public void setGbBook(GBBook gbBook) {
         this.gbBook = gbBook;
-    }
-
-    public OLBook getOlBook() {
-        return olBook;
-    }
-
-    public void setOlBook(OLBook olBook) {
-        this.olBook = olBook;
     }
 
     public List<BookCategory> getBookCategories() {

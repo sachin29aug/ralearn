@@ -19,13 +19,6 @@ public class BaseModel extends Model {
    @WhenModified
    public Date updated;
 
-   /*@PrePersist
-   public void prePersist() throws IllegalAccessException {
-      created = new Date();
-   }*/
-
-   // Other
-
    public void saveOrUpdate() {
       if(id == null) {
          save();

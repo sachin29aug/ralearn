@@ -30,8 +30,6 @@ POST    /book/search                                        controllers.My.bookS
 GET     /import/books/gr/4agf9t                             controllers.SystemAdmin.importBooksGR
 GET     /import/book/gb/4agf9t/:bookId                      controllers.SystemAdmin.importBookGB(bookId: Long)
 GET     /import/books/gb/4agf9t:count                       controllers.SystemAdmin.importBooksGB(count: Long)
-GET     /import/books/ol/4agf9t/:count                      controllers.SystemAdmin.importBooksOL(count: Long)
-GET     /import/authors/ol/4agf9t                           controllers.SystemAdmin.importAuthorsOL()
 GET     /import/quotes/kaggle/4agf9t                        controllers.SystemAdmin.importQuotesKaggle()
 GET     /import/quotes/gr/4agf9t                            controllers.SystemAdmin.importQuotesGR()
 GET     /import/books/cpt/4agf9t                            controllers.SystemAdmin.importBooksCPT()

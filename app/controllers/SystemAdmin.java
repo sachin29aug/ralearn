@@ -7,8 +7,6 @@ import io.ebean.Transaction;
 import jakarta.persistence.PersistenceException;
 import models.*;
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -153,124 +151,6 @@ public class SystemAdmin extends Controller {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        return ok("Done");
-    }
-
-    public Result importBooksOL(Long count) {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("C:\\basedir\\env\\open-library\\ol_dump_works_2024-09-30\\ol_dump_works_2024-09-30.txt"));
-            String line;
-            int index = 0;
-            Set<String> bookTitlesSet = new HashSet<>();
-            for(Book book : Book.find.all()) {
-                bookTitlesSet.add(book.getTitle());
-                System.out.println("Book titles set populated");
-            }
-
-            while ((line = reader.readLine()) != null) {
-                index++;
-                if(index == count) {
-                    reader.close();
-                    break;
-                }
-                System.out.println("Index: " + index);
-                String[] parts = line.split("\t", 5);
-                if (parts.length < 5) continue;
-                String jsonData = parts[4];
-                JSONObject record = new JSONObject(jsonData);
-                String title = record.optString("title", null);
-                if (StringUtils.isBlank(title)) {
-                    continue;
-                } else {
-                    title = title.trim();
-                    if(!bookTitlesSet.contains(title)) {
-                        continue;
-                    }
-                }
-
-                Book book = Book.findByTitle(title);
-
-                System.out.printf("Processed: " + index);
-
-                String workKey = record.optString("key", null);
-                String description = record.optJSONObject("description") != null ? record.getJSONObject("description").optString("value", null) : null;
-                JSONArray covers = record.optJSONArray("covers");
-                String coverId = covers != null && covers.length() > 0 ? String.valueOf(covers.getInt(0)) : null;
-                JSONArray authors = record.optJSONArray("authors");
-                String authorKey = null;
-                if (authors != null && authors.length() > 0) {
-                    JSONObject authorObject = authors.getJSONObject(0).optJSONObject("author");
-                    if (authorObject != null) {
-                        authorKey = authorObject.optString("key", null);
-                    }
-                }
-
-                OLBook olBook = new OLBook();
-                olBook.setWorkKey(workKey);
-                olBook.setTitle(title);
-                olBook.setCoverId(coverId);
-                olBook.setDescription(description);
-                olBook.setAuthorKey(authorKey);
-                olBook.save();
-                book.setOlBook(olBook);
-                book.update();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ok("Done");
-    }
-
-    public Result importAuthorsOL() {
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader("C:\\basedir\\env\\open-library\\ol_dump_authors_2024-09-30\\ol_dump_authors_2024-09-30.txt")); // This has 13652489 records and populates 28534 records in the ol_author table with bios
-            String line;
-            int index = 0;
-            while ((line = reader.readLine()) != null) {
-                //System.out.println(line);
-                index++;
-                System.out.println(index);
-
-                String[] parts = line.split("\t");
-                if (parts.length >= 5) {
-                    String jsonPart = parts[4].trim();
-                    JSONObject jsonObject = new JSONObject(jsonPart);
-
-                    String bio = null;
-                    JSONObject bioObject = jsonObject.optJSONObject("bio");
-                    if (bioObject != null) {
-                        bio = bioObject.optString("value");
-                    }
-                    if (StringUtils.isNotBlank(bio)) {
-                        String key = jsonObject.optString("key");
-                        String name = jsonObject.optString("name");
-                        String photoId = null;
-                        if (jsonObject.has("photos")) {
-                            JSONArray photos = jsonObject.getJSONArray("photos");
-                            if (photos.length() > 0) {
-                                photoId = "" + photos.getInt(0);
-                            }
-                        }
-
-                        OLAuthor olAuthor = new OLAuthor();
-                        olAuthor.setAuthorKey(key);
-                        olAuthor.setName(name);
-                        olAuthor.setBio(bio);
-                        olAuthor.setPhotoId(photoId);
-                        olAuthor.save();
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                reader.close();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
         }
         return ok("Done");
     }
