@@ -1,0 +1,53 @@
+# Backlog
+    Add below books to Ralearn account
+        Schopenhauer
+        https://www.goodreads.com//book/show/10075698-built-to-sell
+        https://www.goodreads.com//book/show/324750.High_Output_Management
+        https://www.goodreads.com//book/show/18528093-capitalisms
+        https://www.goodreads.com//book/show/2477223.Managing_Oneself
+        https://www.goodreads.com//book/show/3873.A_History_of_God
+        https://www.goodreads.com//book/show/30780006-the-things-you-can-see-only-when-you-slow-down
+
+# Typography
+    Card
+        title
+            font-size: 1rem;
+        author
+            font-size: .875rem;
+            font-weight: 500;
+        desc
+            font-size: .875rem;
+        category pill
+            font-size: .875rem;
+    Book details
+        Title
+            font-size: 1.5rem;
+            font-weight: 700;
+        Author
+            font-size: 1rem;
+            font-weight: 700;
+        Headline
+            font-size: 1rem;
+    Buttons
+        font-size: 1rem;
+        height: 24px
+        padding-x: 16
+        padding-y: 12
+
+# Landing page
+    Landing page: Universe seding you learning bytes.. random is universal.., Discover something nice every day whether it's a quick summary of a book, or purchasing that book you wouldn't have identified otherwise
+
+# Category names
+    Personal Development (Inspiration & Personal Growth -> [Motivation & Inspiration, Religion & Spirituality]), (Career & Business -> [Productivity, Education, Career & Success, Corporate Culture]
+    Mind & Spirit (Health & Meditation -> [Mindfullness & Happiness, Health & Nutrition])
+    Business & Economics (Money & Economics -> [Money & Investments]), (Career & Business -> [Management & Leadership, Marketing & Sales])
+    Family & Lifestyle (Relationship & Family -> [Psychology, Communication Skills])
+    Science & Environment (Science & Technology -> [Technology & the future, Nature & the environment])
+    Arts & Humanities (Culture & Humanity -> [Society & Culture, Philosophy, Biography & Memoir, Religion & Spirituality])
+
+# Database dump
+    DUMP from Local DB
+    	C:\"Program Files"\PostgreSQL\16\bin\pg_dump -U postgres -h localhost -p 5434 --clean -Fc ralearn > C:\basedir\temp\dump\ralearn-{Date}-{Mon}-2025.dump
+
+    Restore to Prod DB
+    	C:\"Program Files"\PostgreSQL\16\bin\pg_restore --verbose --clean --no-acl --no-owner -h c9uss87s9bdb8n.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com -p 5432 -U ueqecavpjmt8qv -d d4pekb20o2s1v1 C:\basedir\temp\dump\ralearn-18-JAN-2025.dump
