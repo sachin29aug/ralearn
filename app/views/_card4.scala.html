@@ -19,7 +19,7 @@
         @if(BooleanUtils.isTrue(showActionButtons)) {
             <div class="card-4--action-buttons d-flex justify-content-center align-items-center mt-3">
                 <a id="id-element-book-@book.id" class="cls-favorite-btn" data-book-id="@book.id" href="#">
-                    @if(userBook.getFavorited() != null) {
+                    @if(userBook != null && userBook.getFavorited() != null) {
                         <i class="fa-solid fa-heart mx-3"></i>
                     } else {
                         <i class="fa-regular fa-heart mx-3"></i>
