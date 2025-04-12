@@ -3,7 +3,6 @@ package controllers;
 import io.ebean.DB;
 import io.ebean.Transaction;
 import models.*;
-import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 import play.mvc.Controller;
@@ -41,10 +40,11 @@ public class My extends Controller {
         Category category = Category.find.byId(categoryId);
         List<UserBook> userBooks = new ArrayList<>();
         for(int i = 1; i <= 5; i++) {
+            // Todo: we should not use model object for this display requirement
             if(category.getParent() == null) {
-                userBooks.add(new UserBook(user, Book.getRandomBookByCategory(category.getId(), null), category));
+                userBooks.add(new UserBook(user, Book.getRandomBookByCategory(category.getId(), null), category, null));
             } else {
-                userBooks.add(new UserBook(user, Book.getRandomBookByCategory(null, category.getId()), category));
+                userBooks.add(new UserBook(user, Book.getRandomBookByCategory(null, category.getId()), category, null));
             }
         }
         return ok(views.html.my.discoverResults.render(category, userBooks));
@@ -82,10 +82,10 @@ public class My extends Controller {
     public Result favoritePost(Http.Request request, Long bookId) {
         User user = CommonUtil.getUser(request);
         UserBook userBook = UserBook.findByUserAndBookId(user.id, bookId);
-        if(BooleanUtils.isNotTrue(userBook.favorite)) {
-            userBook.setFavorite(true);
+        if(userBook.favorited == null) {
+            userBook.setFavorited(new Date());
         } else {
-            userBook.setFavorite(false);
+            userBook.setFavorited(null);
         }
         userBook.update();
         return ok(views.html.my.home.render(user));
@@ -116,16 +116,17 @@ public class My extends Controller {
 
     public Result book(Http.Request request, Long id) {
         User user = CommonUtil.getUser(request);
+        Book book = Book.find.byId(id);
         UserBook userBook = null;
         if(user != null) {
             userBook = UserBook.findByUserAndBookId(user.id, id);
-            if (userBook != null) {
-                userBook.setLastAccessed(new Date());
-                userBook.update();
+            if (userBook == null) {
+                userBook = new UserBook(user, book, book.getCategory(), null);
             }
+            userBook.setAccessed(new Date());
+            userBook.saveOrUpdate();
         }
 
-        Book book = Book.find.byId(id);
         List<Book> sameSubCategoryBooks = new ArrayList<>();
         sameSubCategoryBooks.add(book);
         sameSubCategoryBooks.add(book);

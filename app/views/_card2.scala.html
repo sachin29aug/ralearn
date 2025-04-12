@@ -18,7 +18,7 @@
             <a id="id-card2-shuffle-btn" data-user-book-id="@userBook.id" href="#">@_circularIcon("fas fa-random")</a>
             <a class="cls-share-btn" data-share-url="@routes.My.book(book.id)" data-share-title="@book.getTitle(50)" href="#">@_circularIcon("fa-solid fa-arrow-up-from-bracket")</a>
             <a id="id-element-book-@book.id" class="cls-favorite-btn" data-book-id="@book.id" href="#">
-                @if(BooleanUtils.isTrue(userBook.getFavorite())) {
+                @if(userBook.getFavorited() != null) {
                     @_circularIcon("fa-solid fa-heart")
                 } else {
                     @_circularIcon("fa-regular fa-heart")

@@ -157,10 +157,12 @@ create table user_book (
   book_id                       bigint,
   category_id                   bigint,
   assigned                      timestamptz,
-  last_accessed                 timestamptz,
-  favorite                      boolean,
+  favorited                     timestamptz,
+  accessed                      timestamptz,
   created                       timestamptz not null,
   updated                       timestamptz not null,
+  assignment_type               varchar(6),
+  constraint ck_user_book_assignment_type check ( assignment_type in ('SYSTEM','MANUAL')),
   constraint pk_user_book primary key (id)
 );
 

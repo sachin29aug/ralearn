@@ -2,16 +2,22 @@ package models;
 
 import io.ebean.Finder;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.ManyToOne;
 import utils.CommonUtil;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
 public class UserBook extends BaseModel {
+    public enum AssignmentType {
+        SYSTEM,
+        MANUAL;
+    }
+
     @ManyToOne
     public User user;
 
@@ -21,23 +27,31 @@ public class UserBook extends BaseModel {
     @ManyToOne
     private Category category;
 
+    @Enumerated(EnumType.STRING)
+    private AssignmentType assignmentType;
+
     public Date assigned;
 
-    public Date lastAccessed;
+    public Date favorited;
 
-    public Boolean favorite;
+    public Date accessed;
 
-    public UserBook(User user, Book book, Category category) {
+    public UserBook(User user, Book book, Category category, AssignmentType assignmentType) {
         this.user = user;
         this.book = book;
         this.category = category;
-        assigned = CommonUtil.removeTimeStamp(new Date());
+        this.assignmentType  = assignmentType;
+        if(assignmentType != null) {
+            this.assigned = new Date();
+        }
     }
 
     public static Finder<Long, UserBook> find = new Finder<>(UserBook.class);
 
     public static List<UserBook> findTodayUserBooks(Long userId) {
-        return find.query().where().eq("assigned", CommonUtil.removeTimeStamp(new Date())).eq("user.id", userId).orderBy("id desc").findList();
+        Date today = CommonUtil.removeTimeStamp(new Date());
+        Date tomorrow = CommonUtil.incrementDateByDays(today, 1);
+        return find.query().where().ge("assigned", today).lt("assigned", tomorrow).eq("user.id", userId).orderBy("id desc").findList();
     }
 
     public static List<UserBook> findUserBooksByCategory(Long userId, Long categoryId) {
@@ -53,11 +67,11 @@ public class UserBook extends BaseModel {
     }
 
     public static List<UserBook> findFavoriteUserBooks(Long userId) {
-        return find.query().where().eq("user.id", userId).eq("favorite", true).orderBy("id desc").findList();
+        return find.query().where().eq("user.id", userId).isNotNull("favorited").orderBy("id desc").findList();
     }
 
     public static List<UserBook> findRecentlyAccessedBooks(Long userId) {
-        return find.query().where().eq("user.id", userId).isNotNull("lastAccessed").orderBy("lastAccessed desc").findList();
+        return find.query().where().eq("user.id", userId).isNotNull("accessed").orderBy("accessed desc").findList();
     }
 
     public static Date findMaxAssignedDate(Long userId) {
@@ -75,7 +89,7 @@ public class UserBook extends BaseModel {
         if(today) {
             for(Category category : categories) {
                 Book randomBook = Book.getRandomBookByCategory(null, category.getId());
-                UserBook userBook = new UserBook(user, randomBook, category);
+                UserBook userBook = new UserBook(user, randomBook, category, AssignmentType.SYSTEM);
                 userBook.save();
             }
         }
@@ -84,7 +98,7 @@ public class UserBook extends BaseModel {
             for (int i = 5; i >= 1; i--) {
                 for(Category category : categories) {
                     Book randomBook = Book.getRandomBookByCategory(null, category.getId());
-                    UserBook userBook = new UserBook(user, randomBook, category);
+                    UserBook userBook = new UserBook(user, randomBook, category, AssignmentType.SYSTEM);
                     userBook.assigned = CommonUtil.incrementDateByDays(new Date(), -i);
                     userBook.save();
                 }
@@ -110,14 +124,6 @@ public class UserBook extends BaseModel {
         this.category = category;
     }
 
-    public Boolean getFavorite() {
-        return favorite;
-    }
-
-    public void setFavorite(Boolean favorite) {
-        this.favorite = favorite;
-    }
-
     public User getUser() {
         return user;
     }
@@ -126,11 +132,35 @@ public class UserBook extends BaseModel {
         this.user = user;
     }
 
-    public Date getLastAccessed() {
-        return lastAccessed;
+    public AssignmentType getAssignmentType() {
+        return assignmentType;
     }
 
-    public void setLastAccessed(Date lastAccessed) {
-        this.lastAccessed = lastAccessed;
+    public void setAssignmentType(AssignmentType assignmentType) {
+        this.assignmentType = assignmentType;
+    }
+
+    public Date getAssigned() {
+        return assigned;
+    }
+
+    public void setAssigned(Date assigned) {
+        this.assigned = assigned;
+    }
+
+    public Date getFavorited() {
+        return favorited;
+    }
+
+    public void setFavorited(Date favorited) {
+        this.favorited = favorited;
+    }
+
+    public Date getAccessed() {
+        return accessed;
+    }
+
+    public void setAccessed(Date accessed) {
+        this.accessed = accessed;
     }
 }

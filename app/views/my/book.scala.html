@@ -34,7 +34,7 @@
                 <div class="d-flex">
                     @if(userBook != null) {
                         <a id="id-element-book-@book.id" class="cls-favorite-btn me-3" data-book-id="@book.id" href="#">
-                            @if(BooleanUtils.isTrue(userBook.getFavorite())) {
+                            @if(userBook.getFavorited() != null) {
                                 @_circularIcon("fa-solid fa-heart")
                             } else {
                                 @_circularIcon("fa-regular fa-heart")
