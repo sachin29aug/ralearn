@@ -91,6 +91,15 @@ public class My extends Controller {
         return ok(views.html.my.home.render(user));
     }
 
+    public Result deletePost(Http.Request request, Long bookId) {
+        User user = CommonUtil.getUser(request);
+        UserBook userBook = UserBook.findByUserAndBookId(user.id, bookId);
+        if(userBook != null) {
+            userBook.delete();
+        }
+        return ok(views.html.my.home.render(user));
+    }
+
     public Result list(Http.Request request, String listName) {
         List<UserBook> userBooks;
         User user = CommonUtil.getUser(request);

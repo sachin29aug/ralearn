@@ -67,7 +67,7 @@ public class UserBook extends BaseModel {
     }
 
     public static List<UserBook> findFavoriteUserBooks(Long userId) {
-        return find.query().where().eq("user.id", userId).isNotNull("favorited").orderBy("id desc").findList();
+        return find.query().where().eq("user.id", userId).isNotNull("favorited").orderBy("favorited desc").findList();
     }
 
     public static List<UserBook> findRecentlyAccessedBooks(Long userId) {

@@ -211,6 +211,19 @@ function favoritePost(targetElementId, bookId) {
     });
 }
 
+function deletePost(bookId, targetElementId) {
+    $.ajax({
+        url: '/delete/' + bookId,
+        type : 'POST',
+        success: function(response) {
+            replaceHtml(targetElementId, response, null, null);
+        },
+        error: function(response, error) {
+
+        }
+    });
+}
+
 function feedbackPost(feedbackText) {
     $.ajax({
         url: '/feedback',

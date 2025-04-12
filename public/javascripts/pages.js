@@ -195,7 +195,7 @@ $(document).ready(function() {
     });
 });
 
-// Home page related
+// Home page and Book operation related
 
 $(document).ready(function() {
     $(document.body).on("click", "#id-card2-shuffle-btn", function(e) {
@@ -206,6 +206,11 @@ $(document).ready(function() {
     $(document.body).on("click", ".cls-favorite-btn", function(e) {
         e.preventDefault();
         favoritePost($(this).attr("id"), $(this).data("book-id"));
+    });
+
+    $(document.body).on("click", ".cls-delete-btn", function(e) {
+        e.preventDefault();
+        deletePost($(this).data("book-id"), $(this).data("target-element-id"));
     });
 
     // Consider moving this to a generic class later

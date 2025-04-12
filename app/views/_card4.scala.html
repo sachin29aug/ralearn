@@ -1,28 +1,42 @@
-@(book: models.Book, showDescription: Boolean = true, showActionButtons: Boolean = true)
+@(book: Book, userBook: UserBook, showDescription: Boolean = true, showActionButtons: Boolean = true)
 
 @import org.apache.commons.lang3.BooleanUtils
 
-<div class="card-4">
-    <a class="cls-book-details-btn" data-book-id="@book.id">
-        <div class="d-flex">
-            <img class="card-4--cover-image me-4 mb-2" src="@if(book.getGbBook() !=null){@book.getGbBook().getThumbnailUrl()}">
-            <div>
-                <div class="card-4--title">@book.getTitle(50)</div>
-                <div class="card-4--author mb-2">@book.getAuthor().getName()</div>
-                @if(BooleanUtils.isTrue(showDescription)) {
-                    <div class="card-4--summary">@book.getDescription(100)...</div>
-                }
+<div id="target-element-id-card4-@book.id">
+    <div class="card-4">
+        <a class="cls-book-details-btn" data-book-id="@book.id">
+            <div class="d-flex">
+                <img class="card-4--cover-image me-4 mb-2" src="@if(book.getGbBook() !=null){@book.getGbBook().getThumbnailUrl()}">
+                <div>
+                    <div class="card-4--title">@book.getTitle(50)</div>
+                    <div class="card-4--author mb-2">@book.getAuthor().getName()</div>
+                    @if(BooleanUtils.isTrue(showDescription)) {
+                        <div class="card-4--summary">@book.getDescription(100)...</div>
+                    }
+                </div>
             </div>
-        </div>
-    </a>
-    @if(BooleanUtils.isTrue(showActionButtons)) {
-        <div class="card-4--action-buttons d-flex justify-content-center align-items-center mt-3">
-            <i class="fa-regular fa-heart mx-3"></i>
-            <i class="fa-solid fa-arrow-up-from-bracket mx-3"></i>
-            <i class="fa-solid fa-trash mx-3"></i>
-            <i class="fa-solid fa-ellipsis mx-3"></i>
-            <i class="fa-solid fa-book mx-3"></i>
-        </div>
-    }
-    <hr class="my-4">
+        </a>
+        @if(BooleanUtils.isTrue(showActionButtons)) {
+            <div class="card-4--action-buttons d-flex justify-content-center align-items-center mt-3">
+                <a id="id-element-book-@book.id" class="cls-favorite-btn" data-book-id="@book.id" href="#">
+                    @if(userBook.getFavorited() != null) {
+                        <i class="fa-solid fa-heart mx-3"></i>
+                    } else {
+                        <i class="fa-regular fa-heart mx-3"></i>
+                    }
+                </a>
+                <a class="cls-share-btn" data-share-url="@routes.My.book(book.id)" data-share-title="@book.getTitle(50)" href="#">
+                    <i class="fa-solid fa-arrow-up-from-bracket mx-3"></i>
+                </a>
+                <a class="cls-delete-btn" data-book-id="@book.id" data-target-element-id="target-element-id-card4-@book.id" href="#">
+                    <i class="fa-solid fa-trash mx-3"></i>
+                </a>
+                <a class="cls-more-options-modal-btn" data-good-reads-url="@book.getGrAbsoluteUrl()" data-amazon-url="@book.getAmazonUrl()" data-google-books-preview-url="@book.getGbBook().getPreviewLink()" data-youtube-url="@book.getYoutubeUrl()" href="#">
+                    <i class="fa-solid fa-ellipsis mx-3"></i>
+                </a>
+                <i class="fa-solid fa-book mx-3"></i>
+            </div>
+        }
+        <hr class="my-4">
+    </div>
 </div>
