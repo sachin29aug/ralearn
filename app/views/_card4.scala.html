@@ -8,10 +8,10 @@
             <div class="d-flex">
                 <img class="card-4--cover-image me-4 mb-2" src="@if(book.getGbBook() !=null){@book.getGbBook().getThumbnailUrl()}">
                 <div>
-                    <div class="card-4--title fs-6">@book.getTitle(50)</div>
+                    <div class="card-4--title fs-6 fw-bold mb-1">@book.getTitle(50)</div>
                     <div class="card-4--author fs-7 mb-2">@book.getAuthor().getName()</div>
                     @if(BooleanUtils.isTrue(showDescription)) {
-                        <div class="card-4--summary fs-7">@book.getDescription(100)...</div>
+                        <div class="card-4--summary fs-7">@book.getDescription(65)...</div>
                     }
                 </div>
             </div>

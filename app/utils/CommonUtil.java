@@ -20,7 +20,7 @@ public class CommonUtil {
     }
 
     public static String getVersionedUrl(String url) {
-        return url + "?v=52";
+        return url + "?v=53";
     }
 
     // Request related

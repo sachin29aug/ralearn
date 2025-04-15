@@ -116,10 +116,9 @@
 
 .card-4 {
     &--cover-image {
-        //width: 80px;
-        height: 105px;
+        height: 90px;
         object-fit: cover;
-        border: 4px solid #003366;
+        border: 2px solid #003366;
     }
 
     &--title {
