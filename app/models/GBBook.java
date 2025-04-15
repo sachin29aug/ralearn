@@ -191,7 +191,7 @@ public class GBBook extends BaseModel {
     }
 
     public String getPreviewLink() {
-        return previewLink;
+        return "NO_PAGES".equals(viewability) ? null : previewLink;
     }
 
     public void setPreviewLink(String previewLink) {

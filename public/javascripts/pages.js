@@ -226,6 +226,7 @@ $(document).ready(function() {
             $(".cls-google-books-preview-btn-wrapper").hide();
         } else {
             $(".cls-google-books-preview-btn").attr("href", $(this).data("google-books-preview-url"));
+            $(".cls-google-books-preview-btn-wrapper").show();
         }
 
         moreOptionsModal.show();
