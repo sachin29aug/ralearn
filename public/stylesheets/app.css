@@ -675,8 +675,8 @@ li:before {
 .card-2 {
   background: linear-gradient(135deg, #fff5cc 0%, #ffeb99 100%);
   border-radius: 20px;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
   color: #003366;
+  margin-bottom: 20px;
   /* &:nth-child(odd) {
       background: linear-gradient(135deg, #ffe5b4 0%, #ffcc00 100%);
   } */

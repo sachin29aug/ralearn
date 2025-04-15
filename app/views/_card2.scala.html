@@ -2,7 +2,7 @@
 
 @import org.apache.commons.lang3.BooleanUtils
 
-<div class="card-2 px-4 py-3 mb-3">
+<div class="card-2 px-4 py-3">
     @defining(userBook.getBook()) { book =>
         <a class="card-2--content-section cls-book-details-btn" data-book-id="@book.id" href="#">
             <div class="text-center"><img class="card-2--cover-image mb-3" src="@book.getGbBook().getThumbnailUrl()"></div>
