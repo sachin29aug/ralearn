@@ -2,7 +2,7 @@
 
 @import org.apache.commons.lang3.BooleanUtils
 
-<div class="card-2 p-4">
+<div class="card-2 px-4 py-3 mb-4">
     @defining(userBook.getBook()) { book =>
         <a class="card-2--content-section cls-book-details-btn" data-book-id="@book.id" href="#">
             <div class="text-center"><img class="card-2--cover-image mb-3" src="@book.getGbBook().getThumbnailUrl()"></div>
@@ -14,7 +14,7 @@
             <div class="card-2--summary fs-7">@book.getDescription(150)...</div>
         </a>
 
-        <div class="card-2--icon-buttons d-flex justify-content-between mx-auto mt-4">
+        <div class="card-2--icon-buttons d-flex justify-content-between mx-auto mt-3">
             <a id="id-card2-shuffle-btn" data-user-book-id="@userBook.id" href="#">@_circularIcon("fas fa-random")</a>
             <a class="cls-share-btn" data-share-url="@routes.My.book(book.id)" data-share-title="@book.getTitle(50)" href="#">@_circularIcon("fa-solid fa-arrow-up-from-bracket")</a>
             <a id="id-element-book-@book.id" class="cls-favorite-btn" data-book-id="@book.id" href="#">
