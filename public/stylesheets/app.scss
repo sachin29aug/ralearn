@@ -43,13 +43,10 @@
     } */
 
     &--cover-image {
-        //border-radius: 10px;
-        //width: 120px;
-        //height: auto;
-         width: 120px;
+        width: 120px;
         height: 180px;
         object-fit: cover;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
         //border: 2px solid #FFD700;
         border: 4px solid #e0e0e0;
         transition: border-color 0.3s ease;
