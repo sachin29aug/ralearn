@@ -26,7 +26,7 @@
         @sp(4)
 
         <h5>Today's Picks</h5>
-        <div class="mb-5">
+        <div class="mb-4">
             @for(userBook <- UserBook.findTodayUserBooks(user.id)) {
                 @_card2(userBook)
             }
@@ -35,7 +35,7 @@
         <h5>Previous Highlights</h5>
         @for(userCategory <- user.getUserCategories()) {
             <div class="d-flex justify-content-between align-items-center mb-2">
-                <h4>@userCategory.getCategory().getTitle()</h4>
+                <h6 class="mb-0">@userCategory.getCategory().getTitle()</h6>
                 <a class="cls-category-list-btn home--more-link me-3" data-category-id="@userCategory.getCategory().getId()" href="#">More</a>
             </div>
             <div class="scrollable-cards-x">
