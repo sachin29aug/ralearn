@@ -191,7 +191,7 @@ public class GBBook extends BaseModel {
     }
 
     public String getPreviewLink() {
-        return previewLink != null ? previewLink : previewLink.replace("http://", "https://");
+        return previewLink != null ? previewLink.replace("http://", "https://") : null;
     }
 
     public void setPreviewLink(String previewLink) {
