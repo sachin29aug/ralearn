@@ -50,7 +50,8 @@ public class GoogleBookClient {
 
                     // Links
                     gbBook.setSelfLink(jsonResponseItem.optString("selfLink"));
-                    gbBook.setPreviewLink(volumeInfo.optString("previewLink"));
+                    String previewLink = volumeInfo.optString("previewLink");
+                    gbBook.setPreviewLink(previewLink != null ? previewLink.replace("http://", "https://") : null);
                     if (imageLinks != null) {
                         gbBook.setThumbnailUrl(imageLinks.optString("thumbnail"));
                         gbBook.setSmallThumbnailUrl(imageLinks.optString("smallThumbnail"));
