@@ -2,12 +2,10 @@
 
 @import org.apache.commons.lang3.BooleanUtils
 
-<div class="card-3 mb-4">
+<div class="card-3 mb-4 pe-3">
     <a class="cls-book-details-btn" data-book-id="@book.id" href="#">
         <img class="card-3--cover-image mb-2" src="@if(book.getGbBook() !=null){@book.getGbBook().getThumbnailUrl()}">
-        <div class="d-flex align-items-center mb-1">
-            <div class="card-3--title fs-7">@book.getTitle(50)</div>
-        </div>
+        <div class="card-3--title fs-7">@book.getTitle(50)</div>
         <div class="card-3--author fs-8 mb-1">@book.getAuthor().getName()</div>
         @if(BooleanUtils.isTrue(showDescription)) {
             <div class="card-3--summary fs-8">@book.getDescription(50)...</div>

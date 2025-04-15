@@ -716,12 +716,6 @@ li:before {
   object-fit: cover;
   border: 4px solid #003366;
 }
-.card-3--title {
-  max-width: 200px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  min-height: 25px;
-}
 .card-3--category-icon-circle {
   width: 25px;
   height: 25px;
@@ -738,14 +732,7 @@ li:before {
   border-radius: 5px;
 }
 .card-3--summary {
-  max-width: 200px;
   white-space: normal;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  min-height: 38px;
 }
 .card-3--icon-buttons {
   width: 75%;
