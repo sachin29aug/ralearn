@@ -716,6 +716,9 @@ li:before {
   object-fit: cover;
   border: 4px solid #003366;
 }
+.card-3--title {
+  white-space: normal;
+}
 .card-3--category-icon-circle {
   width: 25px;
   height: 25px;
