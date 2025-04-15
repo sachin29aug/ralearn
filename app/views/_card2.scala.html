@@ -5,9 +5,9 @@
 <div class="card-2 p-4">
     @defining(userBook.getBook()) { book =>
         <a class="card-2--content-section cls-book-details-btn" data-book-id="@book.id" href="#">
-            <div class="text-center"><img class="card-2--cover-image mb-4" src="@book.getGbBook().getThumbnailUrl()"></div>
-            <div class="card-2--title fs-6 fw-bold mb-2">@book.getTitle(50)</div>
-            <div class="d-flex align-items-center fs-7 mb-3">
+            <div class="text-center"><img class="card-2--cover-image mb-3" src="@book.getGbBook().getThumbnailUrl()"></div>
+            <div class="card-2--title fs-6 fw-bold mb-1">@book.getTitle(50)</div>
+            <div class="d-flex align-items-center fs-7 mb-2">
                 <div class="card-2--author fw-medium me-2">@book.getAuthor().getName()</div>
                 @_categoryPillSmall(userBook.getCategory())
             </div>

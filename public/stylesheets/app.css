@@ -689,7 +689,7 @@ li:before {
   width: 120px;
   height: 180px;
   object-fit: cover;
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   border: 4px solid #e0e0e0;
   transition: border-color 0.3s ease;
 }
