@@ -1,4 +1,6 @@
 # Backlog
+    - Wrong password error
+    - Already signed up handling
     - Country wise Amazon buy link, like if user is based out of India it should try opening that book in amazon.in
     - Add below books to Ralearn account (after implementing all the operations)
         Schopenhauer
@@ -49,9 +51,18 @@
     Science & Environment (Science & Technology -> [Technology & the future, Nature & the environment])
     Arts & Humanities (Culture & Humanity -> [Society & Culture, Philosophy, Biography & Memoir, Religion & Spirituality])
 
-# Database dump
-    DUMP from Local DB
+# Dump
+    Local
     	C:\"Program Files"\PostgreSQL\16\bin\pg_dump -U postgres -h localhost -p 5434 --clean -Fc ralearn > C:\basedir\temp\dump\ralearn-{Date}-{Mon}-2025.dump
 
-    Restore to Prod DB
+    Prod
+        C:\"Program Files"\PostgreSQL\16\bin\pg_dump -U ueqecavpjmt8qv -h c9uss87s9bdb8n.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com -p 5432 --clean -Fc d4pekb20o2s1v1 > C:\basedir\temp\dump\ralearn-06-05-2025-a.dump
+
+# Restore
+    Local
+        C:\"Program Files"\PostgreSQL\16\bin\pg_restore --verbose --clean --no-acl --no-owner -h localhost -p 5434 -U postgres -d ralearn C:\basedir\temp\dump\ralearn-06-05-2025-a.dump
+
+    Prod
     	C:\"Program Files"\PostgreSQL\16\bin\pg_restore --verbose --clean --no-acl --no-owner -h c9uss87s9bdb8n.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com -p 5432 -U ueqecavpjmt8qv -d d4pekb20o2s1v1 C:\basedir\temp\dump\ralearn-18-JAN-2025.dump
+
+# Database restore

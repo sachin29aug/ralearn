@@ -75,7 +75,7 @@ public class UserBook extends BaseModel {
     }
 
     public static Date findMaxAssignedDate(Long userId) {
-        return find.query().where().eq("user.id", userId).orderBy("assigned desc").setMaxRows(1).findOne().assigned;
+        return find.query().where().eq("user.id", userId).eq("assignmentType", AssignmentType.SYSTEM).orderBy("assigned desc").setMaxRows(1).findOne().assigned;
     }
 
     public static void generateRandomUserBooks(User user, boolean today, boolean past) {
