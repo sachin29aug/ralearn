@@ -1,6 +1,6 @@
 # Backlog
     - Country wise Amazon buy link, like if user is based out of India it should try opening that book in amazon.in
-    - Add below books to Ralearn account
+    - Add below books to Ralearn account (after implementing all the operations)
         Schopenhauer
         https://www.goodreads.com//book/show/10075698-built-to-sell
         https://www.goodreads.com//book/show/324750.High_Output_Management
@@ -8,6 +8,9 @@
         https://www.goodreads.com//book/show/2477223.Managing_Oneself
         https://www.goodreads.com//book/show/3873.A_History_of_God
         https://www.goodreads.com//book/show/30780006-the-things-you-can-see-only-when-you-slow-down
+    - Implement learning bytes
+    - Integrate Ted talks and implement learning blocks or packages
+    - Considering building a concept of random learning and publish a book first
 
 # Typography
     Card
