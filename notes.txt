@@ -56,13 +56,17 @@
     	C:\"Program Files"\PostgreSQL\16\bin\pg_dump -U postgres -h localhost -p 5434 --clean -Fc ralearn > C:\basedir\temp\dump\ralearn-{Date}-{Mon}-2025.dump
 
     Prod
-        C:\"Program Files"\PostgreSQL\16\bin\pg_dump -U ueqecavpjmt8qv -h c9uss87s9bdb8n.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com -p 5432 --clean -Fc d4pekb20o2s1v1 > C:\basedir\temp\dump\ralearn-06-05-2025-a.dump
+        C:\"Program Files"\PostgreSQL\16\bin\pg_dump -U ueqecavpjmt8qv -h c9uss87s9bdb8n.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com -p 5432 --clean -Fc d4pekb20o2s1v1 > C:\basedir\temp\dump\ralearn-02-Mar-2026.dump
 
 # Restore
     Local
-        C:\"Program Files"\PostgreSQL\16\bin\pg_restore --verbose --clean --no-acl --no-owner -h localhost -p 5434 -U postgres -d ralearn C:\basedir\temp\dump\ralearn-06-05-2025-a.dump
+        C:\"Program Files"\PostgreSQL\16\bin\pg_restore --verbose --clean --no-acl --no-owner -h localhost -p 5434 -U postgres -d ralearn1 C:\basedir\temp\dump\ralearn-02-Mar-2026.dump
 
     Prod
     	C:\"Program Files"\PostgreSQL\16\bin\pg_restore --verbose --clean --no-acl --no-owner -h c9uss87s9bdb8n.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com -p 5432 -U ueqecavpjmt8qv -d d4pekb20o2s1v1 C:\basedir\temp\dump\ralearn-18-JAN-2025.dump
+
+# Heroku details (captured before deleting the ralearn app)
+    Heroku Postgres Essential 0 (Heroku Data services $5.00)
+    Eco dynos (Flat fee of $5.00/month)
 
 # Database restore
