@@ -25,6 +25,63 @@ import java.util.*;
 public class SystemAdmin extends Controller {
     private static final String CONF_DATASETS_DIR = Paths.get("conf").toAbsolutePath().toString() + "/datasets";
 
+    // Insyte
+    public Result importBooksGR_insyte() throws IOException {
+        // GR - 22 shelves, first 5 pages, 75k+ ratings
+
+        String folderPath = CONF_DATASETS_DIR + "/insyte/GR";
+        File folder = new File(folderPath);
+        File[] files = folder.listFiles();
+        int count = 0;
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintWriter writer = new PrintWriter(outputStream);
+        for (File file : files) {
+            String fileName = file.getName();
+            String categoryTitle = fileName.replace(".html", "");
+            Document doc = Jsoup.parse(new File(folderPath, fileName), "UTF-8");
+            Elements bookElements = doc.select("div.left[style='width: 75%;']");
+            for (Element bookElement : bookElements) {
+                Element titleElement = bookElement.selectFirst("a.bookTitle");
+                String title = titleElement != null ? titleElement.text().replaceAll("\\s*\\([^)]*\\)$", "").trim() : null;
+                if (title.length() > 250) {
+                    title = title.substring(0, 250);
+                }
+                String bookGrUrl = titleElement != null ? titleElement.attr("href").trim() : null;
+                Element authorElement = bookElement.selectFirst("a.authorName");
+                String authorName = authorElement != null ? authorElement.text() : null;
+                String authorGrUrl = authorElement != null ? authorElement.attr("href").trim().replace("https://www.goodreads.com", "") : null;
+                Element greyTextElement = bookElement.selectFirst("span.greyText.smallText:contains(avg rating)");
+                String greyText = greyTextElement != null ? greyTextElement.text() : null;
+                BigDecimal rating = null;
+                Integer ratingCount = null;
+                String publishDate = null;
+                if (greyText != null) {
+                    String[] parts = greyText.split("—");
+                    try {
+                        rating = new BigDecimal(parts[0].replace("avg rating", "").trim());
+                        ratingCount = parts.length > 1 ? Integer.valueOf(parts[1].replace("ratings", "").replace(",", "").trim()) : null;
+                    } catch (NumberFormatException e) {
+                    }
+                    publishDate = parts.length > 2 ? parts[2].replace("published", "").trim() : null;
+                }
+
+                if(ratingCount > 75000) {
+                    count++;
+                    String csvRecord = count + ", " + encloseInQuote(title) + ", " + encloseInQuote(authorName) + ", " + categoryTitle + ", "  + rating + ", " + ratingCount;
+                    writer.print(csvRecord + "\n");
+                    System.out.println(csvRecord);
+                }
+            }
+        }
+
+        writer.flush();
+        return ok(outputStream.toByteArray()).as("text/csv").withHeader("Content-Disposition", "attachment; filename=books-gr-insyte.csv");
+    }
+
+    private String encloseInQuote(String str){
+        return "\"" + str.replace("\"", "\"\"") + "\"";
+    }
+
     // Data Import related
 
     public Result importBooksGR() throws IOException {

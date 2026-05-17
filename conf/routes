@@ -28,6 +28,7 @@ POST    /book/user/rating/:bookId                           controllers.My.bookU
 POST    /book/search                                        controllers.My.bookSearch(request: Request)
 
 # System Admin
+GET     /import/books/gr/4agf9t/insyte                      controllers.SystemAdmin.importBooksGR_insyte
 GET     /import/books/gr/4agf9t                             controllers.SystemAdmin.importBooksGR
 GET     /import/book/gb/4agf9t/:bookId                      controllers.SystemAdmin.importBookGB(bookId: Long)
 GET     /import/books/gb/4agf9t:count                       controllers.SystemAdmin.importBooksGB(count: Long)
